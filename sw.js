@@ -1,5 +1,5 @@
 /* Pixel Arcade service worker: offline play + fast updates */
-const VERSION = '6f074590ec';
+const VERSION = '124c7f64e0';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'favicon.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open('core-' + VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));

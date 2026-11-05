@@ -4,11 +4,9 @@ Free pixel-art browser games. Play at **https://ghrelingator.github.io/pixel-arc
 
 - **Pixel Clinic**: diagnose patients, read their files and prescribe without missing a dangerous drug interaction. 8 ranks, 43 conditions.
 - **The Deep Rear**: run the atelier, clinic and armory behind a revolutionary column. Design uniforms, pack rations and medicine, issue weapons and plan a deep operation. Council votes, a squad of six, worn uniforms, unreliable intelligence and a defensive finale.
-- **SARCOMERE**: a hypertrophy lab where nobody wrote the answers in. Muscle growth emerges from simulated joint mechanics, rep-by-rep fatigue and fibre recruitment, with the biology hidden behind dials that are randomised per world. Design studies, survive peer review, run meta-analyses and write the consensus statement, then see the truth. Includes an exercise workbench and a Lifter career mode with fictional drugs and bloodwork.
-- **SANDBOX**: the SARCOMERE engine with nothing hidden. Keyframe every joint through a rep in a 3D body model with real torques (load, body weight, cables, machines, bands, balance), edit the muscles and the biology dials, and compare two routines on identical virtual twins. Design fictional compounds from mechanism sliders (with predicted bloodwork), and watch pixel cutscenes of what happens inside the cells.
 
 Works on phones. In Safari, tap Share → Add to Home Screen to install it like an app (it also works offline).
 Saves live in the browser; use "Back up or move your saves" on the home screen to copy them.
 
 The whole site is a single `index.html` plus an offline service worker (`sw.js`), a manifest and icons.
-Medicine, chemistry and physiology in these games are simplified for play. The drugs in SARCOMERE are fictional. Not medical or training advice.
+Medicine and chemistry in these games are simplified for play. Not medical advice.
