@@ -688,6 +688,26 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .sb-x { width: 36px; background: var(--panel2); color: var(--mute); font-size: 16px; }
 .sb-ha { color: #6aa8f0; } .sb-hb { color: #ef8a5c; }
 
+.sc-tabs.five { grid-template-columns: repeat(5, 1fr); }
+.sc-tabs.five button { font-size: 7.5px; padding: 11px 1px; }
+.sb-cutrow { justify-content: flex-start !important; margin-top: 8px !important; }
+.sb-cut h2 { font-family: var(--font-d); font-size: 11px; color: #59d8a0; margin: 0 0 8px; font-weight: normal; }
+.sb-cut .sc-frame { width: 100%; }
+.sb-cap { font-size: 20px; line-height: 1.25; margin: 10px 0; min-height: 5em; }
+.sb-cap small { color: var(--mute); }
+.sb-cutnav { display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+.sb-cutnav span { margin-right: auto; color: var(--mute); }
+.sb-medhead { display: flex; gap: 12px; align-items: flex-start; margin: 8px 0; }
+.sb-medhead > .sc-form { flex: 1; min-width: 0; }
+.sb-pillf { width: 88px; flex: none; }
+.sb-colors { display: flex; gap: 6px; margin-top: 8px; }
+.sb-colors button { width: 30px; height: 30px; box-shadow: 0 0 0 2px #000; }
+.sb-colors button[aria-pressed="true"] { box-shadow: 0 0 0 2px #000, 0 0 0 4px #e8eef2; }
+.sb-medfor { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.sb-medfor label { font-size: 19px; color: var(--mute); }
+.sb-medfor select { flex: 1; min-width: 0; font-family: var(--font-b); font-size: 19px; background: var(--panel2); color: var(--ink); border: 0; padding: 6px; }
+.sc-marks small.vs { font-size: 15px; color: var(--mute); }
+
 </style>
 </head>
 <body>
@@ -3823,7 +3843,7 @@ function scRepFatigue(sub, limb, R, F, W, fat, stimOut, Wd) {
   });
   if (worst > 1) return false;
   const tw = R.tw;
-  const cr = sub.supp === 'creatine' && sub.crResp ? 0.93 : 1;
+  const cr = (sub.supp === 'creatine' && sub.crResp ? 0.93 : 1) * (sub.drug && sub.drug.fat ? sub.drug.fat : 1);
   for (const m of R.musc) {
     const i = SC_MI[m]; const am = sumA[i] / SC_NS; const ae = 0.35 * am + 0.65 * maxA[i];
     const d = SC_KF * sub.fatR * cr * ae * (0.7 + 0.6 * (SC_MUSCLES[m].t2 + sub.t2 + (R.t2m ? R.t2m[m] || 0 : 0)));
@@ -3902,20 +3922,24 @@ function scAbsorb(sub, limb, out, Wd) {
 }
 const SC_TUNE = { G: 0.0008, K7: 15 };
 function scDay(sub, limb, Wd) {
-  let drug = 1, ceilAdd = 0;
+  let drug = 1, ceilAdd = 0; const D = sub.drug || null;
   if (sub.supp === 'creatine' && sub.crResp) drug *= 1 + Wd.creatine;
   if (sub.supp === 'andrax') { drug *= 1 + Wd.andrax; ceilAdd += 0.15; }
-  if (sub.drug) { drug *= sub.drug.grow; ceilAdd += sub.drug.ceil; }
+  if (D) { drug *= D.grow; ceilAdd += D.ceil + (sub._satC || 0); }
   const prot = sub.protein === undefined ? 1 : scClamp(0.55 + 0.45 * (sub.protein - 0.8) / 0.8, 0.55, 1);
-  const kcal = sub.kcal === undefined ? 1 : sub.kcal;
+  const k0 = sub.kcal === undefined ? 1 : sub.kcal; const kcal = D && D.cat && k0 < 1 ? k0 + (1 - k0) * D.cat : k0;
+  const dmgC = Wd.dmgCost * (D && D.dmg !== undefined ? D.dmg : 1), tauM = D && D.tau ? D.tau : 1;
+  let sSum = 0;
   for (let i = 0; i < SC_NM; i++) {
     const X = limb.X[i]; const ceil = sub.ceil + ceilAdd;
     const head = Math.pow(Math.max(0, (ceil - X) / (ceil - 1)), 1.3);
-    let g = SC_TUNE.G * sub.resp * limb.S[i] / (1 + limb.L7[i] / SC_TUNE.K7) * head * drug * prot * kcal * (1 - Math.min(0.9, Wd.dmgCost * limb.dmg[i]));
+    let g = SC_TUNE.G * sub.resp * limb.S[i] / (1 + limb.L7[i] / SC_TUNE.K7) * head * drug * prot * kcal * (1 - Math.min(0.9, dmgC * limb.dmg[i]));
     if (limb.S[i] < 0.05 && X > 1) g -= 0.0006 * (X - 1);
-    limb.X[i] = X * (1 + g);
-    limb.S[i] *= Math.exp(-1 / limb.tau[i]); limb.L7[i] *= 0.867; limb.dmg[i] *= 0.55; limb.fs[i] *= 0.35;
+    limb.X[i] = X * (1 + g); sSum += limb.S[i];
+    limb.S[i] *= Math.exp(-1 / (limb.tau[i] * tauM)); limb.L7[i] *= 0.867; limb.dmg[i] *= 0.55; limb.fs[i] *= 0.35;
   }
+  // satellite cells donate nuclei while you train, slowly raising how big fibres can get
+  if (D && D.sat) sub._satC = Math.min(0.25, (sub._satC || 0) + D.sat * 0.00012 * Math.min(4, sSum));
 }
 const SC_DAYS = { 1: [0], 2: [0, 3], 3: [0, 2, 4], 4: [0, 1, 3, 4], 5: [0, 1, 2, 3, 4], 6: [0, 1, 2, 3, 4, 5] };
 /* run one limb through a block of training with a protocol */
@@ -4634,6 +4658,7 @@ function sbTwinRunner(cfg) {
       const sub = scSubject(r, cfg.pop, Wd);
       Object.assign(sub, { protein: cfg.protein, kcal: cfg.diet === 'bulk' ? 1.15 : cfg.diet === 'cut' ? 0.55 : 1, supp: cfg.creatine ? 'creatine' : 'none', _loaded: cfg.creatine });
       const twin = scRevive(JSON.parse(JSON.stringify(sub, (key, v) => v instanceof Float64Array ? Array.from(v) : v)));
+      [[sub, cfg.medA], [twin, cfg.medB]].forEach(([s, med]) => { const fx = sbMedFx(med); s.drug = fx; s.expect = fx ? fx.expect : 0; s._satC = 0; });
       const x0 = Array.from(sub.limbs[0].X);
       const run = (sb, items) => { if (!items.length) return null; sbTrain(sb, sb.limbs[0], items, Wd, scRng(cfg.seed + k * 13 + 1), cfg.weeks); return Array.from(sb.limbs[0].X).map((x, i) => (x / x0[i] - 1) * 100); };
       rows.push({ A: run(sub, cfg.A), B: run(twin, cfg.B) }); k++;
@@ -4670,6 +4695,55 @@ function sbBalance(mv, extraKg) {
   return mv;
 }
 sbBalance(SB_STARTERS.find(x => x.id === 'squat'), 50);
+
+/* ===================== SANDBOX — MEDICINES (all fictional) ===================== */
+const SB_MECH = [
+  { k: 'ar', n: 'Androgen receptor push', d: 'Binds the receptors testosterone uses and switches on growth genes. Big effect. Shuts down your own hormones, thickens the blood, hurts cholesterol.' },
+  { k: 'mb', n: 'Myostatin blocker', d: 'Releases the muscle\'s built-in brake, so fibres can get much bigger. Tendons and the heart wall feel it.' },
+  { k: 'mtor', n: 'mTOR booster', d: 'Each training signal becomes more new protein. Blood sugar control suffers.' },
+  { k: 'sat', n: 'Satellite cell wake-up', d: 'Stem cells fuse into fibres and add nuclei while you train, slowly raising your ceiling. Gentle and slow.' },
+  { k: 'cs', n: 'Cortisol shield', d: 'Slows breakdown: damage costs less and a calorie deficit eats less muscle. Your immune system slows too.' },
+  { k: 're', n: 'Recovery extender', d: 'Each session\'s growth signal lasts longer. Mild blood pressure bump.' },
+  { k: 'fb', n: 'Fatigue buffer', d: 'Muscles tire more slowly within a set, so you get more reps. Holds a little water.' },
+  { k: 'st', n: 'Stimulant', d: 'You push closer to failure without meaning to. Heart rate and blood pressure go up.' },
+];
+const SB_MED_COLORS = ['#ff6b7a', '#59d8a0', '#ffd166', '#3987e5', '#9085e9', '#e8eef2'];
+const SB_MED_PRESETS = [
+  { id: 'p-placebo', n: 'Placebo', color: '#e8eef2', route: 'pill', dose: 1, sel: 0, mech: {} },
+  { id: 'p-andrax', n: 'Andraxolone', color: '#ff6b7a', route: 'shot', dose: 2, sel: 0.15, mech: { ar: 0.85 } },
+  { id: 'p-velo', n: 'Velotrex', color: '#ffd166', route: 'pill', dose: 2, sel: 0, mech: { ar: 0.5, mtor: 0.3 } },
+  { id: 'p-follis', n: 'Follistax', color: '#9085e9', route: 'shot', dose: 2, sel: 0.3, mech: { mb: 0.8 } },
+  { id: 'p-soma', n: 'Somatrin', color: '#59d8a0', route: 'shot', dose: 2, sel: 0.4, mech: { sat: 0.6, re: 0.4, cs: 0.3 } },
+  { id: 'p-preworkout', n: 'Jitter Juice', color: '#3987e5', route: 'pill', dose: 2, sel: 0.2, mech: { st: 0.7, fb: 0.3 } },
+];
+const SB_MARK_X = {
+  hr: { n: 'Resting heart rate', u: 'bpm', ok: v => v <= 85, warn: v => v <= 100 },
+  tendon: { n: 'Tendon strain', u: 'index', ok: v => v <= 25, warn: v => v <= 55 },
+  heart: { n: 'Heart wall thickness', u: '% above normal', ok: v => v <= 6, warn: v => v <= 15 },
+  immune: { n: 'Infection risk', u: 'index', ok: v => v <= 15, warn: v => v <= 35 },
+};
+const sbMarkDef = k => SB_MARK_X[k] || SCL_MARK[k];   // SCL_MARK lives in the Lifter file, read at call time
+const SB_BASE_MK = { hdl: 52, ldl: 105, hct: 44, sbp: 120, alt: 24, e2: 25, natT: 100, glu: 88, hr: 62, tendon: 5, heart: 0, immune: 5 };
+function sbMedFx(med) {
+  const m = k => (med && med.mech && med.mech[k]) || 0;
+  if (!med) return null;
+  const d = [0.5, 1, 1.6][(med.dose || 2) - 1], sel = med.sel || 0, pot = d * (1 - 0.25 * sel), se = d * (1 - 0.7 * sel), pill = med.route === 'pill';
+  const fx = {
+    grow: 1 + (0.8 * m('ar') + 0.3 * m('mb') + 0.5 * m('mtor') + 0.1 * m('sat')) * pot,
+    ceil: (0.25 * m('ar') + 0.45 * m('mb') + 0.05 * m('sat')) * pot,
+    sat: 0.8 * m('sat') * pot, tau: 1 + 0.6 * m('re') * pot, dmg: Math.max(0.2, 1 - 0.6 * m('cs') * pot), cat: Math.min(0.9, 0.7 * m('cs') * pot),
+    fat: Math.max(0.6, 1 - 0.25 * m('fb') * pot), expect: 0.8 * m('st') * pot,
+  };
+  const B = SB_BASE_MK, ar = m('ar') * se;
+  fx.mk = {
+    hdl: B.hdl - 16 * ar - 4 * m('mtor') * se, ldl: B.ldl + 14 * ar + (pill ? 10 * ar : 0), hct: B.hct + 5 * ar, sbp: B.sbp + 8 * ar + 12 * m('st') * se + 4 * m('re') * se + 3 * m('mb') * se,
+    alt: B.alt + (pill ? 45 : 5) * (m('ar') + m('mtor') + m('mb') + 0.5 * m('st')) * se, e2: B.e2 * (1 + 1.2 * ar), natT: Math.max(5, B.natT - 95 * Math.min(1, ar * 1.3)),
+    glu: B.glu + 24 * m('mtor') * se + 8 * m('cs') * se, hr: B.hr + 24 * m('st') * se, tendon: B.tendon + 55 * m('mb') * pot + 18 * m('ar') * pot,
+    heart: B.heart + 20 * m('mb') * se + 8 * ar, immune: B.immune + 40 * m('cs') * se,
+  };
+  return fx;
+}
+const sbMarkState = (k, v) => { const M = sbMarkDef(k); return !M ? 'ok' : M.ok(v) ? 'ok' : M.warn(v) ? 'warn' : 'bad'; };
 
 /* ===================== SARCOMERE — ART ===================== */
 const SCP = { bg: '#101418', wall: '#18202a', wall2: '#1d2631', floor: '#2a2f38', floor2: '#232830', steel: '#8fa3b3', steel2: '#5a6b7a', red: '#ff6b7a', red2: '#c9405a', green: '#5fd39a', blue: '#3987e5', orange: '#d95926', white: '#e8eef2', dark: '#0b0e12', screen: '#0e2a2a', glow: '#59d8a0', wood: '#7a4a2b' };
@@ -6683,7 +6757,7 @@ document.addEventListener('input', e => {
 const SB_KEY = 'pixel-arcade/sandbox/v1';
 const SB_DIALS0 = () => Object.fromEntries(Object.entries(SC_PRIORS).map(([k, [a, b]]) => [k, +((a + b) / 2).toFixed(2)]));
 const SB_ITEM = id => ({ mv: id, sets: 10, reps: 10, rir: 1, rest: 120, freq: 2 });
-function sbNew() { return { v: 1, moves: [], sel: 'curl', mods: {}, dials: SB_DIALS0(), A: [SB_ITEM('incl')], B: [SB_ITEM('preach')], cfg: { n: 10, pop: 'untrained', weeks: 8, protein: 1.6, diet: 'maint', creatine: false }, last: null, nid: 1 }; }
+function sbNew() { return { v: 1, moves: [], sel: 'curl', mods: {}, dials: SB_DIALS0(), A: [SB_ITEM('incl')], B: [SB_ITEM('preach')], cfg: { n: 10, pop: 'untrained', weeks: 8, protein: 1.6, diet: 'maint', creatine: false }, last: null, nid: 1, meds: [], medSel: 'p-andrax', medA: null, medB: null, cutSeen: false }; }
 function sbLoad() { try { const s = JSON.parse(localStorage.getItem(SB_KEY)); if (s && s.v === 1) return Object.assign(sbNew(), s); } catch (e) {} return sbNew(); }
 let SBS = sbLoad();
 const SBU = { tab: 'move', key: 4, play: true, view: 'side', mus: null, t0: 0, prog: { label: '', done: 0, total: 1 }, an: null };
@@ -6691,6 +6765,14 @@ function sbSave() { try { localStorage.setItem(SB_KEY, JSON.stringify(SBS)); } c
 const sbMove = id => SBS.moves.find(m => m.id === id) || SB_STARTERS.find(m => m.id === id) || SB_STARTERS[0];
 const sbIsStarter = id => SB_STARTERS.some(m => m.id === id) && !SBS.moves.some(m => m.id === id);
 const sbCur = () => sbMove(SBS.sel);
+const sbMed = id => (id ? SBS.meds.find(m => m.id === id) || SB_MED_PRESETS.find(m => m.id === id) || null : null);
+const sbIsPreset = id => SB_MED_PRESETS.some(m => m.id === id) && !SBS.meds.some(m => m.id === id);
+function sbMedEditable() {
+  const cur = sbMed(SBS.medSel) || SB_MED_PRESETS[1];
+  if (!sbIsPreset(cur.id)) return cur;
+  const c = JSON.parse(JSON.stringify(cur)); c.id = 'm' + (SBS.nid++); c.n = cur.id === 'p-placebo' ? 'My compound' : cur.n + ' (mine)'; c.mech = Object.assign({}, c.mech);
+  SBS.meds.push(c); SBS.medSel = c.id; sbSave(); toast('Saved as your own compound: ' + c.n); return c;
+}
 /* edits to a starter make a copy first */
 function sbEditable() {
   if (!sbIsStarter(SBS.sel)) return sbCur();
@@ -6708,10 +6790,10 @@ function sbRender(keep) {
   if (UI.view !== 'sandbox') return;
   const prev = $('.sc-main'); const top = keep && prev ? prev.scrollTop : 0;
   const t = SBU.tab;
-  const tabs = [['move', 'MOVE'], ['mus', 'MUSCLES'], ['bio', 'BIOLOGY'], ['test', 'TEST']].map(([id, n]) => `<button role="tab" aria-selected="${t === id}" data-sb="tab" data-id="${id}">${n}</button>`).join('');
-  const body = SBU.running ? sbRunHTML() : t === 'mus' ? sbMusHTML() : t === 'bio' ? sbBioHTML() : t === 'test' ? sbTestHTML() : sbMoveHTML();
+  const tabs = [['move', 'MOVE'], ['mus', 'MUSCLE'], ['bio', 'BIO'], ['pharma', 'PHARMA'], ['test', 'TEST']].map(([id, n]) => `<button role="tab" aria-selected="${t === id}" data-sb="tab" data-id="${id}">${n}</button>`).join('');
+  const body = SBU.running ? sbRunHTML() : t === 'mus' ? sbMusHTML() : t === 'bio' ? sbBioHTML() : t === 'pharma' ? sbPharmaHTML() : t === 'test' ? sbTestHTML() : sbMoveHTML();
   $('#app').innerHTML = `<div class="sc sb"><header class="sc-hud"><a class="ib" href="#arcade" aria-label="Back to the arcade">◀</a><b class="sc-brand">SANDBOX</b><span class="sb-sub">No secrets, no score</span></header>
-    <nav class="sc-tabs four" role="tablist">${tabs}</nav><div class="sc-main">${body}</div></div>`;
+    <nav class="sc-tabs five" role="tablist">${tabs}</nav><div class="sc-main">${body}</div></div>`;
   const m = $('.sc-main'); if (m) m.scrollTop = top;
   const now = performance.now(); document.querySelectorAll('.sb canvas[data-scene]').forEach(cv => sbScene(cv, now));
 }
@@ -6758,7 +6840,7 @@ function sbAnalysisHTML(mv) {
   const share = Object.entries(A.share).filter(x => x[1] > 0.005).sort((a, b) => b[1] - a[1]);
   const top = share.slice(0, 4).map(x => x[0]);
   const len = scLinesSVG({ label: 'Muscle length through the rep', lo: 0.4, hi: 1.6, step: 0.2, ref: 1, fmt: v => v.toFixed(1), series: top.map((m, i) => ({ name: SC_MUSCLES[m].n, color: cols[i], vals: A.len[m] })) });
-  return `${warn}<div class="sc-calc"><div><span>1RM (beginner)</span><b>${Math.round(A.kg1)} kg</b><small>${mv.bi ? 'both sides' : 'one side'}, plus your own limbs</small></div><div><span>10RM load</span><b>${Math.round(A.kg)} kg</b></div><div><span>Limit</span><b>${esc(SB_AXL[A.stickJ] || '—')}</b><small>at ${Math.round(A.stick / (SC_NS - 1) * 100)}% of the rep</small></div></div>
+  return `${warn}<div class="row sb-cutrow"><button class="btn primary" data-sb="cutmove">🔬 WATCH IT IN THE CELL</button></div><div class="sc-calc"><div><span>1RM (beginner)</span><b>${Math.round(A.kg1)} kg</b><small>${mv.bi ? 'both sides' : 'one side'}, plus your own limbs</small></div><div><span>10RM load</span><b>${Math.round(A.kg)} kg</b></div><div><span>Limit</span><b>${esc(SB_AXL[A.stickJ] || '—')}</b><small>at ${Math.round(A.stick / (SC_NS - 1) * 100)}% of the rep</small></div></div>
   <h3 class="sc-h">EFFORT AT EACH JOINT (1RM LOAD)</h3>${eff}<p class="sc-help">100% means that joint's muscles are maxed out. The set fails at whichever joint hits 100% first, at that point in the rep.</p>
   <h3 class="sc-h">WHO DOES THE WORK (10RM, FIRST REP)</h3><div class="sc-share">${share.map(([m, v]) => `<div><span>${esc(SC_MUSCLES[m].n)}</span><i><em style="width:${Math.round(Math.min(1, v) * 100)}%"></em></i><b>${Math.round(v * 100)}%</b></div>`).join('') || '<p class="sc-dim">Nobody.</p>'}</div>
   <h3 class="sc-h">MUSCLE LENGTH</h3>${len}<p class="sc-help">1.0 is optimal length. Above it, fibres are stretched under load.</p>`;
@@ -6794,6 +6876,44 @@ function sbBioHTML() {
   <div class="row">${done ? '<button class="btn" data-sb="labworld">USE MY FINISHED LAB WORLD</button>' : ''}<button class="btn" data-sb="textbook">TEXTBOOK DEFAULTS</button></div>
   ${done ? '' : '<p class="sc-small">Finish a Lab game to load the world you uncovered.</p>'}`;
 }
+/* ---------------- PHARMA ---------------- */
+function sbMedOptions(sel, none) {
+  return `${none ? `<option value="" ${!sel ? 'selected' : ''}>${esc(none)}</option>` : ''}<optgroup label="Presets">${SB_MED_PRESETS.map(m => `<option value="${m.id}" ${m.id === sel ? 'selected' : ''}>${esc(m.n)}</option>`).join('')}</optgroup>${SBS.meds.length ? `<optgroup label="Yours">${SBS.meds.map(m => `<option value="${m.id}" ${m.id === sel ? 'selected' : ''}>${esc(m.n)}</option>`).join('')}</optgroup>` : ''}`;
+}
+function sbMarksHTML(mk, cmp) {
+  return `<div class="sc-marks">${Object.keys(SB_BASE_MK).map(k => { const M = sbMarkDef(k); const v = mk[k], st = sbMarkState(k, v);
+    return `<div class="${st}"><span>${esc(M.n)}</span><b>${Math.round(v)}${cmp ? ` <small class="vs">vs ${Math.round(cmp[k])}</small>` : ''}</b><small>${esc(M.u)}</small><em>${st === 'ok' ? 'OK' : st === 'warn' ? 'WATCH' : 'HIGH RISK'}</em></div>`; }).join('')}</div>`;
+}
+function sbMedFxHTML(med) {
+  const fx = sbMedFx(med);
+  return `<div class="sc-calc"><div><span>Growth speed</span><b>×${fx.grow.toFixed(2)}</b></div><div><span>Size ceiling</span><b>+${Math.round(fx.ceil * 100)}%</b><small>${fx.sat ? '+ slowly rising while you train' : ''}</small></div>
+    <div><span>Signal lasts</span><b>×${fx.tau.toFixed(2)}</b></div><div><span>Fatigue per rep</span><b>×${fx.fat.toFixed(2)}</b></div><div><span>Damage cost</span><b>×${fx.dmg.toFixed(2)}</b></div><div><span>Pushes you closer to failure</span><b>${fx.expect.toFixed(1)} reps</b></div></div>
+  <h3 class="sc-h">PREDICTED BLOODWORK (STEADY USE)</h3>${sbMarksHTML(fx.mk)}`;
+}
+function sbPharmaHTML() {
+  const med = sbMed(SBS.medSel) || SB_MED_PRESETS[1]; const mine = !sbIsPreset(med.id);
+  return `<p class="sc-small">Design a compound from mechanisms. Everything here is fictional and simplified; it's a toy model, not pharmacology.</p>
+  <div class="sb-top"><select data-sb-in="medsel" aria-label="Compound">${sbMedOptions(med.id)}</select>
+    ${mine ? `<input class="sb-name" value="${esc(med.n)}" data-sb-in="medname" aria-label="Name" maxlength="30"><button class="btn danger" data-sb="meddel">DELETE</button>` : '<button class="btn" data-sb="medcopy">EDIT A COPY</button>'}</div>
+  <div class="sb-medhead"><div class="sc-frame sb-pillf"><canvas data-scene="sb-pill" width="48" height="48" aria-label="Your compound"></canvas></div>
+    <div class="sc-form"><label>Form</label>${scSeg('route', [['pill', 'Pill'], ['shot', 'Injection']], med.route)}<label>Dose</label>${scSeg('dose', [[1, 'Low'], [2, 'Moderate'], [3, 'High']], med.dose)}
+    <div class="sb-colors">${SB_MED_COLORS.map(c => `<button data-sb="medcolor" data-id="${c}" style="background:${c}" aria-label="Colour" aria-pressed="${med.color === c}"></button>`).join('')}</div></div></div>
+  <div class="sc-form">
+    <label for="sb-sel">Selectivity: <b id="sb-medv-sel">${Math.round((med.sel || 0) * 100)}%</b></label><input id="sb-sel" type="range" min="0" max="1" step="0.05" value="${med.sel || 0}" data-sb-in="medsl">
+    <p class="sc-help">Hits muscle more than other tissues: fewer side effects, a bit less power.</p>
+    ${SB_MECH.map(M => { const v = (med.mech || {})[M.k] || 0; return `<label for="sb-mech-${M.k}">${esc(M.n)}: <b id="sb-mechv-${M.k}">${Math.round(v * 100)}%</b></label><input id="sb-mech-${M.k}" type="range" min="0" max="1" step="0.05" value="${v}" data-sb-in="mech" data-k="${M.k}"><p class="sc-help">${esc(M.d)}</p>`; }).join('')}
+  </div>
+  <div class="row"><button class="btn primary" data-sb="cutmed">🔬 SEE HOW IT WORKS</button><button class="btn" data-sb="medtest">TEST IT ON TWINS</button></div>
+  <h3 class="sc-h">PREDICTED EFFECTS</h3><div id="sb-medfx">${sbMedFxHTML(med)}</div>`;
+}
+let sbMedTimer = null;
+function sbMedRefresh() { clearTimeout(sbMedTimer); sbMedTimer = setTimeout(() => { const el = $('#sb-medfx'); if (el) el.innerHTML = sbMedFxHTML(sbMed(SBS.medSel)); }, 120); }
+function sbDrawPill(ctx, med) {
+  ctx.fillStyle = '#161a20'; ctx.fillRect(0, 0, 48, 48); const c = med.color || '#ff6b7a';
+  if (med.route === 'pill') { ctx.fillStyle = '#0b0e12'; ctx.fillRect(9, 17, 30, 14); ctx.fillStyle = c; ctx.fillRect(10, 18, 14, 12); ctx.fillStyle = '#e8eef2'; ctx.fillRect(24, 18, 14, 12); ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillRect(12, 20, 8, 2); }
+  else { ctx.fillStyle = '#9fb2c1'; ctx.fillRect(16, 8, 16, 4); ctx.fillStyle = '#e8eef2'; ctx.fillRect(14, 12, 20, 28); ctx.fillStyle = c; ctx.fillRect(16, 22, 16, 16); ctx.fillStyle = '#0b0e12'; ctx.fillRect(18, 15, 12, 4); }
+}
+
 /* ---------------- TEST ---------------- */
 function sbRoutineHTML(key) {
   const L = SBS[key]; const opts = id => sbMoveOptions(id);
@@ -6812,8 +6932,8 @@ function sbTestHTML() {
     <label>Protein</label>${scSeg('protein', [[0.8, '0.8 g/kg'], [1.6, '1.6 g/kg'], [2.2, '2.2 g/kg']], c.protein)}
     <label>Creatine</label>${scSeg('creatine', [[false, 'No'], [true, 'Yes']], c.creatine)}
   </div>
-  <h3 class="sc-h sb-ha">ROUTINE A</h3>${sbRoutineHTML('A')}
-  <h3 class="sc-h sb-hb">ROUTINE B</h3>${sbRoutineHTML('B')}
+  <h3 class="sc-h sb-ha">ROUTINE A</h3><div class="sb-medfor"><label>Medicine</label><select data-sb-in="medfor" data-r="A" aria-label="Medicine for routine A">${sbMedOptions(SBS.medA, 'None')}</select></div>${sbRoutineHTML('A')}
+  <h3 class="sc-h sb-hb">ROUTINE B</h3><div class="sb-medfor"><label>Medicine</label><select data-sb-in="medfor" data-r="B" aria-label="Medicine for routine B">${sbMedOptions(SBS.medB, 'None')}</select></div>${sbRoutineHTML('B')}
   <div class="row"><button class="btn" data-sb="copyab">COPY A INTO B</button><button class="btn" data-sb="clearb">EMPTY B</button><button class="btn primary big" data-sb="run">RUN THE TWINS</button></div>
   ${SBS.last ? sbResultsHTML(SBS.last) : ''}`;
 }
@@ -6839,14 +6959,17 @@ function sbResultsHTML(res) {
   <p class="sc-legend"><span><i style="background:${SC_CA}"></i>A: ${esc(res.an)}</span><span><i style="background:${SC_CB}"></i>B: ${esc(res.bn)}</span></p>
   <svg class="sc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Muscle growth by muscle for routines A and B">${s}</svg>
   ${res.n > 1 ? `<p class="sc-small">${sig.length ? 'Clear differences (95% interval excludes zero): ' + sig.slice(0, 6).map(r => `${esc(SC_MUSCLES[r.m].n)} ${scFmt(r.md)} [${r.lo.toFixed(1)}, ${r.hi.toFixed(1)}]`).join('; ') + '.' : 'No muscle differs clearly between A and B at this sample size.'}</p>` : '<p class="sc-small">One pair is an anecdote. Add more twins to see how consistent the difference is.</p>'}
-  ${res.warn.length ? `<div class="sb-warn">${res.warn.map(w => `<p>⚠ ${esc(w)}</p>`).join('')}</div>` : ''}`;
+  ${res.warn.length ? `<div class="sb-warn">${res.warn.map(w => `<p>⚠ ${esc(w)}</p>`).join('')}</div>` : ''}
+  <div class="row"><button class="btn primary" data-sb="cutres">🔬 WATCH WHAT HAPPENED</button></div>
+  ${res.mkA && (res.medA || res.medB) ? `<h3 class="sc-h">BLOODWORK AT THE END: A <small class="vs">vs B</small></h3>${sbMarksHTML(res.mkA, res.mkB)}` : ''}`;
 }
 function sbRun() {
   const c = SBS.cfg, warn = [];
   const mk = L => L.map(it => { const mv = sbMove(it.mv); const R = sbResolve(mv, SBS.mods); if (R.broken) { warn.push(`${mv.n} can't be loaded, so it was skipped.`); return null; } return Object.assign({}, it, { R }); }).filter(Boolean);
   const A = mk(SBS.A), B = mk(SBS.B);
   const dials = Object.assign({}, SBS.dials, { andrax: 0.8 });
-  const runner = sbTwinRunner({ n: c.n, pop: c.pop, dials, weeks: c.weeks, protein: c.protein, diet: c.diet, creatine: c.creatine, seed: 1234 + (SBS.runs = (SBS.runs || 0) + 1), A, B });
+  const medA = sbMed(SBS.medA), medB = sbMed(SBS.medB);
+  const runner = sbTwinRunner({ n: c.n, pop: c.pop, dials, weeks: c.weeks, protein: c.protein, diet: c.diet, creatine: c.creatine, seed: 1234 + (SBS.runs = (SBS.runs || 0) + 1), A, B, medA, medB });
   const nm = L => L.length ? L.map(it => sbMove(it.mv).n).join(' + ') : 'no training';
   SBU.running = true; SBU.prog = { label: `Training ${c.n} pairs of twins for ${c.weeks} weeks…`, done: 0, total: c.n, week: 0, weeks: c.weeks }; sbRender(); SFX.tool();
   const tick = () => {
@@ -6856,8 +6979,9 @@ function sbRun() {
     const P = SBU.prog; P.done = runner.done; P.week = c.weeks * runner.done / c.n;
     const bar = $('#sc-bar'); if (bar) bar.style.width = Math.round(100 * P.done / P.total) + '%';
     if (!fin && runner.done < c.n) { setTimeout(tick, 0); return; }
-    SBS.last = { sum: sbSummary(runner.result()), n: c.n, weeks: c.weeks, an: nm(SBS.A), bn: nm(SBS.B), warn: [...new Set(warn)] };
+    SBS.last = { sum: sbSummary(runner.result()), n: c.n, weeks: c.weeks, an: nm(SBS.A) + (medA ? ' + ' + medA.n : ''), bn: nm(SBS.B) + (medB ? ' + ' + medB.n : ''), warn: [...new Set(warn)], medA: medA ? medA.id : null, medB: medB ? medB.id : null, mkA: medA ? sbMedFx(medA).mk : Object.assign({}, SB_BASE_MK), mkB: medB ? sbMedFx(medB).mk : Object.assign({}, SB_BASE_MK) };
     SBU.running = false; sbSave(); SFX.good(); sbRender();
+    if (!SBS.cutSeen) { SBS.cutSeen = true; sbSave(); setTimeout(() => sbCutStart(sbCutResults(SBS.last)), 600); }
     setTimeout(() => { const m = $('.sc-main'); const h = [...document.querySelectorAll('.sc-h')].pop(); if (m && h) m.scrollTop = h.offsetTop - 60; }, 30);
   };
   setTimeout(tick, 30);
@@ -6909,6 +7033,8 @@ function sbScene(cv, ts) {
   const ctx = cv.getContext('2d'); const n = cv.dataset.scene;
   if (n === 'sb-hub') { const t = (ts / 1600) % 2; sbDrawFig(ctx, SB_STARTERS.find(m => m.id === 'squat'), t < 1 ? t : 2 - t, 'side', cv.width, cv.height); return; }
   if (n === 'sb-fig') { let s; if (SBU.play) { const t = ((ts - SBU.t0) / 2200) % 2; s = t < 1 ? t : 2 - t; } else s = SBU.key / 4; sbDrawFig(ctx, sbCur(), s, SBU.view, cv.width, cv.height); return; }
+  if (n === 'sb-cut') { sbCutScene(ctx, (ts - SBC.t0) / 1000); return; }
+  if (n === 'sb-pill') { sbDrawPill(ctx, sbMed(SBS.medSel) || SB_MED_PRESETS[1]); return; }
   if (n === 'sb-run') scDrawRun(ctx, ts, 3, Math.floor(SBU.prog.week || 0), SBU.prog.weeks || 8);
 }
 
@@ -6919,6 +7045,7 @@ document.addEventListener('click', e => {
   if (b.dataset.sc === 'dset') {
     const k = b.dataset.k, raw = b.dataset.v; const v = raw === 'true' ? true : raw === 'false' ? false : isNaN(+raw) ? raw : +raw;
     if (k === 'sbview') SBU.view = v;
+    else if (k === 'route' || k === 'dose') { const med = sbMedEditable(); med[k] = v; sbSave(); SFX.tap(); sbRender(true); return; }
     else if (['load', 'force', 'base', 'bi'].includes(k)) { const mv = sbEditable(); mv[k] = v; if ((k === 'force') && (v === 'cable' || v === 'band') && !mv.pulley) mv.pulley = { h: 2, d: 1 }; }
     else if (k in SBS.cfg) SBS.cfg[k] = v;
     sbSave(); SFX.tap(); sbRender(true); return;
@@ -6942,6 +7069,17 @@ document.addEventListener('click', e => {
     case 'copyab': SBS.B = JSON.parse(JSON.stringify(SBS.A)); sbSave(); sbRender(true); break;
     case 'clearb': SBS.B = []; sbSave(); sbRender(true); break;
     case 'run': if (!SBS.A.length && !SBS.B.length) { toast('Add an exercise first.'); break; } sbRun(); break;
+    case 'medcopy': sbMedEditable(); sbRender(true); break;
+    case 'meddel': SBS.meds = SBS.meds.filter(m => m.id !== SBS.medSel); if (!sbMed(SBS.medA)) SBS.medA = null; if (!sbMed(SBS.medB)) SBS.medB = null; SBS.medSel = 'p-andrax'; sbSave(); sbRender(); break;
+    case 'medcolor': { const med = sbMedEditable(); med.color = id; sbSave(); sbRender(true); break; }
+    case 'medtest': SBS.medA = SBS.medSel; SBS.medB = 'p-placebo'; SBS.B = JSON.parse(JSON.stringify(SBS.A.length ? SBS.A : [SB_ITEM('curl')])); if (!SBS.A.length) SBS.A = JSON.parse(JSON.stringify(SBS.B)); SBU.tab = 'test'; sbSave(); sbRender(); toast('Routine A gets your compound, B gets a placebo, same training. Press RUN.'); break;
+    case 'cutmove': sbCutStart(sbCutMove(sbCur())); break;
+    case 'cutmed': sbCutStart(sbCutMed(sbMed(SBS.medSel))); break;
+    case 'cutres': sbCutStart(sbCutResults(SBS.last)); break;
+    case 'cutnext': sbCutGo(1); break;
+    case 'cutprev': sbCutGo(-1); break;
+    case 'cutreplay': SBC.t0 = performance.now(); break;
+    case 'cutclose': closeModal(); break;
   }
 });
 document.addEventListener('input', e => {
@@ -6954,8 +7092,197 @@ document.addEventListener('input', e => {
   else if (k === 'mod') { const m = t.dataset.m; SBS.mods[m] = Object.assign({}, SBS.mods[m], { [t.dataset.k]: +t.value }); const l = $('#sb-mv-' + t.dataset.k); const v = +t.value; if (l) l.textContent = t.dataset.k === 'lopt' ? (v > 0 ? '+' : '') + Math.round(v * 100) + '%' : t.dataset.k === 't2' ? Math.round(v * 100) + '%' : '×' + v.toFixed(1); sbSave(); }
   else if (k === 'dial') { SBS.dials[t.dataset.k] = +t.value; const l = $('#sb-dv-' + t.dataset.k); if (l) l.textContent = (+t.value).toFixed(2); sbSave(); }
   else if (k === 'cfg') { SBS.cfg[t.dataset.k] = +t.value; const l = $('#sb-v' + t.dataset.k); if (l) l.textContent = t.value; sbSave(); }
+  else if (k === 'medsel') { SBS.medSel = t.value; sbSave(); sbRender(true); }
+  else if (k === 'medname') { const med = sbMed(SBS.medSel); if (med && !sbIsPreset(med.id)) { med.n = t.value.slice(0, 30) || 'Unnamed'; sbSave(); } }
+  else if (k === 'mech' || k === 'medsl') { const wasPre = sbIsPreset(SBS.medSel); const med = sbMedEditable(); if (k === 'mech') { med.mech = Object.assign({}, med.mech, { [t.dataset.k]: +t.value }); const l = $('#sb-mechv-' + t.dataset.k); if (l) l.textContent = Math.round(t.value * 100) + '%'; } else { med.sel = +t.value; const l = $('#sb-medv-sel'); if (l) l.textContent = Math.round(t.value * 100) + '%'; } sbSave(); if (wasPre) sbRender(true); else sbMedRefresh(); }
+  else if (k === 'medfor') { SBS['med' + t.dataset.r] = t.value || null; sbSave(); }
   else if (k === 'it') { const it = SBS[t.dataset.r][+t.dataset.i]; if (t.dataset.k === 'mv') { it.mv = t.value; sbSave(); sbRender(true); } else { it[t.dataset.k] = +t.value; const l = t.parentElement.querySelector('b'); if (l) l.textContent = t.value; sbSave(); } }
 });
+
+/* ===================== SANDBOX — CELL CUTSCENES ===================== */
+const SBC = { list: [], i: 0, t0: 0 };
+function sbCutStart(list) {
+  if (!list.length) return;
+  SBC.list = list; SBC.i = 0; SBC.t0 = performance.now();
+  scModal(sbCutHTML()); SFX.tap();
+}
+function sbCutHTML() {
+  const c = SBC.list[SBC.i], n = SBC.list.length, last = SBC.i === n - 1;
+  return `<div class="sc-theme sb-cut"><h2>${esc(c.title)}</h2><div class="sc-frame"><canvas data-scene="sb-cut" width="160" height="100" aria-label="${esc(c.title)}: animation"></canvas></div>
+    <p class="sb-cap">${c.cap}</p>
+    <div class="sb-cutnav"><button class="btn" data-sb="cutprev" ${SBC.i ? '' : 'disabled'}>◀</button><span>${SBC.i + 1} / ${n}</span><button class="btn" data-sb="cutreplay">REPLAY</button><button class="btn primary" data-sb="${last ? 'cutclose' : 'cutnext'}">${last ? 'DONE' : 'NEXT ▶'}</button></div></div>`;
+}
+function sbCutGo(d) { SBC.i = scClamp(SBC.i + d, 0, SBC.list.length - 1); SBC.t0 = performance.now(); const sh = $('#modal .sheet'); if (sh) { sh.innerHTML = sbCutHTML(); } }
+
+/* ---------- scene lists ---------- */
+function sbCutMove(mv) {
+  const A = sbAnalyse(mv, SBS.mods, 10); if (A.R.broken) return [];
+  const top = Object.entries(A.share).sort((a, b) => b[1] - a[1])[0][0]; const M = SC_MUSCLES[top].n;
+  const Lmax = Math.max(...A.len[top]), Lmin = Math.min(...A.len[top]);
+  const aT = SBS.dials.effort;
+  return [
+    { type: 'recruit', title: 'Motor units', aT, cap: `Inside the <b>${esc(M)}</b> during a hard set. Small motor units fire first. As fatigue builds, your brain has to call up bigger ones. The biggest, growth-ready fibres (bright) only switch on past about <b>${Math.round(aT * 100)}%</b> effort in this world, which mostly happens in the last few reps.` },
+    { type: 'sarc', title: 'Sarcomeres', L: Lmax, Lmin, cap: `One sarcomere of the ${esc(M)} through the rep. It ranges from <b>${Lmin.toFixed(2)}×</b> to <b>${Lmax.toFixed(2)}×</b> its best length. Myosin heads pull the actin in. ${Lmax > 1.1 ? 'At the stretched end the titin springs (yellow) are pulled taut, a possible extra growth signal.' : 'It never gets very stretched here, so titin stays fairly slack.'}` },
+    { type: 'signal', title: 'Mechanotransduction', cap: 'Tension tugs on anchors in the cell membrane. The signal reaches <b>mTOR</b>, which tells ribosomes to build more contractile protein. New myofibrils pack in alongside the old ones and the fibre gets thicker.' },
+    { type: 'repair', title: 'Damage and repair', cap: 'Heavy stretching under load, or a new exercise, tears a few sarcomeres. Immune cells clean up and <b>satellite cells</b> fuse in, donating a new nucleus. Repair eats into the growth budget, less as you get used to an exercise.' },
+  ];
+}
+const SB_MECH_CAP = {
+  ar: 'The drug binds androgen receptors. The pair walks into the nucleus and switches on growth genes. The body notices and shuts down its own hormone production.',
+  mb: 'Myostatin (red, spiky) is the muscle\'s brake. The drug grabs it before it can dock. With the brake off, fibres can grow much bigger, but tendons don\'t speed up to match.',
+  mtor: 'mTOR glows brighter, so every training signal turns into more new protein. Cells elsewhere hear it too, and blood sugar control slips.',
+  sat: 'Dormant satellite cells wake up, slide into the fibre and add nuclei. More nuclei means more room to grow later. Slow, but it adds up.',
+  cs: 'Cortisol (orange) bounces off. Breakdown slows, so damage costs less and dieting eats less muscle. The immune system is slowed as well.',
+  re: 'A session\'s growth signal (coloured) fades more slowly than normal (grey), so each workout keeps working for longer.',
+  fb: 'The fibre\'s energy reserve drains more slowly, so fatigue builds more slowly and you squeeze out extra reps.',
+  st: 'The nervous system is cranked up, so you push closer to failure than you meant to. The heart pays for it.',
+};
+function sbCutMed(med) {
+  if (!med) return [];
+  const fx = sbMedFx(med); const L = [];
+  L.push({ type: 'dose', med, title: med.n, cap: `<b>${esc(med.n)}</b> goes ${med.route === 'pill' ? 'down as a pill, through the gut and the liver first' : 'in as an injection, straight into the blood'}. It rides the bloodstream to every muscle.` });
+  SB_MECH.forEach(M => { const v = (med.mech || {})[M.k] || 0; if (v >= 0.1) L.push({ type: M.k, med, title: M.n, cap: SB_MECH_CAP[M.k] + ` <small>(strength ${Math.round(v * 100)}%)</small>` }); });
+  if (L.length === 1) L.push({ type: 'none', med, title: 'Nothing happens', cap: 'No active mechanisms. It\'s a placebo. In real studies, people who think they took something often train harder anyway.' });
+  const bad = Object.entries(fx.mk).filter(([k, v]) => sbMarkState(k, v) !== 'ok');
+  if (bad.length) L.push({ type: 'side', med, marks: bad.map(x => x[0]), title: 'Side effects', cap: 'Out of range: ' + bad.map(([k, v]) => `<b>${esc(sbMarkDef(k).n)}</b> ${Math.round(v)} ${esc(sbMarkDef(k).u)}`).join(', ') + '.' });
+  return L;
+}
+function sbCutResults(res) {
+  if (!res || !res.sum) return [];
+  const rows = res.sum.slice().sort((a, b) => Math.abs(b.md) - Math.abs(a.md)); const big = rows[0];
+  const topA = res.sum.slice().sort((a, b) => b.a - a.a)[0];
+  const L = [{ type: 'recruit', title: 'In the gym', aT: SBS.dials.effort, cap: `Every rep of every set, each twin's muscles recruited fibres like this. Routine A worked the <b>${esc(SC_MUSCLES[topA.m].n)}</b> hardest.` },
+    { type: 'signal', title: 'Between workouts', cap: 'After each session the growth signal built protein for a few days, then faded. A second session in the same day adds less, because the signal saturates.' }];
+  const medA = res.medA && sbMed(res.medA); if (medA) { const ms = sbCutMed(medA); L.push(...ms.slice(0, 2)); }
+  const ex = Math.max(1, Math.min(4, Math.floor(50 / Math.max(1, big.a, big.b))));
+  L.push({ type: 'grow', title: 'The result', a: big.a, b: big.b, m: big.m, ex, cap: `${esc(SC_MUSCLES[big.m].n)}: routine A <b>${scFmt(big.a)}%</b>, routine B <b>${scFmt(big.b)}%</b>. The growth is drawn ${ex}× bigger than life so you can see it.` });
+  return L;
+}
+
+/* ---------- drawing ---------- */
+const sbCirc = (ctx, x, y, r, c) => { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); };
+const sbFib = (() => { const r = scRng(31), out = []; let g = 0; while (out.length < 64 && g++ < 4000) { const x = (r() * 2 - 1), y = (r() * 2 - 1); if (x * x + y * y > 0.92) continue; const rad = 1.6 + r() * 3.2; if (out.some(f => Math.hypot((f.x - x) * 66, (f.y - y) * 38) < f.r + rad + 0.6)) continue; out.push({ x, y, r: rad }); } out.sort((a, b) => a.r - b.r); out.forEach((f, i) => { f.thr = 0.1 + 0.9 * i / out.length; }); return out; })();
+function sbCutScene(ctx, t) {
+  const c = SBC.list[SBC.i]; if (!c) return;
+  ctx.fillStyle = '#0b0e12'; ctx.fillRect(0, 0, 160, 100);
+  const mc = (c.med && c.med.color) || '#59d8a0';
+  const f = SB_CUTS[c.type]; if (f) f(ctx, t, c, mc);
+}
+const SB_CUTS = {
+  recruit(ctx, t, c) {
+    const F = Math.min(1, t / 7), pulse = (Math.sin(t * 4.2) + 1) / 2, e = (0.3 + 0.7 * F) * (0.78 + 0.22 * pulse);
+    ctx.fillStyle = '#3a1820'; ctx.beginPath(); ctx.ellipse(80, 44, 72, 40, 0, 0, Math.PI * 2); ctx.fill();
+    sbFib.forEach(f => { const on = e >= f.thr, big = f.thr >= c.aT; const col = !on ? '#4a2228' : big ? '#ffb3bd' : '#d9485e'; sbCirc(ctx, 80 + f.x * 66, 44 + f.y * 38, f.r, col); if (on && big && pulse > 0.7) { ctx.fillStyle = '#fff'; ctx.fillRect(Math.round(80 + f.x * 66), Math.round(44 + f.y * 38 - f.r - 1), 1, 1); } });
+    ctx.fillStyle = '#232a33'; ctx.fillRect(10, 90, 140, 5); ctx.fillStyle = '#ff6b7a'; ctx.fillRect(10, 90, Math.round(140 * Math.min(1, e)), 5); ctx.fillStyle = '#ffd166'; ctx.fillRect(10 + Math.round(140 * c.aT), 87, 1, 11);
+  },
+  sarc(ctx, t, c) {
+    const k = (Math.sin(t * 1.8) + 1) / 2, L = (c.Lmin || 0.75) + ((c.L || 1.1) - (c.Lmin || 0.75)) * k;
+    const half = 34 * L, zl = 80 - half, zr = 80 + half, strain = Math.max(0, L - 1.05) / 0.35;
+    for (let row = 0; row < 3; row++) { const y = 28 + row * 20;
+      ctx.fillStyle = '#c9405a'; ctx.fillRect(Math.round(zl), y - 7, Math.round(30), 1); ctx.fillRect(Math.round(zl), y + 7, 30, 1); ctx.fillRect(Math.round(zr - 30), y - 7, 30, 1); ctx.fillRect(Math.round(zr - 30), y + 7, 30, 1);
+      ctx.fillStyle = '#9085e9'; ctx.fillRect(62, y - 2, 36, 4);
+      for (let h = 0; h < 6; h++) { const x = 63 + h * 6 + (h > 2 ? 3 : 0), flick = (Math.floor(t * 8) + h) % 2; ctx.fillStyle = '#c4bdff'; ctx.fillRect(x, y - 5 - flick, 1, 3); ctx.fillRect(x, y + 3 + flick, 1, 3); }
+      const ti = strain > 0.15 ? '#ffd166' : '#5a6b7a';
+      [[zl, 62], [98, zr]].forEach(([a, b]) => { const n = 6, amp = Math.max(0.5, 3.5 * (1 - strain)); for (let i = 0; i < n; i++) { const x = a + (b - a) * i / n; ctx.fillStyle = ti; ctx.fillRect(Math.round(x), Math.round(y + (i % 2 ? amp : -amp)), Math.max(1, Math.round((b - a) / n)), 1); } });
+    }
+    ctx.fillStyle = '#e8eef2'; ctx.fillRect(Math.round(zl) - 1, 16, 2, 64); ctx.fillRect(Math.round(zr) - 1, 16, 2, 64);
+    if (strain > 0.15 && Math.floor(t * 6) % 2) { ctx.fillStyle = '#ffd166'; ctx.fillRect(Math.round(zl) + 4, 12, 2, 2); ctx.fillRect(Math.round(zr) - 6, 82, 2, 2); }
+    ctx.fillStyle = '#232a33'; ctx.fillRect(20, 92, 120, 3); ctx.fillStyle = '#59d8a0'; ctx.fillRect(20 + Math.round(120 * scClamp((L - 0.6) / 0.9, 0, 1)), 90, 2, 7);
+  },
+  signal(ctx, t, c, mc, boost) {
+    const b = boost || 1;
+    ctx.fillStyle = '#ff6b7a'; ctx.fillRect(0, 10, 160, 4); ctx.fillStyle = '#c9405a'; ctx.fillRect(0, 14, 160, 1);
+    [24, 56, 104, 136].forEach((x, i) => { const pull = Math.round(2 + 2 * Math.sin(t * 3 + i)); ctx.fillStyle = '#e8eef2'; ctx.fillRect(x, 8 - pull, 2, 8 + pull); ctx.fillRect(x - 1, 6 - pull, 4, 1); });
+    const pulse = (Math.sin(t * 5) + 1) / 2; sbCirc(ctx, 80, 44, 9 + pulse * 2 * b, b > 1 ? mc : '#59d8a0'); sbCirc(ctx, 80, 44, 5, '#0b0e12'); sbCirc(ctx, 80, 44, 3, '#e8eef2');
+    for (let i = 0; i < 4; i++) { const ph = (t * 0.7 + i / 4) % 1; const sx = [24, 56, 104, 136][i]; sbCirc(ctx, sx + (80 - sx) * ph, 16 + 28 * ph, 1.2, '#ffd166'); }
+    ctx.fillStyle = '#5a6b7a'; for (let x = 20; x < 140; x++) ctx.fillRect(x, Math.round(64 + Math.sin(x / 6) * 2), 1, 1);
+    const nr = Math.round(3 * b); for (let i = 0; i < nr; i++) { const x = 30 + i * (100 / nr) + (t * 6 % 12); sbCirc(ctx, x, 64 + Math.sin(x / 6) * 2, 2.5, '#9fb2c1'); }
+    const rows = Math.min(7, 2 + Math.floor(t * 0.9 * b));
+    for (let r = 0; r < rows; r++) { ctx.fillStyle = r >= rows - 1 && Math.floor(t * 4) % 2 ? '#ffb3bd' : '#d9485e'; ctx.fillRect(20, 92 - r * 3, 120, 2); }
+    for (let i = 0; i < 3 * b; i++) { const ph = (t * 0.9 + i / 3) % 1; ctx.fillStyle = '#ffb3bd'; ctx.fillRect(Math.round(40 + i * 30), Math.round(66 + (88 - 3 * rows - 66) * ph), 3, 2); }
+  },
+  repair(ctx, t) {
+    const close = scClamp((t - 4.5) / 2.5, 0, 1);
+    ctx.fillStyle = '#d9485e'; ctx.fillRect(4, 36, 70, 28); ctx.fillRect(86, 36, 70, 28);
+    ctx.fillStyle = '#c9405a'; for (let y = 38; y < 64; y += 4) { ctx.fillRect(4, y, 70, 1); ctx.fillRect(86, y, 70, 1); }
+    for (let y = 36; y < 64; y += 3) { const j = (y * 7) % 5; ctx.fillStyle = '#d9485e'; ctx.fillRect(74, y, Math.round(2 + j + close * 6), 3); ctx.fillRect(Math.round(86 - 2 - ((y * 3) % 4) - close * 6), y, Math.round(2 + ((y * 3) % 4) + close * 6), 3); }
+    [[18, 50], [46, 44], [110, 56], [140, 46]].forEach(([x, y]) => sbCirc(ctx, x, y, 2.5, '#9085e9'));
+    for (let i = 0; i < 4; i++) { const ph = scClamp((t - i * 0.5) / 3, 0, 1) * (1 - close); sbCirc(ctx, 60 + i * 12, 4 + (46 - 4) * ph + i * 2, 2.5, '#e8eef2'); }
+    const sp = scClamp((t - 2) / 3, 0, 1); if (close < 1) sbCirc(ctx, 10 + 70 * sp, 70 - 18 * sp, 3, '#59d8a0');
+    if (close > 0.3) sbCirc(ctx, 80, 50, 2.5, close > 0.9 ? '#9085e9' : '#59d8a0');
+  },
+  dose(ctx, t, c, mc) {
+    ctx.fillStyle = '#3a1820'; ctx.fillRect(0, 34, 160, 40); ctx.fillStyle = '#5a2430'; ctx.fillRect(0, 34, 160, 2); ctx.fillRect(0, 72, 160, 2);
+    for (let i = 0; i < 9; i++) { const x = ((i * 19 + t * 30) % 180) - 10; sbCirc(ctx, x, 46 + (i % 3) * 10, 3.5, '#c9405a'); }
+    if (c.med.route === 'pill') { const d = scClamp(t / 2, 0, 1); ctx.fillStyle = mc; ctx.fillRect(12, 10 + Math.round(16 * d), Math.round(14 * (1 - d * 0.7)), 6); }
+    else { const d = scClamp(t / 1.5, 0, 1); ctx.fillStyle = '#9fb2c1'; ctx.fillRect(18, 4 + Math.round(24 * d), 2, 10); ctx.fillStyle = mc; ctx.fillRect(16, 0 + Math.round(24 * d), 6, 6); }
+    for (let i = 0; i < 14; i++) { const ph = (t * 0.35 + i / 14) % 1; if (t < 1 + i * 0.12) continue; sbCirc(ctx, 20 + ph * 140, 40 + ((i * 13) % 28), 1.5, mc); }
+  },
+  none(ctx, t, c, mc) { SB_CUTS.dose(ctx, t, { med: { route: 'pill' } }, '#e8eef2'); },
+  ar(ctx, t, c, mc) {
+    ctx.strokeStyle = '#ff6b7a'; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(80, 50, 74, 44, 0, 0, Math.PI * 2); ctx.stroke();
+    sbCirc(ctx, 80, 50, 18, '#2a2340'); ctx.strokeStyle = '#9085e9'; ctx.beginPath(); ctx.arc(80, 50, 18, 0, Math.PI * 2); ctx.stroke();
+    const on = scClamp((t - 3) / 2, 0, 1);
+    for (let x = 66; x < 94; x++) { const y1 = 50 + Math.sin(x / 2.5 + t * 3) * 4, y2 = 50 - Math.sin(x / 2.5 + t * 3) * 4; ctx.fillStyle = on > 0 && (x % 4 < 2) ? '#ffd166' : '#5a6b7a'; ctx.fillRect(x, Math.round(y1), 1, 1); ctx.fillRect(x, Math.round(y2), 1, 1); }
+    [[30, 30], [130, 30], [30, 72], [130, 72], [80, 16]].forEach(([x, y], i) => {
+      const bind = scClamp((t - 0.5 - i * 0.3) / 1, 0, 1), go = scClamp((t - 1.8 - i * 0.3) / 1.6, 0, 1);
+      const px = x + (80 - x) * go * 0.8, py = y + (50 - y) * go * 0.8;
+      ctx.fillStyle = '#e8eef2'; ctx.fillRect(Math.round(px), Math.round(py), 1, 4); ctx.fillRect(Math.round(px) - 2, Math.round(py) - 2, 1, 2); ctx.fillRect(Math.round(px) + 2, Math.round(py) - 2, 1, 2);
+      if (bind > 0) sbCirc(ctx, px, py - 3 + 6 * (1 - bind) * -1, 1.8, mc);
+    });
+  },
+  mb(ctx, t, c, mc) {
+    ctx.fillStyle = '#d9485e'; ctx.fillRect(0, 76, 160, 24); for (let x = 10; x < 160; x += 24) { ctx.fillStyle = '#e8eef2'; ctx.fillRect(x, 70, 2, 6); }
+    for (let i = 0; i < 6; i++) { const x0 = 14 + i * 26, fall = (t * 12 + i * 9) % 70, caught = t > 1.2 + i * 0.4; const y = caught ? Math.min(40, 6 + fall) : 6 + fall;
+      const col = caught ? '#5a6b7a' : '#ef4040'; sbCirc(ctx, x0, y, 2.5, col); ctx.fillStyle = col; ctx.fillRect(x0 - 4, Math.round(y), 8, 1); ctx.fillRect(x0, Math.round(y) - 4, 1, 8);
+      if (caught) sbCirc(ctx, x0 + 3, y - 3, 2, mc); }
+  },
+  mtor(ctx, t, c, mc) { SB_CUTS.signal(ctx, t, c, mc, 1.8); },
+  sat(ctx, t, c, mc) {
+    ctx.fillStyle = '#d9485e'; ctx.fillRect(0, 30, 160, 40); ctx.fillStyle = '#c9405a'; for (let y = 33; y < 70; y += 5) ctx.fillRect(0, y, 160, 1);
+    [20, 60, 100, 140].forEach(x => sbCirc(ctx, x, 50, 3, '#9085e9'));
+    [40, 80, 120].forEach((x, i) => { const go = scClamp((t - 1 - i * 0.8) / 1.5, 0, 1); const glow = (Math.sin(t * 6 + i) + 1) / 2;
+      if (go < 1) { sbCirc(ctx, x, 24 + 26 * go, 3, glow > 0.5 ? mc : '#3f8a68'); } else sbCirc(ctx, x, 50, 3, '#9085e9'); });
+  },
+  cs(ctx, t, c, mc) {
+    ctx.fillStyle = '#d9485e'; ctx.fillRect(40, 40, 80, 50); ctx.strokeStyle = mc; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(80, 70, 52, Math.PI * 1.1, Math.PI * 1.9); ctx.stroke();
+    for (let i = 0; i < 7; i++) { const ph = (t * 0.8 + i / 7) % 1; const x = 10 + i * 22, bounce = ph < 0.5 ? ph * 2 : 2 - ph * 2; sbCirc(ctx, x, 4 + 26 * bounce, 2.5, '#ef8a5c'); }
+  },
+  re(ctx, t, c, mc) {
+    ctx.fillStyle = '#232a33'; ctx.fillRect(14, 86, 136, 1); ctx.fillRect(14, 12, 1, 74);
+    const d = Math.min(7, t * 1.6);
+    for (let x = 0; x <= d * 18; x++) { const dd = x / 18; const n = Math.exp(-dd / 1.8), m = Math.exp(-dd / 2.9); ctx.fillStyle = '#5a6b7a'; ctx.fillRect(15 + x, Math.round(86 - 70 * n), 1, 1); ctx.fillStyle = mc; ctx.fillRect(15 + x, Math.round(86 - 70 * m), 1, 2); }
+    for (let k = 1; k <= 7; k++) { ctx.fillStyle = '#3a4654'; ctx.fillRect(15 + k * 18, 86, 1, 3); }
+  },
+  fb(ctx, t, c, mc) {
+    const lvl = (k, x) => { ctx.fillStyle = '#e8eef2'; ctx.fillRect(x, 20, 30, 60); ctx.fillStyle = '#0b0e12'; ctx.fillRect(x + 2, 22, 26, 56); ctx.fillStyle = k > 0.25 ? (x > 80 ? mc : '#9fb2c1') : '#ef7d57'; const h = Math.round(56 * k); ctx.fillRect(x + 2, 78 - h, 26, h); ctx.fillStyle = '#e8eef2'; ctx.fillRect(x + 10, 16, 10, 4); };
+    const cyc = t % 6; lvl(Math.max(0.05, 1 - cyc / 3.5), 40); lvl(Math.max(0.05, 1 - cyc / 5.2), 92);
+  },
+  st(ctx, t, c, mc) {
+    ctx.fillStyle = '#9085e9'; ctx.fillRect(0, 30, 160, 3);
+    for (let i = 0; i < 4; i++) { const x = ((t * 70 + i * 40) % 180) - 10; ctx.fillStyle = mc; ctx.fillRect(Math.round(x), 26, 3, 3); ctx.fillRect(Math.round(x) + 2, 29, 3, 3); ctx.fillRect(Math.round(x) + 4, 32, 3, 3); }
+    const beat = (Math.sin(t * 14) + 1) / 2, s = 1 + beat * 0.25; const hx = 80, hy = 66;
+    ctx.fillStyle = '#ef4040'; [[-6, -4, 5], [6, -4, 5]].forEach(([dx, dy, r]) => sbCirc(ctx, hx + dx * s, hy + dy * s, r * s, '#ef4040')); ctx.beginPath(); ctx.moveTo(hx - 11 * s, hy - 2 * s); ctx.lineTo(hx + 11 * s, hy - 2 * s); ctx.lineTo(hx, hy + 12 * s); ctx.fill();
+  },
+  side(ctx, t, c) {
+    const m = c.marks || []; const panes = [];
+    if (m.includes('alt')) panes.push('liver'); if (m.includes('hct')) panes.push('blood'); if (m.includes('heart') || m.includes('sbp') || m.includes('hr')) panes.push('heart'); if (m.includes('hdl') || m.includes('ldl')) panes.push('plaque'); if (!panes.length) panes.push('labs');
+    panes.slice(0, 4).forEach((p, i) => { const x0 = (160 / Math.min(4, panes.length)) * i, w = 160 / Math.min(4, panes.length), cx = x0 + w / 2;
+      ctx.fillStyle = '#161a20'; ctx.fillRect(x0 + 2, 6, w - 4, 88);
+      if (p === 'liver') { sbCirc(ctx, cx, 50, 16, '#7a3b2b'); for (let k = 0; k < 5; k++) if ((Math.floor(t * 3) + k) % 2) { ctx.fillStyle = '#ffd166'; ctx.fillRect(Math.round(cx - 10 + k * 5), 44 + (k % 2) * 8, 2, 2); } }
+      if (p === 'blood') { for (let k = 0; k < 16; k++) sbCirc(ctx, x0 + 8 + (k * 7 + t * 10) % (w - 16), 30 + (k % 4) * 12, 3.2, '#c9405a'); }
+      if (p === 'heart') { const s = 1 + ((Math.sin(t * 9) + 1) / 2) * 0.15; sbCirc(ctx, cx - 5 * s, 44, 7 * s, '#ef4040'); sbCirc(ctx, cx + 5 * s, 44, 7 * s, '#ef4040'); ctx.fillStyle = '#ef4040'; ctx.beginPath(); ctx.moveTo(cx - 12 * s, 46); ctx.lineTo(cx + 12 * s, 46); ctx.lineTo(cx, 64 * s); ctx.fill(); sbCirc(ctx, cx, 48, 3, '#0b0e12'); }
+      if (p === 'plaque') { ctx.fillStyle = '#5a2430'; ctx.fillRect(x0 + 6, 36, w - 12, 28); ctx.fillStyle = '#ffd166'; ctx.fillRect(x0 + 10, 36, 8, 5 + Math.round(t) % 3); ctx.fillRect(x0 + w - 20, 59, 9, 5); }
+      if (p === 'labs') { ctx.fillStyle = '#e8eef2'; ctx.fillRect(cx - 4, 30, 8, 30); ctx.fillStyle = '#c9405a'; ctx.fillRect(cx - 3, 46, 6, 13); }
+    });
+  },
+  grow(ctx, t, c) {
+    const k = scClamp(t / 3, 0, 1);
+    [[46, c.a, '#3987e5'], [114, c.b, '#d95926']].forEach(([x, p, col]) => { const r = 24 * (1 + (c.ex || 4) * (p / 100) * k);
+      sbCirc(ctx, x, 50, r + 2, col); sbCirc(ctx, x, 50, r, '#3a1820');
+      for (let i = 0; i < 26; i++) { const a = i * 2.39996, rr = Math.sqrt(i / 26) * (r - 3); sbCirc(ctx, x + Math.cos(a) * rr, 50 + Math.sin(a) * rr, 2 * (r / 24), '#d9485e'); } });
+  },
+};
 
 </script>
 </body>
