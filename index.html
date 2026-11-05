@@ -588,10 +588,13 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .sc-up span { font-size: 18px; color: var(--mute); }
 .sc-up em { font-family: var(--font-d); font-size: 8px; color: var(--good); font-style: normal; }
 .sc-up.have { opacity: .75; }
-.sc-pub { background: var(--panel); padding: 8px 10px; display: grid; gap: 2px; border-left: 4px solid var(--good); }
+.sc-pub { background: var(--panel); padding: 8px 10px; display: flex; gap: 10px; align-items: center; border-left: 4px solid var(--good); }
+.sc-pub > div { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.sc-pub .btn { flex: none; }
 .sc-pub b { font-weight: normal; }
 .sc-pub span { font-size: 17px; color: var(--mute); }
-.sc-pub.drawer { border-left-color: var(--line); opacity: .7; }
+.sc-pub.drawer { border-left-color: var(--line); }
+.sc-pub.drawer > div { opacity: .75; }
 .sc-n { background: var(--panel); padding: 8px 10px; display: grid; gap: 2px; border-left: 4px solid var(--line); }
 .sc-n small { font-family: var(--font-d); font-size: 7.5px; color: var(--mute); }
 .sc-n.bro { border-left-color: var(--bad); } .sc-n.grant { border-left-color: var(--warn); } .sc-n.you { border-left-color: var(--good); } .sc-n.lab { border-left-color: #3987e5; }
@@ -4131,7 +4134,7 @@ function scNewLab() {
   const seed = (Math.random() * 1e9) >>> 0;
   return {
     v: 1, seed, phase: 'title', started: false, week: 0, money: 150, rep: 0, repAtGrant: 0, topSinceGrant: 0,
-    upgrades: [], lit: {}, mine: [], settled: {}, ann: [], nextOutside: 6, nextBro: 4, studyN: 0, lastStudy: null, draft: null, final: null, muted: false,
+    upgrades: [], lit: {}, mine: [], drawer: [], settled: {}, ann: [], nextOutside: 6, nextBro: 4, studyN: 0, lastStudy: null, draft: null, final: null, muted: false,
     lifter: null,
   };
 }
@@ -5704,7 +5707,8 @@ function scLabTab() {
     const have = scHas(SCS, u.id); const can = !have && SCS.money >= u.cost && SCS.rep >= (u.rep || 0);
     return `<div class="sc-up ${have ? 'have' : ''}"><div><b>${esc(u.n)}</b><span>${esc(u.d)}</span></div>${have ? '<em>OWNED</em>' : `<button class="btn ${can ? 'primary' : ''}" data-sc="buy" data-id="${u.id}" ${can ? '' : 'disabled'}>$${u.cost}k</button>`}</div>`;
   }).join('')}</div>
-  <h3 class="sc-h">YOUR PAPERS</h3>${pubs.length ? `<div class="sc-pubs">${pubs.map(p => `<div class="sc-pub ${p.published ? '' : 'drawer'}"><b>${esc(p.title)}</b><span>${p.published ? esc(SC_JOURNALS.find(j => j.id === p.journal).n) + ' · review score ' + p.score + ' · +' + p.repGain + ' rep' : 'In the file drawer (unpublished)'} · week ${p.week}</span></div>`).join('')}</div>` : '<p class="sc-dim">Nothing yet.</p>'}
+  <h3 class="sc-h">YOUR PAPERS</h3>${pubs.length ? `<div class="sc-pubs">${pubs.map(p => { const kept = p.did && (SCS.drawer || []).some(d => d.id === p.did);
+    return `<div class="sc-pub ${p.published ? '' : 'drawer'}"><div><b>${esc(p.title)}</b><span>${p.published ? esc(SC_JOURNALS.find(j => j.id === p.journal).n) + ' · review score ' + p.score + ' · +' + p.repGain + ' rep' : kept ? 'In the file drawer (unpublished)' : 'Filed before the drawer kept data, so it can\'t be reopened'} · week ${p.week}</span></div>${kept ? `<button class="btn" data-sc="undrawer" data-id="${p.did}">TAKE IT OUT</button>` : ''}</div>`; }).join('')}</div>` : '<p class="sc-dim">Nothing yet.</p>'}
   <h3 class="sc-h">FINISH</h3><p class="sc-dim">The grant ends at week ${SC_WEEKS_TOTAL}. You can write the consensus statement early if you're confident.</p>
   <button class="btn warn" data-sc="end">WRITE THE CONSENSUS STATEMENT</button>`;
 }
@@ -6055,7 +6059,13 @@ document.addEventListener('click', e => {
     case 'claim': SCU.claim = id; SFX.tap(); scRender(true); break;
     case 'jour': SCU.jour = id; SFX.tap(); scRender(true); break;
     case 'submit': scSubmit(); break;
-    case 'drawer': { const Dr = SCS.draft; const Q = scQ(Dr.q); SCS.mine.push({ title: `${Q.an} vs ${Q.bn.toLowerCase()} (unpublished)`, q: Q.id, week: SCS.week, published: false }); SCS.draft = null; scSave(); scGo('lab'); toast('Into the file drawer. Nobody will ever know. That is the problem.'); break; }
+    case 'drawer': scModal(`<div class="sc-theme"><h2>FILE IT AWAY?</h2><p>Unpublished results don't count in anyone's meta-analysis, including yours. You can take it back out later from <b>The Lab</b> tab.</p><div class="row"><button class="btn" data-act="close">KEEP WRITING</button><button class="btn primary" data-sc="drawerok">FILE IT</button></div></div>`); break;
+    case 'drawerok': { const Dr = SCS.draft; if (!Dr) { closeModal(); break; } const Q = scQ(Dr.q); Dr.id = Dr.id || 'd' + Math.random().toString(36).slice(2, 8); Dr.filed = SCS.week;
+      SCS.drawer = SCS.drawer || []; SCS.drawer.push(Dr); SCS.mine.push({ title: `${Q.an} vs ${Q.bn.toLowerCase()} (unpublished)`, q: Q.id, week: SCS.week, published: false, did: Dr.id });
+      SCS.draft = null; scSave(); closeModal(); scGo('lab', { tab: 'lab' }); toast('Into the file drawer. You can take it out from here.'); break; }
+    case 'undrawer': { if (SCS.draft) { toast('Finish the paper you\'re writing first.'); break; } const k = (SCS.drawer || []).findIndex(d => d.id === id); if (k < 0) break;
+      const Dr = SCS.drawer.splice(k, 1)[0]; SCS.mine = SCS.mine.filter(m => m.did !== id); Dr.entry.week = SCS.week;
+      SCS.draft = Dr; SCU.q = Dr.q; SCU.claim = null; SCU.jour = 'mid'; scSave(); SFX.paper(); scGo('results'); break; }
     case 'afterpub': closeModal(); scGo('q'); break;
     case 'buy': { const u = SC_UPGRADES.find(x => x.id === id); if (u && SCS.money >= u.cost && SCS.rep >= (u.rep || 0) && !scHas(SCS, id)) { SCS.money -= u.cost; SCS.upgrades.push(id); scSave(); SFX.good(); scRender(true); } break; }
     case 'end': SCU.verdicts = Object.fromEntries(SC_QUESTIONS.map(Q => [Q.id, SCS.settled[Q.id] ? SCS.settled[Q.id].v : 'unknown'])); scGo('end'); break;
