@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixel Arcade</title>
-<meta name="description" content="Free pixel-art browser games: Pixel Clinic, The Deep Rear and SARCOMERE.">
+<meta name="description" content="Free pixel-art browser games: Pixel Clinic, The Deep Rear, SARCOMERE and SANDBOX.">
 <meta name="theme-color" content="#1a1c2c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -658,6 +658,35 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .sc-field div.me { box-shadow: inset 0 0 0 2px var(--accent); }
 .sc-field small { color: var(--mute); font-size: 16px; grid-column: 1; }
 .sc-field b { font-weight: normal; grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+
+/* ===================== SANDBOX ===================== */
+.sb-feature { background: #13201c; }
+.sb-feature h2 { color: #59d8a0; }
+.sb-feature .tag { background: #59d8a0; color: #101418; }
+.sc.sb { --accent: #59d8a0; }
+.sb-sub { font-size: 17px; color: var(--mute); }
+.sb-top { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+.sb-top select, .sb-name { font-family: var(--font-b); font-size: 20px; background: var(--panel2); color: var(--ink); border: 0; padding: 8px; flex: 1 1 200px; min-width: 0; }
+.sb-stage { display: grid; gap: 6px; justify-items: center; }
+.sb-fig { width: min(100%, 420px); }
+.sb-ctl { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.sb-ctl .sc-seg button { flex: none; }
+.sb-keys button { font-family: var(--font-d); font-size: 9px; }
+.sb-warn { background: #2a1f14; border-left: 4px solid var(--warn); padding: 8px 10px; margin: 10px 0; }
+.sb-warn p { margin: 0 0 4px; font-size: 19px; }
+.sb-mus { background: var(--panel); margin-bottom: 4px; }
+.sb-mus > button { display: flex; justify-content: space-between; gap: 8px; width: 100%; text-align: left; padding: 8px 10px; color: var(--ink); align-items: baseline; flex-wrap: wrap; }
+.sb-mus > button b { font-weight: normal; font-size: 20px; }
+.sb-mus > button small { font-size: 16px; color: var(--mute); }
+.sb-mus.open { box-shadow: inset 3px 0 0 var(--accent); }
+.sb-mus .sc-form { padding: 0 10px 10px; }
+.sb-rt { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 6px; }
+.sb-rt .sc-slot { border-left: 4px solid #3987e5; }
+.sb-rt.b .sc-slot { border-left-color: #d95926; }
+.sb-sl { display: flex; gap: 4px; }
+.sb-sl select { flex: 1; min-width: 0; }
+.sb-x { width: 36px; background: var(--panel2); color: var(--mute); font-size: 16px; }
+.sb-ha { color: #6aa8f0; } .sb-hb { color: #ef8a5c; }
 
 </style>
 </head>
@@ -3530,7 +3559,7 @@ const SC_MUSCLES = {
   tricepsLM:   { n: 'Triceps lateral & medial', g: 'Arms', pcsa: 2.4, t2: 0.6, mt: 18, act: { elbow: -1 }, ma: { elbow: [50, 0.7] }, L: a => 0.72 + 0.003 * a.elbow },
   pecSternal:  { n: 'Pec (sternal)', g: 'Chest', pcsa: 3.0, t2: 0.55, mt: 22, act: { shHadd: 1 }, ma: { shHadd: [20, 0.4] }, L: a => 1.21 - 0.004 * a.shHadd },
   pecClav:     { n: 'Pec (clavicular)', g: 'Chest', pcsa: 1.6, t2: 0.55, mt: 17, act: { shHadd: 1, shFlex: 1 }, ma: { shHadd: [30, 0.4], shFlex: [60, 0.3] }, L: a => 1.16 - 0.0035 * a.shHadd - 0.0012 * Math.max(a.shFlex, 0) },
-  antDelt:     { n: 'Front delt', g: 'Shoulders', pcsa: 1.4, t2: 0.5, mt: 18, act: { shFlex: 1, shHadd: 1 }, ma: { shFlex: [60, 0.3], shHadd: [40, 0.3] }, L: a => 1.0 - 0.0025 * a.shFlex - 0.0015 * a.shHadd },
+  antDelt:     { n: 'Front delt', g: 'Shoulders', pcsa: 1.4, t2: 0.5, mt: 18, act: { shFlex: 1, shHadd: 1, shAbd: 0.5 }, ma: { shFlex: [60, 0.3], shHadd: [40, 0.3] }, L: a => 1.0 - 0.0025 * a.shFlex - 0.0015 * a.shHadd },
   latDelt:     { n: 'Side delt', g: 'Shoulders', pcsa: 1.6, t2: 0.5, mt: 19, act: { shAbd: 1 }, ma: { shAbd: [70, 0.25] }, L: a => 1.15 - 0.0035 * a.shAbd },
   rearDelt:    { n: 'Rear delt', g: 'Shoulders', pcsa: 0.9, t2: 0.5, mt: 14, act: { shHadd: -1 }, ma: { shHadd: [40, 0.3] }, L: a => 0.8 + 0.004 * a.shHadd },
   lats:        { n: 'Lats', g: 'Back', pcsa: 3.2, t2: 0.5, mt: 12, act: { shFlex: -1, shAbd: -1 }, ma: { shFlex: [100, 0.35], shAbd: [100, 0.35] }, L: a => 0.75 + 0.0035 * Math.max(a.shFlex, a.shAbd, 0) },
@@ -3726,25 +3755,28 @@ function scResolve(spec) {
 
 /* ---------- one repetition ---------- */
 /* equal-effort sharing among agonists; a muscle that opposes another moving joint is used less (Lombard's paradox) */
-const SC_TMP = { pen: new Float64Array(SC_NM), aj: new Float64Array(4), C: new Float64Array(4), buf: new Float64Array(SC_NS * SC_NM), pk: new Float64Array(SC_NM) };
+const SC_TMP = { pen: new Float64Array(SC_NM), aj: new Float64Array(8), C: new Float64Array(8), sg: new Float64Array(8), dm: new Float64Array(8), buf: new Float64Array(SC_NS * SC_NM), pk: new Float64Array(SC_NM) };
 const SC_INTENT = 0.75;  // near failure you push hard through the whole rep, not only at the sticking point
-function scRep(R, F, fat, W, acc) {
+function scRep(R, F, fat, W, acc, rec) {
   // F: force capacity per muscle index; fat: fatigue per muscle index (0..1). acc (optional): callback(x, activation, sample)
-  const nax = R.axes.length; let worst = 0;
-  const pen = SC_TMP.pen, aj = SC_TMP.aj, C = SC_TMP.C, buf = SC_TMP.buf, pk = SC_TMP.pk;
+  // Sandbox movements (R.sb) carry signed torques (load + body weight), so which muscles are agonists depends on the load.
+  const nax = R.axes.length; let worst = 0; const sb = !!R.sb;
+  const pen = SC_TMP.pen, aj = SC_TMP.aj, C = SC_TMP.C, buf = SC_TMP.buf, pk = SC_TMP.pk, sg = SC_TMP.sg, dm = SC_TMP.dm;
   if (acc) for (const m of R.musc) pk[SC_MI[m]] = 0;
   for (let si = 0; si < SC_NS; si++) {
     const sm = R.samples[si];
+    for (let j = 0; j < nax; j++) { if (sb) { const T = W * sm.mL[j] + sm.mB[j]; dm[j] = Math.abs(T) < 1e-6 ? 0 : Math.abs(T); sg[j] = T > 0 ? 1 : -1; } else { dm[j] = W * R.lev[j] * sm.shape[j]; sg[j] = 1; } }
     for (const x of sm.ms) pen[x.i] = 1;
     for (let it = 0; it < 3; it++) {
       for (let j = 0; j < nax; j++) C[j] = 0;
-      for (const x of sm.ms) { const f = F[x.i] * (1 - fat[x.i]) * x.fl * pen[x.i]; for (let j = 0; j < nax; j++) if (x.ax[j] > 0) C[j] += f * x.ax[j]; }
-      for (let j = 0; j < nax; j++) aj[j] = C[j] > 1e-9 ? W * R.lev[j] * sm.shape[j] / C[j] : 9;
-      for (const x of sm.ms) { let p = 1; for (let j = 0; j < nax; j++) if (x.ax[j] < 0) p *= 1 - 0.8 * Math.min(1, aj[j]) * Math.min(1, -x.ax[j] / 0.6); pen[x.i] = p; }
+      for (const x of sm.ms) { const f = F[x.i] * (1 - fat[x.i]) * x.fl * pen[x.i]; for (let j = 0; j < nax; j++) { const a = sb ? x.axs[j] * sg[j] : x.ax[j]; if (a > 0) C[j] += f * a; } }
+      for (let j = 0; j < nax; j++) aj[j] = dm[j] <= 1e-9 ? 0 : C[j] > 1e-9 ? dm[j] / C[j] : 9;
+      for (const x of sm.ms) { let p = 1; for (let j = 0; j < nax; j++) { const a = sb ? x.axs[j] * sg[j] : x.ax[j]; if (a < 0) p *= 1 - 0.8 * Math.min(1, aj[j]) * Math.min(1, -a / 0.6); } pen[x.i] = p; }
     }
     for (let j = 0; j < nax; j++) if (aj[j] > worst) worst = aj[j];
+    if (rec) rec[si] = Array.from(aj.slice(0, nax));
     if (acc) for (const x of sm.ms) {
-      let a = 0; for (let j = 0; j < nax; j++) if (x.ax[j] > 0 && aj[j] > a) a = aj[j];
+      let a = 0; for (let j = 0; j < nax; j++) { const v = sb ? x.axs[j] * sg[j] : x.ax[j]; if (v > 0 && aj[j] > a) a = aj[j]; }
       a = Math.min(1, a) * pen[x.i];
       buf[si * SC_NM + x.i] = a; if (a > pk[x.i]) pk[x.i] = a;
     }
@@ -3774,7 +3806,7 @@ function scSubject(r, pop, W) {
 }
 function scForce(sub, limb, R) {
   const F = new Float64Array(SC_NM); const nf = limb.neural[R.key] || (sub.trained ? 1.12 : 1);
-  for (const m of R.musc) { const i = SC_MI[m]; F[i] = SC_MUSCLES[m].pcsa * limb.X[i] * sub.str * nf; }
+  for (const m of R.musc) { const i = SC_MI[m]; F[i] = SC_MUSCLES[m].pcsa * (R.pm && R.pm[m] !== undefined ? R.pm[m] : 1) * limb.X[i] * sub.str * nf; }
   return F;
 }
 
@@ -3794,7 +3826,7 @@ function scRepFatigue(sub, limb, R, F, W, fat, stimOut, Wd) {
   const cr = sub.supp === 'creatine' && sub.crResp ? 0.93 : 1;
   for (const m of R.musc) {
     const i = SC_MI[m]; const am = sumA[i] / SC_NS; const ae = 0.35 * am + 0.65 * maxA[i];
-    const d = SC_KF * sub.fatR * cr * ae * (0.7 + 0.6 * (SC_MUSCLES[m].t2 + sub.t2));
+    const d = SC_KF * sub.fatR * cr * ae * (0.7 + 0.6 * (SC_MUSCLES[m].t2 + sub.t2 + (R.t2m ? R.t2m[m] || 0 : 0)));
     limb.ff[i] += 0.94 * d; limb.fs[i] += 0.06 * d; fat[i] = Math.min(0.97, limb.ff[i] + limb.fs[i]);
     if (stimOut) { stimOut.stim[i] += tw * sumS[i] / SC_NS; stimOut.dmg[i] += 0.05 * sumD[i] / SC_NS * (limb.nov[R.key] === undefined ? (limb.nov._trained ? 0.45 : 1) : limb.nov[R.key]); stimOut.act[i] = Math.max(stimOut.act[i] || 0, am); }
   }
@@ -3816,8 +3848,8 @@ function scDoSet(sub, limb, R, W, reps, Wd, out) {
 /* the heaviest load that can be lifted once, fresh */
 function sc1RM(sub, limb, R) {
   const F = scForce(sub, limb, R); const z = new Float64Array(SC_NM);
-  let lo = 0.01, hi = 60;
-  for (let k = 0; k < 22; k++) { const mid = (lo + hi) / 2; if (scRep(R, F, z, mid) <= 1) lo = mid; else hi = mid; }
+  let lo = 0.01, hi = 600;
+  for (let k = 0; k < 26; k++) { const mid = (lo + hi) / 2; if (scRep(R, F, z, mid) <= 1) lo = mid; else hi = mid; }
   return lo;
 }
 /* load for a target rep max, using a fatigue table built once per exercise */
@@ -4393,6 +4425,252 @@ function scFinalScore(S, truth) {
   return { rows, pts, total, title };
 }
 
+/* ===================== SANDBOX — PHYSICS ===================== */
+/* A body in 3D (one side; the other mirrors it). Every movement is keyframed joint angles.
+   The load's torque about each joint on its path comes from geometry, and the rep engine
+   from SARCOMERE decides which muscles must work, how they tire and how much they grow. */
+const SB_J = ['tilt', 'shFlex', 'shAbd', 'shHadd', 'shRot', 'elbow', 'hip', 'knee', 'ankle'];
+const SB_JN = { tilt: 'Body lean (back +)', shFlex: 'Shoulder: raise forward', shAbd: 'Shoulder: raise sideways', shHadd: 'Shoulder: swing across', shRot: 'Shoulder: twist out', elbow: 'Elbow bend', hip: 'Hip bend', knee: 'Knee bend', ankle: 'Ankle: toes up' };
+const SB_JR = { tilt: [-90, 90], shFlex: [-60, 180], shAbd: [-20, 180], shHadd: [-45, 130], shRot: [-60, 100], elbow: [0, 155], hip: [-30, 140], knee: [0, 155], ankle: [-50, 40] };
+const SB_AXN = { shX: ['shoulder raise-forward', 'shoulder pull-back'], shZ: ['shoulder raise-sideways', 'shoulder pull-down'], shY: ['shoulder swing-across', 'shoulder swing-back'], elbow: ['elbow bend', 'elbow straighten'], hip: ['hip bend', 'hip straighten'], knee: ['knee bend', 'knee straighten'], ankle: ['toes-up', 'toes-down (calf)'] };
+const SB_AXL = { shX: 'Shoulder (forward/back)', shZ: 'Shoulder (out/down)', shY: 'Shoulder (across)', elbow: 'Elbow', hip: 'Hip', knee: 'Knee', ankle: 'Ankle' };
+const SB_E = { shX: [-1, 0, 0], shZ: [0, 0, 1], shY: [0, -1, 0] };
+/* the sandbox's anatomy calibration: real hips, legs and shoulders are stronger relative to arms than the Lab's simplified table */
+const SB_PCAL = { antDelt: 3.0, pecClav: 2.0, latDelt: 1.8, rearDelt: 1.5, lats: 2.0, glutes: 2.3, hamsBi: 1.5, hamsShort: 1.2, vasti: 1.6, rectusFem: 1.3, gastroc: 1.4, soleus: 1.8 };
+const SB_DEF = { tilt: 0, shFlex: 0, shAbd: 0, shHadd: 0, shRot: 0, elbow: 5, hip: 0, knee: 0, ankle: 0 };
+const SB_K = 1.4;   // kg per load unit, per side
+const SB_BW = 70;  // body mass, kg
+/* body segments (mass fraction of body weight, per side) */
+function sbSegments(P) {
+  const mid = (a, b, k) => sbAdd(a, sbSub(b, a), k);
+  return { trunk: { m: 0.29, p: [0, 0.28, 0.02] }, uarm: { m: 0.028, p: mid(P.S, P.E, 0.44) }, farm: { m: 0.022, p: mid(P.E, P.Hd, 0.45) }, thigh: { m: 0.10, p: mid(P.H, P.K, 0.43) }, shank: { m: 0.047, p: mid(P.K, P.A, 0.43) }, foot: { m: 0.015, p: P.mid } };
+}
+/* which segments hang off each joint on the side away from whatever supports you */
+function sbSide(k, base) {
+  if (k === 'elbow') return ['farm'];
+  if (k[0] === 's') return ['uarm', 'farm'];
+  if (base === 'feet' || base === 'stagger') return k === 'ankle' ? ['shank', 'thigh', 'trunk', 'uarm', 'farm'] : k === 'knee' ? ['thigh', 'trunk', 'uarm', 'farm'] : ['trunk', 'uarm', 'farm'];
+  return k === 'hip' ? ['thigh', 'shank', 'foot'] : k === 'knee' ? ['shank', 'foot'] : ['foot'];
+}
+const SB_LOADS = { hand: 'Hands', back: 'Bar on the back', shin: 'Pad on the shins', feet: 'Feet on a platform' };
+const SB_FORCES = { free: 'Free weight (gravity)', cable: 'Cable', machine: 'Machine (follows the path)', band: 'Band' };
+const SB_BASES = { feet: 'Standing, feet together', stagger: 'Standing, braced split stance', torso: 'Bench or seat', thigh: 'Seat with thigh pad' };
+const SB_LOCKS = { shoulder: 'Shoulders', elbow: 'Elbows', hip: 'Hips', knee: 'Knees', ankle: 'Ankles' };
+const sbStand = mv => mv.base === 'feet' || mv.base === 'stagger';
+
+/* ---- tiny 3D math ---- */
+const sbR = { x: d => { const c = Math.cos(scRad(d)), s = Math.sin(scRad(d)); return [[1, 0, 0], [0, c, -s], [0, s, c]]; }, y: d => { const c = Math.cos(scRad(d)), s = Math.sin(scRad(d)); return [[c, 0, s], [0, 1, 0], [-s, 0, c]]; }, z: d => { const c = Math.cos(scRad(d)), s = Math.sin(scRad(d)); return [[c, -s, 0], [s, c, 0], [0, 0, 1]]; } };
+const sbMM = (A, B) => A.map((r, i) => [0, 1, 2].map(j => r[0] * B[0][j] + r[1] * B[1][j] + r[2] * B[2][j]));
+const sbMV = (A, v) => [A[0][0] * v[0] + A[0][1] * v[1] + A[0][2] * v[2], A[1][0] * v[0] + A[1][1] * v[1] + A[1][2] * v[2], A[2][0] * v[0] + A[2][1] * v[1] + A[2][2] * v[2]];
+const sbT = A => [[A[0][0], A[1][0], A[2][0]], [A[0][1], A[1][1], A[2][1]], [A[0][2], A[1][2], A[2][2]]];
+const sbAdd = (a, b, k = 1) => [a[0] + b[0] * k, a[1] + b[1] * k, a[2] + b[2] * k];
+const sbSub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const sbDot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const sbX = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const sbLen = a => Math.sqrt(sbDot(a, a));
+const sbUnit = a => { const l = sbLen(a); return l > 1e-9 ? [a[0] / l, a[1] / l, a[2] / l] : [0, 0, 0]; };
+
+/* keyframes: 5 poses at 0, 25, 50, 75, 100% of the lifting phase */
+function sbAt(mv, s) {
+  const k = mv.keys, f = s * 4, i = Math.min(3, Math.floor(f)), t = f - i; const a = {};
+  SB_J.forEach(j => { const v0 = k[i][j] !== undefined ? k[i][j] : SB_DEF[j], v1 = k[i + 1][j] !== undefined ? k[i + 1][j] : SB_DEF[j]; a[j] = v0 + (v1 - v0) * t; });
+  if (sbStand(mv)) a.tilt = a.knee - a.ankle - a.hip;     // feet flat on the floor fixes the body's lean
+  return a;
+}
+/* body-frame positions (x right, y up, z forward; origin between the hips) */
+function sbPose(a) {
+  const Rarm = sbMM(sbMM(sbMM(sbR.y(-a.shHadd), sbR.z(a.shAbd)), sbR.x(-a.shFlex)), sbR.y(a.shRot));
+  const S = [0.18, 0.48, 0], u = sbMV(Rarm, [0, -1, 0]), E = sbAdd(S, u, 0.3);
+  const Rfa = sbMM(Rarm, sbR.x(-a.elbow)); const fa = sbMV(Rfa, [0, -1, 0]); const Hd = sbAdd(E, fa, 0.29);
+  const Rh = sbR.x(-a.hip), Rk = sbMM(Rh, sbR.x(a.knee)), Ra = sbMM(Rk, sbR.x(-a.ankle));
+  const H = [0.09, 0, 0], K = sbAdd(H, sbMV(Rh, [0, -1, 0]), 0.44), A = sbAdd(K, sbMV(Rk, [0, -1, 0]), 0.43);
+  const fd = sbMV(Ra, [0, 0, 1]), fdn = sbMV(Ra, [0, -1, 0]);
+  const ball = sbAdd(sbAdd(A, fd, 0.15), fdn, 0.06), heel = sbAdd(sbAdd(A, fd, -0.06), fdn, 0.06), mid = sbAdd(sbAdd(A, fd, 0.05), fdn, 0.07);
+  const axes = { shFlex: sbMV(sbMM(sbR.y(-a.shHadd), sbR.z(a.shAbd)), [-1, 0, 0]), shAbd: sbMV(sbR.y(-a.shHadd), [0, 0, 1]), shHadd: [0, -1, 0], elbow: sbMV(Rarm, [-1, 0, 0]), hip: [-1, 0, 0], knee: [1, 0, 0], ankle: [-1, 0, 0] };
+  return { S, E, Hd, H, K, A, ball, heel, mid, back: [0, 0.47, -0.08], neck: [0, 0.55, 0], head: [0, 0.68, 0.02], axes, pos: { shX: S, shY: S, shZ: S, elbow: E, hip: H, knee: K, ankle: A } };
+}
+const sbRw = a => sbR.x(-a.tilt);   // body -> world rotation
+function sbLoadPoint(mv, P) { return mv.load === 'hand' ? P.Hd : mv.load === 'back' ? P.back : mv.load === 'shin' ? sbAdd(P.K, sbSub(P.A, P.K), 0.85) : P.ball; }
+/* where the body sits in the world: feet on the floor, or hips on a bench */
+function sbWorldShift(mv, a, P) {
+  const Rw = sbRw(a);
+  if (sbStand(mv)) { const m = sbMV(Rw, P.mid); return [0, -m[1], -m[2]]; }
+  const h = sbMV(Rw, P.H); return [0, 0.55 - h[1], -h[2]];
+}
+const sbToWorld = (mv, a, P, p) => sbAdd(sbMV(sbRw(a), p), sbWorldShift(mv, a, P));
+/* joints the load has to travel through to reach whatever is holding you up */
+function sbPath(mv) {
+  const lk = Object.assign({}, mv.lock || {}); if (mv.armBrace) lk.shoulder = true;
+  const arm = (lk.shoulder ? [] : ['shX', 'shY', 'shZ']).concat(lk.elbow ? [] : ['elbow']);
+  let legs = [];
+  if (mv.load === 'hand') legs = mv.base === 'feet' ? ['ankle', 'knee', 'hip'] : [];
+  else if (mv.load === 'back') legs = mv.base === 'feet' ? ['ankle', 'knee', 'hip'] : mv.base === 'stagger' ? ['knee', 'hip'] : [];
+  else if (mv.load === 'shin') legs = mv.base === 'torso' ? ['hip', 'knee'] : mv.base === 'thigh' ? ['knee'] : [];
+  else legs = mv.base === 'torso' ? ['hip', 'knee', 'ankle'] : mv.base === 'thigh' ? ['knee', 'ankle'] : [];
+  legs = legs.filter(k => !lk[k]);
+  return mv.load === 'hand' ? legs.concat(arm) : legs;
+}
+const SB_LEG = { hip: 1, knee: 1, ankle: 1 };
+
+/* resolve a keyframed movement into the structure the rep engine eats */
+const SB_RCACHE = {};
+function sbResolve(mv, mods) {
+  const key = 'sb:' + JSON.stringify([mv.keys, mv.load, mv.force, mv.base, mv.armBrace, mv.lock, mv.pulley, mods || {}]);
+  if (SB_RCACHE[key]) return SB_RCACHE[key];
+  if (Object.keys(SB_RCACHE).length > 150) for (const k in SB_RCACHE) delete SB_RCACHE[k];
+  const path = sbPath(mv); const warn = [];
+  if (!path.length) warn.push(`That combination can't be loaded: ${SB_LOADS[mv.load].toLowerCase()} while ${SB_BASES[mv.base].toLowerCase()}.`);
+  const poses = []; for (let i = 0; i < SC_NS; i++) { const s = i / (SC_NS - 1); const a = sbAt(mv, s); poses.push({ s, a, P: sbPose(a) }); }
+  const lw = poses.map(p => sbToWorld(mv, p.a, p.P, sbLoadPoint(mv, p.P)));
+  const anchor = mv.pulley ? [0, mv.pulley.h, mv.pulley.d] : [0, 2, 1];
+  const dists = lw.map(p => sbLen(sbSub(anchor, p))); const dmin = Math.min(...dists), dmax = Math.max(...dists);
+  const mm = mods || {};
+  const pm = {}, t2m = {}; SC_MKEYS.forEach(m => { const o = mm[m] || {}; pm[m] = (SB_PCAL[m] || 1) * (o.str !== undefined ? o.str : 1); if (o.t2 !== undefined) t2m[m] = o.t2 - SC_MUSCLES[m].t2; });
+  const jk = k => k[0] === 's' && k.length === 3 ? ['shFlex', 'shAbd', 'shHadd'] : [k];
+  const cand = SC_MKEYS.filter(m => !(mm[m] && mm[m].str === 0) && path.some(k => jk(k).some(q => SC_MUSCLES[m].act[q])));
+  const bw = SB_BW / SB_K;   // a 70 kg person, in load units
+  let maxL = 0;
+  const samples = poses.map((p, i) => {
+    const { a, P } = p; const Rw = sbRw(a);
+    let Fw;
+    if (mv.force === 'cable') Fw = sbUnit(sbSub(anchor, lw[i]));
+    else if (mv.force === 'band') Fw = sbAdd([0, 0, 0], sbUnit(sbSub(anchor, lw[i])), 0.25 + 0.75 * (dmax > dmin ? (dists[i] - dmin) / (dmax - dmin) : 1));
+    else if (mv.force === 'machine') { const v = sbSub(lw[Math.min(SC_NS - 1, i + 1)], lw[Math.max(0, i - 1)]); Fw = sbLen(v) > 1e-4 ? sbUnit([-v[0], -v[1], -v[2]]) : [0, -1, 0]; }
+    else Fw = [0, -1, 0];
+    const F = sbMV(sbT(Rw), Fw), G = sbMV(sbT(Rw), [0, -1, 0]); const L = sbLoadPoint(mv, P);
+    const seg = sbSegments(P);
+    const mL = [], mB = [];
+    // twisting about the upper arm's own axis is the rotator cuff's job (not modelled), so it is removed
+    const u = sbUnit(sbSub(P.E, P.S)); const perp = v => sbAdd(v, u, -sbDot(v, u));
+    const tq = (k, pt, f) => { const t = sbX(sbSub(pt, P.pos[k]), f); return SB_E[k] ? perp(t) : t; };
+    path.forEach(k => {
+      const flip = SB_LEG[k] && sbStand(mv) ? 1 : -1, ax = SB_E[k] || P.axes[k];
+      mL.push(flip * sbDot(tq(k, L, F), ax));
+      let b = 0; sbSide(k, mv.base).forEach(sg => { const c = seg[sg]; b += c.m * bw * sbDot(tq(k, c.p, G), ax); }); mB.push(flip * b);
+      if (Math.abs(mL[mL.length - 1]) > maxL) maxL = Math.abs(mL[mL.length - 1]);
+    });
+    const ms = cand.map(m => {
+      const M = SC_MUSCLES[m], o = mm[m] || {};
+      const Lm = M.L(a) / (1 + (o.lopt || 0));
+      const mk = o.ma !== undefined ? o.ma : 1;
+      let dS = [0, 0, 0]; ['shFlex', 'shAbd', 'shHadd'].forEach(q => { if (M.act[q]) dS = sbAdd(dS, P.axes[q], M.act[q] * scMA(m, q, a[q])); }); dS = perp(dS);
+      const axs = path.map(k => SB_E[k] ? sbDot(dS, SB_E[k]) * mk : (M.act[k] ? M.act[k] * scMA(m, k, a[k]) * mk : 0));
+      return { m, i: SC_MI[m], L: Lm, fl: scFL(Lm), st: scST(Lm), axs };
+    });
+    return { s: p.s, ang: a, mL, mB, ms, F: Fw, lw: lw[i] };
+  });
+  // demands no muscle in the model can meet (ankle dorsiflexion is the only one missing)
+  path.forEach((k, j) => samples.forEach(sm => { [0.02, 1e3].forEach(Wt => { const T = Wt * sm.mL[j] + sm.mB[j]; if (Math.abs(T) < 0.06 * Math.max(1, Wt * 0.05)) return; const d = T > 0 ? 1 : -1;
+    if (!sm.ms.some(x => x.axs[j] * d > 0.02)) { const msg = k === 'ankle' ? 'At some point you would fall backwards: nothing in this model pulls your toes up. That limits the load. Try a split stance or lean forward.' : `No muscle in this model does ${SB_AXN[k][d > 0 ? 0 : 1]}, so that limits the load.`; if (!warn.includes(msg)) warn.push(msg); } }); }));
+  const keep = new Set(cand);
+  if (path.length && maxL < 0.005) warn.push('The load never pulls against any joint here. Nothing to lift.');
+  const R = { key, sb: true, mv, axes: path, lev: path.map(() => 1), musc: [...keep], samples, uni: false, moving: {}, tw: 1, kg: SB_K / 12, pm, t2m, warn, broken: !keep.size || !path.length || maxL < 0.005 };
+  SB_RCACHE[key] = R;
+  return R;
+}
+
+/* ---- starter movements (all editable copies) ---- */
+function sbLin(base, a, b) { const k = []; for (let i = 0; i < 5; i++) { const o = Object.assign({}, base); for (const j in a) o[j] = a[j] + (b[j] - a[j]) * i / 4; k.push(o); } return k; }
+const SB_STARTERS = [
+  { id: 'curl', n: 'Standing dumbbell curl', base: 'feet', load: 'hand', force: 'free', bi: true, keys: sbLin({}, { elbow: 0 }, { elbow: 140 }) },
+  { id: 'incl', n: 'Incline dumbbell curl', base: 'torso', load: 'hand', force: 'free', bi: true, keys: sbLin({ tilt: 35, shFlex: -35 }, { elbow: 0 }, { elbow: 140 }) },
+  { id: 'preach', n: 'Preacher curl', base: 'torso', load: 'hand', force: 'free', bi: true, armBrace: true, keys: sbLin({ shFlex: 45 }, { elbow: 10 }, { elbow: 135 }) },
+  { id: 'bayes', n: 'Bayesian cable curl', base: 'stagger', load: 'hand', force: 'cable', pulley: { h: 0.9, d: -1.1 }, keys: sbLin({ shFlex: -25 }, { elbow: 0 }, { elbow: 135 }) },
+  { id: 'push', n: 'Cable pushdown', base: 'stagger', load: 'hand', force: 'cable', pulley: { h: 2.1, d: 0.35 }, bi: true, keys: sbLin({ shFlex: 5 }, { elbow: 120 }, { elbow: 0 }) },
+  { id: 'ohext', n: 'Overhead cable extension', base: 'stagger', load: 'hand', force: 'cable', pulley: { h: 0.5, d: -0.6 }, bi: true, keys: sbLin({ hip: 20, ankle: 10 }, { shFlex: 150, elbow: 140 }, { shFlex: 150, elbow: 10 }) },
+  { id: 'lat', n: 'Dumbbell lateral raise', base: 'feet', load: 'hand', force: 'free', bi: true, keys: sbLin({ elbow: 15 }, { shAbd: 0 }, { shAbd: 95 }) },
+  { id: 'bench', n: 'Barbell bench press', base: 'torso', load: 'hand', force: 'free', bi: true, keys: sbLin({ tilt: 90, shAbd: 75 }, { shHadd: -15, elbow: 95 }, { shHadd: 85, elbow: 10 }) },
+  { id: 'fly', n: 'Dumbbell fly', base: 'torso', load: 'hand', force: 'free', bi: true, keys: sbLin({ tilt: 90, shAbd: 85, elbow: 20 }, { shHadd: -25 }, { shHadd: 85 }) },
+  { id: 'row', n: 'Seated cable row', base: 'torso', load: 'hand', force: 'cable', pulley: { h: 0.85, d: 1.6 }, bi: true, keys: sbLin({}, { shFlex: 85, elbow: 5 }, { shFlex: -20, elbow: 110 }) },
+  { id: 'pull', n: 'Lat pulldown', base: 'thigh', load: 'hand', force: 'cable', pulley: { h: 2.6, d: 0.1 }, bi: true, keys: sbLin({ tilt: -5, shRot: 90, hip: 90, knee: 90 }, { shAbd: 165, elbow: 10 }, { shAbd: 25, elbow: 120 }) },
+  { id: 'squat', n: 'Back squat', base: 'feet', load: 'back', force: 'free', bi: true, keys: sbLin({ shAbd: 60, elbow: 120 }, { hip: 120, knee: 115, ankle: 35 }, { hip: 0, knee: 0, ankle: 0 }) },
+  { id: 'rdl', n: 'Romanian deadlift', base: 'feet', load: 'hand', force: 'free', bi: true, keys: sbLin({}, { hip: 95, knee: 20, ankle: 5, shFlex: 80, elbow: 0 }, { hip: 0, knee: 5, ankle: 5, shFlex: 0, elbow: 0 }) },
+  { id: 'legext', n: 'Leg extension', base: 'thigh', load: 'shin', force: 'machine', keys: sbLin({ tilt: 10, hip: 85 }, { knee: 100 }, { knee: 0 }) },
+  { id: 'scurl', n: 'Seated leg curl', base: 'thigh', load: 'shin', force: 'machine', keys: sbLin({ tilt: 10, hip: 85 }, { knee: 0 }, { knee: 120 }) },
+  { id: 'lcurl', n: 'Lying leg curl', base: 'thigh', load: 'shin', force: 'machine', keys: sbLin({ tilt: -90 }, { knee: 0 }, { knee: 120 }) },
+  { id: 'press', n: 'Leg press', base: 'torso', load: 'feet', force: 'machine', bi: true, keys: sbLin({ tilt: 45 }, { hip: 135, knee: 115, ankle: 20 }, { hip: 80, knee: 10, ankle: 0 }) },
+  { id: 'calf', n: 'Standing calf raise', base: 'torso', load: 'feet', force: 'machine', bi: true, lock: { hip: true, knee: true }, keys: sbLin({}, { ankle: 25 }, { ankle: -35 }) },
+  { id: 'scalf', n: 'Seated calf raise', base: 'thigh', load: 'feet', force: 'machine', bi: true, lock: { knee: true }, keys: sbLin({ hip: 90, knee: 90 }, { ankle: 25 }, { ankle: -35 }) },
+];
+
+/* ---- analysis: effort needed at each joint, who works, how long muscles are ---- */
+function sbAnalyse(mv, mods, reps) {
+  const R = sbResolve(mv, mods); if (R.broken) return { R };
+  const Wd = { effort: 0.7, stretch: 0.5 }; const sub = { str: 1, t2: 0, fatR: 1, supp: 'none', trained: false };
+  const limb = scLimb(SC_MKEYS.map(() => 1)); const F = scForce(sub, limb, R); const z = new Float64Array(SC_NM);
+  const W1 = sc1RM(sub, limb, R); const W = W1 * scLoadFor(R, reps, Wd);
+  const rec = []; scRep(R, F, z, W1, null, rec);
+  const share = {}, len = {}; R.musc.forEach(m => { len[m] = []; });
+  scRep(R, F, z, W, (x, a, si, a0) => { share[x.m] = (share[x.m] || 0) + a0 / SC_NS; len[x.m][si] = x.L; });
+  let stick = 0, worst = 0, stickJ = 0; rec.forEach((r, si) => r.forEach((v, j) => { if (v > worst) { worst = v; stick = si; stickJ = j; } }));
+  return { R, W1, W, kg1: W1 * SB_K * (mv.bi ? 2 : 1), kg: W * SB_K * (mv.bi ? 2 : 1), rec, share, len, stick, stickJ: R.axes[stickJ] };
+}
+
+/* ---- training a routine on a person ---- */
+const SB_DAYS = { 1: [[0], [2], [4]], 2: [[0, 3], [1, 4], [2, 5]], 3: [[0, 2, 4], [1, 3, 5]], 4: [[0, 1, 3, 4]], 5: [[0, 1, 2, 3, 4]] };
+function sbTrain(sub, limb, items, Wd, r, weeks) {
+  limb._W = limb._W || {};
+  const plan = items.map((it, i) => { const opts = SB_DAYS[it.freq] || SB_DAYS[2]; return Object.assign({}, it, { days: opts[i % opts.length] }); });
+  for (let w = 0; w < weeks; w++) {
+    plan.forEach(it => { limb._W[it.R.key] = sc1RM(sub, limb, it.R) * scLoadFor(it.R, it.reps, Wd); });
+    for (let d = 0; d < 7; d++) {
+      const out = { stim: new Float64Array(SC_NM), dmg: new Float64Array(SC_NM), act: {} }; let any = false;
+      plan.forEach(it => {
+        const si = it.days.indexOf(d); if (si < 0) return;
+        const base = Math.floor(it.sets / it.days.length), n = base + (si < it.sets - base * it.days.length ? 1 : 0); if (!n) return;
+        scSession(sub, limb, it.R, { sets: it.sets, rir: it.rir, rest: it.rest, _sessSets: n }, Wd, r, out); any = true;
+      });
+      if (any) scAbsorb(sub, limb, out, Wd);
+      scDay(sub, limb, Wd);
+    }
+  }
+  for (let d = 0; d < 3; d++) scDay(sub, limb, Wd);
+}
+/* identical twins: each pair trains routine A and routine B */
+function sbTwinRunner(cfg) {
+  const r = scRng(cfg.seed || 7); const Wd = cfg.dials; let k = 0; const rows = [];
+  return { total: cfg.n, get done() { return k; },
+    step() {
+      const sub = scSubject(r, cfg.pop, Wd);
+      Object.assign(sub, { protein: cfg.protein, kcal: cfg.diet === 'bulk' ? 1.15 : cfg.diet === 'cut' ? 0.55 : 1, supp: cfg.creatine ? 'creatine' : 'none', _loaded: cfg.creatine });
+      const twin = scRevive(JSON.parse(JSON.stringify(sub, (key, v) => v instanceof Float64Array ? Array.from(v) : v)));
+      const x0 = Array.from(sub.limbs[0].X);
+      const run = (sb, items) => { if (!items.length) return null; sbTrain(sb, sb.limbs[0], items, Wd, scRng(cfg.seed + k * 13 + 1), cfg.weeks); return Array.from(sb.limbs[0].X).map((x, i) => (x / x0[i] - 1) * 100); };
+      rows.push({ A: run(sub, cfg.A), B: run(twin, cfg.B) }); k++;
+      return k >= cfg.n;
+    },
+    result() { return rows; } };
+}
+function sbSummary(rows) {
+  return SC_MKEYS.map((m, i) => {
+    const A = rows.map(r => r.A ? r.A[i] : 0), B = rows.map(r => r.B ? r.B[i] : 0), d = rows.map(r => (r.A ? r.A[i] : 0) - (r.B ? r.B[i] : 0));
+    const n = rows.length, md = scMean(d), sd = n > 1 ? scSD(d) : 0, tc = n > 1 ? scTinv(0.975, n - 1) : 0;
+    return { m, a: scMean(A), b: scMean(B), aMin: Math.min(...A), aMax: Math.max(...A), md, lo: md - tc * sd / Math.sqrt(n), hi: md + tc * sd / Math.sqrt(n) };
+  });
+}
+
+/* standing movements: bend the hips at each keyframe until you'd balance over the middle of your feet */
+function sbCOMz(mv, a, extraKg) {
+  const P = sbPose(a), seg = sbSegments(P); let mz = 0, mt = 0;
+  const add = (p, m) => { const w = sbToWorld(mv, a, P, p); mz += w[2] * m; mt += m; };
+  for (const k in seg) add(seg[k].p, seg[k].m);
+  if (mv.load === 'hand' || mv.load === 'back') add(sbLoadPoint(mv, P), (extraKg || 0) / SB_BW / 2);
+  return mz / mt;
+}
+function sbBalance(mv, extraKg) {
+  if (!sbStand(mv)) return mv;
+  mv.keys.forEach(k => {
+    let lo = -20, hi = 165;
+    const f = h => { const a = Object.assign({}, SB_DEF, k, { hip: h }); a.tilt = a.knee - a.ankle - a.hip; return sbCOMz(mv, a, extraKg) + 0.02; };
+    for (let g = 0; g < 8 && Math.sign(f(lo)) === Math.sign(f(hi)) && f(hi) < 0; g++) k.ankle = Math.min(40, (k.ankle || 0) + 3);
+    if (Math.sign(f(lo)) === Math.sign(f(hi))) return;
+    for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; if (Math.sign(f(m)) === Math.sign(f(lo))) lo = m; else hi = m; }
+    k.hip = Math.round((lo + hi) / 2);
+  });
+  return mv;
+}
+sbBalance(SB_STARTERS.find(x => x.id === 'squat'), 50);
+
 /* ===================== SARCOMERE — ART ===================== */
 const SCP = { bg: '#101418', wall: '#18202a', wall2: '#1d2631', floor: '#2a2f38', floor2: '#232830', steel: '#8fa3b3', steel2: '#5a6b7a', red: '#ff6b7a', red2: '#c9405a', green: '#5fd39a', blue: '#3987e5', orange: '#d95926', white: '#e8eef2', dark: '#0b0e12', screen: '#0e2a2a', glow: '#59d8a0', wood: '#7a4a2b' };
 const SC_SCI = { skin: '#c98c5e', hair: '#1a1c2c', style: 'bun', shirt: '#3b5dc9', coat: '#f4f4f4', pants: '#29366f', glasses: true, seed: 11 };
@@ -4522,7 +4800,7 @@ const tabIcon = { talk: ['doc', '#73eff7'], files: ['doc'], exam: ['steth'], not
 /* ---------- routing ---------- */
 function route() {
   const h = location.hash.replace('#', '');
-  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else if (h === 'sarcomere') openSarc(); else openHub();
+  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else if (h === 'sarcomere') openSarc(); else if (h === 'sandbox') openSandbox(); else openHub();
 }
 window.addEventListener('hashchange', route);
 
@@ -4574,10 +4852,17 @@ function openHub() {
         <p class="save-note">${SCS.started ? esc(`Your lab: week ${SCS.week} of ${SC_WEEKS_TOTAL} · ${SCS.rep} reputation`) : 'Progress saves in this browser.'}</p>
       </div>
     </section>
-    <h3 class="shelf-h">MORE CARTRIDGES</h3>
-    <div class="shelf">
-      ${[4].map(n => `<div class="cart" aria-label="Empty slot"><div class="label">?</div><div class="ridges"><i></i><i></i><i></i><i></i><i></i></div><h4>SLOT 0${n}</h4><p>Coming soon</p></div>`).join('')}
-    </div>
+    <section class="feature pbox sb-feature" aria-labelledby="g4">
+      <div class="thumb"><canvas data-scene="sb-hub" width="160" height="120" aria-label="SANDBOX: a pixel figure squatting on a grid"></canvas></div>
+      <div class="ftext">
+        <span class="tag">CARTRIDGE 04 · NEW</span>
+        <h2 id="g4">SANDBOX</h2>
+        <p>The SARCOMERE engine with nothing hidden. Keyframe every joint through a rep and watch the figure move, rebuild the muscles, set the biology dials, then pit two routines against each other on identical virtual twins.</p>
+        <ul class="chips"><li>Movement editor</li><li>19 starter lifts</li><li>Editable anatomy</li><li>Twin studies</li></ul>
+        <div><a class="btn primary big" href="#sandbox">${SBS.moves.length || SBS.last ? 'CONTINUE' : 'PLAY FREE'}</a></div>
+        <p class="save-note">${SBS.moves.length ? esc(`${SBS.moves.length} custom movement${SBS.moves.length === 1 ? '' : 's'} saved`) : 'Progress saves in this browser.'}</p>
+      </div>
+    </section>
     ${isBdayToday() ? '<div class="bday-banner">★ 7 SEPTEMBER ★ Happy birthday to the designer of The Deep Rear! ★</div>' : ''}
     <footer class="hub-foot"><span>PIXEL ARCADE</span><span>Games save to this browser only.</span><button class="linkbtn" data-act="backup">Back up or move your saves</button><span>Pixel Clinic is a game, not medical advice.</span>${installHint()}</footer>
   </main></div>`;
@@ -4975,7 +5260,7 @@ function handbook(tab = 'cond') {
 /* ---------- arcade-wide backup codes ---------- */
 const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
 const dec = c => JSON.parse(decodeURIComponent(escape(atob(c.trim()))));
-function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS, sarc: JSON.parse(JSON.stringify(SCS, scStrip)) }); }
+function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS, sarc: JSON.parse(JSON.stringify(SCS, scStrip)), sandbox: SBS }); }
 function arcadeLoad(code) {
   const o = dec(code);
   const got = [];
@@ -4983,6 +5268,7 @@ function arcadeLoad(code) {
     if (o.clinic && o.clinic.v === 1) { S = Object.assign(newSave(), o.clinic, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
     if (o.deep && o.deep.v === 1) { DRS = Object.assign(drNewState(), o.deep); drSave(); got.push('The Deep Rear'); }
     if (o.sarc && o.sarc.v === 1) { SCS = Object.assign(scNewLab(), o.sarc); scSave(); got.push('SARCOMERE'); }
+    if (o.sandbox && o.sandbox.v === 1) { SBS = Object.assign(sbNew(), o.sandbox); sbSave(); got.push('SANDBOX'); }
   } else if (o && o.v === 1 && 'lvl' in o) { S = Object.assign(newSave(), o, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
   else if (o && o.v === 1 && 'cycle' in o) { DRS = Object.assign(drNewState(), o); drSave(); got.push('The Deep Rear'); }
   if (!got.length) throw new Error('empty');
@@ -5083,6 +5369,7 @@ function loop(ts) {
     const ctx = cv.getContext('2d');
     if (cv.dataset.scene.startsWith('dr-')) { drScene(cv, ts); return; }
     if (cv.dataset.scene.startsWith('sc-')) { scScene(cv, ts); return; }
+    if (cv.dataset.scene.startsWith('sb-')) { sbScene(cv, ts); return; }
     if (cv.dataset.scene === 'hub') drawScene(ctx, { t: ts, lvl: Math.max(5, S.lvl), clock: 540 + (ts / 400) % 540, patient: { x: 96, look: DEMO, talking: Math.floor(ts / 2600) % 2 === 1 }, fx: Math.floor(ts / 2600) % 3 === 2 ? { icon: 'thermo' } : null });
     else drawScene(ctx, sceneOpts(ts));
   });
@@ -6123,8 +6410,8 @@ function scTip(el, x, y) {
   if (!tip) { tip = document.createElement('div'); tip.id = 'sc-tip'; tip.className = 'sc-tip'; document.body.appendChild(tip); }
   tip.textContent = el.dataset.tip; tip.style.left = Math.min(window.innerWidth - 260, Math.max(8, x + 12)) + 'px'; tip.style.top = (y + 16) + 'px';
 }
-document.addEventListener('pointerover', e => { if (UI.view !== 'sarc') return; const el = e.target.closest && e.target.closest('.sc-svg [data-tip]'); scTip(el, e.clientX, e.clientY); });
-document.addEventListener('pointerdown', e => { if (UI.view !== 'sarc') return; const el = e.target.closest && e.target.closest('.sc-svg [data-tip]'); if (e.pointerType !== 'mouse') scTip(el, e.clientX, e.clientY); });
+document.addEventListener('pointerover', e => { if (UI.view !== 'sarc' && UI.view !== 'sandbox') return; const el = e.target.closest && e.target.closest('.sc-svg [data-tip]'); scTip(el, e.clientX, e.clientY); });
+document.addEventListener('pointerdown', e => { if (UI.view !== 'sarc' && UI.view !== 'sandbox') return; const el = e.target.closest && e.target.closest('.sc-svg [data-tip]'); if (e.pointerType !== 'mouse') scTip(el, e.clientX, e.clientY); });
 
 function scScene(cv, ts) {
   const ctx = cv.getContext('2d'); const n = cv.dataset.scene;
@@ -6390,6 +6677,284 @@ document.addEventListener('input', e => {
   if (k === 'lex') { L.prog[i].ex = t.value; scSave(); scRender(true); }
   else if (k === 'lset') { L.prog[i][t.dataset.k] = +t.value; scSave(); const lab = t.parentElement.querySelector('b'); if (lab) lab.textContent = t.value; const tot = $('#scl-tot'); if (tot) tot.textContent = sclSets(L); }
   else if (k === 'lwash') { L.washout = +t.value; scSave(); scRender(true); }
+});
+
+/* ===================== SANDBOX — UI ===================== */
+const SB_KEY = 'pixel-arcade/sandbox/v1';
+const SB_DIALS0 = () => Object.fromEntries(Object.entries(SC_PRIORS).map(([k, [a, b]]) => [k, +((a + b) / 2).toFixed(2)]));
+const SB_ITEM = id => ({ mv: id, sets: 10, reps: 10, rir: 1, rest: 120, freq: 2 });
+function sbNew() { return { v: 1, moves: [], sel: 'curl', mods: {}, dials: SB_DIALS0(), A: [SB_ITEM('incl')], B: [SB_ITEM('preach')], cfg: { n: 10, pop: 'untrained', weeks: 8, protein: 1.6, diet: 'maint', creatine: false }, last: null, nid: 1 }; }
+function sbLoad() { try { const s = JSON.parse(localStorage.getItem(SB_KEY)); if (s && s.v === 1) return Object.assign(sbNew(), s); } catch (e) {} return sbNew(); }
+let SBS = sbLoad();
+const SBU = { tab: 'move', key: 4, play: true, view: 'side', mus: null, t0: 0, prog: { label: '', done: 0, total: 1 }, an: null };
+function sbSave() { try { localStorage.setItem(SB_KEY, JSON.stringify(SBS)); } catch (e) {} }
+const sbMove = id => SBS.moves.find(m => m.id === id) || SB_STARTERS.find(m => m.id === id) || SB_STARTERS[0];
+const sbIsStarter = id => SB_STARTERS.some(m => m.id === id) && !SBS.moves.some(m => m.id === id);
+const sbCur = () => sbMove(SBS.sel);
+/* edits to a starter make a copy first */
+function sbEditable() {
+  if (!sbIsStarter(SBS.sel)) return sbCur();
+  const src = sbCur(); const c = JSON.parse(JSON.stringify(src)); c.id = 'c' + (SBS.nid++); c.n = 'My ' + src.n.charAt(0).toLowerCase() + src.n.slice(1); delete c.starter;
+  SBS.moves.push(c); SBS.sel = c.id; sbSave(); toast('Saved as your own copy: ' + c.n);
+  return c;
+}
+
+function openSandbox() {
+  UI.view = 'sandbox'; closeModal();
+  if (!SC_UNIT.v) SC_UNIT.v = scCalibrateUnit();
+  sbRender();
+}
+function sbRender(keep) {
+  if (UI.view !== 'sandbox') return;
+  const prev = $('.sc-main'); const top = keep && prev ? prev.scrollTop : 0;
+  const t = SBU.tab;
+  const tabs = [['move', 'MOVE'], ['mus', 'MUSCLES'], ['bio', 'BIOLOGY'], ['test', 'TEST']].map(([id, n]) => `<button role="tab" aria-selected="${t === id}" data-sb="tab" data-id="${id}">${n}</button>`).join('');
+  const body = SBU.running ? sbRunHTML() : t === 'mus' ? sbMusHTML() : t === 'bio' ? sbBioHTML() : t === 'test' ? sbTestHTML() : sbMoveHTML();
+  $('#app').innerHTML = `<div class="sc sb"><header class="sc-hud"><a class="ib" href="#arcade" aria-label="Back to the arcade">◀</a><b class="sc-brand">SANDBOX</b><span class="sb-sub">No secrets, no score</span></header>
+    <nav class="sc-tabs four" role="tablist">${tabs}</nav><div class="sc-main">${body}</div></div>`;
+  const m = $('.sc-main'); if (m) m.scrollTop = top;
+  const now = performance.now(); document.querySelectorAll('.sb canvas[data-scene]').forEach(cv => sbScene(cv, now));
+}
+
+/* ---------------- MOVE ---------------- */
+function sbMoveOptions(sel) {
+  return `<optgroup label="Starters">${SB_STARTERS.map(m => `<option value="${m.id}" ${m.id === sel ? 'selected' : ''}>${esc(m.n)}</option>`).join('')}</optgroup>${SBS.moves.length ? `<optgroup label="Yours">${SBS.moves.map(m => `<option value="${m.id}" ${m.id === sel ? 'selected' : ''}>${esc(m.n)}</option>`).join('')}</optgroup>` : ''}`;
+}
+function sbMoveHTML() {
+  const mv = sbCur(); const mine = !sbIsStarter(mv.id); const k = mv.keys[SBU.key];
+  const stand = sbStand(mv); const lk = Object.assign({}, mv.lock || {}); if (mv.armBrace) lk.shoulder = true;
+  const sliders = SB_J.map(j => { const [mn, mx] = SB_JR[j]; const v = j === 'tilt' && stand ? Math.round(sbAt(mv, SBU.key / 4).tilt) : Math.round(k[j] !== undefined ? k[j] : SB_DEF[j]);
+    return `<label for="sb-j-${j}">${esc(SB_JN[j])}: <b id="sb-v-${j}">${v}°</b>${j === 'tilt' && stand ? ' <small>(set by your feet)</small>' : ''}</label><input id="sb-j-${j}" type="range" min="${mn}" max="${mx}" step="1" value="${v}" data-sb-in="joint" data-k="${j}" ${j === 'tilt' && stand ? 'disabled' : ''}>`; }).join('');
+  return `
+  <div class="sb-top"><select data-sb-in="sel" aria-label="Movement">${sbMoveOptions(mv.id)}</select>
+    ${mine ? `<input class="sb-name" value="${esc(mv.n)}" data-sb-in="name" aria-label="Name" maxlength="40"><button class="btn danger" data-sb="del">DELETE</button>` : `<button class="btn" data-sb="copy">EDIT A COPY</button>`}</div>
+  <div class="sb-stage"><div class="sc-frame sb-fig"><canvas data-scene="sb-fig" width="160" height="120" aria-label="Your movement, animated"></canvas></div>
+    <div class="sb-ctl"><button class="btn ${SBU.play ? 'primary' : ''}" data-sb="play">${SBU.play ? '❚❚ PAUSE' : '▶ PLAY'}</button>${scSeg('sbview', [['side', 'Side'], ['front', 'Front']], SBU.view)}</div></div>
+  <h3 class="sc-h">KEYFRAMES (SLIDE A JOINT AT A MOMENT IN THE REP)</h3>
+  <div class="sc-seg sb-keys">${[0, 1, 2, 3, 4].map(i => `<button data-sb="key" data-id="${i}" aria-pressed="${SBU.key === i}">${i * 25}%</button>`).join('')}</div>
+  <p class="sc-help">0% is the start of the lift (usually the stretched end). The rep moves smoothly between keyframes. Change one to make a copy of a starter.</p>
+  <div class="sc-form">${sliders}</div>
+  <h3 class="sc-h">SETUP</h3>
+  <div class="sc-form">
+    <label>The load is on</label>${scSeg('load', Object.entries(SB_LOADS), mv.load)}
+    <label>Resistance</label>${scSeg('force', Object.entries(SB_FORCES), mv.force)}
+    <label>You're held up by</label>${scSeg('base', Object.entries(SB_BASES), mv.base)}
+    <label>Locked joints <small>(a pad or locked-out bone holds them; their muscles do nothing)</small></label>
+    <div class="sc-seg">${Object.entries(SB_LOCKS).map(([j, n]) => `<button data-sb="lock" data-id="${j}" aria-pressed="${!!lk[j]}">${n}</button>`).join('')}</div>
+    <label>Both sides at once</label>${scSeg('bi', [[true, 'Two arms / legs'], [false, 'One side']], !!mv.bi)}
+    ${mv.force === 'cable' || mv.force === 'band' ? `<label for="sb-ph">${mv.force === 'cable' ? 'Pulley' : 'Band anchor'} height: <b id="sb-v-ph">${(mv.pulley || { h: 2 }).h.toFixed(2)} m</b></label><input id="sb-ph" type="range" min="0" max="2.8" step="0.05" value="${(mv.pulley || { h: 2 }).h}" data-sb-in="pulley" data-k="h">
+      <label for="sb-pd">${mv.force === 'cable' ? 'Pulley' : 'Anchor'} distance in front: <b id="sb-v-pd">${(mv.pulley || { d: 1 }).d.toFixed(2)} m</b></label><input id="sb-pd" type="range" min="-2" max="2" step="0.05" value="${(mv.pulley || { d: 1 }).d}" data-sb-in="pulley" data-k="d">` : ''}
+    ${stand ? '<div class="row"><button class="btn" data-sb="balance">BALANCE ME (ADJUST HIPS)</button></div>' : ''}
+  </div>
+  <div id="sb-an">${sbAnalysisHTML(mv)}</div>`;
+}
+function sbAnalysisHTML(mv) {
+  const A = sbAnalyse(mv, SBS.mods, 10); const R = A.R;
+  const warn = R.warn.length ? `<div class="sb-warn">${R.warn.map(w => `<p>⚠ ${esc(w)}</p>`).join('')}</div>` : '';
+  if (R.broken) return warn + '<p class="sc-dim">Nothing to analyse yet.</p>';
+  const cols = [SC_CA, SC_CB, SC_C3, SC_C4, '#ffd166', '#c9405a', '#9fb2c1'];
+  const used = R.axes.map((k, j) => ({ k, j, max: Math.max(...A.rec.map(r => r[j])) })).filter(x => x.max > 0.02).sort((a, b) => b.max - a.max).slice(0, 4);
+  const eff = scLinesSVG({ label: 'Effort needed at each joint with a 1RM load', lo: 0, hi: 1.2, step: 0.2, fmt: v => Math.round(v * 100) + '%', mark: A.stick / (SC_NS - 1), markLabel: 'sticking point', series: used.map((x, i) => ({ name: SB_AXL[x.k], color: cols[i], vals: A.rec.map(r => Math.min(1.2, r[x.j])) })) });
+  const share = Object.entries(A.share).filter(x => x[1] > 0.005).sort((a, b) => b[1] - a[1]);
+  const top = share.slice(0, 4).map(x => x[0]);
+  const len = scLinesSVG({ label: 'Muscle length through the rep', lo: 0.4, hi: 1.6, step: 0.2, ref: 1, fmt: v => v.toFixed(1), series: top.map((m, i) => ({ name: SC_MUSCLES[m].n, color: cols[i], vals: A.len[m] })) });
+  return `${warn}<div class="sc-calc"><div><span>1RM (beginner)</span><b>${Math.round(A.kg1)} kg</b><small>${mv.bi ? 'both sides' : 'one side'}, plus your own limbs</small></div><div><span>10RM load</span><b>${Math.round(A.kg)} kg</b></div><div><span>Limit</span><b>${esc(SB_AXL[A.stickJ] || '—')}</b><small>at ${Math.round(A.stick / (SC_NS - 1) * 100)}% of the rep</small></div></div>
+  <h3 class="sc-h">EFFORT AT EACH JOINT (1RM LOAD)</h3>${eff}<p class="sc-help">100% means that joint's muscles are maxed out. The set fails at whichever joint hits 100% first, at that point in the rep.</p>
+  <h3 class="sc-h">WHO DOES THE WORK (10RM, FIRST REP)</h3><div class="sc-share">${share.map(([m, v]) => `<div><span>${esc(SC_MUSCLES[m].n)}</span><i><em style="width:${Math.round(Math.min(1, v) * 100)}%"></em></i><b>${Math.round(v * 100)}%</b></div>`).join('') || '<p class="sc-dim">Nobody.</p>'}</div>
+  <h3 class="sc-h">MUSCLE LENGTH</h3>${len}<p class="sc-help">1.0 is optimal length. Above it, fibres are stretched under load.</p>`;
+}
+let sbTimer = null;
+function sbRefreshSoon() { clearTimeout(sbTimer); sbTimer = setTimeout(() => { const el = $('#sb-an'); if (el && UI.view === 'sandbox') el.innerHTML = sbAnalysisHTML(sbCur()); }, 260); }
+
+/* ---------------- MUSCLES ---------------- */
+function sbMusHTML() {
+  const groups = {}; SC_MKEYS.forEach(m => { (groups[SC_MUSCLES[m].g] = groups[SC_MUSCLES[m].g] || []).push(m); });
+  const row = m => { const o = SBS.mods[m] || {}; const M = SC_MUSCLES[m]; const open = SBU.mus === m;
+    const tag = [o.str !== undefined && o.str !== 1 ? `strength ×${o.str.toFixed(1)}` : '', o.ma !== undefined && o.ma !== 1 ? `leverage ×${o.ma.toFixed(1)}` : '', o.lopt ? `optimum ${o.lopt > 0 ? '+' : ''}${Math.round(o.lopt * 100)}%` : '', o.t2 !== undefined ? `${Math.round(o.t2 * 100)}% fast` : ''].filter(Boolean).join(' · ');
+    const sl = (k, n, mn, mx, st, v, f) => `<label for="sb-m-${k}">${n}: <b id="sb-mv-${k}">${f(v)}</b></label><input id="sb-m-${k}" type="range" min="${mn}" max="${mx}" step="${st}" value="${v}" data-sb-in="mod" data-m="${m}" data-k="${k}">`;
+    return `<div class="sb-mus ${open ? 'open' : ''}"><button data-sb="mus" data-id="${m}"><b>${esc(M.n)}</b><small>${esc(tag || 'normal')}</small></button>${open ? `<div class="sc-form">
+      ${sl('str', 'Strength', 0, 3, 0.1, o.str !== undefined ? o.str : 1, v => '×' + (+v).toFixed(1))}
+      ${sl('ma', 'Leverage (moment arm)', 0.2, 2, 0.1, o.ma !== undefined ? o.ma : 1, v => '×' + (+v).toFixed(1))}
+      ${sl('lopt', 'Optimal length', -0.3, 0.3, 0.05, o.lopt || 0, v => (v > 0 ? '+' : '') + Math.round(v * 100) + '%')}
+      ${sl('t2', 'Fast-twitch fibres', 0.1, 0.9, 0.05, o.t2 !== undefined ? o.t2 : M.t2, v => Math.round(v * 100) + '%')}
+      <p class="sc-help">Zero strength removes the muscle. Longer optimal length means it's strongest when stretched. More fast-twitch fibres tire faster.</p>
+      <div class="row"><button class="btn" data-sb="musreset" data-id="${m}">RESET THIS MUSCLE</button></div></div>` : ''}</div>`; };
+  return `<p class="sc-small">Change the anatomy. Every movement and test uses these muscles.</p>
+    ${Object.entries(groups).map(([g, ms]) => `<h3 class="sc-h">${esc(g.toUpperCase())}</h3>${ms.map(row).join('')}`).join('')}
+    <div class="row"><button class="btn danger" data-sb="musall">RESET ALL MUSCLES</button></div>`;
+}
+/* ---------------- BIOLOGY ---------------- */
+const SB_DIAL_D = { stretch: 'Extra growth signal from tension at long muscle lengths.', effort: 'Activation needed before the biggest motor units join in. Higher means only sets near failure count much.', kappa: 'How many hard sets in one session before more stops helping much.', dmgCost: 'How much muscle damage eats into growth. New exercises cause more.', tauSig: 'How many days a session keeps the growth signal going.', respSD: 'How different people are from each other.', andrax: 'Growth boost from the fictional Andraxolone (unused here).', creatine: 'Growth boost from creatine in people who respond to it.' };
+const SB_DIAL_R = { stretch: [0, 2], effort: [0.4, 0.95], kappa: [3, 60], dmgCost: [0, 1.5], tauSig: [0.5, 5], respSD: [0, 0.8], andrax: [0, 2], creatine: [0, 0.3] };
+function sbBioHTML() {
+  const done = SCS && SCS.final && SCS.final.truth;
+  return `<p class="sc-small">The Lab hides these. Here they're yours to set. The middle of each range is the textbook guess.</p>
+  <div class="sc-form">${Object.keys(SC_PRIORS).filter(k => k !== 'andrax').map(k => { const [mn, mx] = SB_DIAL_R[k]; const v = SBS.dials[k];
+    return `<label for="sb-d-${k}">${esc(SC_DIAL_N[k])}: <b id="sb-dv-${k}">${(+v).toFixed(2)}</b></label><input id="sb-d-${k}" type="range" min="${mn}" max="${mx}" step="${(mx - mn) / 100}" value="${v}" data-sb-in="dial" data-k="${k}"><p class="sc-help">${esc(SB_DIAL_D[k])}</p>`; }).join('')}</div>
+  <div class="row">${done ? '<button class="btn" data-sb="labworld">USE MY FINISHED LAB WORLD</button>' : ''}<button class="btn" data-sb="textbook">TEXTBOOK DEFAULTS</button></div>
+  ${done ? '' : '<p class="sc-small">Finish a Lab game to load the world you uncovered.</p>'}`;
+}
+/* ---------------- TEST ---------------- */
+function sbRoutineHTML(key) {
+  const L = SBS[key]; const opts = id => sbMoveOptions(id);
+  return `<div class="sb-rt ${key.toLowerCase()}">${L.map((it, i) => `<div class="sc-slot"><div class="sb-sl"><select data-sb-in="it" data-r="${key}" data-i="${i}" data-k="mv" aria-label="Exercise">${opts(it.mv)}</select><button class="sb-x" data-sb="rm" data-r="${key}" data-id="${i}" aria-label="Remove">✕</button></div>
+    ${[['sets', 'Sets/wk', 1, 20, 1], ['reps', 'Rep max', 4, 30, 1], ['rir', 'RIR', 0, 4, 1], ['freq', 'Days/wk', 1, 3, 1], ['rest', 'Rest (s)', 30, 240, 30]].map(([k, n, mn, mx, st]) => `<label><span>${n} <b>${it[k]}</b></span><input type="range" min="${mn}" max="${mx}" step="${st}" value="${it[k]}" data-sb-in="it" data-r="${key}" data-i="${i}" data-k="${k}"></label>`).join('')}</div>`).join('')}
+    ${L.length < 8 ? `<button class="btn" data-sb="add" data-r="${key}">+ ADD EXERCISE</button>` : ''}</div>`;
+}
+function sbTestHTML() {
+  const c = SBS.cfg;
+  return `<p class="sc-small">Each virtual person gets an identical twin. One twin trains routine A, the other routine B, so the only difference is the routine. Leave B empty to compare against not training at all.</p>
+  <div class="sc-form">
+    <label for="sb-n">Pairs of twins: <b id="sb-vn">${c.n}</b></label><input id="sb-n" type="range" min="1" max="30" value="${c.n}" data-sb-in="cfg" data-k="n">
+    <label>Weeks</label>${scSeg('weeks', [[4, '4'], [8, '8'], [12, '12'], [16, '16'], [24, '24']], c.weeks)}
+    <label>People</label>${scSeg('pop', [['untrained', 'Beginners'], ['trained', 'Trained']], c.pop)}
+    <label>Calories</label>${scSeg('diet', [['bulk', 'Surplus'], ['maint', 'Maintenance'], ['cut', 'Deficit']], c.diet)}
+    <label>Protein</label>${scSeg('protein', [[0.8, '0.8 g/kg'], [1.6, '1.6 g/kg'], [2.2, '2.2 g/kg']], c.protein)}
+    <label>Creatine</label>${scSeg('creatine', [[false, 'No'], [true, 'Yes']], c.creatine)}
+  </div>
+  <h3 class="sc-h sb-ha">ROUTINE A</h3>${sbRoutineHTML('A')}
+  <h3 class="sc-h sb-hb">ROUTINE B</h3>${sbRoutineHTML('B')}
+  <div class="row"><button class="btn" data-sb="copyab">COPY A INTO B</button><button class="btn" data-sb="clearb">EMPTY B</button><button class="btn primary big" data-sb="run">RUN THE TWINS</button></div>
+  ${SBS.last ? sbResultsHTML(SBS.last) : ''}`;
+}
+function sbRunHTML() {
+  const P = SBU.prog;
+  return `<div class="sc-run"><div class="sc-frame"><canvas data-scene="sb-run" width="160" height="80" aria-label="Twins training"></canvas></div><p class="sc-runl" id="sc-runl">${esc(P.label)}</p><div class="sc-bar"><i id="sc-bar" style="width:${Math.round(100 * P.done / Math.max(1, P.total))}%"></i></div></div>`;
+}
+function sbResultsHTML(res) {
+  const rows = res.sum.filter(x => Math.abs(x.a) > 0.15 || Math.abs(x.b) > 0.15).sort((p, q) => Math.max(q.a, q.b) - Math.max(p.a, p.b));
+  if (!rows.length) return '<h3 class="sc-h">RESULTS</h3><p class="sc-dim">Nothing grew. Check the warnings on your movements.</p>';
+  const W = scW(), rh = 34, x0 = Math.round(W * (W < 600 ? 0.4 : 0.32)), x1 = W - 50, H = rows.length * rh + 34;
+  const mx = Math.max(2, ...rows.map(r => Math.max(r.a, r.b))), mn = Math.min(0, ...rows.map(r => Math.min(r.a, r.b)));
+  const X = v => x0 + (v - mn) / (mx - mn) * (x1 - x0);
+  let s = `<line x1="${X(0)}" x2="${X(0)}" y1="4" y2="${H - 28}" class="zero"/>`;
+  rows.forEach((r, i) => { const y = 6 + i * rh;
+    s += `<text x="4" y="${y + 18}" class="lb">${esc(SC_MUSCLES[r.m].n.length > (W < 600 ? 16 : 26) ? SC_MUSCLES[r.m].n.slice(0, W < 600 ? 15 : 25) + '…' : SC_MUSCLES[r.m].n)}</text>`;
+    s += `<rect x="${Math.min(X(0), X(r.a))}" y="${y + 3}" width="${Math.max(1.5, Math.abs(X(r.a) - X(0)))}" height="11" rx="2" fill="${SC_CA}" data-tip="${esc(`${SC_MUSCLES[r.m].n}, routine A: ${scFmt(r.a)}% (range ${r.aMin.toFixed(1)} to ${r.aMax.toFixed(1)})`)}"/>`;
+    s += `<rect x="${Math.min(X(0), X(r.b))}" y="${y + 16}" width="${Math.max(1.5, Math.abs(X(r.b) - X(0)))}" height="11" rx="2" fill="${SC_CB}" data-tip="${esc(`${SC_MUSCLES[r.m].n}, routine B: ${scFmt(r.b)}%`)}"/>`;
+    s += `<text x="${x1 + 6}" y="${y + 13}" class="tk">${r.a.toFixed(1)}</text><text x="${x1 + 6}" y="${y + 27}" class="tk">${r.b.toFixed(1)}</text>`; });
+  s += `<text x="${x0}" y="${H - 6}" class="tk">% size change</text>`;
+  const sig = rows.filter(r => res.n > 1 && (r.lo > 0 || r.hi < 0) && Math.abs(r.md) >= 0.3);
+  return `<h3 class="sc-h">RESULTS · ${res.n} PAIR${res.n === 1 ? '' : 'S'} · ${res.weeks} WEEKS</h3>
+  <p class="sc-legend"><span><i style="background:${SC_CA}"></i>A: ${esc(res.an)}</span><span><i style="background:${SC_CB}"></i>B: ${esc(res.bn)}</span></p>
+  <svg class="sc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Muscle growth by muscle for routines A and B">${s}</svg>
+  ${res.n > 1 ? `<p class="sc-small">${sig.length ? 'Clear differences (95% interval excludes zero): ' + sig.slice(0, 6).map(r => `${esc(SC_MUSCLES[r.m].n)} ${scFmt(r.md)} [${r.lo.toFixed(1)}, ${r.hi.toFixed(1)}]`).join('; ') + '.' : 'No muscle differs clearly between A and B at this sample size.'}</p>` : '<p class="sc-small">One pair is an anecdote. Add more twins to see how consistent the difference is.</p>'}
+  ${res.warn.length ? `<div class="sb-warn">${res.warn.map(w => `<p>⚠ ${esc(w)}</p>`).join('')}</div>` : ''}`;
+}
+function sbRun() {
+  const c = SBS.cfg, warn = [];
+  const mk = L => L.map(it => { const mv = sbMove(it.mv); const R = sbResolve(mv, SBS.mods); if (R.broken) { warn.push(`${mv.n} can't be loaded, so it was skipped.`); return null; } return Object.assign({}, it, { R }); }).filter(Boolean);
+  const A = mk(SBS.A), B = mk(SBS.B);
+  const dials = Object.assign({}, SBS.dials, { andrax: 0.8 });
+  const runner = sbTwinRunner({ n: c.n, pop: c.pop, dials, weeks: c.weeks, protein: c.protein, diet: c.diet, creatine: c.creatine, seed: 1234 + (SBS.runs = (SBS.runs || 0) + 1), A, B });
+  const nm = L => L.length ? L.map(it => sbMove(it.mv).n).join(' + ') : 'no training';
+  SBU.running = true; SBU.prog = { label: `Training ${c.n} pairs of twins for ${c.weeks} weeks…`, done: 0, total: c.n, week: 0, weeks: c.weeks }; sbRender(); SFX.tool();
+  const tick = () => {
+    if (UI.view !== 'sandbox') { SBU.running = false; return; }
+    const t0 = performance.now(); let fin = false;
+    while (performance.now() - t0 < 24 && !(fin = runner.step()));
+    const P = SBU.prog; P.done = runner.done; P.week = c.weeks * runner.done / c.n;
+    const bar = $('#sc-bar'); if (bar) bar.style.width = Math.round(100 * P.done / P.total) + '%';
+    if (!fin && runner.done < c.n) { setTimeout(tick, 0); return; }
+    SBS.last = { sum: sbSummary(runner.result()), n: c.n, weeks: c.weeks, an: nm(SBS.A), bn: nm(SBS.B), warn: [...new Set(warn)] };
+    SBU.running = false; sbSave(); SFX.good(); sbRender();
+    setTimeout(() => { const m = $('.sc-main'); const h = [...document.querySelectorAll('.sc-h')].pop(); if (m && h) m.scrollTop = h.offsetTop - 60; }, 30);
+  };
+  setTimeout(tick, 30);
+}
+
+/* ---------------- the figure ---------------- */
+function sbFigPoints(mv, a) {
+  const P = sbPose(a); const W = p => sbToWorld(mv, a, P, p); const M = p => W([-p[0], p[1], p[2]]);
+  const pts = {}; ['S', 'E', 'Hd', 'H', 'K', 'A', 'ball', 'heel', 'neck', 'head', 'back'].forEach(k => { pts[k] = W(P[k]); pts['l' + k] = M(P[k]); });
+  pts.pelvis = W([0, 0, 0]); pts.load = W(sbLoadPoint(mv, P)); pts.lload = M(sbLoadPoint(mv, P));
+  return pts;
+}
+const SB_FIT = {};
+function sbFit(mv, view) {
+  const key = view + JSON.stringify([mv.keys, mv.base, mv.load, mv.pulley, mv.force]); if (SB_FIT[key]) return SB_FIT[key];
+  let x0 = 1e9, x1 = -1e9, y1 = 0;
+  [0, 0.25, 0.5, 0.75, 1].forEach(s => { const p = sbFigPoints(mv, sbAt(mv, s)); Object.values(p).forEach(q => { const x = view === 'side' ? q[2] : q[0]; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y1 = Math.max(y1, q[1] + 0.12); }); });
+  if (mv.force === 'cable' || mv.force === 'band') { const a = mv.pulley || { h: 2, d: 1 }; const x = view === 'side' ? a.d : 0; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y1 = Math.max(y1, a.h + 0.05); }
+  if (Object.keys(SB_FIT).length > 60) for (const k in SB_FIT) delete SB_FIT[k];
+  return (SB_FIT[key] = { w: Math.max(0.8, x1 - x0 + 0.2), h: Math.max(1.2, y1), c: (x0 + x1) / 2 });
+}
+function sbDrawFig(ctx, mv, s, view, w, h) {
+  const a = sbAt(mv, s); const p = sbFigPoints(mv, a);
+  ctx.fillStyle = '#161a20'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#1d242d'; for (let x = 0; x < w; x += 10) ctx.fillRect(x, 0, 1, h); for (let y = 0; y < h; y += 10) ctx.fillRect(0, y, w, 1);
+  const fit = sbFit(mv, view); const sc = Math.min(62, (w - 16) / fit.w, (h - 22) / fit.h), cx = w / 2 - fit.c * sc, fy = h - 12;
+  const P2 = q => [Math.round(cx + (view === 'side' ? q[2] : q[0]) * sc), Math.round(fy - q[1] * sc)];
+  const line = (q1, q2, t, c) => { const [x1, y1] = P2(q1), [x2, y2] = P2(q2); const n = Math.max(1, Math.ceil(Math.hypot(x2 - x1, y2 - y1))); ctx.fillStyle = c; for (let i = 0; i <= n; i++) { const x = x1 + (x2 - x1) * i / n, y = y1 + (y2 - y1) * i / n; ctx.fillRect(Math.round(x - t / 2), Math.round(y - t / 2), t, t); } };
+  ctx.fillStyle = '#2c3540'; ctx.fillRect(0, fy + 1, w, h - fy);
+  // support
+  if (!sbStand(mv)) { const Rw = sbRw(a); const P = sbPose(a); const off = sbMV(Rw, [0, 0, -0.07]); const hp = sbToWorld(mv, a, P, [0, -0.02, -0.07]), sp = sbToWorld(mv, a, P, [0, 0.55, -0.07]); line(hp, sp, 4, '#5a6b7a'); line(hp, [hp[0], 0, hp[2]], 2, '#3a4654'); if (mv.base === 'thigh') { line(sbToWorld(mv, a, P, sbAdd(P.H, [0, -0.07, 0])), sbToWorld(mv, a, P, sbAdd(P.K, [0, -0.07, 0])), 3, '#5a6b7a'); } void off; }
+  const skin = '#c98c5e', far = '#8a6244', shirt = '#ff6b7a', farShirt = '#9c4450', shorts = '#3987e5', farShorts = '#2a5c9c';
+  const anchor = mv.pulley ? [0, mv.pulley.h, mv.pulley.d] : [0, 2, 1];
+  const limbs = (pre, sk, sh, so) => { line(p[pre + 'H'] || p.pelvis, p[pre + 'K'], 5, so); line(p[pre + 'K'], p[pre + 'A'], 4, sk); line(p[pre + 'heel'], p[pre + 'ball'], 3, '#1a1c2c'); line(p[pre + 'S'], p[pre + 'E'], 4, sh); line(p[pre + 'E'], p[pre + 'Hd'], 3, sk); };
+  const loadDraw = pre => { const q = p[pre + 'load'];
+    if (mv.force === 'cable' || mv.force === 'band') { const [x1, y1] = P2(q), [x2, y2] = P2(anchor); ctx.strokeStyle = mv.force === 'band' ? '#ffd166' : '#9fb2c1'; ctx.lineWidth = 1; ctx.setLineDash(mv.force === 'band' ? [2, 2] : []); ctx.beginPath(); ctx.moveTo(x1 + 0.5, y1 + 0.5); ctx.lineTo(x2 + 0.5, y2 + 0.5); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle = '#9fb2c1'; ctx.fillRect(x2 - 2, y2 - 2, 4, 4); }
+    const [x, y] = P2(q); ctx.fillStyle = '#e8eef2';
+    if (mv.load === 'hand') { ctx.fillRect(x - 3, y - 1, 7, 3); ctx.fillStyle = '#5a6b7a'; ctx.fillRect(x - 4, y - 2, 2, 5); ctx.fillRect(x + 3, y - 2, 2, 5); }
+    else if (mv.load === 'back') { ctx.fillStyle = '#5a6b7a'; ctx.fillRect(x - 3, y - 3, 6, 6); ctx.fillStyle = '#e8eef2'; ctx.fillRect(x - 1, y - 1, 2, 2); }
+    else if (mv.load === 'shin') { ctx.fillStyle = '#c9405a'; ctx.fillRect(x - 2, y - 2, 5, 5); }
+    else { ctx.fillStyle = '#5a6b7a'; ctx.fillRect(x - 4, y - 1, 9, 3); } };
+  // far side, torso, near side
+  if (view === 'side') { limbs('l', far, farShirt, farShorts); loadDraw('l'); } else { limbs('l', skin, shirt, shorts); loadDraw('l'); }
+  line(p.pelvis, p.neck, 6, shirt); line(p.pelvis, p.H, 4, shorts); line(p.pelvis, p.lH, 4, shorts);
+  const [hx, hy] = P2(p.head); ctx.fillStyle = '#1a1c2c'; ctx.fillRect(hx - 4, hy - 5, 9, 10); ctx.fillStyle = skin; ctx.fillRect(hx - 3, hy - 4, 7, 8); ctx.fillStyle = '#1a1c2c'; ctx.fillRect(hx - 3, hy - 4, 7, 2);
+  limbs('', skin, shirt, shorts); loadDraw('');
+}
+function sbScene(cv, ts) {
+  const ctx = cv.getContext('2d'); const n = cv.dataset.scene;
+  if (n === 'sb-hub') { const t = (ts / 1600) % 2; sbDrawFig(ctx, SB_STARTERS.find(m => m.id === 'squat'), t < 1 ? t : 2 - t, 'side', cv.width, cv.height); return; }
+  if (n === 'sb-fig') { let s; if (SBU.play) { const t = ((ts - SBU.t0) / 2200) % 2; s = t < 1 ? t : 2 - t; } else s = SBU.key / 4; sbDrawFig(ctx, sbCur(), s, SBU.view, cv.width, cv.height); return; }
+  if (n === 'sb-run') scDrawRun(ctx, ts, 3, Math.floor(SBU.prog.week || 0), SBU.prog.weeks || 8);
+}
+
+/* ---------------- events ---------------- */
+document.addEventListener('click', e => {
+  if (UI.view !== 'sandbox') return;
+  const b = e.target.closest('[data-sb],[data-sc="dset"]'); if (!b) return;
+  if (b.dataset.sc === 'dset') {
+    const k = b.dataset.k, raw = b.dataset.v; const v = raw === 'true' ? true : raw === 'false' ? false : isNaN(+raw) ? raw : +raw;
+    if (k === 'sbview') SBU.view = v;
+    else if (['load', 'force', 'base', 'bi'].includes(k)) { const mv = sbEditable(); mv[k] = v; if ((k === 'force') && (v === 'cable' || v === 'band') && !mv.pulley) mv.pulley = { h: 2, d: 1 }; }
+    else if (k in SBS.cfg) SBS.cfg[k] = v;
+    sbSave(); SFX.tap(); sbRender(true); return;
+  }
+  const a = b.dataset.sb, id = b.dataset.id;
+  switch (a) {
+    case 'tab': SBU.tab = id; SFX.tap(); sbRender(); break;
+    case 'play': SBU.play = !SBU.play; SBU.t0 = performance.now(); sbRender(true); break;
+    case 'key': SBU.key = +id; SBU.play = false; SFX.tap(); sbRender(true); break;
+    case 'copy': sbEditable(); sbRender(true); break;
+    case 'del': SBS.moves = SBS.moves.filter(m => m.id !== SBS.sel); ['A', 'B'].forEach(r => SBS[r].forEach(it => { if (!SB_STARTERS.some(s => s.id === it.mv) && !SBS.moves.some(m => m.id === it.mv)) it.mv = 'curl'; })); SBS.sel = 'curl'; sbSave(); sbRender(); break;
+    case 'lock': { const mv = sbEditable(); mv.lock = Object.assign({}, mv.lock || {}); if (mv.armBrace) { mv.lock.shoulder = true; delete mv.armBrace; } mv.lock[id] = !mv.lock[id]; sbSave(); SFX.tap(); sbRender(true); break; }
+    case 'balance': { const mv = sbEditable(); sbBalance(mv, 30); sbSave(); SFX.ok(); sbRender(true); toast('Hips adjusted so you balance over your feet.'); break; }
+    case 'mus': SBU.mus = SBU.mus === id ? null : id; sbRender(true); break;
+    case 'musreset': delete SBS.mods[id]; sbSave(); sbRender(true); break;
+    case 'musall': SBS.mods = {}; sbSave(); sbRender(); break;
+    case 'textbook': SBS.dials = SB_DIALS0(); sbSave(); sbRender(true); break;
+    case 'labworld': SBS.dials = Object.assign({}, scWorld(SCS)); sbSave(); toast('Loaded the dials of your finished Lab world.'); sbRender(true); break;
+    case 'add': SBS[b.dataset.r].push(SB_ITEM(SBS.sel)); sbSave(); sbRender(true); break;
+    case 'rm': SBS[b.dataset.r].splice(+id, 1); sbSave(); sbRender(true); break;
+    case 'copyab': SBS.B = JSON.parse(JSON.stringify(SBS.A)); sbSave(); sbRender(true); break;
+    case 'clearb': SBS.B = []; sbSave(); sbRender(true); break;
+    case 'run': if (!SBS.A.length && !SBS.B.length) { toast('Add an exercise first.'); break; } sbRun(); break;
+  }
+});
+document.addEventListener('input', e => {
+  const t = e.target; if (UI.view !== 'sandbox' || !t.dataset || !t.dataset.sbIn) return;
+  const k = t.dataset.sbIn;
+  if (k === 'sel') { SBS.sel = t.value; SBU.t0 = performance.now(); sbSave(); sbRender(true); }
+  else if (k === 'name') { const mv = sbCur(); mv.n = t.value.slice(0, 40) || 'Untitled'; sbSave(); }
+  else if (k === 'joint') { const wasStarter = sbIsStarter(SBS.sel); const mv = sbEditable(); mv.keys[SBU.key][t.dataset.k] = +t.value; SBU.play = false; const l = $('#sb-v-' + t.dataset.k); if (l) l.textContent = t.value + '°'; sbSave(); if (wasStarter) sbRender(true); else { if (sbStand(mv)) { const tl = $('#sb-v-tilt'); if (tl) tl.textContent = Math.round(sbAt(mv, SBU.key / 4).tilt) + '°'; } sbRefreshSoon(); } }
+  else if (k === 'pulley') { const mv = sbEditable(); mv.pulley = Object.assign({ h: 2, d: 1 }, mv.pulley, { [t.dataset.k]: +t.value }); const l = $('#sb-v-p' + t.dataset.k); if (l) l.textContent = (+t.value).toFixed(2) + ' m'; sbSave(); sbRefreshSoon(); }
+  else if (k === 'mod') { const m = t.dataset.m; SBS.mods[m] = Object.assign({}, SBS.mods[m], { [t.dataset.k]: +t.value }); const l = $('#sb-mv-' + t.dataset.k); const v = +t.value; if (l) l.textContent = t.dataset.k === 'lopt' ? (v > 0 ? '+' : '') + Math.round(v * 100) + '%' : t.dataset.k === 't2' ? Math.round(v * 100) + '%' : '×' + v.toFixed(1); sbSave(); }
+  else if (k === 'dial') { SBS.dials[t.dataset.k] = +t.value; const l = $('#sb-dv-' + t.dataset.k); if (l) l.textContent = (+t.value).toFixed(2); sbSave(); }
+  else if (k === 'cfg') { SBS.cfg[t.dataset.k] = +t.value; const l = $('#sb-v' + t.dataset.k); if (l) l.textContent = t.value; sbSave(); }
+  else if (k === 'it') { const it = SBS[t.dataset.r][+t.dataset.i]; if (t.dataset.k === 'mv') { it.mv = t.value; sbSave(); sbRender(true); } else { it[t.dataset.k] = +t.value; const l = t.parentElement.querySelector('b'); if (l) l.textContent = t.value; sbSave(); } }
 });
 
 </script>
