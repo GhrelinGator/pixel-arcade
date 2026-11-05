@@ -4303,6 +4303,7 @@ function scReview(S, st, claim, jid, seed) {
   else if (st.random) say(6, 'Properly randomised.'); else say(-14, 'People chose their own group. That is selection bias.');
   if (st.blind) say(5, 'The person measuring did not know who was in which group.'); else say(-8, 'Unblinded measurements. The assessor knew the groups.');
   if (Q.blind) { if (st.placebo) say(6, 'Double-blind with a matched placebo.'); else say(-18, 'No placebo. Expectation alone can change how hard people train.'); }
+  if (S.coi) say(-10, 'Conflict of interest: the authors were paid by SwoleCorp Supplements.');
   if (st.prereg) say(6, 'Pre-registered, so the outcome was chosen before the data came in.');
   else if (st.extraOut) say(-6, 'Not pre-registered, and you measured several outcomes. Which one was planned?');
   if (st.measure === 'mri') say(6, 'MRI: gold-standard measurement.'); else if (st.measure === 'tape') say(-16, 'A tape measure cannot separate muscle from fat and swelling.'); else say(2, 'Ultrasound, done carefully.');
@@ -5638,11 +5639,12 @@ function scRender(keep) {
   const now = performance.now(); document.querySelectorAll('.sc canvas[data-scene]').forEach(cv => scScene(cv, now));
 }
 function scBareHud() {
-  return `<header class="sc-hud"><a class="ib" href="#arcade" aria-label="Back to the arcade">◀</a><b class="sc-brand">${SCU.view === 'lifter' ? 'THE LIFTER' : 'SARCOMERE'}</b>${SCU.view !== 'title' ? '<button class="sc-chip" data-sc="title">MENU</button>' : ''}</header>`;
+  const back = SCU.view === 'title' ? '<a class="ib" href="#arcade" aria-label="Back to the arcade">◀</a>' : '<button class="ib" data-sc="title" aria-label="SARCOMERE menu">◀</button>';
+  return `<header class="sc-hud">${back}<b class="sc-brand">${SCU.view === 'lifter' ? 'THE LIFTER' : SCU.view === 'bench' ? 'WORKBENCH' : 'SARCOMERE'}</b>${SCU.view !== 'title' ? '<button class="sc-chip" data-sc="title">MENU</button>' : ''}</header>`;
 }
 function scHud() {
   const wl = SC_WEEKS_TOTAL - SCS.week;
-  return `<header class="sc-hud"><a class="ib" href="#arcade" aria-label="Back to the arcade">◀</a><b class="sc-brand">SARCOMERE</b>
+  return `<header class="sc-hud"><button class="ib" data-sc="title" aria-label="SARCOMERE menu: Lab, Lifter, Workbench">◀</button><b class="sc-brand">SARCOMERE</b>
     <span class="sc-stat" title="Weeks left on the grant">WK <b>${SCS.week}</b>/${SC_WEEKS_TOTAL}</span><span class="sc-stat" title="Money">$<b>${SCS.money}</b>k</span><span class="sc-stat" title="Reputation">REP <b>${SCS.rep}</b></span>
     <span class="sc-wl ${wl < 30 ? 'low' : ''}" aria-hidden="true"><i style="width:${Math.round(100 * wl / SC_WEEKS_TOTAL)}%"></i></span></header>`;
 }
@@ -5701,6 +5703,30 @@ function scQTab() {
   }).join('')}</div>
   <p class="sc-small">${wl} weeks left. Effects are differences in % muscle growth (A minus B) over the study.</p>`;
 }
+function scJobs() {
+  const ch = Math.round(scClamp(0.25 + SCS.rep * 0.015, 0.25, 0.85) * 100);
+  return [
+    { id: 'teach', weeks: 12, n: 'Teach a semester', d: 'Twelve weeks of Exercise Physiology 101. +$30k, guaranteed.' },
+    { id: 'grant', weeks: 4, n: 'Write an extra grant', d: `Four weeks of writing. ${ch}% chance of $60–120k, based on your reputation.` },
+    { id: 'consult', weeks: 2, n: 'Consult for SwoleCorp Supplements', d: SCS.coi ? 'You already owe them a conflict-of-interest statement on your next paper.' : '+$35k fast. Your next paper must declare the conflict of interest, and reviewers will mark it down.' },
+  ];
+}
+function scDoJob(id) {
+  const j = scJobs().find(x => x.id === id); if (!j || SCS.week + j.weeks > SC_WEEKS_TOTAL || (id === 'consult' && SCS.coi)) return;
+  const adv = scAdvance(SCS, j.weeks); adv.notes.forEach(n => SCS.ann.push(n));
+  adv.tasks.forEach(t => { const f = t.finish; t.finish = r => { const e = f(r); SCS.ann.push({ w: e.week, k: e.bro ? 'bro' : 'lab', t: e.bro ? `BRO SCIENCE INSTITUTE: “${e.title}!” (${scQ(e.q).t}, n=${e.n}, tape measure)` : `${e.by} published on “${scQ(e.q).t}”: ${scFmt(e.md)} points [${e.lo.toFixed(1)}, ${e.hi.toFixed(1)}].` }); }; });
+  const done = () => {
+    let msg;
+    if (id === 'teach') { SCS.money += 30; msg = 'Semester taught. +$30k. Three students now want to do a PhD with you.'; }
+    else if (id === 'consult') { SCS.money += 35; SCS.coi = true; msg = 'SwoleCorp paid $35k. Your next paper will carry a conflict-of-interest statement.'; }
+    else { const r = scRng(SCS.seed + SCS.week * 53 + SCS.rep); const ok = r() < scClamp(0.25 + SCS.rep * 0.015, 0.25, 0.85); const g = 60 + Math.round(r() * 60);
+      if (ok) SCS.money += g; msg = ok ? `Grant funded: +$${g}k.` : 'Grant rejected. Reviewer 2 wanted "more mechanistic insight".'; }
+    SCS.ann.push({ w: SCS.week, k: id === 'grant' ? 'grant' : 'you', t: msg });
+    scSave(); SFX.ok(); scGo('lab', { tab: 'lab' }); toast(msg);
+  };
+  SCU.prog = { label: j.n + '…', done: 0, total: 1, week: 0, weeks: j.weeks };
+  if (adv.tasks.length) { scGo('run'); scJob(adv.tasks, done); } else done();
+}
 function scLabTab() {
   const pubs = SCS.mine.slice().reverse();
   return `<h3 class="sc-h">UPGRADES</h3><div class="sc-ups">${SC_UPGRADES.map(u => {
@@ -5709,6 +5735,9 @@ function scLabTab() {
   }).join('')}</div>
   <h3 class="sc-h">YOUR PAPERS</h3>${pubs.length ? `<div class="sc-pubs">${pubs.map(p => { const kept = p.did && (SCS.drawer || []).some(d => d.id === p.did);
     return `<div class="sc-pub ${p.published ? '' : 'drawer'}"><div><b>${esc(p.title)}</b><span>${p.published ? esc(SC_JOURNALS.find(j => j.id === p.journal).n) + ' · review score ' + p.score + ' · +' + p.repGain + ' rep' : kept ? 'In the file drawer (unpublished)' : 'Filed before the drawer kept data, so it can\'t be reopened'} · week ${p.week}</span></div>${kept ? `<button class="btn" data-sc="undrawer" data-id="${p.did}">TAKE IT OUT</button>` : ''}</div>`; }).join('')}</div>` : '<p class="sc-dim">Nothing yet.</p>'}
+  <h3 class="sc-h">EARN MONEY</h3><p class="sc-dim">Next grant review: week ${(Math.floor(SCS.week / 26) + 1) * 26}. Time spent here passes for everyone: other labs keep publishing.</p>
+  <div class="sc-ups">${scJobs().map(j => { const ok = SCS.week + j.weeks <= SC_WEEKS_TOTAL && !(j.id === 'consult' && SCS.coi);
+    return `<div class="sc-up"><div><b>${esc(j.n)}</b><span>${esc(j.d)}</span></div><button class="btn ${ok ? 'primary' : ''}" data-sc="job" data-id="${j.id}" ${ok ? '' : 'disabled'}>${j.weeks} WK</button></div>`; }).join('')}</div>
   <h3 class="sc-h">FINISH</h3><p class="sc-dim">The grant ends at week ${SC_WEEKS_TOTAL}. You can write the consensus statement early if you're confident.</p>
   <button class="btn warn" data-sc="end">WRITE THE CONSENSUS STATEMENT</button>`;
 }
@@ -5878,7 +5907,7 @@ function scSubmit() {
     const title = SCU.claim === 'A' ? `${Q.an} beats ${Q.bn.toLowerCase()}` : SCU.claim === 'B' ? `${Q.bn} beats ${Q.an.toLowerCase()}` : SCU.claim === 'same' ? `${Q.an} and ${Q.bn.toLowerCase()}: equivalent` : `${Q.an} vs ${Q.bn.toLowerCase()}: inconclusive`;
     Object.assign(e, { journal: rv.journal.id, claim: SCU.claim, title });
     (SCS.lit[Q.id] = SCS.lit[Q.id] || []).push(e);
-    SCS.rep += rv.rep; if (rv.journal.id === 'top') SCS.topSinceGrant++;
+    SCS.rep += rv.rep; if (rv.journal.id === 'top') SCS.topSinceGrant++; SCS.coi = false;
     SCS.mine.push({ title, q: Q.id, journal: rv.journal.id, score: rv.score, repGain: rv.rep, week: SCS.week, published: true });
     SCS.ann.push({ w: SCS.week, k: 'you', t: `Your paper “${title}” was accepted by ${rv.journal.n}. +${rv.rep} reputation.` });
     SCS.draft = null; scSave(); SFX.level();
@@ -6056,6 +6085,7 @@ document.addEventListener('click', e => {
     case 'dset': { const k = b.dataset.k, raw = b.dataset.v; const v = raw === 'true' ? true : raw === 'false' ? false : isNaN(+raw) ? raw : +raw;
       if (k[0] === 'l') break; if (k === 'beq') scBenchEdit(s => { s.eq = v; }); else if (k === 'brom') scBenchEdit(s => { s.romMode = v; }); else if (SCU.D) { SCU.D[k] = v; SFX.tap(); scRender(true); } break; }
     case 'run': scStartStudy(); break;
+    case 'job': scDoJob(id); break;
     case 'claim': SCU.claim = id; SFX.tap(); scRender(true); break;
     case 'jour': SCU.jour = id; SFX.tap(); scRender(true); break;
     case 'submit': scSubmit(); break;
