@@ -436,7 +436,7 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .dr-bar em { position: absolute; top: 2px; right: 4px; font-style: normal; font-size: 14px; animation: blink 1s steps(1) 3; } .dr-bar em.up { color: var(--good); } .dr-bar em.dn { color: var(--bad); }
 .dr-bar .btn { margin: 0; padding: 8px 10px; font-size: 9px; }
 .enemy { background: #22253a; border-left: 4px solid #8a8aa8; padding: 8px 12px; }
-.enemy b { font-family: var(--font-d); font-size: 9px; color: #c9c9ee; font-weight: normal; }
+.enemy b { display: block; font-family: var(--font-d); font-size: 9px; color: #c9c9ee; font-weight: normal; }
 .enemy p { margin: 6px 0; font-size: 20px; } .enemy .eh { color: var(--warn); } .enemy small { color: var(--mute); font-size: 16px; }
 .pj3 { display: grid; gap: 8px; }
 .pjr { background: var(--bg2); padding: 8px 10px; }
@@ -456,6 +456,23 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .bday-banner { font-family: var(--font-d); font-size: 10px; line-height: 1.6; text-align: center; background: var(--warn); color: var(--bg); padding: 10px; }
 .linkbtn { font: inherit; color: var(--accent); text-decoration: underline; padding: 0; }
 .hub-foot .install { color: var(--good); }
+
+.enemy .rel { display: block; width: fit-content; font-family: var(--font-d); font-size: 7px; padding: 4px 6px; background: #4a3d2a; color: var(--warn); margin-bottom: 8px; }
+.enemy .rel.ok { background: #263a25; color: var(--good); }
+.enemy .tog.wide { margin-top: 10px; }
+.squad { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.squad > div { background: var(--bg2); padding: 6px 10px; display: grid; gap: 2px; }
+.squad b { font-weight: normal; font-size: 20px; } .squad small { color: var(--mute); font-size: 16px; }
+.squad .wia { box-shadow: inset 3px 0 0 var(--warn); } .squad .kia { opacity: .55; box-shadow: inset 3px 0 0 var(--bad); } .squad .kia b { text-decoration: line-through; }
+.squad.rep { grid-template-columns: 1fr; } .squad.rep p { margin: 2px 0 0; font-size: 19px; } .squad.rep em { font-style: normal; color: var(--warn); } .squad.rep .kia em { color: var(--bad); }
+.squad.rep .kia { opacity: 1; } .squad.rep .kia b { text-decoration: none; }
+.gstock { background: var(--bg2); padding: 8px 10px; } .gstock p { margin: 0 0 6px; font-size: 19px; } .gstock b.ok { color: var(--good); font-weight: normal; } .gstock b.bad { color: var(--bad); font-weight: normal; }
+.motion { background: var(--paper); color: #1a1414; padding: 12px 14px; margin-bottom: 10px; }
+.motion span { font-family: var(--font-d); font-size: 8px; color: #c8372d; } .motion h4 { font-family: var(--font-d); font-size: 12px; margin: 8px 0; line-height: 1.4; } .motion p { margin: 0; font-size: 21px; }
+.held { display: flex; gap: 12px; background: var(--paper); color: #1a1414; padding: 12px; }
+.held canvas { width: 96px; height: 96px; flex: none; box-shadow: 0 0 0 2px #000; }
+.held b { font-family: var(--font-d); font-size: 10px; } .held p { margin: 6px 0 0; font-size: 20px; } .held .dim { color: #6e5b52; font-style: italic; }
+.dr-end .btn[data-dr="lookimg"] { margin-top: 10px; }
 
 </style>
 </head>
@@ -1902,6 +1919,11 @@ const OPS = [
     enemy: { def: 46, belts: 2, reserve: 42, armor: 2 }, heat: 0, warmNeed: 9, kcal: 4000,
     haz: { fire: 1, insects: 0, wet: 4, chem: 1, debris: 2, water: 2 }, spoils: {},
     brief: 'The thaw turns every road to soup. Fifty kilometres of mud and suburbs stand between the Column and Saltgrad, seat of the Concession. Everything you have learned is tested at once: breakthrough, commitment of the echelon, simultaneous blows through the whole depth. This is the operation the theory was written for.' },
+  { id: 'longnight', doctrine: 'counteroff', defense: true, n: 'THE LONG NIGHT', season: 'Spring', terrain: 'thaw', depth: 30, pop: 'urban',
+    obj: 'Saltgrad and the Column\'s rear', zone: 'your defensive line', enemyN: 'the Concession\'s last army: mercenary battalions and an armored mobile group',
+    enemy: { atk: 64, belts: 0, reserve: 46, armor: 3 }, heat: 0, warmNeed: 7, kcal: 3800,
+    haz: { fire: 1, insects: 1, wet: 3, chem: 0, debris: 2, water: 2 }, spoils: {},
+    brief: 'The Concession has scraped together everything it has left: mercenary battalions, armored cars, a thousand trucks bought on credit. Now it is attempting its own deep operation, against you. Their first echelon will try to break your line; their armored mobile group will try to drive through to Saltgrad. Hold.' },
 ];
 const DOCTRINES = {
   forward: { n: 'Forward defence', resH: 20,
@@ -1922,8 +1944,14 @@ const DOCTRINES = {
   layered: { n: 'Layered defence & counterstroke', resH: 11,
     intel: 'Everything at once: two suburban lines, a reserve close behind them and armor held back for a counterstroke. The Concession\'s best officers are here.',
     hint: 'Everything you have learned, together.' },
+  counteroff: { n: 'Concession deep operation', resH: 10,
+    intel: 'They will mass on one axis, break in with their first echelon, then push an armored mobile group through the gap towards Saltgrad, about ten hours after they break in.',
+    hint: 'Depth, anti-armor, and a reserve that counter-attacks at the right moment.' },
+  broadfront: { n: 'Broad-front assault', resH: 12, decoy: true,
+    intel: 'They will attack everywhere at once along the whole line, hoping something gives.', hint: 'Cover the whole front.' },
 };
-const SHORT_CAMPAIGN = ['furrow', 'birch', 'whiteroad', 'saltgrad'];
+const DOCTRINE_DECOY = { forward: 'elastic', elastic: 'forward', depth: 'forward', strong: 'depth', counter: 'depth', layered: 'depth', counteroff: 'broadfront' };
+const SHORT_CAMPAIGN = ['furrow', 'birch', 'whiteroad', 'saltgrad', 'longnight'];
 const SEASON_ICON = { steppe: 'sun', marsh: 'drop', forest: 'tree', urban: 'brick', snow: 'flake', thaw: 'drop' };
 const TERRAIN_N = { steppe: 'Steppe stubble', marsh: 'River marsh', forest: 'Birch forest', urban: 'Industrial town', snow: 'Snowfield', thaw: 'Thaw mud & suburbs' };
 const HAZ_N = { fire: 'Field fire', insects: 'Insects & ticks', wet: 'Wet & rot', cold: 'Cold', heat: 'Heat', chem: 'Chemical residue', debris: 'Debris & infection', water: 'Bad water' };
@@ -2085,6 +2113,72 @@ const LINES = {
   bread:      { n: 'Bread & peace', desc: 'Food today, an end to war tomorrow.' },
 };
 
+const DEF_LABELS = {
+  frontage: { t: 'DEFENSIVE FRONTAGE', o: { narrow: ['Narrow', 'mass on their main axis', 'Strongest if you know where they will strike. Ruinous if you guessed wrong.'], medium: ['Medium', 'a main sector and screens', 'A balance of density and coverage.'], broad: ['Broad', 'cover everything', 'Nothing is bypassed, nothing is very strong.'] } },
+  echelon: { t: 'DEFENSIVE DEPTH', o: { allin: ['Forward', '90% in the front line', 'Everything in the first trench. Nothing to counter-attack with.'], classic: ['Classic', '60 / 30 / 10', 'A front line, a counter-attack force, a small reserve.'], deep: ['Deep', '45 / 45 / 10', 'A thin line and a heavy counter-attack force.'], cautious: ['Cautious', '50 / 20 / 30', 'A big local reserve to plug any breach.'] } },
+  timing: { t: 'COUNTER-ATTACK', o: { early: ['Early', 'H+6', 'Hit their assault formations before they break in.'], onbreak: ['On breakthrough', 'when they break in', 'Strike the moment they penetrate. Needs fast communication.'], late: ['Late', 'H+24', 'Let them run out of steam, then hit them.'] } },
+  objective: { t: 'DEFENSIVE AIM', o: { tactical: ['Hold every metre', '', 'Rigid defence. Costly if the line breaks.'], operational: ['Trade space for time', '', 'Give ground to wear down their mobile group. Fewer losses.'], deep: ['Counter-offensive', '', 'Destroy their mobile group outright. Great if it works.'] } },
+  raids: 'Spoiling raids: 12% of the front line strikes their assembly areas before H-hour, delaying their mobile group.',
+};
+
+/* ---------- named squad ---------- */
+const CREW = [
+  { id: 'vera', n: 'Vera Kolosova', role: 'Sniper', bio: 'Sniper from the steppe farms. Hates wool.', risk: 1.3 },
+  { id: 'bogdan', n: 'Old Bogdan', role: 'Sapper', bio: 'Forty years a tailor, now a sapper. Measures wire like trouser legs.', risk: 1.3 },
+  { id: 'lena', n: 'Lena Moroz', role: 'Medic', bio: 'Feldsher. Has strong opinions about tourniquets.', risk: 1.0 },
+  { id: 'tomas', n: 'Tomas Pyl', role: 'Signaller', bio: 'Can fix any radio with a hairpin and a swear word.', risk: 0.8 },
+  { id: 'ivo', n: 'Ivo Brandt', role: 'Cook', bio: 'Field cook. Believes kasha wins wars.', risk: 0.5 },
+  { id: 'asel', n: 'Asel Nurlan', role: 'Scout', bio: 'Scout. Sees everything, says little.', risk: 1.4 },
+];
+
+/* ---------- council motions ---------- */
+const MOTIONS = [
+  { id: 'rank', by: 'assembly', t: 'Abolish rank insignia', text: 'The Assembly moves that no fighter wear marks of rank for the rest of the campaign.', opts: [
+    { n: 'Support', fx: { noRank: true, noElected: true }, appr: { assembly: 10, commune: 4, staff: -10 }, note: 'Rank and elected stripes can no longer be issued.' },
+    { n: 'Compromise: elected stripes only', fx: { noRank: true }, appr: { assembly: 5, staff: -3 }, note: 'Full rank insignia is gone; elected stripes stay.' },
+    { n: 'Oppose', fx: {}, appr: { assembly: -8, staff: 5 }, note: 'Nothing changes.' }] },
+  { id: 'selfrel', by: 'bunker', t: 'A self-reliance quota', text: 'The Bunker Line moves that the Column use no imported materials: our own wool, our own horses, our own legs.', opts: [
+    { n: 'Support', fx: { noImported: true, armsBonus: 2 }, appr: { bunker: 10, staff: -4 }, note: 'No nylon, no trucks. The caches open wider: +2 requisition each cycle.' },
+    { n: 'Abstain', fx: {}, appr: { bunker: -3 }, note: 'Nothing changes.' },
+    { n: 'Oppose', fx: {}, appr: { bunker: -8, staff: 3 }, note: 'Nothing changes.' }] },
+  { id: 'stims', by: 'medics', t: 'Ban stimulants', text: 'The Medics\' Soviet moves to strike caffeine tablets from every kit.', opts: [
+    { n: 'Support', fx: { noCaff: true }, appr: { medics: 10, staff: -4 }, note: 'Caffeine tablets can no longer be issued.' },
+    { n: 'Oppose', fx: {}, appr: { medics: -8, staff: 3 }, note: 'Nothing changes.' }] },
+  { id: 'shockbn', by: 'staff', t: 'Form a shock battalion', text: 'The Operational Section wants an elite battalion with priority supplies and the best rifles.', opts: [
+    { n: 'Support', fx: { shockBn: true }, appr: { staff: 10, assembly: -10, commune: -8 }, note: '+6 breakthrough power from now on; rations cost 1 more food.' },
+    { n: 'Oppose', fx: {}, appr: { staff: -8, assembly: 3 }, note: 'Nothing changes.' }] },
+  { id: 'ledger', by: 'commune', t: 'Burn the requisition ledger', text: 'The Communisation Circle moves that the villages give freely and nobody counts anything.', opts: [
+    { n: 'Support', fx: { freeVillages: true }, appr: { commune: 10, bunker: -6 }, note: '+3 food and −2 requisition each cycle.' },
+    { n: 'Oppose', fx: {}, appr: { commune: -8 }, note: 'Nothing changes.' }] },
+  { id: 'shifts', by: 'assembly', t: 'Six-hour shifts in the atelier', text: 'The sewing floor moves to cut the working day to six hours.', opts: [
+    { n: 'Support', fx: { shortShifts: true }, appr: { assembly: 10, staff: -3 }, note: '−4 workshop hours each cycle, +4 morale.' },
+    { n: 'Oppose', fx: {}, appr: { assembly: -8 }, note: 'Nothing changes.' }] },
+  { id: 'seminar', by: 'critique', t: 'Explain what the Column is for', text: 'The Critique Circle moves that every section attend a seminar on what, exactly, it is fighting for, before the next operation.', opts: [
+    { n: 'Hold the seminar', fx: { seminar: true }, appr: { critique: 10 }, note: 'Next cycle: −3 workshop hours, +3 morale.' },
+    { n: 'Table the motion', fx: {}, appr: {}, note: 'The Critique Circle expected nothing less.' }] },
+  { id: 'vitamin', by: 'medics', t: 'Mandatory pickled cabbage', text: 'The Medics\' Soviet moves that every ration pack carry vitamin C, whatever the cook thinks.', opts: [
+    { n: 'Support', fx: { forceVit: true }, appr: { medics: 8 }, note: 'Scurvy can no longer spread; rations cost 1 more food.' },
+    { n: 'Oppose', fx: {}, appr: { medics: -5 }, note: 'Nothing changes.' }] },
+];
+
+/* ---------- workshop upgrades ---------- */
+const UPGRADES = {
+  vats:      { n: 'Dye vats', cost: { dye: 5, hours: 4 }, desc: 'Patterns cost 1 less dye and 1 less hour.' },
+  loom:      { n: 'Power loom', cost: { cloth: 8, hours: 4 }, desc: 'Garments use 25% less cloth.' },
+  bench:     { n: 'Chemistry bench', cost: { dye: 4, med: 3 }, desc: 'Each finish costs 1 less dye; heavy finishes irritate less.' },
+  radioshop: { n: 'Radio workshop', cost: { arms: 6, hours: 3 }, desc: 'Radios cost 2 less requisition and give +4 command.' },
+  kitchen:   { n: 'Field kitchen', cost: { food: 6, hours: 3 }, desc: 'Cooking smoke −2; rations cost 1 less food.' },
+  infirmary: { n: 'Infirmary tent', cost: { med: 6, hours: 4 }, desc: '15% fewer of the wounded die.' },
+};
+
+/* ---------- a visitor from Munich ---------- */
+const HELD = {
+  n: 'Karl Held',
+  intro: 'A visitor from Munich arrives at the atelier, declines the cake on principle, then eats two slices.',
+  quote: 'Comrades, I hear you have won. Before anyone celebrates, one should first explain what was won, for whom, and what the salt works are for now. That is the critique, and it can wait until tomorrow. Today is not an occasion for critique. Today is Mo\'s birthday. Happy birthday, Mo. And whoever designed this party hat: that is not camouflage. That is a position.',
+  aside: 'The Critique Circle stands up when he enters. Nobody has ever seen them stand.',
+};
+
 /* ---------- FACTIONS ---------- */
 const FACTIONS = {
   staff:    { n: 'The Operational Section', s: 'Staff', who: 'Former officers who read Triandafillov and Isserson by lamplight. They want radios, echelons and rank.', eff: 'Command & coordination' },
@@ -2203,6 +2297,7 @@ function drNewState() {
     v: 1, cycle: 0, force: DR_START_FORCE, seed: (Math.random() * 1e9) >>> 0,
     stock: Object.assign({}, DR_INCOME), appr: Object.fromEntries(FACTION_ORDER.map(f => [f, 50])),
     scurvy: 0, caffDebt: 0, lastCut: null, looks: [], reports: [], phase: 'title', L: drDefaultLoadout(), started: false, muted: false, ops: OPS.map(o => o.id),
+    mods: {}, upgrades: [], crew: CREW.map(c => ({ id: c.id, st: 'ok' })), garment: null, intel: null, council: [], motionsUsed: [], heldSeen: false, heldVisit: false, saltTaken: false,
   };
 }
 function drDefaultLoadout() {
@@ -2211,6 +2306,7 @@ function drDefaultLoadout() {
     treat: [{ id: 'perm', s: 2 }, null], load: 'belt', insignia: 'armband',
     rations: ['kasha', 'bread', 'fish', 'tea', 'cabbage'], distrib: 'equal', med: ['tq', 'dress', 'abx', 'water'],
     arms: ['lmg'], frontage: 'medium', echelon: 'classic', raids: false, timing: 'onbreak', objective: 'operational', deception: 'none', line: 'bread',
+    garmentMode: 'reissue', scouts: false,
   };
 }
 
@@ -2221,21 +2317,36 @@ function drCosts(L, st) {
   const det = civ ? [] : L.details.map(id => DETAILS[id]);
   const tr = L.treat.filter(Boolean);
   const c = { cloth: 0, dye: 0, hours: 0, food: 0, med: 0, arms: 0 };
-  c.cloth = (civ ? 0 : Math.ceil((cut.cloth + sum(det.map(d => d.cloth))) * fab.mult)) + LOADS[L.load].cloth;
-  c.dye = (civ ? 0 : PATTERNS[L.pattern].dye) + sum(tr.map(t => TREATMENTS[t.id].dye[t.s - 1])) + INSIGNIA[L.insignia].dye;
-  c.hours = cut.hours + sum(det.map(d => d.hours)) + (civ ? 0 : PATTERNS[L.pattern].hours) + tr.length + LOADS[L.load].hours + INSIGNIA[L.insignia].hours
-    + sum(L.arms.map(a => ARMS[a].maint)) + (DISTRIB[L.distrib].hours || 0) + (DECEPTION[L.deception].hours || 0) + drRetool(L, st);
-  c.food = sum(L.rations.map(r => RATIONS[r].cost)) + (L.arms.includes('horses') ? ARMS.horses.food : 0);
+  const up = id => !!(st && st.upgrades && st.upgrades.includes(id)), mods = (st && st.mods) || {};
+  const mode = drGarmentMode(L, st);
+  const garmentCloth = civ ? 0 : Math.ceil((cut.cloth + sum(det.map(d => d.cloth))) * fab.mult * (up('loom') ? 0.75 : 1));
+  const gm = { new: 1, repair: 0.5, reissue: 0.25 }[mode];
+  c.cloth = Math.ceil(garmentCloth * gm) + LOADS[L.load].cloth;
+  c.dye = (civ ? 0 : Math.max(0, PATTERNS[L.pattern].dye - (up('vats') ? 1 : 0))) + sum(tr.map(t => Math.max(0, TREATMENTS[t.id].dye[t.s - 1] - (up('bench') ? 1 : 0)))) + INSIGNIA[L.insignia].dye + (mode === 'repair' ? 1 : 0);
+  c.hours = (mode === 'new' ? cut.hours + sum(det.map(d => d.hours)) : mode === 'repair' ? 3 : 1) + (civ ? 0 : Math.max(0, PATTERNS[L.pattern].hours - (up('vats') ? 1 : 0))) + tr.length + LOADS[L.load].hours + INSIGNIA[L.insignia].hours
+    + sum(L.arms.map(a => ARMS[a].maint)) + (DISTRIB[L.distrib].hours || 0) + (DECEPTION[L.deception].hours || 0) + (mode === 'new' ? drRetool(L, st) : 0) + (L.scouts ? 2 : 0);
+  c.food = Math.max(0, sum(L.rations.map(r => RATIONS[r].cost)) + (L.arms.includes('horses') ? ARMS.horses.food : 0) + (L.scouts ? 1 : 0) + (mods.shockBn ? 1 : 0) + (mods.forceVit ? 1 : 0) - (up('kitchen') ? 1 : 0));
   c.med = sum(L.med.map(m => MEDKIT[m].cost));
-  c.arms = sum(L.arms.map(a => ARMS[a].cost));
+  c.arms = sum(L.arms.map(a => ARMS[a].cost)) - (L.arms.includes('radio') && up('radioshop') ? 2 : 0);
   return c;
 }
 const drRetool = (L, st) => (st && st.lastCut && st.lastCut !== L.cut && !CUTS[L.cut].civ) ? 3 : 0;
+function drGarmentMode(L, st) {
+  if (!st || !st.garment || CUTS[L.cut].civ || st.garment.cut !== L.cut || st.garment.fabric !== L.fabric) return 'new';
+  return L.garmentMode === 'new' || L.garmentMode === 'repair' ? L.garmentMode : 'reissue';
+}
+function drGarmentCond(L, st) {
+  const m = drGarmentMode(L, st);
+  if (m === 'new' || !st || !st.garment) return 1;
+  return m === 'repair' ? Math.min(1, st.garment.cond + 0.5) : st.garment.cond;
+}
 function drOver(L, st) { const c = drCosts(L, st); return DR_RES.filter(r => c[r] > st.stock[r]); }
 
 /* ---------- uniform ---------- */
-function drUniform(L, op) {
+function drUniform(L, op, st) {
   const cut = CUTS[L.cut], civ = !!cut.civ;
+  const cond = civ ? 1 : drGarmentCond(L, st);
+  const bench = !!(st && st.upgrades && st.upgrades.includes('bench'));
   const fab = civ ? { weight: 2, warm: 1, breath: 3, dur: 1, fire: 0, wet: 0, chem: 0 } : FABRICS[L.fabric];
   const det = civ ? [] : L.details.map(id => DETAILS[id]);
   const load = LOADS[L.load];
@@ -2246,7 +2357,8 @@ function drUniform(L, op) {
   U.mob = cut.mob + sum(det.map(d => d.mob)) - fab.weight - load.weight - (T('phos') ? TREATMENTS.phos.stiff[si('phos')] : 0);
   U.warm = cut.warm + sum(det.map(d => d.warm)) + fab.warm;
   U.breath = fab.breath + sum(det.map(d => d.vent)) - (T('wax') ? TREATMENTS.wax.breath[si('wax')] : 0);
-  U.dur = cut.prot + sum(det.map(d => d.dur)) + fab.dur;
+  U.dur = cut.prot + sum(det.map(d => d.dur)) + fab.dur - Math.round((1 - cond) * 4);
+  U.cond = cond;
   U.access = cut.access + sum(det.map(d => d.access)) + load.access;
   U.ammo = load.ammo + sum(det.map(d => d.cap)) + (cut.cap || 0);
   U.weight = fab.weight + load.weight + (L.details.includes('quilting') && !civ ? 2 : 0) + (L.cut === 'quilt' ? 3 : 0);
@@ -2256,34 +2368,37 @@ function drUniform(L, op) {
     const base = L.pattern === 'solid' ? c1 : 0.6 * c1 + 0.4 * COLORS[L.color2].m[op.terrain];
     U.conceal = base * (p[op.terrain] || p.mult);
   }
-  U.conceal = Math.min(10, Math.round(U.conceal * 10) / 10);
+  U.conceal = Math.min(10, Math.round(U.conceal * (0.75 + 0.25 * cond) * 10) / 10);
   const wetOp = op.haz.wet >= 3;
   U.p = {
     insects: clamp((T('perm') ? TREATMENTS.perm.eff[si('perm')] + (T('wax') ? 0.05 : 0) : 0) + sum(det.map(d => d.insect)), 0, 0.95),
     fire: clamp(fab.fire + (T('phos') ? TREATMENTS.phos.eff[si('phos')] * (T('wax') ? 0.5 : 1) * (wetOp ? 0.5 : 1) : 0) - (T('wax') ? TREATMENTS.wax.fire[si('wax')] : 0), -0.8, 0.95),
-    wet: clamp((T('wax') ? TREATMENTS.wax.eff[si('wax')] : 0) + fab.wet + sum(det.map(d => d.wet)) - (L.details.includes('quilting') && !civ ? 0.1 : 0) + (L.cut === 'smock' ? 0.05 : 0), -0.3, 0.9),
+    wet: clamp((T('wax') ? TREATMENTS.wax.eff[si('wax')] : 0) - (1 - cond) * 0.2 + fab.wet + sum(det.map(d => d.wet)) - (L.details.includes('quilting') && !civ ? 0.1 : 0) + (L.cut === 'smock' ? 0.05 : 0), -0.3, 0.9),
     chem: clamp((cut.chem || 0) + (fab.chem || 0) + (T('wax') ? 0.3 : 0), 0, 0.85),
     micro: clamp((T('copper') ? TREATMENTS.copper.eff[si('copper')] : 0) + (T('chitosan') ? TREATMENTS.chitosan.eff[si('chitosan')] : 0) + (T('copper') && T('chitosan') ? 0.1 : 0), 0, 0.85),
   };
-  U.irr = sum(tr.map(t => (TREATMENTS[t.id].irr || [0, 0, 0])[t.s - 1]));
+  U.irr = sum(tr.map(t => Math.max(0, (TREATMENTS[t.id].irr || [0, 0, 0])[t.s - 1] - (bench && t.s === 3 ? 1 : 0))));
+  if (cond < 0.6) U.notes0 = `Reissued uniforms are worn (${Math.round(cond * 100)}%): faded colours, thin knees.`;
   U.notes = [];
   if (T('wax') && T('phos')) U.notes.push('The wax film seals the phosphate away from any flame: flame retardancy halved.');
   if (T('wax') && T('perm')) U.notes.push('Wax helps the permethrin survive the rain.');
   if (T('copper') && T('chitosan')) U.notes.push('Chitosan binds the copper ions: a stronger, longer-lasting antimicrobial finish.');
   if (T('phos') && wetOp && !T('wax')) U.notes.push('Phosphate is water-soluble: in this wet a lot of it will wash out.');
   if (fab.fire < 0) U.notes.push('Nylon melts in fire. Any flame becomes a skin burn.');
+  if (U.notes0) U.notes.push(U.notes0);
   return U;
 }
 
 /* ---------- derived force stats ---------- */
 function drDerive(L, st, op) {
-  const U = drUniform(L, op);
+  const U = drUniform(L, op, st);
   const has = a => L.arms.includes(a);
   const med = id => L.med.includes(id);
+  const up = id => (st.upgrades || []).includes(id), mods = st.mods || {};
   const R = L.rations.map(r => RATIONS[r]);
   const kcal = sum(R.map(r => r.kcal));
   const kratio = kcal / op.kcal + (L.load === 'ruck' ? 0.06 : 0);
-  const rw = sum(R.map(r => r.w)), smoke = sum(R.map(r => r.smoke)), vit = sum(R.map(r => r.vit));
+  const rw = sum(R.map(r => r.w)), smoke = Math.max(0, sum(R.map(r => r.smoke)) - (up('kitchen') ? 2 : 0)), vit = sum(R.map(r => r.vit));
   const rmor = sum(R.map(r => r.mor)) + (R.length >= 5 ? 2 : 0);
   const apAvg = sum(FACTION_ORDER.filter(f => f !== 'critique').map(f => st.appr[f])) / 5;
   const D = { U, kcal, kratio, rw, smoke, vit };
@@ -2291,14 +2406,16 @@ function drDerive(L, st, op) {
   D.transport = transport;
   D.FIRE = Math.round(30 + sum(L.arms.map(a => ARMS[a].fire)) + U.ammo * 2.2 + (L.distrib === 'shock' ? 3 : 0));
   D.MOB = Math.round(clamp(38 + U.mob * 2.2 + transport - Math.max(0, rw - 7) * 1.5, 5, 100));
-  D.C2 = Math.round(clamp(25 + (has('radio') ? ARMS.radio.c2 : 0) + INSIGNIA[L.insignia].c2 + (st.appr.staff - 50) * 0.2 + (L.line === 'discipline' ? 4 : 0), 5, 100));
+  D.C2 = Math.round(clamp(25 + (has('radio') ? ARMS.radio.c2 + (up('radioshop') ? 4 : 0) : 0) + INSIGNIA[L.insignia].c2 + (st.appr.staff - 50) * 0.2 + (L.line === 'discipline' ? 4 : 0), 5, 100));
   D.CON = Math.round(clamp(U.conceal * 6 + (DECEPTION[L.deception].con || 0) - smoke * 1.5 + (CUTS[L.cut].civ && op.terrain === 'urban' ? 6 : 0), 0, 100));
   const lineMor = { discipline: 2, land: op.pop === 'rural' ? 9 : 2, equality: 5, inter: op.pop === 'urban' ? 6 : 2, bread: kratio >= 1 ? 7 : -3 }[L.line];
   const distMor = { equal: 4, shock: -2, need: 5 }[L.distrib];
   const redMor = !CUTS[L.cut].civ && (L.color === 'red' || (L.pattern !== 'solid' && L.color2 === 'red')) ? 3 : 0;
   const itch = !CUTS[L.cut].civ && L.fabric === 'serge' && op.heat >= 2 ? -4 : 0;
-  const party = !CUTS[L.cut].civ && L.pattern === 'confetti' ? 5 : 0;
-  D.MOR = Math.round(clamp(50 + party + lineMor + distMor + rmor + INSIGNIA[L.insignia].mor + redMor + itch + (apAvg - 50) * 0.25 - st.scurvy * 5 - U.irr * 1.5 - st.caffDebt * 6, 5, 100));
+  const party = !CUTS[L.cut].civ && L.pattern === 'confetti' ? 3 : 0;
+  const fallen = (st.crew || []).filter(c => c.st === 'kia').length;
+  const policy = (mods.shortShifts ? 4 : 0) + (mods.seminarCycle === st.cycle ? 3 : 0) - fallen * 2 - Math.round((1 - U.cond) * 4);
+  D.MOR = Math.round(clamp(50 + party + policy + lineMor + distMor + rmor + INSIGNIA[L.insignia].mor + redMor + itch + (apAvg - 50) * 0.25 - st.scurvy * 5 - U.irr * 1.5 - st.caffDebt * 6, 5, 100));
   const warmFit = Math.min(1, U.warm / op.warmNeed);
   const overheat = op.heat ? Math.max(0, U.warm - op.warmNeed - 4) * 2 : 0;
   D.END0 = 30 + Math.min(kratio, 1.1) * 40 + warmFit * 12 - overheat + (med('caff') ? 8 : 0) + (L.load === 'ruck' ? 4 : 0);
@@ -2359,19 +2476,34 @@ function drSickness(L, st, op, U, D) {
 }
 
 /* ---------- staff projection (no dice) ---------- */
+function drIntelDoc(L, st, op) {
+  if (L.scouts) return op.doctrine;
+  return st.intel && st.intel.cycle === st.cycle && st.intel.op === op.id ? st.intel.reported : op.doctrine;
+}
+function drEnsureIntel(st) {
+  const op = OPS.find(o => o.id === st.ops[Math.min(st.cycle, st.ops.length - 1)]);
+  if (st.intel && st.intel.cycle === st.cycle && st.intel.op === op.id) return st.intel;
+  const r = RNG((st.seed + st.cycle * 131 + 7) >>> 0);
+  const p = st.cycle === 0 ? 0 : op.defense ? 0.3 : 0.35;
+  const wrong = r() < p;
+  st.intel = { cycle: st.cycle, op: op.id, reported: wrong ? DOCTRINE_DECOY[op.doctrine] : op.doctrine, wrong };
+  return st.intel;
+}
 function drProject(L, st, op) {
-  const R = drResolve(L, st, op, true);
+  if (op.defense) { const R = drResolveDefense(L, st, op, true, drIntelDoc(L, st, op)); return Object.assign(R, { p1Label: { held: 'Likely to hold', dented: 'They will break in', broken: 'They will break through' }[R.P1], p1Good: R.P1 !== 'broken' }); }
+  const R = drResolve(L, st, op, true, drIntelDoc(L, st, op));
   const near = Math.abs(R.margin - 10) <= 3 || Math.abs(R.margin + 4) <= 3;
   const p1Label = R.P1 === 'clean' ? (near ? 'Clean, just' : 'Likely clean') : R.P1 === 'costly' ? (near ? 'On a knife edge' : 'Likely, but costly') : (near ? 'On a knife edge' : 'Likely to stall');
   return Object.assign(R, { p1Label, p1Good: R.P1 !== 'stalled' });
 }
 
 /* ---------- resolve an operation ---------- */
-function drResolve(L, st, op, fixed) {
+function drResolve(L, st, op, fixed, docOverride) {
   const r = fixed ? () => 0.5 : RNG((st.seed + st.cycle * 7919) >>> 0);
   const D = drDerive(L, st, op);
   const has = a => L.arms.includes(a);
-  const ech = ECHELONS[L.echelon], doc = op.doctrine;
+  const ech = ECHELONS[L.echelon], doc = docOverride || op.doctrine;
+  const mods = st.mods || {};
   const AT = has('at'), eng = has('eng'), mortar = has('mortar');
   const first = ech.first - (L.raids ? 0.12 : 0);
   const fmult = doc === 'strong' ? { narrow: 1.1, medium: 1.0, broad: 0.95 }[L.frontage] : FRONTAGE[L.frontage].mult;
@@ -2381,7 +2513,7 @@ function drResolve(L, st, op, fixed) {
   const shock = Math.round((D.FIRE * 0.5 + D.CON * 0.32 + D.MOR * 0.18) * fmult * (0.55 + first * 0.75)
     + (eng && (op.river || op.enemy.belts >= 2 || doc === 'strong') ? (doc === 'strong' ? 10 : 8) : 0)
     + (mortar ? op.enemy.belts * (doc === 'depth' || doc === 'layered' ? 4 : 2) + (doc === 'strong' ? 6 : 0) : 0)
-    + (L.distrib === 'shock' ? 4 : 0));
+    + (L.distrib === 'shock' ? 4 : 0) + (mods.shockBn ? 6 : 0));
   const defense = Math.round(op.enemy.def + op.enemy.belts * beltW + (op.enemy.armor && !AT ? op.enemy.armor * 7 : 0) + (op.river && !eng ? 6 : 0)
     + (doc === 'forward' ? 8 : 0) - (doc === 'elastic' ? 10 : 0));
   let margin = shock - defense + (r() * 6 - 3);
@@ -2443,7 +2575,7 @@ function drResolve(L, st, op, fixed) {
     shock: 0.07 * (1 - D.cov.shock),
     infect: 0.05 * (1 + op.haz.debris * 0.4) * (1 - D.cov.infect),
   };
-  const evacF = (D.evac ? 0.85 : 1.1) * (km > 30 ? 1.1 : 1) * (1.1 - st.appr.medics / 500);
+  const evacF = (D.evac ? 0.85 : 1.1) * (km > 30 ? 1.1 : 1) * (1.1 - st.appr.medics / 500) * ((st.upgrades || []).includes('infirmary') ? 0.85 : 1);
   const mort = Math.max(0.01, sum(Object.values(mortParts)) * evacF);
   const dow = Math.round(wounded * mort);
   const dowIf = { bleed: Math.round(wounded * (mortParts.bleed * evacF)), shock: Math.round(wounded * mortParts.shock * evacF), infect: Math.round(wounded * mortParts.infect * evacF) };
@@ -2467,10 +2599,86 @@ function drResolve(L, st, op, fixed) {
   const score = depthPts + lossPts + healthPts + cohPts;
 
   return {
-    op: op.id, cycle: st.cycle, D, shock, defense, camoH, P1, margin, reserveUsed, breachH, reserveH, commitH, enterH, lead, delayed, trapped, eff,
+    mode: 'attack', doc, op: op.id, cycle: st.cycle, D, shock, defense, camoH, P1, margin, reserveUsed, breachH, reserveH, commitH, enterH, lead, delayed, trapped, eff,
     drive, resStr, resistance, depthFrac, reached, target, km, taken, overextended,
     enemyRes: resStr, armorThreat, battle, killed, wounded, dow, dowIf, sickDeaths, dead, recruits, spoils, forceBefore: F, forceNext,
     depthPts, lossPts, healthPts, cohPts, score, letter: drLetter(score),
+  };
+}
+/* ---------- the defensive finale ---------- */
+function drResolveDefense(L, st, op, fixed, docOverride) {
+  const r = fixed ? () => 0.5 : RNG((st.seed + st.cycle * 7919) >>> 0);
+  const D = drDerive(L, st, op);
+  const has = a => L.arms.includes(a);
+  const ech = ECHELONS[L.echelon];
+  const AT = has('at'), eng = has('eng'), mortar = has('mortar');
+  const knowAxis = (docOverride || op.doctrine) === op.doctrine;
+  const first = ech.first - (L.raids ? 0.12 : 0);
+  const dens = { narrow: knowAxis ? 1.22 : 0.8, medium: 1.0, broad: 0.86 }[L.frontage];
+  /* phase 1: their breakthrough attempt */
+  const line = Math.round((D.FIRE * 0.5 + D.CON * 0.32 + D.MOR * 0.18) * dens * (0.55 + first * 0.75) + (eng ? 10 : 0) + (mortar ? 6 : 0) + (AT ? op.enemy.armor * 4 : 0) + ((st.mods || {}).shockBn ? 4 : 0));
+  const attack = Math.round(op.enemy.atk + op.enemy.armor * (AT ? 2 : 7));
+  let margin = line - attack + (r() * 6 - 3);
+  let P1 = margin >= 10 ? 'held' : margin >= -4 ? 'dented' : 'broken';
+  let reserveUsed = false;
+  if (P1 === 'broken' && ech.res >= 0.2) { reserveUsed = true; margin += 12; P1 = margin >= 10 ? 'held' : margin >= -4 ? 'dented' : 'broken'; }
+  margin = Math.round(margin);
+  const breachH = P1 === 'held' ? null : P1 === 'dented' ? 12 : 7;
+  /* phase 2: their mobile group vs your counter-attack */
+  const camoH = clamp(Math.round((D.CON - 40) / 12), -3, 3);
+  const decH = { none: 0, dummy: 3, radio: 5 }[L.deception];
+  const mgH = breachH === null ? null : breachH + DOCTRINES.counteroff.resH - 8 + (L.raids ? 5 : 0) + decH + (mortar ? 2 : 0) + camoH;
+  let counterH = null, lead = null, delayed = false;
+  if (breachH !== null) {
+    counterH = L.timing === 'early' ? 6 : L.timing === 'late' ? 24 : breachH + (D.C2 >= 50 ? 1 : 8);
+    delayed = L.timing === 'onbreak' && D.C2 < 50;
+    lead = mgH - counterH;
+  }
+  const effC = lead === null ? 1 : lead >= 2 ? 1.1 : lead >= -2 ? 0.85 : 0.6;
+  const drive = Math.round((D.MOB * 0.5 + D.END * 0.3 + D.C2 * 0.2) * (0.35 + ech.second * 1.7) * effC * (0.94 + r() * 0.12));
+  const theirMG = Math.round(op.enemy.reserve * (L.raids ? 0.75 : 1) * (L.deception !== 'none' ? 0.85 : 1) + op.enemy.armor * 9 * (AT ? 0.3 : 1));
+  const resistance = theirMG + 22;
+  const ratio = drive / resistance;
+  /* phase 3: ground held */
+  const aim = L.objective; // tactical = hold every metre, operational = trade space, deep = counter-offensive
+  let lost, routed = false, thrownBack = false;
+  if (P1 === 'held') lost = 0.03;
+  else {
+    const pen = (P1 === 'broken' ? 0.7 : 0.4) * (aim === 'operational' ? 1.2 : 1);
+    if (ratio >= 1) { thrownBack = true; lost = pen * (aim === 'deep' ? 0.1 : 0.3); if (aim === 'deep' && ratio >= 1.2) routed = true; }
+    else lost = pen * (1 - ratio * 0.5) + (aim === 'tactical' && P1 === 'broken' ? 0.1 : 0);
+  }
+  const heldFrac = clamp(1 - lost, 0, 1);
+  const reached = heldFrac, taken = heldFrac >= 0.85, km = Math.round(op.depth * lost);
+  /* losses */
+  const F = st.force;
+  const p1m = { held: 0.6, dented: 1.0, broken: 1.3 }[P1];
+  let battle = F * 0.05 * (op.enemy.atk / 40) * p1m * FRONTAGE[L.frontage].cas * (1 - D.CON / 170) * (1 - D.U.dur / 45)
+    * (aim === 'tactical' && P1 === 'broken' ? 1.3 : aim === 'operational' ? 0.8 : 1) * (aim === 'deep' && !thrownBack && P1 !== 'held' ? 1.25 : 1) * (lead !== null && lead < -2 ? 1.15 : 1) * (reserveUsed ? 1.1 : 1);
+  if (op.enemy.armor && !AT) battle += F * 0.01 * op.enemy.armor;
+  battle = Math.round(battle);
+  const killed = Math.round(battle * 0.22), wounded = battle - killed;
+  const mortParts = { bleed: 0.13 * Math.max(0.05, 1 - D.cov.bleed - D.U.access / 50), shock: 0.07 * (1 - D.cov.shock), infect: 0.05 * (1 + op.haz.debris * 0.4) * (1 - D.cov.infect) };
+  const evacF = (D.evac ? 0.85 : 1.1) * (1.1 - st.appr.medics / 500) * ((st.upgrades || []).includes('infirmary') ? 0.85 : 1);
+  const mort = Math.max(0.01, sum(Object.values(mortParts)) * evacF);
+  const dow = Math.round(wounded * mort);
+  const dowIf = { bleed: Math.round(wounded * mortParts.bleed * evacF), shock: Math.round(wounded * mortParts.shock * evacF), infect: Math.round(wounded * mortParts.infect * evacF) };
+  const sickDeaths = sum(Object.values(D.sick).map(s => s.deaths));
+  const dead = killed + dow + sickDeaths;
+  const recruits = Math.max(0, Math.round(8 + heldFrac * 14 + (routed ? 10 : 0)));
+  const forceNext = Math.max(120, F - dead - Math.round((wounded - dow) * 0.55 + D.sickN * 0.3) + recruits);
+  const depthPts = Math.round(40 * heldFrac) + (routed ? 4 : 0);
+  const lossPts = Math.round(25 * (1 - clamp(dead / F / 0.08, 0, 1)));
+  const healthPts = Math.round(15 * (1 - clamp(D.sickN / F / 0.12, 0, 1)));
+  const apAvg = sum(FACTION_ORDER.filter(f => f !== 'critique').map(f => st.appr[f])) / 5;
+  const cohPts = Math.round(20 * (clamp((D.MOR - 30) / 60, 0, 1) * 0.6 + apAvg / 100 * 0.4));
+  const score = Math.min(100, depthPts + lossPts + healthPts + cohPts);
+  return {
+    mode: 'defense', doc: docOverride || op.doctrine, knowAxis, op: op.id, cycle: st.cycle, D, shock: line, defense: attack, camoH, P1, margin, reserveUsed,
+    breachH, reserveH: mgH, enterH: counterH, commitH: counterH, lead, delayed, eff: effC, drive, resStr: theirMG, resistance, depthFrac: ratio, reached, target: 1,
+    heldFrac, lost, routed, thrownBack, km, taken, overextended: false, enemyRes: theirMG, armorThreat: Math.round(op.enemy.armor * 9 * (AT ? 0.3 : 1)),
+    battle, killed, wounded, dow, dowIf, sickDeaths, dead, recruits, spoils: {}, forceBefore: F, forceNext,
+    depthPts: Math.min(40, depthPts), lossPts, healthPts, cohPts, score, letter: drLetter(score),
   };
 }
 function drLetter(s) { return s >= 92 ? 'S' : s >= 80 ? 'A' : s >= 66 ? 'B' : s >= 52 ? 'C' : s >= 38 ? 'D' : 'F'; }
@@ -2490,7 +2698,7 @@ function drFactionDeltas(L, st, op, R) {
   if (L.deception !== 'none') A('staff', 3, 'deception');
   if (med('caff')) A('staff', 2, 'caff');
   if (L.line === 'discipline') A('staff', 4, 'discipline');
-  if (R.taken) A('staff', 4, 'pos'); if (R.P1 === 'stalled') A('staff', -5, 'neg');
+  if (R.taken) A('staff', 4, 'pos'); if (R.P1 === 'stalled' || R.P1 === 'broken') A('staff', -5, 'neg');
   /* assembly */
   ({ elected: () => A('assembly', 6, 'elected'), none: () => A('assembly', 4, 'norank'), rank: () => A('assembly', -8, 'rank') })[L.insignia]?.();
   ({ shock: () => A('assembly', -7, 'shock'), equal: () => A('assembly', 4, 'equal'), need: () => A('assembly', 2, 'pos') })[L.distrib]();
@@ -2546,30 +2754,135 @@ function drIncome(st, spoils) {
   inc.arms = Math.round(inc.arms + (a.bunker - 50) / 10);
   inc.food = Math.round(inc.food + (a.commune - 50) / 10);
   inc.med = Math.round(inc.med + (a.medics - 50) / 12);
+  const m = st.mods || {};
+  if (m.freeVillages) { inc.food += 3; inc.arms -= 2; }
+  if (m.armsBonus) inc.arms += m.armsBonus;
+  if (m.shortShifts) inc.hours -= 4;
   Object.entries(spoils || {}).forEach(([k, v]) => inc[k] = (inc[k] || 0) + v);
   return inc;
 }
 
 /* apply a resolved operation to the campaign state; returns the full report */
 function drAdvance(st, L, op) {
-  const R = drResolve(L, st, op);
+  drEnsureIntel(st);
+  const R = op.defense ? drResolveDefense(L, st, op) : drResolve(L, st, op);
+  R.intel = { reported: st.intel.reported, wrong: st.intel.wrong, scouted: !!L.scouts };
   const deltas = drFactionDeltas(L, st, op, R);
   R.factions = drApplyFactions(st, deltas);
+  R.crew = drCrewOutcomes(L, st, op, R);
   R.text = drReportText(L, st, op, R);
+  /* uniform wear */
+  if (!CUTS[L.cut].civ) {
+    const before = drGarmentCond(L, st);
+    const wear = clamp(0.18 + 0.05 * (op.haz.debris + op.haz.wet + (op.warmNeed >= 12 ? 2 : 0)) - R.D.U.dur * 0.012 - (L.details.includes('reinforce') ? 0.05 : 0), 0.08, 0.5);
+    st.garment = { cut: L.cut, fabric: L.fabric, cond: Math.max(0.2, Math.round((before - wear) * 100) / 100) };
+    R.wear = { before, after: st.garment.cond };
+  }
+  /* a visitor from Munich */
+  const hat = L.pattern === 'confetti' || BDAY_RE.test(L.name || '');
+  const win = (op.id === 'saltgrad' && R.taken) || (op.defense && R.taken && st.saltTaken);
+  if (hat && win && !st.heldVisit) { st.heldVisit = true; R.held = st.heldSeen ? 'again' : 'first'; st.heldSeen = true; }
+  if (op.id === 'saltgrad' && R.taken) st.saltTaken = true;
   const vit = sum(L.rations.map(x => RATIONS[x].vit));
-  st.scurvy = vit >= 2 ? Math.max(0, st.scurvy - 1) : st.scurvy + 1;
+  st.scurvy = vit >= 2 || (st.mods || {}).forceVit ? Math.max(0, st.scurvy - 1) : st.scurvy + 1;
   st.caffDebt = L.med.includes('caff') ? 1 : 0;
   st.lastCut = CUTS[L.cut].civ ? st.lastCut : L.cut;
   const costs = drCosts(L, st);
   const inc = drIncome(st, R.spoils);
   const carry = {}; DR_RES.forEach(k => carry[k] = k === 'hours' ? 0 : Math.floor(Math.max(0, st.stock[k] - costs[k]) * 0.5));
   st.force = R.forceNext;
-  st.looks.push({ L: JSON.parse(JSON.stringify(L)), op: op.id, letter: R.letter, score: R.score, name: L.name || `Look ${st.cycle + 1}` });
-  st.reports.push({ op: op.id, score: R.score, letter: R.letter, taken: R.taken, km: R.km, dead: R.dead });
+  st.looks.push({ L: JSON.parse(JSON.stringify(L)), op: op.id, letter: R.letter, score: R.score, name: L.name || `Look ${st.cycle + 1}`, cond: R.wear ? R.wear.before : 1 });
+  st.reports.push({ op: op.id, score: R.score, letter: R.letter, taken: R.taken, km: R.km, dead: R.dead, defense: !!op.defense, held: R.heldFrac });
   st.cycle++;
   DR_RES.forEach(k => st.stock[k] = inc[k] + carry[k]);
-  R.income = st.stock;
+  R.income = Object.assign({}, st.stock);
   return R;
+}
+
+/* ---------- the squad ---------- */
+function drCrewOutcomes(L, st, op, R) {
+  const r = RNG((st.seed + st.cycle * 977 + 5) >>> 0);
+  const D = R.D, U = D.U, has = a => L.arms.includes(a);
+  const deadRate = R.dead / R.forceBefore;
+  const look = drLookName(L), colorN = CUTS[L.cut].civ ? 'civilian' : COLORS[L.color].n.toLowerCase();
+  const needEng = op.river || op.enemy.belts >= 2 || op.doctrine === 'strong' || op.defense;
+  const out = [];
+  (st.crew || []).forEach(c => {
+    if (c.st === 'kia') return;
+    const C = CREW.find(x => x.id === c.id);
+    const back = c.st === 'wia';
+    let m = C.risk, line = '';
+    switch (c.id) {
+      case 'vera':
+        if (U.conceal >= 7) { m *= 0.6; line = `Vera's "${look}" hid her so well she spent the morning pinning down a machine-gun nest.`; }
+        else if (U.conceal < 4) { m *= 1.5; line = `Vera says the ${colorN} uniform made her "a bullseye with opinions".`; }
+        else if (!CUTS[L.cut].civ && L.fabric === 'serge' && op.heat >= 2) line = 'Vera hated the wool. Loudly, and in writing.';
+        else line = 'Vera kept the enemy\'s heads down from a ruined barn.';
+        break;
+      case 'bogdan':
+        if (needEng && has('eng')) { m *= 0.7; line = 'Old Bogdan\'s engineers bridged and breached on schedule. He measured twice and blew once.'; }
+        else if (needEng) { m *= 1.6; line = 'Without an engineer kit, Bogdan cut the wire with tailor\'s shears.'; }
+        else line = 'Bogdan spent the operation re-stitching webbing at the aid post, muttering about seam allowances.';
+        break;
+      case 'lena':
+        if (!L.med.includes('tq')) line = 'Lena ran out of tourniquets by noon and used belts instead.';
+        else if (D.cov.bleed >= 0.6) { const n = Math.max(1, Math.round(R.wounded * 0.08)); line = `Lena's kit held out: ${n === 1 ? 'one more person is' : `about ${n} people are`} alive because of it.`; }
+        else line = 'Lena worked through the night at the aid post.';
+        if (U.access >= 5) { m *= 0.85; line += ' She blessed whoever invented the medic zips.'; }
+        break;
+      case 'tomas':
+        if (has('radio')) { m *= 0.8; line = 'Tomas kept the echelons talking all operation.'; }
+        else line = `No radios: Tomas carried messages on foot, ${10 + st.cycle * 5} km of them.`;
+        break;
+      case 'ivo':
+        if (D.kratio < 0.9) line = 'Ivo apologised to every section personally. There wasn\'t enough food.';
+        else if (D.smoke >= 4) line = 'Ivo\'s cooking fires gave the position away at dawn. He is inconsolable.';
+        else line = `Ivo's ${RATIONS[L.rations[0]] ? RATIONS[L.rations[0]].n.toLowerCase() : 'kasha'} arrived hot and on time. Morale noticed.`;
+        break;
+      case 'asel':
+        if (L.scouts) { m *= 1.3; line = R.intel.wrong ? 'Asel\'s scouts found that the partisan reports were wrong, just in time.' : 'Asel\'s scouts confirmed the enemy plan.'; }
+        else if (R.intel.wrong) line = 'Asel had warned that the reports smelled wrong. Nobody sent her to check.';
+        else line = 'Asel watched the flanks and saw nothing worth reporting.';
+        break;
+    }
+    const wound = clamp(deadRate * 4 * m, 0.01, 0.35), kill = st.cycle === 0 ? 0 : wound * 0.25;
+    const x = r();
+    c.st = x < kill ? 'kia' : x < wound ? 'wia' : 'ok';
+    out.push({ id: c.id, n: C.n, role: C.role, line: (back ? 'Back from the aid station. ' : '') + line, st: c.st });
+  });
+  return out;
+}
+
+/* ---------- council of the column ---------- */
+function drCouncilMotion(st) {
+  const left = MOTIONS.filter(m => !(st.motionsUsed || []).includes(m.id));
+  if (!left.length) return null;
+  const r = RNG((st.seed + st.cycle * 313) >>> 0);
+  return left[Math.floor(r() * left.length)];
+}
+function drApplyMotion(st, mid, oi) {
+  const M = MOTIONS.find(m => m.id === mid), O = M.opts[oi];
+  st.motionsUsed = (st.motionsUsed || []).concat([mid]);
+  st.mods = Object.assign({}, st.mods || {}, O.fx);
+  if (O.fx.seminar) { st.mods.seminarCycle = st.cycle; st.stock.hours = Math.max(0, st.stock.hours - 3); }
+  Object.entries(O.appr || {}).forEach(([f, d]) => st.appr[f] = clamp(st.appr[f] + d, 0, 100));
+  st.council = (st.council || []).concat([{ cycle: st.cycle, id: mid, opt: oi }]);
+  drEnforceMods(st);
+  return O;
+}
+function drEnforceMods(st) {
+  const L = st.L, m = st.mods || {};
+  if (m.noRank && L.insignia === 'rank') L.insignia = m.noElected ? 'armband' : 'elected';
+  if (m.noElected && L.insignia === 'elected') L.insignia = 'armband';
+  if (m.noImported) { if (L.fabric === 'nylon') L.fabric = 'drill'; L.arms = L.arms.filter(a => a !== 'trucks'); }
+  if (m.noCaff) L.med = L.med.filter(x => x !== 'caff');
+}
+function drBuild(st, id) {
+  const U = UPGRADES[id];
+  if ((st.upgrades || []).includes(id) || Object.entries(U.cost).some(([k, v]) => st.stock[k] < v)) return false;
+  Object.entries(U.cost).forEach(([k, v]) => st.stock[k] -= v);
+  st.upgrades = (st.upgrades || []).concat([id]);
+  return true;
 }
 
 /* ---------- report writing ---------- */
@@ -2578,10 +2891,12 @@ function drReportText(L, st, op, R) {
   const D = R.D, U = D.U, ech = ECHELONS[L.echelon], has = a => L.arms.includes(a);
   const look = drLookName(L);
   const T = {};
+  if (op.defense) { drDefenseText(L, st, op, R, T); }
+  else {
   /* dispatches */
   const p1 = {
-    clean: `The first echelon broke ${op.zone} by H+${4 + Math.round((1 - Math.min(1, R.margin / 40)) * 6)}. ${R.margin > 30 ? 'The enemy line simply came apart.' : 'Resistance collapsed sector by sector.'}`,
-    costly: `The breakthrough at ${op.zone} held, at a price: the enemy fought for every trench line until H+${12 + Math.round(Math.random() * 6)}.${R.reserveUsed ? ' Only the reserve, thrown in at noon, tipped it.' : ''}`,
+    clean: `The first echelon broke ${op.zone} by H+${R.breachH}. ${R.margin > 30 ? 'The enemy line simply came apart.' : 'Resistance collapsed sector by sector.'}`,
+    costly: `The breakthrough at ${op.zone} held, at a price: the enemy fought for every trench line until H+${R.breachH}.${R.reserveUsed ? ' Only the reserve, thrown in at noon, tipped it.' : ''}`,
     stalled: `The first echelon stalled in front of ${op.zone}. ${drStallReason(L, op, R)}`,
   }[R.P1];
   let p2;
@@ -2612,6 +2927,8 @@ function drReportText(L, st, op, R) {
   A.push({ narrow: 'A narrow frontage concentrated the blow on one axis.', medium: 'A medium frontage: one main blow, supporting attacks.', broad: 'A broad frontage spread the risk and thinned the blow.' }[L.frontage]);
   if (D.C2 < 45) A.push(`Command & coordination was weak (${D.C2}). Echelons could not see or hear each other.`);
   T.assess = A;
+  }
+  if (R.intel && R.intel.wrong) T.assess.unshift(R.intel.scouted ? `Intelligence: the partisan reports said "${DOCTRINES[R.intel.reported].n.toLowerCase()}". Scouts found the truth in time: ${DOCTRINES[op.doctrine].n.toLowerCase()}.` : `Intelligence failure: the reports said "${DOCTRINES[R.intel.reported].n.toLowerCase()}", but it was ${DOCTRINES[op.doctrine].n.toLowerCase()}. Nobody sent scouts to check.`);
 
   /* gear performance */
   const G = [];
@@ -2621,6 +2938,8 @@ function drReportText(L, st, op, R) {
     G.push({ k: s.label, t: `${s.n} case${s.n === 1 ? '' : 's'}${s.deaths ? `, ${s.deaths} died` : ''}.${s.base && saved > 0 ? ` About ${saved} prevented by your choices.` : s.base && saved < 0 ? ` About ${-saved} more than with no special measures.` : ''}${s.n > 3 ? ` Helps: ${s.why}.` : ''}`, ok: s.n <= Math.max(3, s.base * 0.4) });
   });
   U.notes.forEach(n => G.push({ k: 'Lab note', t: n, ok: !/halved|melts|wash out/.test(n) }));
+  if (R.wear && R.wear.before < 1) G.push({ k: 'Condition', t: `Reissued uniforms went in at ${Math.round(R.wear.before * 100)}% and came back at ${Math.round(R.wear.after * 100)}%.${R.wear.before < 0.6 ? ' Faded colour cost concealment; thin cloth cost protection and morale.' : ''}`, ok: R.wear.before >= 0.6 });
+  else if (R.wear) G.push({ k: 'Condition', t: `New garments came back at ${Math.round(R.wear.after * 100)}%. Next cycle you can reissue, repair or replace them.`, ok: true });
   if (U.access < 0) G.push({ k: 'Medic access', t: 'Medics had to cut garments open to reach wounds. Every minute counts.', ok: false });
   else if (U.access >= 5) G.push({ k: 'Medic access', t: 'Medics reached wounds without cutting cloth.', ok: true });
   T.gear = G;
@@ -2646,6 +2965,36 @@ function drReportText(L, st, op, R) {
   T.logistics = Lg;
   T.bulletin = drBulletin(L, st, op);
   return T;
+}
+function drDefenseText(L, st, op, R, T) {
+  const D = R.D, has = a => L.arms.includes(a);
+  const p1 = {
+    held: `Their first echelon hit ${op.zone} at dawn and broke on it. ${R.margin > 25 ? 'By noon the mercenaries were walking back the way they came.' : 'It was close in places, but the line held.'}`,
+    dented: `Their first echelon broke into ${op.zone} at H+${R.breachH} after a day of fighting.${R.reserveUsed ? ' The local reserve plugged the worst of it.' : ''}`,
+    broken: `Their first echelon tore through ${op.zone} by H+${R.breachH}.${R.knowAxis ? '' : ' We had massed on the wrong axis: the unconfirmed reports pointed us the wrong way.'}`,
+  }[R.P1];
+  let p2;
+  if (R.P1 === 'held') p2 = 'Their armored mobile group never found a gap to drive through. It sat in its assembly area and burned fuel.';
+  else {
+    const when = `Their mobile group went through the gap at H+${R.reserveH}; our counter-attack force struck at H+${R.enterH}.`;
+    const how = R.delayed ? ' The order to counter-attack went by runner and arrived hours late.' : '';
+    const race = R.lead >= 2 ? ' We hit them before their armor was through: the gap became a trap.' : R.lead >= -2 ? ' Both forces met in the gap: a brutal meeting engagement.' : ' Their armor was already through when we struck; we had to chase it.';
+    p2 = when + how + race;
+  }
+  let p3;
+  if (R.P1 === 'held') p3 = 'Saltgrad was never in danger. The Concession\'s last offensive ended where it started.';
+  else if (R.routed) p3 = 'The counter-offensive caught their mobile group strung out and destroyed it. The Concession has no army left to send.';
+  else if (R.thrownBack) p3 = `The counter-attack threw them back. They took ${R.km} km and lost all of it again within a day.`;
+  else p3 = `They pushed ${R.km} km before they ran out of steam${R.heldFrac < 0.5 ? ', into the suburbs of Saltgrad itself' : ''}. ${R.heldFrac >= 0.85 ? 'The line held where it mattered.' : 'The ground will have to be taken back.'}`;
+  T.dispatch = [p1, p2, p3];
+  const A = [];
+  A.push(`Enemy plan: a deep operation of their own. ${R.P1 === 'held' ? 'It failed at the first step: the tactical zone.' : R.lead >= 2 ? 'Their echelon for developing success arrived after our counter-attack: the theory works in both directions.' : 'Their mobile group got through before we could close the gap.'}`);
+  A.push({ allin: 'A forward defence: everything in the first trench, nothing behind it to counter-attack with.', classic: 'A classic defence: a front line, a counter-attack force and a small reserve.', deep: 'A defence in depth with a heavy counter-attack force: we let them in and hit them there.', cautious: 'A big local reserve stood ready to plug any breach.' }[L.echelon]);
+  A.push({ tactical: 'Aim: hold every metre. Rigid, and costly wherever the line gave.', operational: 'Aim: trade space for time. We gave ground and bled their mobile group.', deep: R.routed ? 'Aim: counter-offensive. It worked: their mobile group is gone.' : 'Aim: counter-offensive. Ambitious, and the price showed.' }[L.objective]);
+  const simul = [L.raids && 'spoiling raids', has('mortar') && 'mortar fire', L.deception !== 'none' && 'deception'].filter(Boolean);
+  A.push(simul.length ? `${simul.join(', ')} hit their assembly areas and delayed the mobile group.` : 'Nothing disturbed their assembly areas before the attack.');
+  A.push(has('at') ? 'Anti-armor teams were waiting where the armored cars came through.' : 'The armored cars met no anti-armor teams at all.');
+  T.assess = A;
 }
 function drDoctrineVerdict(L, op, R) {
   const has = a => L.arms.includes(a);
@@ -2700,7 +3049,8 @@ function drBulletin(L, st, op) {
 
 /* ---------- ending ---------- */
 function drEnding(st) {
-  const last = st.reports[st.reports.length - 1];
+  const fin = st.reports.find(r => r.defense);
+  const last = st.reports.find(r => r.op === 'saltgrad') || st.reports[st.reports.length - 1];
   const avgS = Math.round(sum(st.reports.map(r => r.score)) / st.reports.length);
   const totalDead = sum(st.reports.map(r => r.dead));
   let title, text;
@@ -2708,6 +3058,13 @@ function drEnding(st) {
   else if (last && last.taken) { title = 'A COSTLY VICTORY'; text = 'Saltgrad fell, but the Column paid for every kilometre. The Council will argue for years about whether the price was necessary. The Medics already have their answer.'; }
   else if (avgS >= 60) { title = 'THE COLUMN ENDURES'; text = 'Saltgrad held. The Column did not break either. Svechin would call it a strategy of attrition and nod: the war goes on, and the atelier keeps sewing.'; }
   else { title = 'THE REAR HOLDS'; text = 'The offensive failed. But the atelier stands, the looms run, the medics have learned what they needed. Deep battle is a theory of the next attempt.'; }
+  if (fin) {
+    if (last && last.taken && fin.held >= 0.85) text += ' Then the Long Night came, and the Concession\'s last army broke on your line. Saltgrad stays free.';
+    else if (last && last.taken) { title = 'SALTGRAD CHANGES HANDS'; text = 'Saltgrad fell to the Column in the thaw, and in the Long Night the Concession\'s last army took much of it back. The war is not over. The atelier keeps sewing.'; }
+    else if (fin.held >= 0.85) text += ' In the Long Night the Concession threw its last army at the Column, and the Column held.';
+    else text += ' In the Long Night the Concession\'s last army pushed the Column back. There will be another spring.';
+  }
+  const squad = (st.crew || []).map(c => ({ c: CREW.find(x => x.id === c.id), st: c.st }));
   const epi = FACTION_ORDER.map(f => {
     const a = st.appr[f];
     const t = {
@@ -2720,7 +3077,7 @@ function drEnding(st) {
     }[f];
     return { f, a, t };
   });
-  return { title, text, avgS, totalDead, epi };
+  return { title, text, avgS, totalDead, epi, squad };
 }
 
 /* ===================== THE DEEP REAR — PIXEL ART ===================== */
@@ -2764,6 +3121,7 @@ function drawFighter(ctx, L, ox = 0, oy = 0) {
   const F = (x, y, w, h) => fabRects.push([x, y, w, h]);
   const O = (x, y, w, h, c) => other.push([x, y, w, h, c]);
   const wide = L.cut === 'smock' || L.cut === 'quilt';
+  const cond = L._cond == null ? 1 : L._cond, wearK = civ ? 0 : (1 - cond) * 0.45;
   /* rifle and rucksack behind the body */
   const back = [];
   back.push([24, 6, 2, 30, DRP.metal], [24, 22, 2, 12, DRP.wood]);
@@ -2790,6 +3148,7 @@ function drawFighter(ctx, L, ox = 0, oy = 0) {
   fabRects.forEach(([x, y, w, h]) => {
     for (let yy = y; yy < y + h; yy++) for (let xx = x; xx < x + w; xx++) {
       let c = patSecondary(pat, xx, yy) ? c2 : c1;
+      if (wearK) c = mix(c, '#8a877a', wearK);
       if (pat === 'confetti' && hsh(xx, yy) > 0.8) c = ['#e0533f', '#e3b04b', '#73eff7', '#a7f070', '#f4f4f4', '#b13e53'][Math.floor(hsh(yy, xx) * 6)];
       if (xx > mid + 4) c = mix(c, '#000000', 0.14); else if (xx < mid - 6) c = mix(c, '#ffffff', 0.05);
       ctx.fillStyle = c; ctx.fillRect(ox + xx, oy + yy, 1, 1);
@@ -2817,6 +3176,7 @@ function drawFighter(ctx, L, ox = 0, oy = 0) {
   if (det.includes('zips')) { for (let y = 16; y < 27; y += 2) { P(wide ? 9 : 10, y, 1, 1, '#c9c9c9'); P(wide ? 22 : 21, y, 1, 1, '#c9c9c9'); } for (let y = 31; y < 41; y += 2) { P(11, y, 1, 1, '#c9c9c9'); P(20, y, 1, 1, '#c9c9c9'); } }
   if (det.includes('cuffs')) { P(aL, 27, 3, 1, hi); P(aR, 27, 3, 1, hi); P(11, 41, 4, 1, hi); P(17, 41, 4, 1, hi); }
   if (det.includes('vents')) { P(wide ? 9 : 10, 14, 1, 3, '#222'); P(wide ? 22 : 21, 14, 1, 3, '#222'); }
+  if (!civ && cond < 0.65) { P(12, 36, 3, 2, mix(c1, '#3a3020', 0.5)); P(aR, 21, 2, 2, mix(c1, '#3a3020', 0.5)); P(18, 18, 2, 1, '#d9d0b8'); }
   /* headgear */
   const hood = det.includes('hood');
   if (L.cut === 'quilt') { P(11, 2, 10, 4, '#5a4636'); P(11, 6, 2, 4, '#5a4636'); P(19, 6, 2, 4, '#5a4636'); P(12, 2, 8, 1, '#7a6250'); }
@@ -2877,6 +3237,7 @@ function drawTerrain(ctx, terrain, w, h, t = 0) {
 /* operational map for reports (160×56) */
 const TERRAIN_C = { steppe: ['#b99a52', '#a3843e'], marsh: ['#6d7a4a', '#5f7f84'], forest: ['#3f5a33', '#57753f'], urban: ['#6a6d70', '#5a5d60'], snow: ['#e3e9ef', '#c8d3df'], thaw: ['#6e5638', '#8a7050'] };
 function drawOpMap(ctx, op, R, k) {
+  if (op.defense) return drawDefMap(ctx, op, R, k);
   const W = 160, H = 56, [a, b] = TERRAIN_C[op.terrain];
   ctx.fillStyle = a; ctx.fillRect(0, 0, W, H);
   for (let x = 0; x < W; x += 6) for (let y = (x / 6 % 2) * 3; y < H; y += 6) { ctx.fillStyle = b; ctx.fillRect(x, y, 3, 2); }
@@ -2897,6 +3258,28 @@ function drawOpMap(ctx, op, R, k) {
   const g2 = Math.max(0, Math.min(1, (k - 0.4) / 0.6)) * R.reached;
   arrow(ctx, X0, 38, xAt(g1), '#c8372d');
   if (R.reached > 0 && k > 0.4) arrow(ctx, X0, 28, xAt(Math.max(g1, g2)), '#7a1d16');
+}
+function drawDefMap(ctx, op, R, k) {
+  const W = 160, H = 56, [a, b] = TERRAIN_C[op.terrain];
+  ctx.fillStyle = a; ctx.fillRect(0, 0, W, H);
+  for (let x = 0; x < W; x += 6) for (let y = (x / 6 % 2) * 3; y < H; y += 6) { ctx.fillStyle = b; ctx.fillRect(x, y, 3, 2); }
+  const city = 8, line = 100;
+  ctx.fillStyle = '#5a5d60'; for (let i = 0; i < 5; i++) ctx.fillRect(city + i * 4, 30 - (i % 3) * 5, 3, 14 + (i % 3) * 5);
+  blit(ctx, ICONS.flag, city + 4, 8);
+  for (let y = 4; y < H - 4; y += 3) { ctx.fillStyle = '#c8372d'; ctx.fillRect(line, y, 2, 2); }
+  if (!R) return;
+  const g = Math.min(1, k * 1.6);
+  const tip = R.P1 === 'held' ? line + 6 : line - (line - city - 12) * (1 - R.heldFrac);
+  const x1 = 150 - (150 - tip) * g;
+  enemyArrow(ctx, 150, 22, x1);
+  if (R.P1 !== 'held' && k > 0.6) arrow(ctx, city + 18, 38, city + 18 + (tip - city - 10) * Math.min(1, (k - 0.6) / 0.4), '#c8372d');
+}
+function enemyArrow(ctx, x0, y, x1) {
+  if (x0 - x1 < 2) return;
+  ctx.fillStyle = '#141113'; ctx.fillRect(x1, y - 2, x0 - x1, 5);
+  ctx.fillStyle = '#3b3b8a'; ctx.fillRect(x1, y - 1, x0 - x1, 3);
+  ctx.fillStyle = '#141113'; ctx.fillRect(x1 - 2, y - 4, 2, 9); ctx.fillRect(x1 - 4, y - 3, 2, 7); ctx.fillRect(x1 - 6, y - 2, 2, 5);
+  ctx.fillStyle = '#3b3b8a'; ctx.fillRect(x1 - 2, y - 3, 2, 7); ctx.fillRect(x1 - 4, y - 2, 2, 5);
 }
 function arrow(ctx, x0, y, x1, c) {
   if (x1 - x0 < 2) return;
@@ -3022,7 +3405,7 @@ function openHub() {
         <span class="tag">CARTRIDGE 02 · NEW</span>
         <h2 id="g2">THE DEEP REAR</h2>
         <p>Run the atelier, clinic and armory behind a revolutionary column. Design its uniforms, formulate its fabric finishes, pack its rations and medicine, issue its weapons and plan a Tukhachevsky-style deep operation. Then read what your choices did in the after-action report.</p>
-        <ul class="chips"><li>Design & strategy</li><li>6 operations</li><li>6 factions</li><li>Lookbook ending</li></ul>
+        <ul class="chips"><li>Design & strategy</li><li>Up to 7 operations</li><li>Council votes</li><li>A squad of six</li><li>Lookbook ending</li></ul>
         <div><a class="btn primary big" href="#deep-rear">${DRS.started ? 'CONTINUE' : 'PLAY FREE'}</a></div>
         <p class="save-note">${DRS.started ? esc(`Your campaign: cycle ${Math.min(DRS.cycle + 1, (DRS.ops || []).length || 6)} of ${(DRS.ops || []).length || 6} · ${DRS.force} fighters`) : 'Progress saves in this browser.'}</p>
       </div>
@@ -3564,18 +3947,24 @@ function drRender(keepScroll) {
   if (UI.view !== 'deep') return;
   const prev = $('.dr-main'); const top = keepScroll && prev ? prev.scrollTop : 0;
   const ph = DRS.phase;
-  $('#app').innerHTML = `<div class="dr">${ph === 'title' ? drTitleHTML() : ph === 'report' ? drReportHTML() : ph === 'end' ? drEndHTML() : drPrepHTML()}</div>`;
+  $('#app').innerHTML = `<div class="dr">${ph === 'title' ? drTitleHTML() : ph === 'report' ? drReportHTML() : ph === 'end' ? drEndHTML() : ph === 'council' ? drCouncilHTML() : drPrepHTML()}</div>`;
   const m = $('.dr-main'); if (m) m.scrollTop = top;
   drPaintStatic();
 }
 function drPaintStatic() {
   document.querySelectorAll('canvas[data-fighter]').forEach(cv => {
     const ctx = cv.getContext('2d'); const v = cv.dataset.fighter;
-    const L = v === 'cur' ? DRS.L : DRS.looks[+v].L;
+    const L = v === 'cur' ? Object.assign({}, DRS.L, { _cond: drGarmentCond(DRS.L, DRS) }) : Object.assign({}, DRS.looks[+v].L, { _cond: DRS.looks[+v].cond });
     const op = v === 'cur' ? curOp() : OPS.find(o => o.id === DRS.looks[+v].op);
     ctx.clearRect(0, 0, cv.width, cv.height);
     drawTerrain(ctx, op.terrain, cv.width, cv.height, 0);
     drawFighter(ctx, L, Math.round((cv.width - 32) / 2), cv.height - 48);
+  });
+  document.querySelectorAll('canvas[data-held]').forEach(cv => {
+    const ctx = cv.getContext('2d'); ctx.fillStyle = '#e6d9bd'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = '#d8c9a8'; for (let x = 0; x < cv.width; x += 6) ctx.fillRect(x, 0, 1, cv.height);
+    drawPerson(ctx, 8, 6, { skin: '#f6d3b3', hair: '#c2c3c7', style: 'short', shirt: '#4a5058', pants: '#333c57', glasses: true, elder: true, fx: [], seed: 9 }, 0, 0);
+    ctx.fillStyle = '#f1e7d0'; ctx.fillRect(26, 22, 6, 4); ctx.fillStyle = '#e0533f'; ctx.fillRect(26, 21, 6, 1); ctx.fillStyle = '#e3b04b'; ctx.fillRect(28, 19, 1, 2);
   });
 }
 function drScene(cv, ts) {
@@ -3609,6 +3998,7 @@ function drTitleHTML() {
 
 /* ---------------- prep (the workshop) ---------------- */
 function drPrepHTML() {
+  drEnsureIntel(DRS); drEnforceMods(DRS);
   const op = curOp(), c = drCosts(DRS.L, DRS);
   const tabs = [['brief', 'BRIEF'], ['atelier', 'ATELIER'], ['mess', 'MESS & MEDIC'], ['armory', 'ARMORY'], ['plan', 'PLAN']];
   const body = { brief: drBriefHTML, atelier: drAtelierHTML, mess: drMessHTML, armory: drArmoryHTML, plan: drPlanHTML }[DRU.tab]();
@@ -3622,18 +4012,21 @@ function drPrepHTML() {
   ${drBarHTML()}`;
 }
 function drEnemyPlanHTML(op) {
-  const DOC = DOCTRINES[op.doctrine];
-  return `<div class="enemy"><b>${esc(DOC.n.toUpperCase())}</b><p>${esc(DOC.intel)}</p><p class="eh">Staff reading: ${esc(DOC.hint)}</p><small>Their reserve normally reaches a breach at about H+${DOC.resH}.</small></div>`;
+  const intel = drEnsureIntel(DRS), sc = !!DRS.L.scouts;
+  const DOC = DOCTRINES[drIntelDoc(DRS.L, DRS, op)];
+  const rel = sc ? '<span class="rel ok">CONFIRMED BY SCOUTS</span>' : DRS.cycle === 0 ? '<span class="rel ok">CONFIRMED</span>' : '<span class="rel">UNCONFIRMED · partisan reports are wrong about a third of the time</span>';
+  return `<div class="enemy">${rel}<b>${esc(DOC.n.toUpperCase())}</b><p>${esc(DOC.intel)}</p><p class="eh">Staff reading: ${esc(DOC.hint)}</p><small>${op.defense ? `Their mobile group normally moves about H+${DOC.resH} after they break in.` : `Their reserve normally reaches a breach at about H+${DOC.resH}.`}</small>
+    ${DRS.cycle > 0 ? `<button class="tog wide" data-dr="scouts" aria-pressed="${sc}"><span>Send scouts (1 food, 2 hours)<small>Asel's scouts confirm what the enemy will really do. The forecast then uses the truth.</small></span></button>` : ''}</div>`;
 }
 function drBarHTML() {
   const L = DRS.L, op = curOp(), P = drProject(L, DRS, op), over = drOver(L, DRS);
   const prev = DRU.prev && DRU.prev.cycle === DRS.cycle ? DRU.prev : null;
   const d = (now, was, inv) => { if (!prev || was === undefined || now === was) return ''; const up = now > was; return `<em class="${up !== !!inv ? 'up' : 'dn'}">${up ? '▲' : '▼'}${Math.abs(now - was)}</em>`; };
-  const pot = Math.round(P.depthFrac * 100), lead = P.lead === null ? null : P.lead;
+  const pot = Math.round((op.defense ? P.heldFrac : P.depthFrac) * 100), lead = P.lead === null ? (op.defense ? null : null) : P.lead;
   const html = `<div class="dr-bar" aria-live="polite">
-    <div><span>BLOW</span><b class="${P.P1 === 'stalled' ? 'bad' : P.P1 === 'clean' ? 'ok' : ''}">${P.shock}/${P.defense}</b>${d(P.margin, prev && prev.margin)}</div>
-    <div><span>RACE</span><b class="${lead === null ? 'bad' : lead >= 2 ? 'ok' : lead < -2 ? 'bad' : ''}">${lead === null ? 'no gap' : (lead >= 0 ? '+' : '') + lead + 'h'}</b>${lead !== null && prev && prev.lead !== null ? d(lead, prev.lead) : ''}</div>
-    <div><span>DEPTH</span><b class="${P.reached >= 1 ? 'ok' : P.reached < 0.5 ? 'bad' : ''}">${pot}%</b>${d(pot, prev && prev.pot)}</div>
+    <div><span>${op.defense ? 'LINE' : 'BLOW'}</span><b class="${P.P1 === 'stalled' || P.P1 === 'broken' ? 'bad' : P.P1 === 'clean' || P.P1 === 'held' ? 'ok' : ''}">${P.shock}/${P.defense}</b>${d(P.margin, prev && prev.margin)}</div>
+    <div><span>RACE</span><b class="${lead === null ? (op.defense ? 'ok' : 'bad') : lead >= 2 ? 'ok' : lead < -2 ? 'bad' : ''}">${lead === null ? (op.defense ? 'no gap' : 'no gap') : (lead >= 0 ? '+' : '') + lead + 'h'}</b>${lead !== null && prev && prev.lead !== null ? d(lead, prev.lead) : ''}</div>
+    <div><span>${op.defense ? 'HELD' : 'DEPTH'}</span><b class="${(op.defense ? P.heldFrac >= 0.85 : P.reached >= 1) ? 'ok' : P.reached < 0.5 ? 'bad' : ''}">${pot}%</b>${d(pot, prev && prev.pot)}</div>
     <div><span>DEAD</span><b>~${P.dead}</b>${d(P.dead, prev && prev.dead, true)}</div>
     <button class="btn primary" data-dr="launch" ${over.length ? 'disabled' : ''} aria-label="Launch operation">${over.length ? 'OVER BUDGET' : 'LAUNCH ▸'}</button>
   </div>`;
@@ -3674,6 +4067,9 @@ function drBriefHTML() {
   ${sec('ENEMY & ENVIRONMENT', `<div class="dr-kv"><span>Defence <b>${e.def}</b></span><span>Belts <b>${e.belts}</b></span><span>Reserve <b>${e.reserve}</b></span><span>Armor <b>${e.armor ? '■'.repeat(e.armor) : 'none'}</b></span></div><div class="hzs">${hz.join('')}</div>`)}
   ${sec('THE COLUMN', `<div class="dr-kv"><span>Fighters <b>${DRS.force}</b></span><span>Scurvy <b>${DRS.scurvy >= 2 ? 'spreading' : DRS.scurvy === 1 ? 'warning' : 'none'}</b></span><span>Caffeine crash <b>${DRS.caffDebt ? 'yes' : 'no'}</b></span></div>
     ${last ? `<p class="hint">Last operation: ${esc(OPS.find(o => o.id === last.op).n)}, grade ${last.letter}, ${last.km} km, ${last.dead} dead.</p>` : ''}`)}
+  ${sec('THE SQUAD', `<div class="squad">${(DRS.crew || []).map(c => { const C = CREW.find(x => x.id === c.id); return `<div class="${c.st}"><b>${esc(C.n)}</b><small>${esc(C.role)} · ${c.st === 'kia' ? 'fallen' : c.st === 'wia' ? 'wounded, back this operation' : 'ready'}</small></div>`; }).join('')}</div>`, 'six who carry the story')}
+  ${sec('WORKSHOP UPGRADES', `<div class="opts">${Object.entries(UPGRADES).map(([id, u]) => { const built = (DRS.upgrades || []).includes(id); const can = !built && Object.entries(u.cost).every(([k, v]) => DRS.stock[k] >= v); return `<button class="opt" data-dr="build" data-v="${id}" ${built || !can ? 'disabled' : ''} aria-pressed="${built}"><span class="t">${esc(u.n)}</span><small>${esc(u.desc)}</small><span class="fx">${built ? '<i>BUILT</i>' : tagz(Object.entries(u.cost).map(([k, v]) => `${v} ${DR_RES_S[k].toLowerCase()}`))}</span></button>`; }).join('')}</div><p class="hint">Permanent. Paid from this cycle's supplies.</p>`)}
+  ${(DRS.council || []).length ? sec('COUNCIL RESOLUTIONS', `<ul class="ass">${DRS.council.map(c => { const M = MOTIONS.find(m => m.id === c.id); return `<li>${esc(M.t)}: <b>${esc(M.opts[c.opt].n)}</b>. ${esc(M.opts[c.opt].note)}</li>`; }).join('')}</ul>`) : ''}
   ${sec('FACTIONS', `<div class="facs">${FACTION_ORDER.map(f => `<button class="fac" data-dr="fac" data-v="${f}"><span>${esc(FACTIONS[f].n)}</span><div class="sbar"><i style="width:${DRS.appr[f]}%"></i></div><small>${DRS.appr[f]} · affects ${esc(FACTIONS[f].eff.split('.')[0].toLowerCase())}</small></button>`).join('')}</div>`, 'tap for details')}
   <div class="dr-next"><button class="btn primary big block" data-dr="tab" data-v="atelier">TO THE ATELIER ▸</button></div>`;
 }
@@ -3695,7 +4091,8 @@ function drAtelierHTML() {
     ${U.notes.length ? `<div class="labnotes">${U.notes.map(n => `<p>⚗ ${esc(n)}</p>`).join('')}</div>` : ''}`;
   const cuts = Object.entries(CUTS).map(([id, c]) => opt('cut', id, c.n, c.sub, [`MOB ${sgn(c.mob)}`, `WARM ${c.warm}`, `ACCESS ${sgn(c.access)}`, cst(c) || 'free'], L.cut === id)).join('');
   const dets = Object.entries(DETAILS).map(([id, d]) => tog('details', id, d.n, [d.mob && `MOB ${sgn(d.mob)}`, d.warm && `WARM +${d.warm}`, d.access && `ACCESS +${d.access}`, d.dur && `DUR +${d.dur}`, d.cap && 'AMMO +2', d.vent && 'VENT', d.insect && 'INSECTS', cst(d)], L.details.includes(id), civ || (!L.details.includes(id) && L.details.length >= 3))).join('');
-  const fabs = Object.entries(FABRICS).map(([id, f]) => opt('fabric', id, f.n, f.desc, [`WT ${f.weight}`, `WARM ${f.warm}`, `BREATH ${f.breath}`, `DUR ${f.dur}`, f.fire < 0 ? 'MELTS' : f.fire >= 0.4 ? 'CHARS' : '', `×${f.mult} cloth`], L.fabric === id, civ)).join('');
+  const M = DRS.mods || {};
+  const fabs = Object.entries(FABRICS).map(([id, f]) => opt('fabric', id, f.n, M.noImported && f.imported ? 'Banned by the Council: self-reliance quota.' : f.desc, [`WT ${f.weight}`, `WARM ${f.warm}`, `BREATH ${f.breath}`, `DUR ${f.dur}`, f.fire < 0 ? 'MELTS' : f.fire >= 0.4 ? 'CHARS' : '', `×${f.mult} cloth`], L.fabric === id, civ || (M.noImported && f.imported))).join('');
   const sw = k => `<div class="swatches">${Object.entries(COLORS).map(([id, c]) => `<button class="sw" data-dr="set" data-k="${k}" data-v="${id}" aria-pressed="${L[k] === id}" aria-label="${esc(c.n)}" ${civ ? 'disabled' : ''}><i style="background:${c.c}"></i><small>${esc(c.n)}</small><em>${c.m[op.terrain]}/10</em></button>`).join('')}</div>`;
   const pats = Object.entries(PATTERNS).filter(([id, p]) => !p.secret || DRS.bday).map(([id, p]) => opt('pattern', id, p.n, '', [`×${p[op.terrain] || p.mult} conceal here`, cst(p)], L.pattern === id, civ)).join('');
   const treatSlot = i => {
@@ -3707,9 +4104,16 @@ function drAtelierHTML() {
     ${t ? `<div class="seg">${STRENGTH_N.map((n, s) => `<button data-dr="str" data-k="${i}" data-v="${s + 1}" aria-pressed="${t.s === s + 1}">${n}<small>${TREATMENTS[t.id].dye[s]} dye${(TREATMENTS[t.id].irr || [0, 0, 0])[s] ? ' · irritant' : ''}</small></button>`).join('')}</div><p class="hint">${esc(TREATMENTS[t.id].desc)}</p>` : ''}</div>`;
   };
   const loads = Object.entries(LOADS).map(([id, l]) => opt('load', id, l.n, l.desc, [`AMMO ${l.ammo}`, `WT ${l.weight}`, `ACCESS ${sgn(l.access)}`, cst(l)], L.load === id)).join('');
-  const ins = Object.entries(INSIGNIA).map(([id, x]) => opt('insignia', id, x.n, x.desc, [`C2 ${sgn(x.c2)}`, x.mor && `MORALE +${x.mor}`, cst(x)], L.insignia === id)).join('');
+  const banIns = id => (id === 'rank' && M.noRank) || (id === 'elected' && M.noElected);
+  const ins = Object.entries(INSIGNIA).map(([id, x]) => opt('insignia', id, x.n, banIns(id) ? 'Banned by the Council.' : x.desc, [`C2 ${sgn(x.c2)}`, x.mor && `MORALE +${x.mor}`, cst(x)], L.insignia === id, banIns(id))).join('');
   const retool = drRetool(L, DRS);
+  const g = DRS.garment, gm = drGarmentMode(L, DRS);
+  const stock = g ? (gm !== 'new' || (g.cut === L.cut && g.fabric === L.fabric)
+    ? `<div class="gstock"><p>In stock: <b>${esc(CUTS[g.cut].n)}</b> in ${esc(FABRICS[g.fabric].n.toLowerCase())}, condition <b class="${g.cond < 0.6 ? 'bad' : 'ok'}">${Math.round(g.cond * 100)}%</b>.</p>
+      <div class="seg">${[['reissue', 'Reissue', 'cheap · as worn'], ['repair', 'Repair & re-dye', '+50% condition'], ['new', 'Make new', 'full cost · 100%']].map(([id, n, sub]) => `<button data-dr="set" data-k="garmentMode" data-v="${id}" aria-pressed="${gm === id}">${n}<small>${sub}</small></button>`).join('')}</div></div>`
+    : `<div class="gstock"><p>In stock: ${esc(CUTS[g.cut].n)} in ${esc(FABRICS[g.fabric].n.toLowerCase())} (${Math.round(g.cond * 100)}%). A different cut or fabric means making new garments.</p></div>`) : '';
   return `${preview}
+  ${stock ? sec('GARMENT STOCK', stock, 'last cycle\'s uniforms') : ''}
   ${sec('CUT', `<div class="opts">${cuts}</div>${retool ? '<p class="hint">Changing the cut from last cycle costs 3 extra hours to re-make the patterns.</p>' : ''}`, esc(CUTS[L.cut].desc.split('.')[0]))}
   ${sec('CONSTRUCTION DETAILS', `<div class="chips2">${dets}</div>`, civ ? 'n/a for own clothes' : `${L.details.length}/3`)}
   ${sec('FABRIC', `<div class="opts">${fabs}</div>`)}
@@ -3726,7 +4130,7 @@ function drMessHTML() {
   const kc = D.kcal, vit = sum(L.rations.map(r => RATIONS[r].vit));
   const rat = Object.entries(RATIONS).map(([id, r]) => tog('rations', id, r.n, [`${r.kcal} kcal`, r.vit && `VIT C ${r.vit}`, r.mor > 1 && `MORALE +${r.mor}`, r.mor < 0 && 'MORALE −1', r.smoke && 'SMOKE', `${r.cost} food`], L.rations.includes(id), !L.rations.includes(id) && L.rations.length >= 6)).join('');
   const dist = Object.entries(DISTRIB).map(([id, d]) => opt('distrib', id, d.n, d.desc, [], L.distrib === id)).join('');
-  const meds = Object.entries(MEDKIT).map(([id, m]) => tog('med', id, m.n, [m.tag, `${m.cost} med`], L.med.includes(id))).join('');
+  const meds = Object.entries(MEDKIT).map(([id, m]) => tog('med', id, m.n, [m.tag, `${m.cost} med`, id === 'caff' && (DRS.mods || {}).noCaff && 'BANNED'], L.med.includes(id), id === 'caff' && (DRS.mods || {}).noCaff)).join('');
   const sick = Object.values(D.sick);
   const cv = (n, v) => `<div class="stat"><span>${n}</span><div class="sbar"><i style="width:${v * 100}%"></i></div><b>${Math.round(v * 100)}%</b></div>`;
   return `${sec('RATION PACK', `<div class="meters">
@@ -3746,6 +4150,7 @@ function drArmoryHTML() {
   const cards = Object.entries(ARMS).map(([id, a]) => {
     if (a.locked) return `<button class="opt locked" disabled><span class="t">${iconImg('lock', null, 'ico sm')} ${esc(a.n)}</span><small>${esc(a.desc)}</small></button>`;
     const tags = [a.fire && `FIRE +${a.fire}`, a.c2 && `C2 +${a.c2}`, a.mobT && `MOB +${a.mobT[op.terrain]} here`, a.at && 'vs ARMOR', a.eng && 'RIVERS & BELTS', a.evac && 'EVACUATION', `${a.cost} arms`, a.maint && `${a.maint} h upkeep`, a.food && `${a.food} food`];
+    if (id === 'trucks' && (DRS.mods || {}).noImported) return `<button class="opt locked" disabled><span class="t">${esc(a.n)}</span><small>Banned by the Council: self-reliance quota.</small></button>`;
     return `<button class="opt" data-dr="tog" data-k="arms" data-v="${id}" aria-pressed="${L.arms.includes(id)}"><span class="t">${esc(a.n)}</span><small>${esc(a.sub ? a.sub + '. ' + a.desc : a.desc)}</small><span class="fx">${tagz(tags)}</span></button>`;
   }).join('');
   return `${sec('ISSUE TO THE COLUMN', `<p class="hint">Every fighter already has a bolt-action rifle. Requisition buys what makes deep battle possible. Each kit also costs workshop hours to maintain, the same hours your seamstresses need.</p><div class="opts">${cards}</div>`)}
@@ -3756,7 +4161,10 @@ function drPlanHTML() {
   const L = DRS.L, op = curOp();
   if (L.deception === 'radio' && !L.arms.includes('radio')) L.deception = 'none';
   const P = drProject(L, DRS, op), D = P.D;
-  const g = (k, obj, extra = () => []) => `<div class="opts">${Object.entries(obj).map(([id, o]) => opt(k, id, o.n, o.sub ? `${o.sub}. ${o.desc}` : o.desc, extra(id, o), L[k] === id, o.needs && !L.arms.includes(o.needs))).join('')}</div>`;
+  const DL = op.defense ? DEF_LABELS : null;
+  const relab = (k, obj) => DL && DL[k] ? Object.fromEntries(Object.keys(obj).map(id => [id, Object.assign({}, obj[id], { n: DL[k].o[id][0], sub: DL[k].o[id][1], desc: DL[k].o[id][2] })])) : obj;
+  const ttl = (k, t) => DL && DL[k] ? DL[k].t : t;
+  const g = (k, obj, extra = () => []) => `<div class="opts">${Object.entries(relab(k, obj)).map(([id, o]) => opt(k, id, o.n, o.sub ? `${o.sub}. ${o.desc}` : o.desc, extra(id, o), L[k] === id, o.needs && !L.arms.includes(o.needs))).join('')}</div>`;
   const over = drOver(L, DRS);
   const warn = [];
   if (op.enemy.armor && !L.arms.includes('at')) warn.push('The enemy has armor and you have no anti-armor teams.');
@@ -3769,16 +4177,17 @@ function drPlanHTML() {
   const bars = [['Firepower', D.FIRE], ['Mobility', D.MOB], ['Command (C2)', D.C2], ['Concealment', D.CON], ['Morale', D.MOR], ['Endurance', D.END], ['Medical', D.MED]].map(([n, v]) => `<div class="stat"><span>${n}</span><div class="sbar"><i style="width:${v}%"></i></div><b>${v}</b></div>`).join('');
   const pct2 = x => Math.round(x * 100);
   const blowMax = Math.max(P.shock, P.defense) * 1.15;
-  const hints = P.P1 === 'stalled' || P.margin < 2 ? drBlowHints(L, op) : [];
+  const hints = !op.defense && (P.P1 === 'stalled' || P.margin < 2) ? drBlowHints(L, op) : [];
+  if (op.defense) { if (!L.arms.includes('at')) warn.push('Their mobile group is armored. You have no anti-armor teams.'); if (L.frontage === 'narrow' && !L.scouts) warn.push('A narrow defence bets everything on unconfirmed intelligence about their axis.'); }
   const H = 30, hx = h => `${clamp(h / H, 0, 1) * 100}%`;
   const tl = `<div class="tl"><div class="tl-axis">${[0, 6, 12, 18, 24, 30].map(h => `<span style="left:${hx(h)}">H+${h}</span>`).join('')}</div>
     ${P.breachH !== null ? `<i class="tl-g" style="left:${hx(P.breachH)}" title="gap opens">GAP</i><i class="tl-m" style="left:${hx(P.enterH)}" title="mobile group enters">YOU</i>` : ''}
-    <i class="tl-r" style="left:${hx(P.reserveH)}" title="enemy reserve arrives">RES</i></div>`;
+    ${P.reserveH !== null ? `<i class="tl-r" style="left:${hx(P.reserveH)}" title="${op.defense ? 'their mobile group moves' : 'enemy reserve arrives'}">${op.defense ? 'THEM' : 'RES'}</i>` : ''}</div>`;
   const raceTxt = P.breachH === null ? 'No gap opens, so there is no race. Fix the breakthrough first.'
     : P.lead >= 2 ? `Your mobile group enters at H+${P.enterH}, ${P.lead} hours before their reserve. You win the race.`
     : P.lead >= -2 ? `Your mobile group (H+${P.enterH}) and their reserve (H+${P.reserveH}) arrive together: a costly meeting fight in the gap.`
     : `Their reserve (H+${P.reserveH}) seals the gap ${-P.lead} hours before your mobile group arrives (H+${P.enterH}).`;
-  const projHTML = `<div class="pj3">
+  const projHTML = op.defense ? drDefProjHTML(P, op, tl) : `<div class="pj3">
     <div class="pjr"><div class="pjh"><span>1 · BREAKTHROUGH</span><b class="${P.P1 === 'stalled' ? 'bad' : P.P1 === 'clean' ? 'ok' : ''}">${P.p1Label}</b></div>
       <div class="vs"><span>Your blow</span><div class="sbar"><i style="width:${P.shock / blowMax * 100}%;background:var(--accent)"></i></div><b>${P.shock}</b></div>
       <div class="vs"><span>Their line</span><div class="sbar"><i style="width:${P.defense / blowMax * 100}%;background:#8a8aa8"></i></div><b>${P.defense}</b></div>
@@ -3791,16 +4200,51 @@ function drPlanHTML() {
       <p class="hint">Enough for about ${pct2(P.depthFrac)}% of the way; you ordered ${pct2(P.target)}%.${P.overextended ? ' Overreach likely beyond the objective.' : ''} Expected dead ~${P.dead}.</p></div>
   </div>`;
   return `${sec('ENEMY PLAN', drEnemyPlanHTML(op), 'partisan intelligence')}
-  ${sec('FRONTAGE', g('frontage', FRONTAGE))}
-  ${sec('ECHELONS', g('echelon', ECHELONS) + `<button class="tog wide" data-dr="raids" aria-pressed="${L.raids}"><span>Raiding detachments<small>12% of the first echelon infiltrates to strike the enemy's depth at H-hour: the reserve arrives late and weaker.</small></span></button>`)}
-  ${sec('COMMITMENT OF THE MOBILE GROUP', g('timing', TIMING))}
-  ${sec('DEPTH OF THE OPERATION', g('objective', OBJECTIVES))}
+  ${sec(ttl('frontage', 'FRONTAGE'), g('frontage', FRONTAGE))}
+  ${sec(ttl('echelon', 'ECHELONS'), g('echelon', ECHELONS) + `<button class="tog wide" data-dr="raids" aria-pressed="${L.raids}"><span>${op.defense ? 'Spoiling raids' : 'Raiding detachments'}<small>${op.defense ? esc(DEF_LABELS.raids.split(': ')[1]) : '12% of the first echelon infiltrates to strike the enemy\'s depth at H-hour: the reserve arrives late and weaker.'}</small></span></button>`)}
+  ${sec(ttl('timing', 'COMMITMENT OF THE MOBILE GROUP'), g('timing', TIMING))}
+  ${sec(ttl('objective', 'DEPTH OF THE OPERATION'), g('objective', OBJECTIVES))}
   ${sec('DECEPTION', g('deception', DECEPTION))}
   ${sec('POLITICAL LINE', g('line', LINES), 'what the commissars emphasise')}
   ${sec('STAFF PROJECTION', `${projHTML}<details class="dr-det"><summary>Force statistics</summary><div class="meters">${bars}</div></details>
      ${warn.length ? `<div class="warns">${warn.map(w => `<p>! ${esc(w)}</p>`).join('')}</div>` : ''}`, 'estimates, not promises')}
   <div class="dr-next">${over.length ? `<p class="warns"><b>Over budget:</b> ${over.map(r => DR_RES_N[r]).join(', ')}. Cut something before launching.</p>` : ''}
     <button class="btn primary big block" data-dr="launch" ${over.length ? 'disabled' : ''}>LAUNCH OPERATION ${esc(op.n)}</button></div>`;
+}
+
+function drDefProjHTML(P, op, tl) {
+  const mx = Math.max(P.shock, P.defense) * 1.15, pct2 = x => Math.round(x * 100);
+  const race = P.breachH === null ? 'They never break in, so there is no race.'
+    : P.lead >= 2 ? `Your counter-attack (H+${P.enterH}) hits ${P.lead} hours before their mobile group is through (H+${P.reserveH}).`
+    : P.lead >= -2 ? `Your counter-attack (H+${P.enterH}) and their mobile group (H+${P.reserveH}) collide in the gap.`
+    : `Their mobile group is through (H+${P.reserveH}) ${-P.lead} hours before you counter-attack (H+${P.enterH}).`;
+  return `<div class="pj3">
+    <div class="pjr"><div class="pjh"><span>1 · THEIR BREAKTHROUGH</span><b class="${P.P1 === 'broken' ? 'bad' : P.P1 === 'held' ? 'ok' : ''}">${P.p1Label}</b></div>
+      <div class="vs"><span>Your line</span><div class="sbar"><i style="width:${P.shock / mx * 100}%;background:var(--accent)"></i></div><b>${P.shock}</b></div>
+      <div class="vs"><span>Their assault</span><div class="sbar"><i style="width:${P.defense / mx * 100}%;background:#8a8aa8"></i></div><b>${P.defense}</b></div></div>
+    <div class="pjr"><div class="pjh"><span>2 · THE RACE</span><b class="${P.lead === null ? 'ok' : P.lead >= 2 ? 'ok' : P.lead < -2 ? 'bad' : ''}">${P.lead === null ? 'No gap' : P.lead >= 2 ? 'You strike first' : P.lead >= -2 ? 'Too close' : 'They are through'}</b></div>${tl}<p class="hint">${esc(race)}</p></div>
+    <div class="pjr"><div class="pjh"><span>3 · GROUND HELD</span><b class="${P.heldFrac >= 0.85 ? 'ok' : P.heldFrac < 0.5 ? 'bad' : ''}">${pct2(P.heldFrac)}%</b></div>
+      <div class="vs"><span>Counter-attack</span><div class="sbar"><i style="width:${clamp(P.drive / Math.max(P.drive, P.resistance, 1) * 100, 0, 100)}%;background:var(--accent)"></i></div><b>${P.drive}</b></div>
+      <div class="vs"><span>Their armor</span><div class="sbar"><i style="width:${clamp(P.resistance / Math.max(P.drive, P.resistance, 1) * 100, 0, 100)}%;background:#8a8aa8"></i></div><b>${P.resistance}</b></div>
+      <p class="hint">Expected dead ~${P.dead}.${P.routed ? ' A counter-offensive could destroy their mobile group outright.' : ''}</p></div></div>`;
+}
+
+function drHeldHTML(kind) {
+  if (kind === 'again') return sec('A VISITOR FROM MUNICH', '<p class="disp">A plate with two cake crumbs and a folded pamphlet waits at the atelier. The visitor from Munich has been before.</p>');
+  return sec('A VISITOR FROM MUNICH', `<div class="held"><canvas data-held="1" width="36" height="36" aria-label="${esc(HELD.n)}"></canvas><div><b>${esc(HELD.n.toUpperCase())}</b><p class="dim">${esc(HELD.intro)}</p><p>"${esc(HELD.quote)}"</p><p class="dim">${esc(HELD.aside)}</p></div></div>`, 'one visit only');
+}
+
+/* ---------------- council ---------------- */
+function drCouncilHTML() {
+  if (!DRS.pendingMotion) { const M = drCouncilMotion(DRS); DRS.pendingMotion = M ? M.id : null; drSave(); }
+  const M = MOTIONS.find(m => m.id === DRS.pendingMotion);
+  const prev = DRS.reports[DRS.reports.length - 1];
+  return `<header class="dr-hud"><div class="dr-hrow"><button class="ib" data-dr="totitle" aria-label="Menu">◀</button><div class="dr-op"><b>COUNCIL OF THE COLUMN</b><span>After ${esc(OPS.find(o => o.id === prev.op).n)} · before cycle ${DRS.cycle + 1}/${NOPS()}</span></div></div></header>
+  <main class="dr-main">
+    ${sec('THE MOTION', `<div class="motion"><span>${esc(FACTIONS[M.by].n.toUpperCase())} MOVES</span><h4>${esc(M.t)}</h4><p>${esc(M.text)}</p></div>
+      <div class="opts">${M.opts.map((o, i) => `<button class="opt" data-dr="vote" data-v="${i}"><span class="t">${esc(o.n)}</span><small>${esc(o.note)}</small><span class="fx">${tagz(Object.entries(o.appr).map(([f, d]) => `${FACTIONS[f].s} ${d > 0 ? '▲' : '▼'}${Math.abs(d)}`))}</span></button>`).join('')}</div>
+      <p class="hint">The vote is tied. The atelier holds the casting vote.</p>`, 'one motion per council')}
+  </main>`;
 }
 
 /* ---------------- report ---------------- */
@@ -3812,13 +4256,13 @@ function drReportHTML() {
   const last = DRS.cycle >= NOPS();
   return `<header class="dr-hud"><div class="dr-hrow"><button class="ib" data-dr="totitle" aria-label="Menu">◀</button><div class="dr-op"><b>AFTER-ACTION REPORT</b><span>Operation ${esc(op.n)} · cycle ${R.cycle + 1}/${NOPS()}</span></div></div></header>
   <main class="dr-main">
-    <div class="rep-top"><div class="grade g-${R.letter}">${R.letter}</div><div class="rep-score">${R.score}/100<small>${R.taken ? `${esc(op.obj[0].toUpperCase() + op.obj.slice(1))} taken.` : `${R.km} of ${op.depth} km. Objective not taken.`}</small></div></div>
-    <div class="dr-frame map"><canvas data-scene="dr-map" width="160" height="56" aria-label="Map of the operation: how far each echelon advanced"></canvas><div class="maplg"><span><i style="background:#c8372d"></i>first echelon</span><span><i style="background:#7a1d16"></i>mobile group</span><span><i style="background:#3b3b8a"></i>enemy reserve</span><span>⚑ objective</span></div></div>
+    <div class="rep-top"><div class="grade g-${R.letter}">${R.letter}</div><div class="rep-score">${R.score}/100<small>${op.defense ? (R.taken ? 'The line held.' : `They took ${R.km} km.`) : R.taken ? `${esc(op.obj[0].toUpperCase() + op.obj.slice(1))} taken.` : `${R.km} of ${op.depth} km. Objective not taken.`}</small></div></div>
+    <div class="dr-frame map"><canvas data-scene="dr-map" width="160" height="56" aria-label="Map of the operation: how far each echelon advanced"></canvas><div class="maplg">${op.defense ? '<span><i style="background:#c8372d"></i>your line & counter-attack</span><span><i style="background:#3b3b8a"></i>their offensive</span><span>⚑ Saltgrad</span>' : '<span><i style="background:#c8372d"></i>first echelon</span><span><i style="background:#7a1d16"></i>mobile group</span><span><i style="background:#3b3b8a"></i>enemy reserve</span><span>⚑ objective</span>'}</div></div>
     <div class="stats">
-      <div><b>${R.km} km</b><span>advance</span></div><div><b>${R.dead}</b><span>dead</span></div><div><b>${R.wounded}</b><span>wounded</span></div>
+      <div><b>${R.km} km</b><span>${op.defense ? 'ground lost' : 'advance'}</span></div><div><b>${R.dead}</b><span>dead</span></div><div><b>${R.wounded}</b><span>wounded</span></div>
       <div><b>${R.D.sickN}</b><span>sick & injured</span></div><div><b>+${R.recruits}</b><span>recruits</span></div><div><b>${R.forceNext}</b><span>fighters now</span></div></div>
     <div class="parts">
-      <div class="part"><div class="ph2"><span>DEPTH</span><b>${R.depthPts}/40</b></div><div class="pbar"><i style="width:${R.depthPts / 40 * 100}%"></i></div></div>
+      <div class="part"><div class="ph2"><span>${op.defense ? 'GROUND HELD' : 'DEPTH'}</span><b>${R.depthPts}/40</b></div><div class="pbar"><i style="width:${R.depthPts / 40 * 100}%"></i></div></div>
       <div class="part"><div class="ph2"><span>LOSSES</span><b>${R.lossPts}/25</b></div><div class="pbar"><i style="width:${R.lossPts / 25 * 100}%"></i></div></div>
       <div class="part"><div class="ph2"><span>HEALTH</span><b>${R.healthPts}/15</b></div><div class="pbar"><i style="width:${R.healthPts / 15 * 100}%"></i></div></div>
       <div class="part"><div class="ph2"><span>COHESION</span><b>${R.cohPts}/20</b></div><div class="pbar"><i style="width:${R.cohPts / 20 * 100}%"></i></div></div>
@@ -3828,6 +4272,8 @@ function drReportHTML() {
     <details class="dr-det" open><summary>GEAR PERFORMANCE</summary><ul class="gear">${T.gear.map(g => `<li class="${g.ok ? 'ok' : 'no'}"><b>${esc(g.k)}</b> ${esc(g.t)}</li>`).join('')}</ul></details>
     <details class="dr-det"><summary>MEDICAL · ${R.dow} died of wounds</summary>${T.medical.map(p => `<p class="disp">${esc(p)}</p>`).join('')}</details>
     <details class="dr-det"><summary>LOGISTICS · ${Math.round(R.D.kcal / op.kcal * 100)}% of calories</summary>${T.logistics.map(p => `<p class="disp">${esc(p)}</p>`).join('')}</details>
+    ${R.crew && R.crew.length ? `<details class="dr-det" open><summary>THE SQUAD</summary><div class="squad rep">${R.crew.map(c => `<div class="${c.st}"><b>${esc(c.n)} <small>${esc(c.role)}</small></b><p>${esc(c.line)}${c.st === 'wia' ? ' <em>Wounded; back next operation.</em>' : c.st === 'kia' ? ' <em>Killed in action.</em>' : ''}</p></div>`).join('')}</div></details>` : ''}
+    ${R.held ? drHeldHTML(R.held) : ''}
     ${sec('BULLETIN OF THE FIELD ATELIER', `<div class="bull"><canvas data-fighter="${lookIdx}" width="48" height="64"></canvas><div><b>"${esc(DRS.looks[lookIdx].name)}"</b><p>${esc(T.bulletin)}</p></div></div>`, 'fashion desk')}
     <details class="dr-det"><summary>FACTION VOICES · ${FACTION_ORDER.filter(f => f !== 'critique').map(f => `${FACTIONS[f].s} ${R.factions[f].total > 0 ? '▲' : R.factions[f].total < 0 ? '▼' : '='}`).join(' ')}</summary><div class="voices">${fac}</div></details>
     ${sec('NEXT CYCLE', `<p class="disp">${sp ? `Captured: ${esc(sp)}. ` : ''}${last ? '' : `Next cycle's supply: ${DR_RES.map(r => `${R.income[r]} ${DR_RES_N[r].toLowerCase()}`).join(', ')}.`}</p>`)}
@@ -3844,7 +4290,9 @@ function drEndHTML() {
     <div class="dr-logo sm">${esc(E.title)}</div>
     <p class="dr-lede">${esc(E.text)}</p>
     <div class="stats"><div><b>${E.avgS}</b><span>average score</span></div><div><b>${DRS.reports.filter(r => r.taken).length}/${NOPS()}</b><span>objectives taken</span></div><div><b>${E.totalDead}</b><span>dead</span></div><div><b>${DRS.force}</b><span>fighters at the end</span></div></div>
-    ${sec('THE COLLECTION', `<div class="runway">${looks}</div><p class="hint">${DRS.looks.length} looks, ${DRS.looks.length} operations: your campaign as a collection.</p>`, 'runway')}
+    ${sec('THE COLLECTION', `<div class="runway">${looks}</div><p class="hint">${DRS.looks.length} looks, ${DRS.looks.length} operations: your campaign as a collection.</p><button class="btn" data-dr="lookimg">SAVE LOOKBOOK AS IMAGE</button>`, 'runway')}
+    ${sec('THE SQUAD', `<div class="squad">${E.squad.map(x => `<div class="${x.st}"><b>${esc(x.c.n)}</b><small>${esc(x.c.role)} · ${x.st === 'kia' ? 'fell during the campaign. Remembered.' : 'came home.'}</small></div>`).join('')}</div>`)}
+    ${DRS.heldVisit ? drHeldHTML('first') : ''}
     ${sec('EPILOGUES', `<div class="voices">${E.epi.map(x => `<div class="voice"><b>${esc(FACTIONS[x.f].n)}</b><p>${esc(x.t)}</p><small>${x.f === 'critique' ? '' : 'approval ' + x.a}</small></div>`).join('')}</div>`)}
     ${letter}
     <div class="dr-btns"><button class="btn primary big" data-dr="newcamp">NEW CAMPAIGN</button><a class="btn" href="#arcade">ARCADE</a></div>
@@ -3886,7 +4334,8 @@ function drHowto() {
       <div>${iconImg('arms')}<span>ARMORY<small>Spend requisition on firepower, radios, transport, engineers. Upkeep eats workshop hours.</small></span></div>
       <div>${iconImg('flag')}<span>PLAN<small>Shape the deep operation: frontage, echelons, raids, when to commit the mobile group, how deep to go. The Staff projects the outcome.</small></span></div>
     </div>
-    <p style="margin-top:12px">Every resource is shared and scarce. Each operation returns an after-action report showing exactly what your gear, food, medicine and plan did. Six factions react, and their mood changes your supplies.</p>
+    <p style="margin-top:12px">Between operations the <b>Council</b> votes on a motion, and you hold the casting vote. A squad of six fighters carries the story through the reports. Uniforms wear out: reissue, repair or replace them. Unconfirmed intelligence can be wrong, so send scouts when it matters. After Saltgrad, the enemy strikes back.</p>
+    <p>Every resource is shared and scarce. Each operation returns an after-action report showing exactly what your gear, food, medicine and plan did. Six factions react, and their mood changes your supplies.</p>
     <p class="hint">Deep battle in one sentence: break the enemy's front with a first echelon, then push a mobile group through the gap and deep into their rear before their reserve can close it, while hitting the whole depth at once.</p>
     <div class="row"><button class="btn primary" data-act="close">GOT IT</button></div>`);
 }
@@ -3895,8 +4344,37 @@ function drFaction(f) {
   modal(`<button class="x" data-act="close">CLOSE</button><h2>${esc(F.n.toUpperCase())}</h2><p>${esc(F.who)}</p>
     <div class="teach"><b>APPROVAL ${DRS.appr[f]}/100</b>Affects: ${esc(F.eff)}</div>`);
 }
+async function drLookbookImage() {
+  const looks = DRS.looks; if (!looks.length) return;
+  const cols = Math.min(3, looks.length), rows = Math.ceil(looks.length / cols);
+  const Sc = 4, tw = 48 * Sc, th = 64 * Sc, pad = 28, capH = 60, headH = 104;
+  const W = pad + cols * (tw + pad), H = headH + rows * (th + capH + pad) + 36;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#181415'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#c8372d'; ctx.fillRect(0, 0, W, 8);
+  const has = f => document.fonts && document.fonts.check(f);
+  const disp = has('16px "Press Start 2P"') ? '"Press Start 2P"' : 'monospace', body = has('20px VT323') ? 'VT323' : 'monospace';
+  ctx.fillStyle = '#f1e7d0'; ctx.font = `22px ${disp}`; ctx.fillText('THE DEEP REAR', pad, 52);
+  ctx.fillStyle = '#e0533f'; ctx.font = `28px ${body}`; ctx.fillText(`The collection · ${looks.length} looks · ${drEnding(DRS).title}`, pad, 86);
+  ctx.imageSmoothingEnabled = false;
+  looks.forEach((l, i) => {
+    const x = pad + (i % cols) * (tw + pad), y = headH + Math.floor(i / cols) * (th + capH + pad);
+    const off = document.createElement('canvas'); off.width = 48; off.height = 64; const o = off.getContext('2d');
+    const op = OPS.find(q => q.id === l.op); drawTerrain(o, op.terrain, 48, 64, 0); drawFighter(o, Object.assign({}, l.L, { _cond: l.cond }), 8, 16);
+    ctx.drawImage(off, x, y, tw, th);
+    ctx.fillStyle = '#f1e7d0'; ctx.font = `26px ${body}`; ctx.fillText(String(l.name).slice(0, 20), x, y + th + 26);
+    ctx.fillStyle = '#b9a98f'; ctx.font = `22px ${body}`; ctx.fillText(`${op.n} · ${l.letter}`, x, y + th + 50);
+  });
+  ctx.fillStyle = '#6e5b52'; ctx.font = `20px ${body}`; ctx.fillText('Pixel Arcade · ghrelingator.github.io/pixel-arcade', pad, H - 14);
+  const blob = await new Promise(res => cv.toBlob(res, 'image/png'));
+  if (!blob) { toast('This browser could not make the image.'); return; }
+  const file = typeof File === 'function' ? new File([blob], 'deep-rear-lookbook.png', { type: 'image/png' }) : null;
+  try { if (file && navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: 'The Deep Rear lookbook' }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'deep-rear-lookbook.png';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
+  toast('Lookbook image ready.');
+}
 function drLookbook() {
-  modal(`<button class="x" data-act="close">CLOSE</button><h2>LOOKBOOK</h2><div class="runway">${DRS.looks.map((l, i) => `<figure class="runway-look"><canvas data-fighter="${i}" width="48" height="64"></canvas><figcaption><b>${esc(l.name)}</b><small>${esc(OPS.find(o => o.id === l.op).n)} · ${l.letter}</small></figcaption></figure>`).join('')}</div>`);
+  modal(`<button class="x" data-act="close">CLOSE</button><h2>LOOKBOOK</h2><button class="btn" data-dr="lookimg">SAVE AS IMAGE</button><div class="runway" style="margin-top:10px">${DRS.looks.map((l, i) => `<figure class="runway-look"><canvas data-fighter="${i}" width="48" height="64"></canvas><figcaption><b>${esc(l.name)}</b><small>${esc(OPS.find(o => o.id === l.op).n)} · ${l.letter}</small></figcaption></figure>`).join('')}</div>`);
   drPaintStatic();
 }
 
@@ -3917,6 +4395,16 @@ document.addEventListener('click', e => {
     case 'treat': { const i = +k; L.treat[i] = v === 'none' ? null : { id: v, s: (L.treat[i] && L.treat[i].s) || 2 }; break; }
     case 'str': L.treat[+k].s = +v; break;
     case 'raids': L.raids = !L.raids; break;
+    case 'scouts': L.scouts = !L.scouts; break;
+    case 'build': if (drBuild(DRS, v)) { SFX.good(); toast(`${UPGRADES[v].n} built.`); } break;
+    case 'vote': {
+      const M = MOTIONS.find(m => m.id === DRS.pendingMotion); const O = drApplyMotion(DRS, M.id, +v);
+      DRS.pendingMotion = null; DRS.phase = 'prep'; DRU.tab = 'brief'; drSave(); SFX.ok();
+      drRender(false);
+      modal(`<h2>RESOLUTION: ${esc(M.t.toUpperCase())}</h2><p><b>${esc(O.n)}.</b> ${esc(O.note)}</p><div class="unl">${Object.entries(O.appr).map(([f, d]) => `<div><span>${esc(FACTIONS[f].n)}<small>${d > 0 ? 'pleased' : 'displeased'} (${sgn(d)})</small></span></div>`).join('') || '<div><span>Nobody minds.</span></div>'}</div><div class="row"><button class="btn primary" data-act="close">TO THE WORKSHOP</button></div>`);
+      return;
+    }
+    case 'lookimg': drLookbookImage(); return;
     case 'launch': {
       if (drOver(L, DRS).length) return;
       const op = curOp();
@@ -3924,15 +4412,15 @@ document.addEventListener('click', e => {
       DRS.lastReport = R; DRS.phase = 'report'; DRU.mapT0 = performance.now();
       DRS.L = JSON.parse(JSON.stringify(L)); DRS.L.name = '';
       drSave(); R.score >= 80 ? SFX.good() : R.score >= 52 ? SFX.ok() : SFX.bad();
-      drRender(false); return;
+      drRender(false); if (R.held) setTimeout(confetti, 300); return;
     }
-    case 'next': DRS.phase = DRS.cycle >= NOPS() ? 'end' : 'prep'; DRU.tab = 'brief'; drSave(); if (DRS.phase === 'end') SFX.level(); drRender(false); return;
+    case 'next': DRS.phase = DRS.cycle >= NOPS() ? 'end' : drCouncilMotion(DRS) || DRS.pendingMotion ? 'council' : 'prep'; DRU.tab = 'brief'; drSave(); if (DRS.phase === 'end') SFX.level(); drRender(false); return;
     case 'length': modal(`<h2>HOW LONG A CAMPAIGN?</h2><div class="unl">
         <button class="opt" data-dr="begin" data-v="short"><span class="t">Short · 4 operations</span><small>First Furrow, Birch Echelon, White Road, Saltgrad. About 25 minutes.</small></button>
         <button class="opt" data-dr="begin" data-v="full"><span class="t">Full · 6 operations</span><small>Adds the marsh and the textile kombinat. About 45 minutes.</small></button></div>
         <div class="row"><button class="btn" data-act="close">CANCEL</button></div>`); return;
-    case 'begin': closeModal(); DRS = drNewState(); DRS.ops = v === 'short' ? SHORT_CAMPAIGN.slice() : OPS.map(o => o.id); DRS.started = true; DRS.phase = 'prep'; DRU.tab = 'brief'; drSave(); drRender(false); drHowto(); return;
-    case 'continue': DRS.phase = DRS.cycle >= NOPS() ? (DRS.phaseBefore === 'report' ? 'report' : 'end') : (DRS.phaseBefore === 'report' ? 'report' : 'prep'); drRender(false); return;
+    case 'begin': closeModal(); { const keep = { bday: DRS.bday, bdayYear: DRS.bdayYear, heldSeen: DRS.heldSeen }; DRS = Object.assign(drNewState(), keep); } DRS.ops = v === 'short' ? SHORT_CAMPAIGN.slice() : OPS.map(o => o.id); DRS.started = true; DRS.phase = 'prep'; DRU.tab = 'brief'; drSave(); drRender(false); drHowto(); return;
+    case 'continue': DRS.phase = ['report', 'council', 'prep', 'end'].includes(DRS.phaseBefore) ? DRS.phaseBefore : DRS.cycle >= NOPS() ? 'end' : 'prep'; drRender(false); return;
     case 'newcamp': modal(`<h2>START A NEW CAMPAIGN?</h2><p>This erases the current campaign and its lookbook in this browser.</p><div class="row"><button class="btn" data-act="close">CANCEL</button><button class="btn danger" data-dr="length">NEW CAMPAIGN</button></div>`); return;
     case 'totitle': DRS.phaseBefore = DRS.phase; DRS.phase = 'title'; drSave(); drRender(false); return;
     case 'howto': drHowto(); return;

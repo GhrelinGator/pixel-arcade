@@ -3,7 +3,7 @@
 Free pixel-art browser games. Play at **https://ghrelingator.github.io/pixel-arcade/**
 
 - **Pixel Clinic**: diagnose patients, read their files and prescribe without missing a dangerous drug interaction. 8 ranks, 43 conditions.
-- **The Deep Rear**: run the atelier, clinic and armory behind a revolutionary column. Design uniforms, pack rations and medicine, issue weapons and plan a deep operation.
+- **The Deep Rear**: run the atelier, clinic and armory behind a revolutionary column. Design uniforms, pack rations and medicine, issue weapons and plan a deep operation. Council votes, a squad of six, worn uniforms, unreliable intelligence and a defensive finale.
 
 Works on phones. In Safari, tap Share → Add to Home Screen to install it like an app (it also works offline).
 Saves live in the browser; use "Back up or move your saves" on the home screen to copy them.
