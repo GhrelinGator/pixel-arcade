@@ -707,6 +707,10 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .sb-medfor label { font-size: 19px; color: var(--mute); }
 .sb-medfor select { flex: 1; min-width: 0; font-family: var(--font-b); font-size: 19px; background: var(--panel2); color: var(--ink); border: 0; padding: 6px; }
 .sc-marks small.vs { font-size: 15px; color: var(--mute); }
+.sc-slot { min-width: 0; overflow: hidden; }
+.sc-slot select { width: 100%; min-width: 0; max-width: 100%; }
+.sc-slot label { min-width: 0; }
+.sc-slot input[type=range] { min-width: 0; width: 100%; }
 
 </style>
 </head>
@@ -6549,26 +6553,51 @@ function sclDrugFx(L) {
   }
   return fx;
 }
+/* Sandbox movements and compounds can be used here */
+function sclFindMove(ex) { const id = ex.slice(3); return SBS.moves.find(m => m.id === id) || SB_STARTERS.find(m => m.id === id) || null; }
+function sclR(ex) { if (!ex) return null; if (ex.startsWith('sb:')) { const mv = sclFindMove(ex); if (!mv) return null; const R = sbResolve(mv, {}); return R.broken ? null : R; } return scResolve(scSpec(ex)); }
+const sclExName = ex => !ex ? '' : ex.startsWith('sb:') ? ((sclFindMove(ex) || {}).n || 'deleted movement') : (SC_LIBRARY.find(e => e.id === ex) || {}).n;
+function sclDetect(med, tier) {
+  const m = k => (med.mech || {})[k] || 0;
+  if (!SB_MECH.some(M => m(M.k) >= 0.05)) return 0;
+  const strong = m('ar') + m('mb') + m('mtor') + m('sat') + m('cs') >= 0.05;
+  return Math.max(1, (strong ? (med.route === 'shot' ? 8 : 4) : 2) + 2 * (tier - 1) - Math.round(3 * (med.sel || 0)));
+}
+/* all active Sandbox compounds combined */
+function sclCustomFx(L) {
+  let out = null;
+  for (const [id, t] of Object.entries(L.cdrugs || {})) {
+    if (!t) continue; const med = sbMed(id); if (!med) continue;
+    const fx = sbMedFx(Object.assign({}, med, { dose: t }));
+    if (!out) { out = { grow: 1, ceil: 0, sat: 0, tau: 1, dmg: 1, cat: 0, fat: 1, expect: 0, d: {}, e2: 1, natT: 100 }; }
+    out.grow *= fx.grow; out.ceil += fx.ceil; out.sat += fx.sat; out.tau *= fx.tau; out.dmg *= fx.dmg; out.cat = Math.min(0.9, out.cat + fx.cat); out.fat *= fx.fat; out.expect += fx.expect;
+    for (const k in fx.mk) if (k !== 'e2' && k !== 'natT') out.d[k] = (out.d[k] || 0) + fx.mk[k] - SB_BASE_MK[k];
+    out.e2 *= fx.mk.e2 / SB_BASE_MK.e2; out.natT = Math.min(out.natT, fx.mk.natT);
+  }
+  return out;
+}
+const SCL_XMARK = ['tendon', 'heart', 'immune'];
+
 /* one 12-week block of training, eating and (maybe) pharmacology */
 function sclRunBlock(L) {
   const Wd = scWorld(SCS); const sub = sclSub(L); const limb = sub.limbs[0];
   const r = scRng(SCS.seed + 4242 + L.block * 97);
-  const fx = sclDrugFx(L); const anyDrug = Object.values(L.drugs).some(t => t);
+  const fx = sclDrugFx(L); const cfx = sclCustomFx(L); const anyDrug = Object.values(L.drugs).some(t => t) || !!cfx;
   const before = { X: Array.from(limb.X), bf: L.bf, mass: sclMass(limb), w: sclWeight(L, limb), lifts: sclLifts(sub, limb) };
   sub.protein = L.protein; sub.kcal = L.diet === 'bulk' ? 1.15 : L.diet === 'cut' ? 0.55 : 1;
   sub.supp = L.creatine ? 'creatine' : 'none'; sub._loaded = L.creatine;
-  const prog = L.prog.filter(p => p.ex && p.sets > 0).map(p => Object.assign({}, p, { R: scResolve(scSpec(p.ex)) }));
+  const prog = L.prog.filter(p => p.ex && p.sets > 0).map(p => Object.assign({}, p, { R: sclR(p.ex) })).filter(p => p.R);
   const drugWeeks = SCL_BLOCK - L.washout;
   limb._W = limb._W || {};
   for (let w = 0; w < SCL_BLOCK; w++) {
-    sub.drug = anyDrug && w < drugWeeks ? { grow: fx.grow, ceil: fx.ceil } : null;
+    sub.drug = anyDrug && w < drugWeeks ? (cfx ? { grow: fx.grow * cfx.grow, ceil: fx.ceil + cfx.ceil, sat: cfx.sat, tau: cfx.tau, dmg: cfx.dmg, cat: cfx.cat, fat: cfx.fat } : { grow: fx.grow, ceil: fx.ceil }) : null;
     prog.forEach(p => { limb._W[p.R.key] = sc1RM(sub, limb, p.R) * scLoadFor(p.R, p.reps, Wd); });
     for (let d = 0; d < 7; d++) {
       const out = { stim: new Float64Array(SC_NM), dmg: new Float64Array(SC_NM), act: {} }; let any = false;
       prog.forEach((p, i) => {
-        const days = i % 2 ? [1, 4] : [0, 3]; const si = days.indexOf(d); if (si < 0) return;
-        const n = Math.floor(p.sets / 2) + (si === 0 ? p.sets % 2 : 0); if (!n) return;
-        const proto = { sets: p.sets, rir: p.rir, rest: 120, _sessSets: n }; sub.expect = L.caffeine ? 0.3 : 0;
+        const opts = SB_DAYS[p.freq || 2] || SB_DAYS[2]; const days = opts[i % opts.length]; const si = days.indexOf(d); if (si < 0) return;
+        const base = Math.floor(p.sets / days.length), n = base + (si < p.sets - base * days.length ? 1 : 0); if (!n) return;
+        const proto = { sets: p.sets, rir: p.rir, rest: p.rest || 120, _sessSets: n }; sub.expect = (L.caffeine ? 0.3 : 0) + (sub.drug && cfx ? cfx.expect : 0);
         scSession(sub, limb, p.R, proto, Wd, r, out); any = true;
       });
       if (any) scAbsorb(sub, limb, out, Wd);
@@ -6588,15 +6617,19 @@ function sclRunBlock(L) {
   mk.e2 = toward(mk.e2, B.e2 * (1 + fx.estro * fade * (1 - fx.block)) * (fx.block > 0.85 ? 0.35 : 1), 0.8);
   if (fx.supp && fade > 0) mk.natT = Math.min(mk.natT, 100 * (1 - fx.supp)); else mk.natT = Math.min(100, mk.natT + 18 + 100 * fx.restore * 2);
   mk.hr = B.hr + fx.hr * fade;
+  // Sandbox compounds
+  const cd = k => (cfx && cfx.d[k] ? cfx.d[k] * fade : 0);
+  if (cfx) { ['hdl', 'ldl', 'hct', 'sbp', 'alt', 'glu', 'hr'].forEach(k => { mk[k] += cd(k); }); mk.e2 *= 1 + (cfx.e2 - 1) * fade; if (cfx.natT < 100 && fade > 0) mk.natT = Math.min(mk.natT, cfx.natT); }
+  mk.tendon = toward(mk.tendon === undefined ? 5 : mk.tendon, 5 + cd('tendon'), 0.8); mk.heart = toward(mk.heart || 0, cd('heart'), 0.35); mk.immune = toward(mk.immune === undefined ? 5 : mk.immune, 5 + cd('immune'), 0.8);
   // risk accumulates from markers that stay out of range
   let risk = 0; const flags = [];
-  for (const k of Object.keys(SCL_MARK)) { const M = SCL_MARK[k], v = mk[k]; if (!M.ok(v)) { const bad = !M.warn(v); risk += bad ? 2 : 0.6; flags.push({ k, bad }); } }
+  for (const k of Object.keys(SCL_MARK).concat(SCL_XMARK)) { const M = sbMarkDef(k), v = mk[k]; if (v === undefined) continue; if (!M.ok(v)) { const bad = !M.warn(v); risk += bad ? 2 : 0.6; flags.push({ k, bad }); } }
   if (mk.e2 > 60) flags.push({ k: 'gyno', bad: true });
   L.risk = Math.max(0, L.risk * 0.8 + risk);
   let event = null;
   if (L.risk >= 16) { event = 'over'; L.over = 'Your heart could not keep up. A cardiologist ended your competitive career.'; }
-  else if (L.risk >= 9 && !L.scare) { event = 'scare'; L.scare = true; L.drugs = {}; }
-  if (anyDrug) L.used.push({ block: L.block, drugs: Object.assign({}, L.drugs), washout: L.washout });
+  if (anyDrug) L.used.push({ block: L.block, drugs: Object.assign({}, L.drugs), washout: L.washout, cdet: Object.entries(L.cdrugs || {}).filter(([, t]) => t).map(([id, t]) => { const m = sbMed(id); return { n: m ? m.n : id, w: m ? sclDetect(m, t) : 6 }; }) });
+  if (event !== 'over' && L.risk >= 9 && !L.scare) { event = 'scare'; L.scare = true; L.drugs = {}; L.cdrugs = {}; }
   const after = { X: Array.from(limb.X), bf: L.bf, mass: sclMass(limb), w: sclWeight(L, limb), lifts: sclLifts(sub, limb) };
   L.block++; sclStore(L);
   L.last = { before, after, flags, event, gyno: mk.e2 > 60, fxUsed: anyDrug };
@@ -6611,7 +6644,8 @@ function sclShow(L, fed) {
   const r = scRng(SCS.seed + L.block * 31 + (fed === 'open' ? 7 : 3)); const F = SCL_RIVALS[fed];
   const limb = sclSub(L).limbs[0];
   if (fed === 'natural') {
-    const caught = L.used.find(u => Object.entries(u.drugs).some(([id, t]) => t && (L.block - 1 - u.block) * SCL_BLOCK + u.washout < SC_DRUGS[id].detect[t - 1] + (u.block === L.block - 1 ? 0 : 0)));
+    const since = u => (L.block - 1 - u.block) * SCL_BLOCK + u.washout;
+    const caught = L.used.find(u => Object.entries(u.drugs).some(([id, t]) => t && since(u) < SC_DRUGS[id].detect[t - 1]) || (u.cdet || []).some(d => since(u) < d.w));
     if (caught) { L.banned = true; return { caught: true, fed }; }
   }
   if (fed === 'natural' && L.banned) return { banned: true, fed };
@@ -6683,11 +6717,18 @@ function sclHTML() {
     <div class="row"><button class="btn primary big" data-sc="lrun">TRAIN 12 WEEKS</button></div></div>`;
 }
 function sclProgHTML(L) {
-  const opts = id => `<option value="">— empty —</option>` + SC_LIBRARY.map(e => `<option value="${e.id}" ${e.id === id ? 'selected' : ''}>${esc(e.n)}</option>`).join('');
+  const sbOpt = (m, id) => `<option value="sb:${m.id}" ${'sb:' + m.id === id ? 'selected' : ''}>${esc(m.n)}</option>`;
+  const opts = id => `<option value="">— empty —</option>` + (id && id.startsWith('sb:') && !sclFindMove(id) ? `<option value="${esc(id)}" selected>(deleted Sandbox movement)</option>` : '')
+    + `<optgroup label="Lab exercises">${SC_LIBRARY.map(e => `<option value="${e.id}" ${e.id === id ? 'selected' : ''}>${esc(e.n)}</option>`).join('')}</optgroup>`
+    + (SBS.moves.length ? `<optgroup label="Your Sandbox movements">${SBS.moves.map(m => sbOpt(m, id)).join('')}</optgroup>` : '')
+    + `<optgroup label="Sandbox starters">${SB_STARTERS.map(m => sbOpt(m, id)).join('')}</optgroup>`;
   const tot = sclSets(L);
-  return `<p class="sc-small">Each exercise is trained twice a week, 2-minute rests. <b id="scl-tot">${tot}</b> working sets a week. Your lab's findings apply here.</p>
+  const bad = L.prog.filter(p => p.ex && p.ex.startsWith('sb:') && !sclR(p.ex));
+  return `<p class="sc-small"><b id="scl-tot">${tot}</b> working sets a week. Your lab's findings apply here, and so do your Sandbox movements.</p>
+  <div class="row sb-cutrow"><button class="btn" data-sc="limport" data-id="A">IMPORT SANDBOX ROUTINE A</button><button class="btn" data-sc="limport" data-id="B">IMPORT ROUTINE B</button></div>
+  ${bad.length ? `<p class="sc-warn">${bad.map(p => esc(sclExName(p.ex))).join(', ')}: can't be loaded (or was deleted), so it'll be skipped.</p>` : ''}
   <div class="sc-prog">${L.prog.map((p, i) => `<div class="sc-slot"><select data-sc-in="lex" data-i="${i}" aria-label="Exercise ${i + 1}">${opts(p.ex)}</select>
-    ${p.ex ? [['sets', 'Sets/wk', 1, 20], ['reps', 'Rep max', 4, 30], ['rir', 'RIR', 0, 4]].map(([k, n, mn, mx]) => `<label><span>${n} <b>${p[k]}</b></span><input type="range" min="${mn}" max="${mx}" value="${p[k]}" data-sc-in="lset" data-i="${i}" data-k="${k}"></label>`).join('') : ''}</div>`).join('')}</div>`;
+    ${p.ex ? [['sets', 'Sets/wk', 1, 20, 1], ['reps', 'Rep max', 4, 30, 1], ['rir', 'RIR', 0, 4, 1], ['freq', 'Days/wk', 1, 3, 1], ['rest', 'Rest (s)', 30, 240, 30]].map(([k, n, mn, mx, st]) => { const v = p[k] !== undefined ? p[k] : k === 'freq' ? 2 : k === 'rest' ? 120 : 0; return `<label><span>${n} <b>${v}</b></span><input type="range" min="${mn}" max="${mx}" step="${st}" value="${v}" data-sc-in="lset" data-i="${i}" data-k="${k}"></label>`; }).join('') : ''}</div>`).join('')}</div>`;
 }
 function sclDietHTML(L) {
   return `<label class="sc-help">Calories</label>${scSeg('ldiet', [['bulk', 'Surplus (bulk)'], ['maint', 'Maintenance'], ['cut', 'Deficit (cut)']], L.diet)}
@@ -6698,8 +6739,13 @@ function sclDietHTML(L) {
 function sclPharmHTML(L) {
   return `<p class="sc-small">All compounds are fictional. Effects are exaggerated for a game; side effects are real in spirit. Tested shows catch anything still detectable on show day.</p>
   ${Object.entries(SC_DRUGS).map(([id, D]) => `<div class="sc-drug"><b>${esc(D.n)}</b><small>${esc(D.cls)}</small><span>${esc(D.desc)}</span>${scSeg('ldrug', [0, 1, 2, 3].map(t => [id + ':' + t, SC_TIER_N[t]]), id + ':' + (L.drugs[id] || 0))}<small>Detectable for ${D.detect.join(' / ')} weeks after the last dose (low / mod / high).</small></div>`).join('')}
+  <h3 class="sc-h">FROM YOUR SANDBOX</h3>
+  ${sclSandboxMeds().length ? sclSandboxMeds().map(m => { const t = (L.cdrugs || {})[m.id] || 0; const mech = SB_MECH.filter(M => ((m.mech || {})[M.k] || 0) >= 0.1).map(M => M.n.toLowerCase()).join(', ') || 'no active mechanisms';
+    return `<div class="sc-drug sb-cdrug" style="border-left:4px solid ${m.color}"><b>${esc(m.n)}</b><small>${m.route === 'pill' ? 'Pill' : 'Injection'} · ${esc(mech)}</small>${scSeg('lcdrug', [0, 1, 2, 3].map(k => [m.id + ':' + k, SC_TIER_N[k]]), m.id + ':' + t)}<small>Detectable for ${[1, 2, 3].map(k => sclDetect(m, k)).join(' / ')} weeks after the last dose (low / mod / high).</small></div>`; }).join('')
+    : '<p class="sc-dim">Design compounds in the Sandbox\'s PHARMA tab and they\'ll show up here.</p>'}
   <label class="sc-help" for="sc-wash">Stop everything <b>${L.washout}</b> weeks before the end of the block</label><input id="sc-wash" type="range" min="0" max="12" value="${L.washout}" data-sc-in="lwash">`;
 }
+const sclSandboxMeds = () => SBS.meds.concat(SB_MED_PRESETS.filter(m => m.id === 'p-follis' || m.id === 'p-preworkout'));
 function sclBodyHTML(L) {
   const limb = sclSub(L).limbs[0];
   const lifts = sclLifts(sclSub(L), limb);
@@ -6708,7 +6754,7 @@ function sclBodyHTML(L) {
   <h3 class="sc-h">BLOODWORK</h3>${sclMarkersHTML(L)}`;
 }
 function sclMarkersHTML(L) {
-  return `<div class="sc-marks">${Object.entries(SCL_MARK).map(([k, M]) => { const v = L.mk[k]; const st = M.ok(v) ? 'ok' : M.warn(v) ? 'warn' : 'bad'; return `<div class="${st}"><span>${esc(M.n)}</span><b>${Math.round(v)}</b><small>${esc(M.u)}</small><em>${st === 'ok' ? 'OK' : st === 'warn' ? 'WATCH' : 'HIGH RISK'}</em></div>`; }).join('')}</div>`;
+  return `<div class="sc-marks">${Object.keys(SCL_MARK).concat(SCL_XMARK).filter(k => L.mk[k] !== undefined).map(k => { const M = sbMarkDef(k), v = L.mk[k]; const st = M.ok(v) ? 'ok' : M.warn(v) ? 'warn' : 'bad'; return `<div class="${st}"><span>${esc(M.n)}</span><b>${Math.round(v)}</b><small>${esc(M.u)}</small><em>${st === 'ok' ? 'OK' : st === 'warn' ? 'WATCH' : 'HIGH RISK'}</em></div>`; }).join('')}</div>`;
 }
 function sclResultModal(res) {
   const L = SCS.lifter; const b = res.before, a = res.after;
@@ -6718,7 +6764,7 @@ function sclResultModal(res) {
   scModal(`<div class="sc-theme"><h2>BLOCK ${L.block} DONE</h2>${ev}
     <div class="sc-calc"><div><span>Bodyweight</span><b>${Math.round(a.w)} kg</b><small>${scFmt(a.w - b.w)} kg</small></div><div><span>Body fat</span><b>${a.bf.toFixed(1)}%</b><small>${scFmt(a.bf - b.bf)} points</small></div><div><span>Squat</span><b>${a.lifts.squat} kg</b><small>${scFmt(a.lifts.squat - b.lifts.squat, 0)} kg</small></div></div>
     <h3 class="sc-h">MUSCLE GROWTH THIS BLOCK</h3><div class="sc-gg">${groups}</div>
-    ${res.flags.length ? `<h3 class="sc-h">DOCTOR'S NOTES</h3><ul class="sc-rev">${res.flags.map(f => `<li class="${f.bad ? 'neg' : ''}">${f.k === 'gyno' ? 'Estrogen high enough to cause breast tissue growth. Judges notice.' : esc(SCL_MARK[f.k].n) + (f.bad ? ' is dangerous.' : ' is out of range.')}</li>`).join('')}</ul>` : '<p class="sc-small">Bloodwork normal.</p>'}
+    ${res.flags.length ? `<h3 class="sc-h">DOCTOR'S NOTES</h3><ul class="sc-rev">${res.flags.map(f => `<li class="${f.bad ? 'neg' : ''}">${f.k === 'gyno' ? 'Estrogen high enough to cause breast tissue growth. Judges notice.' : esc(sbMarkDef(f.k).n) + (f.bad ? ' is dangerous.' : ' is out of range.')}</li>`).join('')}</ul>` : '<p class="sc-small">Bloodwork normal.</p>'}
     <div class="row">${L.over ? '' : `<button class="btn" data-sc="lshow" data-id="natural" ${L.banned ? 'disabled' : ''}>ENTER NATURAL CLASSIC</button><button class="btn" data-sc="lshow" data-id="open">ENTER OPEN PRO</button>`}<button class="btn primary" data-act="close">${L.over ? 'OK' : 'SKIP THE SHOW'}</button></div></div>`);
 }
 function sclShowModal(s) {
@@ -6740,7 +6786,17 @@ document.addEventListener('click', e => {
     const k = b.dataset.k, v = b.dataset.v;
     if (k === 'ldiet') L.diet = v; else if (k === 'lprot') L.protein = +v; else if (k === 'lcrea') L.creatine = v === 'true'; else if (k === 'lcaff') L.caffeine = v === 'true';
     else if (k === 'ldrug') { const [d, t] = v.split(':'); L.drugs[d] = +t; }
+    else if (k === 'lcdrug') { const [d, t] = v.split(':'); L.cdrugs = Object.assign({}, L.cdrugs, { [d]: +t }); }
     scSave(); SFX.tap(); scRender(true);
+  }
+  else if (a === 'limport') {
+    const R = SBS[id] || []; if (!R.length) { toast('Sandbox routine ' + id + ' is empty.'); return; }
+    L.prog = R.slice(0, 8).map(it => ({ ex: 'sb:' + it.mv, sets: it.sets, reps: it.reps, rir: it.rir, freq: it.freq, rest: it.rest }));
+    while (L.prog.length < 8) L.prog.push({ ex: '', sets: 6, reps: 10, rir: 1 });
+    const mid = SBS['med' + id]; const map = { 'p-andrax': 'andrax', 'p-velo': 'velotrex', 'p-soma': 'somatrin' }; let msg = `Imported routine ${id}.`;
+    if (mid && map[mid]) { L.drugs[map[mid]] = 2; msg += ` Pharmacy: ${SC_DRUGS[map[mid]].n} set to Moderate.`; }
+    else if (mid && mid !== 'p-placebo' && sbMed(mid)) { L.cdrugs = Object.assign({}, L.cdrugs, { [mid]: sbMed(mid).dose || 2 }); msg += ` Pharmacy: ${sbMed(mid).n} switched on.`; }
+    scSave(); SFX.ok(); scRender(true); toast(msg);
   }
   else if (a === 'lrun') { const res = sclRunBlock(L); scSave(); SFX.good(); scRender(); sclResultModal(res); }
   else if (a === 'lshow') { closeModal(); const s = sclShow(L, id); scSave(); scRender(true); sclShowModal(s); }
