@@ -766,6 +766,23 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .dp-feature .tag { background: #a3271c; color: #f6ecd3; }
 .dp-feature .chips li { background: #f3e7c8; color: #2a1a10; }
 .dp-feature .save-note { color: #6f5841 !important; }
+.dialog { position: relative; }
+.dialog.more::after { content: '▼ more'; position: sticky; display: block; bottom: -8px; margin: 4px -12px -8px auto; width: max-content; padding: 2px 8px; font-family: var(--font-d); font-size: 8px; color: var(--bg); background: var(--accent); animation: blinkmore 1.2s steps(2) infinite; }
+@keyframes blinkmore { 50% { opacity: .55; } }
+.dr-secnote { margin: -4px 0 10px; color: var(--mute); font-size: 18px; line-height: 1.15; }
+.dr-end > .stats, .dr-end > .dr-sec, .dr-title > .dr-sec { justify-self: stretch; }
+.ab-forecast { font-size: 13px; color: var(--ab-mute); border: 1px dashed var(--ab-line); padding: 7px 10px; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+.ab-forecast b { color: var(--ab-ink); } .ab-forecast.bad { border-color: var(--ab-bad); } .ab-forecast.bad b, .ab-forecast em { color: var(--ab-bad); font-style: normal; }
+.dp-sub { display: block; font-size: 14px; color: var(--dp-mute); font-style: italic; margin-top: 2px; }
+.dp-map { width: 100%; max-width: 480px; display: block; margin: 6px auto; font-family: var(--dp-font); }
+.dp-map circle { fill: var(--dp-rub); }
+.dp-map text { font-size: 12px; fill: var(--dp-ink); }
+.dp-map line { stroke-width: 1.5; }
+.dp-map .mA { stroke: var(--dp-ink); } .dp-map marker path { fill: var(--dp-ink); }
+.dp-map .mE { stroke: var(--dp-rub); stroke-dasharray: 5 4; }
+.dp-map .mI { stroke: var(--dp-green); stroke-dasharray: 1.5 3; stroke-linecap: round; stroke-width: 2; }
+.dp-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: center; }
+.dp-legend .le { color: var(--dp-rub); } .dp-legend .li { color: var(--dp-green); }
 
 </style>
 </head>
@@ -3783,10 +3800,11 @@ function renderDialog(animate) {
   $('#dlg-who').textContent = UI.say.who;
   $('#dlg-hint').textContent = UI.say.kind === 'pt' && P ? '' : '';
   const tx = $('#dlg-text'); clearInterval(UI.typing);
-  const s = UI.say.text;
-  if (!animate || reduced) { tx.textContent = s; return; }
+  const s = UI.say.text; box.scrollTop = 0;
+  const more = () => { const b2 = $('#dlg'); if (b2) b2.classList.toggle('more', b2.scrollHeight > b2.clientHeight + 4 && b2.scrollTop + b2.clientHeight < b2.scrollHeight - 4); };
+  if (!animate || reduced) { tx.textContent = s; more(); return; }
   let i = 0; tx.textContent = '';
-  UI.typing = setInterval(() => { i += 2; tx.textContent = s.slice(0, i); if (i % 8 === 0 && UI.say.kind === 'pt') beep(1200 + (i % 5) * 60, 0.012, 'square', 0.012); if (i >= s.length) clearInterval(UI.typing); }, 18);
+  UI.typing = setInterval(() => { i += 2; tx.textContent = s.slice(0, i); if (i % 8 === 0 && UI.say.kind === 'pt') beep(1200 + (i % 5) * 60, 0.012, 'square', 0.012); if (i >= s.length) { clearInterval(UI.typing); more(); } }, 18);
 }
 function sayIdle() {
   const left = dayLen() - S.dayDone;
@@ -4002,7 +4020,9 @@ function dxInfo(id, free) {
     ${!free ? `<div class="row"><button class="btn primary" data-act="dx" data-id="${id}">THIS IS MY DIAGNOSIS</button></div>` : ''}`);
 }
 function confirmSign() {
+  if (!P || !CS) return;
   const d = DIS[CS.dx];
+  if (!d) { toast('Choose a diagnosis first.'); UI.tab = 'treat'; renderPanel(); return; }
   if (!CS.rx.length && !CS.refer && !CS.stops.length) { toast('Order something first: a medicine, home care or a referral.'); UI.tab = 'treat'; renderPanel(); return; }
   modal(`<button class="x" data-act="close">BACK</button><h2>SIGN THE CHART?</h2>
     <div class="paper"><div class="ph">VISIT SUMMARY<span>${esc(P.name)}</span></div><table>
@@ -4169,7 +4189,7 @@ function closeModal() { const m = $('#modal'); if (m) m.remove(); }
 
 /* ====================== EVENTS ====================== */
 document.addEventListener('click', e => {
-  const b = e.target.closest('[data-act]'); if (!b) return;
+  const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
   const act = b.dataset.act, id = b.dataset.id;
   switch (act) {
     case 'tab': UI.tab = id; SFX.tap(); renderRight(); break;
@@ -4203,7 +4223,7 @@ document.addEventListener('click', e => {
     case 'copyarc': { const ta = $('#arccode'); ta.select(); (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(() => toast('Save code copied.'), () => toast('Select the code and copy it manually.')); break; }
     case 'loadarc': try { const got = arcadeLoad($('#arcload').value); closeModal(); toast('Loaded: ' + got.join(' + ')); route(); } catch (err) { toast('That code didn\'t work. Copy it again in full.'); } break;
     case 'mute': S.muted = !S.muted; persist(); renderHud(); if (!S.muted) SFX.blip(); break;
-    case 'skip': if (UI.typing) { clearInterval(UI.typing); $('#dlg-text').textContent = UI.say.text; } break;
+    case 'skip': if (UI.typing) { clearInterval(UI.typing); UI.typing = null; $('#dlg-text').textContent = UI.say.text; const b2 = $('#dlg'); if (b2) b2.classList.toggle('more', b2.scrollHeight > b2.clientHeight + 4); } break;
     case 'copysave': { const ta = $('#savecode'); ta.select(); (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(() => toast('Save code copied.'), () => toast('Select the code and copy it manually.')); break; }
     case 'loadsave': modal(`<button class="x" data-act="close">CLOSE</button><h2>LOAD A SAVE CODE</h2><label class="hint" for="loadcode">Paste a code from the Career screen. This replaces your current progress.</label><textarea class="code" id="loadcode"></textarea><div class="row"><button class="btn primary" data-act="doload">LOAD</button></div>`); break;
     case 'doload': try { const s = JSON.parse(decodeURIComponent(escape(atob($('#loadcode').value.trim())))); if (!s || s.v !== 1) throw 0; S = Object.assign(newSave(), s, { cur: null }); P = null; CS = null; persist(); closeModal(); sayIdle(); renderAll(); toast('Save loaded.'); } catch (err) { toast('That code didn\'t work. Copy it again in full.'); } break;
@@ -4211,6 +4231,7 @@ document.addEventListener('click', e => {
     case 'doreset': S = newSave(); P = null; CS = null; persist(); closeModal(); sayIdle(); renderAll(); break;
   }
 });
+document.addEventListener('scroll', e => { const t = e.target; if (t && t.id === 'dlg') t.classList.toggle('more', t.scrollTop + t.clientHeight < t.scrollHeight - 4); }, true);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { const m = $('#modal'); if (m && m.querySelector('[data-act="close"],[data-act="dxback"]')) closeModal(); } });
 
 /* ====================== RENDER LOOP ====================== */
@@ -4303,7 +4324,7 @@ function drTitleHTML() {
     <div class="dr-frame"><canvas data-scene="dr-hub" width="160" height="100" aria-label="The atelier: a dress form, dye jars, a medicine cabinet and a rifle rack"></canvas></div>
     <p class="dr-lede">The Ninth Oblast, after the collapse. A creditors' junta called <b>the Concession</b> is selling off the collective farms, and the Workers' Column is marching on Saltgrad to stop it.</p>
     <p class="dr-lede">You are not the commander. You run the <b>rear</b>: the atelier, kitchen, clinic and armory that make the Column reproducible. You design what it wears, pack what it eats, choose what heals it and issue what it fights with. Then you watch your choices come back in the after-action report.</p>
-    <p class="dr-lede dim">Four or six operations, 25 to 45 minutes. Tukhachevsky's deep battle, under scarcity, under six factions who all have notes.</p>
+    <p class="dr-lede dim">Five or seven operations, 30 to 50 minutes. Tukhachevsky's deep battle, under scarcity, under six factions who all have notes.</p>
     <div class="dr-btns">
       ${cont ? `<button class="btn primary big" data-dr="continue">${DRS.cycle >= NOPS() ? 'FINAL REVIEW' : `CONTINUE · CYCLE ${DRS.cycle + 1}`}</button>` : ''}
       <button class="btn ${cont ? '' : 'primary big'}" data-dr="${cont ? 'newcamp' : 'length'}">${cont ? 'NEW CAMPAIGN' : 'BEGIN CAMPAIGN'}</button>
@@ -4363,7 +4384,7 @@ function drBlowHints(L, op) {
   if (L.echelon !== 'allin') tryIt('a heavier first echelon', x => x.echelon = 'allin');
   return out.sort((a, b) => b.g - a.g).slice(0, 4);
 }
-const sec = (t, inner, note) => `<section class="dr-sec"><h3><span>${t}</span>${note ? `<em>${note}</em>` : ''}</h3>${inner}</section>`;
+const sec = (t, inner, note) => { const long = note && String(note).replace(/<[^>]+>/g, '').length > 34; return `<section class="dr-sec"><h3><span>${t}</span>${note && !long ? `<em>${note}</em>` : ''}</h3>${long ? `<p class="dr-secnote">${note}</p>` : ''}${inner}</section>`; };
 const tagz = arr => arr.filter(Boolean).map(x => `<i>${x}</i>`).join('');
 function opt(k, v, title, sub, tags, sel, dis) {
   return `<button class="opt" data-dr="set" data-k="${k}" data-v="${v}" aria-pressed="${sel}" ${dis ? 'disabled' : ''}><span class="t">${esc(title)}</span>${sub ? `<small>${esc(sub)}</small>` : ''}<span class="fx">${tagz(tags)}</span></button>`;
@@ -4384,7 +4405,7 @@ function drBriefHTML() {
     <tr><td>Terrain</td><td>${esc(TERRAIN_N[op.terrain])}${op.river ? ', river line' : ''}</td></tr><tr><td>Population</td><td>${op.pop === 'rural' ? 'Villages and collective farms' : 'Workers\' districts'}</td></tr>
     <tr><td>Rations needed</td><td>${op.kcal} kcal a day</td></tr><tr><td>Warmth needed</td><td>${op.warmNeed}${op.heat ? ' (and it will be hot)' : ''}</td></tr></table></div>`)}
   ${sec('ENEMY PLAN', drEnemyPlanHTML(op), 'partisan intelligence')}
-  ${sec('ENEMY & ENVIRONMENT', `<div class="dr-kv"><span>Defence <b>${e.def}</b></span><span>Belts <b>${e.belts}</b></span><span>Reserve <b>${e.reserve}</b></span><span>Armor <b>${e.armor ? '■'.repeat(e.armor) : 'none'}</b></span></div><div class="hzs">${hz.join('')}</div>`)}
+  ${sec('ENEMY & ENVIRONMENT', `<div class="dr-kv">${e.def !== undefined ? `<span>Defence <b>${e.def}</b></span><span>Belts <b>${e.belts}</b></span>` : `<span>Attack <b>${e.atk}</b></span>`}<span>Reserve <b>${e.reserve}</b></span><span>Armor <b>${e.armor ? '■'.repeat(e.armor) : 'none'}</b></span></div><div class="hzs">${hz.join('')}</div>`)}
   ${sec('THE COLUMN', `<div class="dr-kv"><span>Fighters <b>${DRS.force}</b></span><span>Scurvy <b>${DRS.scurvy >= 2 ? 'spreading' : DRS.scurvy === 1 ? 'warning' : 'none'}</b></span><span>Caffeine crash <b>${DRS.caffDebt ? 'yes' : 'no'}</b></span></div>
     ${last ? `<p class="hint">Last operation: ${esc(OPS.find(o => o.id === last.op).n)}, grade ${last.letter}, ${last.km} km, ${last.dead} dead.</p>` : ''}`)}
   ${sec('THE SQUAD', `<div class="squad">${(DRS.crew || []).map(c => { const C = CREW.find(x => x.id === c.id); return `<div class="${c.st}"><b>${esc(C.n)}</b><small>${esc(C.role)} · ${c.st === 'kia' ? 'fallen' : c.st === 'wia' ? 'wounded, back this operation' : 'ready'}</small></div>`; }).join('')}</div>`, 'six who carry the story')}
@@ -4700,7 +4721,7 @@ function drLookbook() {
 
 /* ---------------- events ---------------- */
 document.addEventListener('click', e => {
-  const b = e.target.closest('[data-dr]'); if (!b || UI.view !== 'deep') return;
+  const b = e.target.closest('[data-dr]'); if (!b || b.disabled || UI.view !== 'deep') return;
   const a = b.dataset.dr, k = b.dataset.k, v = b.dataset.v, L = DRS.L;
   const keep = DRS.phase === 'prep';
   switch (a) {
@@ -4736,8 +4757,8 @@ document.addEventListener('click', e => {
     }
     case 'next': DRS.phase = DRS.cycle >= NOPS() ? 'end' : drCouncilMotion(DRS) || DRS.pendingMotion ? 'council' : 'prep'; DRU.tab = 'brief'; drSave(); if (DRS.phase === 'end') SFX.level(); drRender(false); return;
     case 'length': modal(`<h2>HOW LONG A CAMPAIGN?</h2><div class="unl">
-        <button class="opt" data-dr="begin" data-v="short"><span class="t">Short · 4 operations</span><small>First Furrow, Birch Echelon, White Road, Saltgrad. About 25 minutes.</small></button>
-        <button class="opt" data-dr="begin" data-v="full"><span class="t">Full · 6 operations</span><small>Adds the marsh and the textile kombinat. About 45 minutes.</small></button></div>
+        <button class="opt" data-dr="begin" data-v="short"><span class="t">Short · 5 operations</span><small>First Furrow, Birch Echelon, White Road, Saltgrad, then holding the line in The Long Night. About 30 minutes.</small></button>
+        <button class="opt" data-dr="begin" data-v="full"><span class="t">Full · 7 operations</span><small>Adds Marsh Lantern and Rust Belt. About 50 minutes.</small></button></div>
         <div class="row"><button class="btn" data-act="close">CANCEL</button></div>`); return;
     case 'begin': closeModal(); { const keep = { bday: DRS.bday, bdayYear: DRS.bdayYear, heldSeen: DRS.heldSeen }; DRS = Object.assign(drNewState(), keep); } DRS.ops = v === 'short' ? SHORT_CAMPAIGN.slice() : OPS.map(o => o.id); DRS.started = true; DRS.phase = 'prep'; DRU.tab = 'brief'; drSave(); drRender(false); drHowto(); return;
     case 'continue': DRS.phase = ['report', 'council', 'prep', 'end'].includes(DRS.phaseBefore) ? DRS.phaseBefore : DRS.cycle >= NOPS() ? 'end' : 'prep'; drRender(false); return;
@@ -4763,7 +4784,7 @@ document.addEventListener('input', e => {
 /* A physics institute in a universe with its own laws. The laws are hidden, consistent within a run,
    and different every run. Everything you learn comes from your own instruments and your own readings. */
 const AB_KEY = 'pixel-arcade/aberration/v1';
-const AB_Y0 = 1890, AB_Y1 = 1915, AB_DAYS = 300;
+const AB_Y0 = 1890, AB_Y1 = 1915, AB_DAYS = 300, AB_GRANT0 = 300, AB_GRANTC = 12;
 function abRng(seed) { let s = Math.imul((seed >>> 0) ^ 0x9e3779b9, 0x85ebca6b) >>> 0; s = (s ^ (s >>> 13)) >>> 0 || 7; for (let k = 0; k < 6; k++) { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; } return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
 const abG = r => { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
 const abClamp = (x, a, b) => (x < a ? a : x > b ? b : x);
@@ -4914,11 +4935,12 @@ function abResolve(R, W, c) {
 }
 function abYearEnd(R, W) {
   const y0 = (R.year - AB_Y0) * AB_DAYS; const sal = Math.round(R.staff.reduce((a, p) => a + p.pay * abClamp((y0 + AB_DAYS - Math.max(p.since || 0, y0)) / AB_DAYS, 0, 1), 0)), upkeep = 160;
-  const grant = Math.round(220 + 11 * R.cred + 0.6 * R.yearPrestige);
+  const grant = Math.round(AB_GRANT0 + AB_GRANTC * R.cred + 0.6 * R.yearPrestige);
   R.money += grant - sal - upkeep;
   const ev = [{ k: 'year', t: `${R.year} closes. Grant ${grant}, salaries ${sal}, upkeep ${upkeep}.`, grant, sal, upkeep }];
   abLog(R, `Year ${R.year}: grant ${grant} marks, salaries ${sal}, upkeep ${upkeep}. Balance ${R.money}.`, 'year');
   R.year++; R.day = 0; R.yearPrestige = 0; R.cands = abCandidates(abR, 3);
+  if (R.money < 0 && !R.loan) { R.loan = true; R.money = 0; R.cred = Math.max(1, R.cred - 15); abLog(R, 'The trustees cover the deficit, once. Credibility −15. They will not do it again.', 'bad'); ev.push({ k: 'bad', t: 'The trustees covered your deficit, once. Credibility −15. Next time the institute closes.' }); }
   if (R.money < 0) R.over = { k: 'broke', t: 'The institute cannot pay its debts. The creditors take the instruments.' };
   else if (R.cred <= 0) R.over = { k: 'closed', t: 'The Academy withdraws its recognition.' };
   else if (R.year > AB_Y1) R.over = { k: 'end', t: `It is ${AB_Y1 + 1}. The founders retire.` };
@@ -5279,6 +5301,10 @@ function abTabHTML() {
 }
 
 /* ---------- doing things costs time and money ---------- */
+function abForecast(R) {
+  const y0 = (R.year - AB_Y0) * AB_DAYS; const sal = Math.round(R.staff.reduce((a, p) => a + p.pay * abClamp((y0 + AB_DAYS - Math.max(p.since || 0, y0)) / AB_DAYS, 0, 1), 0));
+  const grant = Math.round(AB_GRANT0 + AB_GRANTC * R.cred + 0.6 * R.yearPrestige), upkeep = 160; return { grant, sal, upkeep, bal: R.money + grant - sal - upkeep };
+}
 function abDo(days, cost) {
   const R = ABS.run; if (R.money < cost) { toast('Not enough money.'); SFX.bad(); return false; }
   R.money -= cost; const ev = abSpend(R, ABW, days); abAfter(ev); return true;
@@ -5313,8 +5339,9 @@ function abLabHTML() {
     ['glow', AB_PARTS.cell.grades[P.cell], `${R.glowRuns.length} run${R.glowRuns.length === 1 ? '' : 's'}`],
     ['moons', `${AB_PARTS.aperture.grades[P.aperture]} lens · ${AB_PARTS.drive.grades[P.drive].toLowerCase()}`, `${R.data.moons.length} night${R.data.moons.length === 1 ? '' : 's'} on plates`],
   ];
-  const mk = abSkill(R, 'maker');
-  return `<div class="ab-cards">${cards.map(c => `<button class="ab-card" data-ab="exp" data-id="${c[0]}"><span class="ab-ico ${c[0]}" aria-hidden="true"></span><b>${AB_EXPS[c[0]].n}</b><small>${esc(AB_EXPS[c[0]].d)}</small><span class="ab-meta">${esc(c[1])}<br>${esc(c[2])}</span></button>`).join('')}</div>
+  const mk = abSkill(R, 'maker'); const f = abForecast(R);
+  return `<div class="ab-forecast ${f.bal < 0 ? 'bad' : ''}"><span>At the year's end (day ${AB_DAYS}):</span> grant ≈ ${abMk(f.grant)}, salaries ${abMk(f.sal)}, upkeep ${abMk(f.upkeep)} → <b>${abMk(f.bal)}</b>${f.bal < 0 ? '. <em>Short: take a contract, let someone go, or earn prestige.</em>' : ''}</div>
+    <div class="ab-cards">${cards.map(c => `<button class="ab-card" data-ab="exp" data-id="${c[0]}"><span class="ab-ico ${c[0]}" aria-hidden="true"></span><b>${AB_EXPS[c[0]].n}</b><small>${esc(AB_EXPS[c[0]].d)}</small><span class="ab-meta">${esc(c[1])}<br>${esc(c[2])}</span></button>`).join('')}</div>
     <h3 class="ab-h">Other work</h3>
     <div class="ab-list">
       <div class="ab-item"><div><b>Industrial contract</b><small>Calibrate gauges for the railway works. 30 days, +${abMk(200 + 70 * mk)}${mk ? ' (your instrument maker earns extra)' : ''}.</small></div><button class="btn" data-ab="contract">Take it</button></div>
@@ -5376,9 +5403,10 @@ function abSwingTheta(S, ts) { const t = (ts - S.t0) / 1000; return S.eq + S.A0 
 function abSwingEstimate(S) {
   const m = S.marks; if (m.length < 2) return null;
   let v, s, warn = '';
-  if (m.length === 2) { v = (m[0] + m[1]) / 2; s = 0.35; warn = 'two marks only: the dying swing biases this'; }
+  if (m.length === 2) { v = (m[0] + m[1]) / 2; s = 0.45; warn = 'two marks only: the dying swing biases this'; }
   else { const es = []; for (let i = 0; i + 2 < m.length; i++) es.push((m[i] + 2 * m[i + 1] + m[i + 2]) / 4); v = es.reduce((a, b) => a + b, 0) / es.length;
-    const sd = es.length > 1 ? Math.sqrt(es.reduce((a, b) => a + (b - v) * (b - v), 0) / (es.length - 1)) / Math.sqrt(es.length) : 0.08; s = Math.max(0.05, sd); }
+    // one triple gives no check on your timing; two or more do
+    const sd = es.length > 1 ? Math.sqrt(es.reduce((a, b) => a + (b - v) * (b - v), 0) / (es.length - 1)) : 0.25; s = Math.max(0.06, sd); }
   for (let i = 1; i < m.length; i++) if (Math.sign(m[i] - v) === Math.sign(m[i - 1] - v)) { warn = 'two marks on the same side: mark each turning point once'; break; }
   return { v, s: Math.hypot(s, abFibreNoise(ABS.run) * 0.6), ok: m.length >= 2, warn };
 }
@@ -5832,7 +5860,7 @@ function abWorkshopHTML() {
   const R = ABS.run, mk = abSkill(R, 'maker');
   const groups = ['torsion', 'spectro', 'glow', 'moons'];
   return `<p class="ab-p">${mk ? `Your instrument maker (skill ${mk}) builds up to grade ${mk + 1}, cheaper and faster.` : 'Without an instrument maker you can only buy first-grade parts, at a 50% mark-up.'}</p>
-    ${R.builds.length ? `<h3 class="ab-h">On the bench</h3><div class="ab-list">${R.builds.map(b => `<div class="ab-item"><div><b>${esc(AB_PARTS[b.part].grades[b.grade])}</b><small>${b.left} day${b.left === 1 ? '' : 's'} to go</small></div></div>`).join('')}</div>` : ''}
+    ${R.builds.length ? `<h3 class="ab-h">On the bench</h3><div class="ab-list">${R.builds.map(b => `<div class="ab-item"><div><b>${esc(AB_PARTS[b.part].grades[b.grade])}</b><small>${b.left} day${b.left === 1 ? '' : 's'} to go</small></div></div>`).join('')}</div><div class="ab-actions"><button class="btn" data-ab="waitbuild">Write up and wait ${Math.min(...R.builds.map(b => b.left))} days for the next one</button></div>` : ''}
     ${groups.map(g => `<h3 class="ab-h">${AB_EXPS[g].n}</h3><div class="ab-list">${Object.keys(AB_PARTS).filter(k => AB_PARTS[k].exp === g).map(k => {
       const P = AB_PARTS[k], cur = R.parts[k], nx = abBuildCost(R, k), busy = R.builds.some(b => b.part === k);
       return `<div class="ab-item"><div><b>${esc(P.n)}: ${esc(P.grades[cur])}</b><small>${esc(P.d)}</small>${nx ? `<small>Next: ${esc(P.grades[nx.g])} · ${abMk(nx.cost)} · ${nx.days} days${nx.need === 'maker' ? ' · <span class="bad">needs an instrument maker</span>' : nx.need === 'skill' ? ` · <span class="bad">needs a maker of skill ${nx.g - 1}</span>` : ''}</small>` : '<small>Best there is.</small>'}</div>${nx ? `<button class="btn" data-ab="build" data-id="${k}"${busy || nx.need || R.money < nx.cost ? ' disabled' : ''}>${busy ? 'Building' : 'Build'}</button>` : ''}</div>`;
@@ -5922,7 +5950,7 @@ function abHowto() {
     <p><b>Publishing.</b> Print a result and replication checks it one to three years later. It holds if the truth lies within two of your ± bars. First and right: up to +260 prestige. Wrong: −60 prestige and −28 credibility. At zero credibility the institute closes.</p>
     <p><b>The ± lies.</b> A fit's uncertainty counts only random scatter. Anything that pushes every reading the same way (a warm room, a mis-scaled plate, looking at the same hour each night) is invisible to it. Find those effects, or quote wider.</p>
     <p><b>Rivals.</b> Three institutes are working on the same questions, some carelessly. If your data rule out a rival's claim, challenge it.</p>
-    <p><b>Money.</b> Each year the Academy pays a grant that grows with credibility and with the prestige you earned that year. Salaries and upkeep come out of it. Industrial contracts pay when you are short.</p>
+    <p><b>Money.</b> Each year the Academy pays a grant that grows with credibility and with the prestige you earned that year. Salaries and upkeep come out of it. Industrial contracts pay when you are short. The trustees will cover one deficit, at a cost to your credibility; the second closes the institute.</p>
     <p><b>People.</b> Instrument makers build better parts. Observers take readings for you. Theorists unlock better fits.</p>
     <p><b>Ending.</b> The run ends in ${AB_Y1 + 1}, when every question is settled, or when you go broke or lose the Academy's trust. Then the file shows how the universe really worked, and you earn archive points for a head start next time.</p>
     <div class="row"><button class="btn primary" data-ab="close">Understood</button></div>`);
@@ -5974,6 +6002,7 @@ document.addEventListener('click', e => {
     case 'contract': { const mk = abSkill(R, 'maker'); if (abDo(30, 0)) { R.money += 200 + 70 * mk; abLog(R, `Industrial contract done: +${200 + 70 * mk} marks.`); abPersist(); SFX.ok(); } re(); break; }
     case 'lecture': if (abDo(4, 0)) { R.money += 45; if (R.cred <= 60) R.cred += 1; abPersist(); SFX.ok(); } re(); break;
     case 'wait': abDo(10, 0); re(); break;
+    case 'waitbuild': if (R.builds.length) { abDo(Math.min(...R.builds.map(b => b.left)), 0); } re(); break;
     /* torsion */
     case 'trpos': ABU.tr = +id; SFX.tap(); re(); break;
     case 'swing': abStartSwing(); break;
@@ -6150,10 +6179,10 @@ const DP_WORDS = ['souls', 'bodies', 'substances', 'accidents', 'intellects', 'h
 const DP_EQUIV = [{ w: 'forms', g: ['shapes', 'essences'] }, { w: 'acts', g: ['deeds', 'actualities'] }, { w: 'principles', g: ['beginnings', 'sources'] }, { w: 'images', g: ['pictures', 'likenesses'] }, { w: 'powers', g: ['abilities', 'authorities'] }, { w: 'ends', g: ['purposes', 'limits'] }];
 const DP_RANKS = [
   { n: 'Bachelor', k: 2, extra: 3, bell: 8, dossier: 2, rq: 5, rlo: 1, rhi: 2, strikes: 2, breaths: 10, eq: 1 },
-  { n: 'Licentiate', k: 3, extra: 3, bell: 9, dossier: 2, rq: 6, rlo: 2, rhi: 3, strikes: 2, breaths: 10, eq: 1 },
-  { n: 'Master', k: 4, extra: 4, bell: 10, dossier: 2, rq: 7, rlo: 2, rhi: 3, strikes: 1, breaths: 9, eq: 2 },
-  { n: 'Regent Master', k: 5, extra: 4, bell: 11, dossier: 1, rq: 8, rlo: 2, rhi: 4, strikes: 1, breaths: 8, eq: 2 },
-  { n: 'Doctor', k: 6, extra: 4, bell: 12, dossier: 1, rq: 9, rlo: 3, rhi: 5, strikes: 1, breaths: 8, eq: 2 },
+  { n: 'Licentiate', k: 3, extra: 3, bell: 10, dossier: 2, rq: 6, rlo: 2, rhi: 3, strikes: 2, breaths: 10, eq: 1 },
+  { n: 'Master', k: 4, extra: 4, bell: 12, dossier: 2, rq: 7, rlo: 2, rhi: 3, strikes: 1, breaths: 9, eq: 2 },
+  { n: 'Regent Master', k: 5, extra: 4, bell: 14, dossier: 1, rq: 8, rlo: 2, rhi: 4, strikes: 1, breaths: 8, eq: 2 },
+  { n: 'Doctor', k: 6, extra: 4, bell: 16, dossier: 1, rq: 9, rlo: 3, rhi: 5, strikes: 1, breaths: 8, eq: 2 },
 ];
 const DP_FIRST = ['Ysolde', 'Cuthwin', 'Ferrand', 'Petronel', 'Aldith', 'Bertilo', 'Oriel', 'Wystan', 'Sabeline', 'Maudry', 'Gerolt', 'Isembard', 'Hawise', 'Osric', 'Melisent', 'Rainald'];
 const DP_LAST = ['Marrow', 'Hale', 'Ost', 'Vey', 'Thornbury', 'Gallard', 'Pell', 'Ashdown', 'Crane', 'Vellacott', 'Brune', 'Quill', 'Harrowgate', 'Sallow'];
@@ -6426,17 +6455,18 @@ function dpOpposeHTML() {
     ${dpBuilder('ask', D.terms, `<button class="btn primary" data-dp="ask"${D.bell ? '' : ' disabled'}>Ask</button>`)}
     <h3 class="dp-h3">The record <small>tap two lines to reason from them</small></h3>
     <ul class="dp-lines">${lines.filter(l => l.id[0] === 'c').map(l => dpLineHTML(l)).join('')}</ul>
+    ${dpMapBox(lines.map(l => l.st), D.terms)}
     <h3 class="dp-h3">Your argument</h3>
     ${lines.some(l => l.id[0] === 'd') ? `<ul class="dp-lines">${lines.filter(l => l.id[0] === 'd').map(l => dpLineHTML(l)).join('')}</ul>` : ''}
     <div class="dp-bench"><p class="dp-small">${prem.length ? `From ${prem.map(l => `<b>${l.n}</b>`).join(' and ')}, therefore:` : 'Pick one or two lines above, then say what follows. A wrong step is a non sequitur.'}</p>
       ${prem.length ? dpBuilder('con', pt, `<button class="btn primary" data-dp="infer">Therefore</button>`) : ''}</div>
     <div class="dp-foot"><button class="btn" data-dp="hb">Handbook</button><button class="btn danger" data-dp="yield">Yield</button></div>`;
 }
-function dpLineHTML(l) { return `<li data-dp="sel" data-id="${l.id}" class="${DPU.sel.includes(l.id) ? 'sel' : ''} ${l.cls || ''}"><span class="n">${l.n}</span><span>${dpSay(l.st)}</span><em>${l.tag}</em></li>`; }
+function dpLineHTML(l) { return `<li data-dp="sel" data-id="${l.id}" class="${DPU.sel.includes(l.id) ? 'sel' : ''} ${l.cls || ''}"><span class="n">${l.n}</span><span>${dpSay(l.st)}${l.sub ? `<small class="dp-sub">${l.sub}</small>` : ''}</span><em>${l.tag}</em></li>`; }
 function dpLines() {
   const R = DPS.run, D = R.D; const out = [];
   if (D.mode === 'oppose') {
-    D.C.forEach((c, i) => out.push({ id: 'c' + i, n: i + 1, st: c.st, tag: c.how === 'thesis' ? 'thesis' : c.how === 'writ' ? 'from their writings' : `asked: ${c.ans ? 'granted' : 'denied'}`, cls: c.how === 'thesis' ? 'thesis' : c.why === 'protect' ? 'protect' : '' }));
+    D.C.forEach((c, i) => out.push({ id: 'c' + i, n: i + 1, st: c.st, tag: c.how === 'thesis' ? 'thesis' : c.how === 'writ' ? 'from their writings' : c.ans ? 'granted' : 'denied', sub: c.how === 'ask' && !c.ans && c.asked ? `You asked «${dpSay(c.asked)}?» They said Nego, so they hold this.` : '', cls: c.how === 'thesis' ? 'thesis' : c.why === 'protect' ? 'protect' : '' }));
     D.derived.forEach((d, i) => out.push({ id: 'd' + i, n: String.fromCharCode(97 + i), st: d.st, tag: d.mood || 'follows', cls: 'mine' }));
   } else {
     out.push({ id: 't', n: 'T', st: D.T, tag: 'your thesis', cls: 'thesis' });
@@ -6460,6 +6490,7 @@ function dpRespondHTML() {
       ${bare && gloss ? '<p class="dp-small">Your glossator underlines a word with two senses.</p>' : ''}</div>` : ''}
     <h3 class="dp-h3">Your commitments <small>tap two to reason privately</small></h3>
     <ul class="dp-lines">${lines.filter(l => l.id === 't' || l.id[0] === 'a').map(l => dpLineHTML(l)).join('')}</ul>
+    ${dpMapBox(lines.filter(l => l.id[0] !== 'b' || (D.terms.includes(l.st.s) && D.terms.includes(l.st.p))).map(l => l.st), D.terms)}
     <details class="dp-book"${DPU.showBook ? ' open' : ''}><summary data-dp="booktog">Your Book · ${R.book.length}</summary><ul class="dp-lines">${lines.filter(l => l.id[0] === 'b').map(l => dpLineHTML(l)).join('')}</ul></details>
     <h3 class="dp-h3">Private reasoning <small>each try costs a breath</small></h3>
     ${lines.some(l => l.id[0] === 'n') ? `<ul class="dp-lines">${lines.filter(l => l.id[0] === 'n').map(l => dpLineHTML(l)).join('')}</ul>` : ''}
@@ -6467,6 +6498,24 @@ function dpRespondHTML() {
       ${prem.length ? dpBuilder('con', pt, `<button class="btn primary" data-dp="try"${D.breaths ? '' : ' disabled'}>Try</button>`) : ''}</div>
     <div class="dp-foot"><button class="btn" data-dp="hb">Handbook</button></div>`;
 }
+
+/* ---------- a map of the record: "All" as arrows, "No" as red dashes, "Some" as dots ---------- */
+function dpMapSVG(sts, terms) {
+  const R = DPS.run; const used = terms.filter(t => sts.some(x => x.s === t || x.p === t)); if (used.length < 2) return '<p class="dp-small">Nothing to map yet.</p>';
+  const W = 360, H = 300, cx = W / 2, cy = H / 2, rad = Math.min(118, 52 + used.length * 9);
+  const pos = new Map(used.map((t, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / used.length; return [t, [cx + rad * Math.cos(a), cy + rad * Math.sin(a), a]]; }));
+  const short = id => { const t = R.lex[id]; return t.g ? `${t.w} (${t.g})` : t.w; };
+  const seen = new Set(); let lines = '';
+  sts.forEach(x => { const k = dpKey(x); if (seen.has(k) || !pos.has(x.s) || !pos.has(x.p) || x.q === 'O') return; seen.add(k);
+    const [x1, y1] = pos.get(x.s), [x2, y2] = pos.get(x.p), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
+    const a = [x1 + ux * 8, y1 + uy * 8], b = [x2 - ux * 10, y2 - uy * 10];
+    lines += `<line class="m${x.q}" x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}"${x.q === 'A' ? ' marker-end="url(#dpArrow)"' : ''}/>`; });
+  const nodes = used.map(t => { const [x, y, a] = pos.get(t); const lx = x + Math.cos(a) * 12, ly = y + Math.sin(a) * 12 + 4; const anchor = Math.cos(a) > 0.3 ? 'start' : Math.cos(a) < -0.3 ? 'end' : 'middle';
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5"/><text x="${lx.toFixed(1)}" y="${(Math.sin(a) < -0.5 ? ly - 6 : Math.sin(a) > 0.5 ? ly + 6 : ly).toFixed(1)}" text-anchor="${anchor}">${esc(short(t))}</text>`; }).join('');
+  return `<svg class="dp-map" viewBox="-40 0 ${W + 80} ${H}" role="img" aria-label="Map of the record"><defs><marker id="dpArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z"/></marker></defs>${lines}${nodes}</svg>
+    <p class="dp-small dp-legend"><span class="la">→ all … are …</span><span class="le">- - no … are …</span><span class="li">··· some … are …</span></p>`;
+}
+const dpMapBox = (sts, terms) => `<details class="dp-book dp-mapbox"${DPU.showMap ? ' open' : ''}><summary data-dp="maptog">Map of the record</summary>${DPU.showMap ? dpMapSVG(sts, terms) : ''}</details>`;
 
 /* ---------- actions ---------- */
 function dpEnter() {
@@ -6688,7 +6737,7 @@ function dpStart(school) {
 document.addEventListener('click', e => {
   if (UI.view !== 'dp') return; const b = e.target.closest('[data-dp]'); if (!b || b.disabled) return;
   const act = b.dataset.dp, id = b.dataset.id, R = DPS.run;
-  if (act !== 'booktog' && b.tagName === 'SUMMARY') e.preventDefault();
+  if (b.tagName === 'SUMMARY') e.preventDefault();
   switch (act) {
     case 'close': closeModal(); break;
     case 'continue': DPU.screen = 'run'; SFX.tap(); dpRender(); break;
@@ -6702,6 +6751,7 @@ document.addEventListener('click', e => {
     case 'unlock': { const u = DP_UNLOCKS.find(x => x.id === id); if (u && DPS.meta.laurels >= u.cost && !DPS.meta.unlocks.includes(id)) { DPS.meta.laurels -= u.cost; DPS.meta.unlocks.push(id); dpSave(); SFX.good(); dpArchive(); } break; }
     case 'notebook': dpNotebook(); break;
     case 'booktog': e.preventDefault(); DPU.showBook = !DPU.showBook; dpRender(true); break;
+    case 'maptog': e.preventDefault(); DPU.showMap = !DPU.showMap; dpRender(true); break;
     case 'enter': dpEnter(); break;
     case 'slot': { const [key, slot] = id.split(':'); dpPicker(key, slot); break; }
     case 'setslot': { const [key, slot, v] = id.split(':'); DPU[key][slot] = slot === 'q' ? v : +v; closeModal(); SFX.tap(); dpRender(true); break; }
