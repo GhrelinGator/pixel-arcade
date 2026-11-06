@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixel Arcade</title>
-<meta name="description" content="Free pixel-art browser games: Pixel Clinic and The Deep Rear.">
+<meta name="description" content="Free browser games: Pixel Clinic, The Deep Rear and ABERRATION.">
 <meta name="theme-color" content="#1a1c2c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Pixel Arcade: one dark arcade world, Sweetie-16 palette, pixel display face + terminal body face */
@@ -473,6 +473,168 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .held canvas { width: 96px; height: 96px; flex: none; box-shadow: 0 0 0 2px #000; }
 .held b { font-family: var(--font-d); font-size: 10px; } .held p { margin: 6px 0 0; font-size: 20px; } .held .dim { color: #6e5b52; font-style: italic; }
 .dr-end .btn[data-dr="lookimg"] { margin-top: 10px; }
+
+/* ===================== ABERRATION: blueprint and ink ===================== */
+.ab, .ab-sheet { --ab-bg: #0d2d52; --ab-bg2: #0a2544; --ab-panel: #11385f; --ab-panel2: #164573; --ab-line: #2f6599; --ab-ink: #d8ecff; --ab-mute: #8fb1d4; --ab-acc: #ffd166; --ab-good: #7be0b0; --ab-bad: #ff8a7a;
+  --ab-font: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-family: var(--ab-font); font-size: 15px; line-height: 1.45; -webkit-font-smoothing: antialiased; color: var(--ab-ink); }
+.ab { height: 100%; display: flex; flex-direction: column; max-width: 1000px; margin: 0 auto;
+  background-color: var(--ab-bg); background-image: linear-gradient(rgba(23,67,114,.55) 1px, transparent 1px), linear-gradient(90deg, rgba(23,67,114,.55) 1px, transparent 1px); background-size: 20px 20px; }
+.ab canvas, .ab-sheet canvas { image-rendering: auto; }
+.ab .btn, .ab-sheet .btn { font-family: var(--ab-font); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: none; padding: 10px 14px; background: transparent; color: var(--ab-ink); box-shadow: none; border: 1.5px solid var(--ab-ink); border-radius: 2px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.ab .btn:active, .ab-sheet .btn:active { transform: translateY(1px); box-shadow: none; }
+.ab .btn.primary, .ab-sheet .btn.primary { background: var(--ab-acc); border-color: var(--ab-acc); color: #0a2544; }
+.ab .btn.danger, .ab-sheet .btn.danger { border-color: var(--ab-bad); color: var(--ab-bad); background: transparent; }
+.ab .btn.big { font-size: 16px; padding: 14px 22px; }
+.ab .btn:disabled, .ab-sheet .btn:disabled { opacity: .4; }
+.ab-sheet { background: var(--ab-panel); box-shadow: 0 -2px 0 0 var(--ab-line) !important; border-top: 1px solid var(--ab-line); }
+@media (min-width: 700px) { .ab-sheet { border: 1px solid var(--ab-line); } }
+.ab-sheet h2 { font-family: var(--ab-font); font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ab-acc); }
+.ab-sheet p { margin: 0 0 10px; }
+.ab-sheet b, .ab b { font-weight: 600; color: #fff; }
+.ab small, .ab-sheet small { font-size: 12.5px; }
+.ab .bad, .ab-sheet .bad { color: var(--ab-bad); } .ab .good, .ab-sheet .good { color: var(--ab-good); }
+.ab-dim { color: var(--ab-mute); }
+.ab-main { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 12px 12px 56px; }
+/* title */
+.ab-titlewrap { display: grid; place-items: start center; }
+.ab-title { display: grid; gap: 12px; justify-items: center; text-align: center; max-width: 620px; width: 100%; padding-top: 4px; }
+.ab-titlecv { width: 100%; height: clamp(190px, 46vw, 300px); display: block; border: 1px solid var(--ab-line); }
+.ab-logo { font-family: var(--ab-font); font-weight: 600; font-size: clamp(30px, 9vw, 52px); letter-spacing: .22em; margin: 4px 0 0; color: var(--ab-ink); padding-left: .22em; }
+.ab-logo.sm { font-size: clamp(24px, 6vw, 36px); }
+.ab-kicker { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ab-acc); margin: 0; }
+.ab-title > p { margin: 0; color: var(--ab-ink); max-width: 52ch; }
+.ab-menu { display: grid; gap: 8px; width: min(100%, 360px); margin-top: 6px; }
+/* hud & tabs */
+.ab-hud { flex: none; display: flex; align-items: center; gap: 6px; padding: 8px 10px; background: var(--ab-bg2); border-bottom: 1px solid var(--ab-line); flex-wrap: wrap; position: relative; }
+.ab-hud .ib { width: 34px; height: 34px; display: grid; place-items: center; border: 1.5px solid var(--ab-line); color: var(--ab-ink); text-decoration: none; font-size: 15px; flex: none; }
+.ab-brand { font-weight: 600; letter-spacing: .2em; font-size: 13px; color: var(--ab-acc); margin-right: auto; padding: 6px 2px; }
+.ab-stat { font-size: 13px; color: var(--ab-mute); padding: 3px 7px; border: 1px solid var(--ab-line); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ab-stat.low { border-color: var(--ab-bad); color: var(--ab-bad); }
+.ab-stat small { font-size: 11px; }
+.ab-yr { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: transparent; }
+.ab-yr i { display: block; height: 100%; background: var(--ab-acc); }
+.ab-tabs { flex: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; background: var(--ab-bg2); border-bottom: 1px solid var(--ab-line); }
+.ab-tabs button { font-size: 12px; letter-spacing: .06em; padding: 11px 2px; color: var(--ab-mute); border-bottom: 2px solid transparent; }
+.ab-tabs button[aria-selected="true"] { color: var(--ab-ink); border-bottom-color: var(--ab-acc); }
+@media (min-width: 560px) { .ab-tabs button { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; } }
+/* text blocks */
+.ab-p { margin: 4px 0 12px; max-width: 70ch; }
+.ab-small { font-size: 13px; color: var(--ab-mute); margin: 6px 0 10px; max-width: 72ch; }
+.ab-h { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ab-mute); margin: 22px 0 8px; display: flex; gap: 8px; align-items: baseline; border-bottom: 1px dashed var(--ab-line); padding-bottom: 4px; }
+.ab-h small { color: var(--ab-mute); font-weight: 400; letter-spacing: 0; text-transform: none; }
+.ab-note { border-left: 3px solid var(--ab-acc); background: rgba(17,56,95,.7); padding: 8px 12px; margin: 8px 0; }
+.ab-news { position: relative; background: rgba(10,37,68,.92); border: 1px solid var(--ab-line); padding: 8px 34px 6px 10px; margin-bottom: 12px; }
+.ab-news p, .ab-evlist p { margin: 0 0 4px; font-size: 13px; padding-left: 12px; position: relative; }
+.ab-news p::before, .ab-evlist p::before { content: ''; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; background: var(--ab-mute); }
+.ab-news p.good::before, .ab-evlist p.good::before { background: var(--ab-good); } .ab-news p.bad::before, .ab-evlist p.bad::before { background: var(--ab-bad); } .ab-news p.rival::before, .ab-evlist p.rival::before { background: var(--ab-acc); }
+.ab-x { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; color: var(--ab-mute); }
+.ab-evlist { border: 1px solid var(--ab-line); padding: 8px 10px; margin: 10px 0; background: rgba(10,37,68,.6); }
+/* lab cards */
+.ab-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 10px; }
+.ab-card { display: grid; gap: 6px; text-align: left; padding: 12px; border: 1px solid var(--ab-line); background: rgba(17,56,95,.85); align-content: start; }
+.ab-card:hover { border-color: var(--ab-ink); }
+.ab-card b { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+.ab-card small { color: var(--ab-mute); }
+.ab-meta { font-size: 12.5px; color: var(--ab-acc); border-top: 1px dashed var(--ab-line); padding-top: 6px; }
+.ab-ico { width: 42px; height: 30px; border: 1px solid var(--ab-mute); position: relative; }
+.ab-ico::before, .ab-ico::after { content: ''; position: absolute; }
+.ab-ico.torsion::before { left: 50%; top: 3px; bottom: 3px; width: 1.5px; background: var(--ab-ink); transform: rotate(60deg); } .ab-ico.torsion::after { right: 4px; top: 4px; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--ab-acc); }
+.ab-ico.spectro::before { inset: 8px 3px; background: repeating-linear-gradient(90deg, var(--ab-ink) 0 1.5px, transparent 1.5px 5px, var(--ab-ink) 5px 6px, transparent 6px 11px); }
+.ab-ico.glow::before { left: 4px; right: 4px; bottom: 4px; top: 4px; border-left: 1.5px solid var(--ab-mute); border-bottom: 1.5px solid var(--ab-mute); } .ab-ico.glow::after { left: 7px; top: 6px; width: 26px; height: 16px; border-top-left-radius: 100% 100%; border-top: 1.5px solid var(--ab-acc); }
+.ab-ico.moons::before { left: 17px; top: 11px; width: 8px; height: 8px; border-radius: 50%; background: var(--ab-ink); } .ab-ico.moons::after { left: 5px; right: 5px; top: 14px; height: 2px; background: repeating-linear-gradient(90deg, var(--ab-acc) 0 2px, transparent 2px 7px); }
+.ab-list { display: grid; gap: 6px; }
+.ab-item { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--ab-line); background: rgba(17,56,95,.8); }
+.ab-item > div { display: grid; gap: 2px; min-width: 0; }
+.ab-item small { color: var(--ab-mute); }
+.ab-item .btn { flex: none; }
+/* experiment pages */
+.ab-exphead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.ab-exphead h2 { margin: 0 auto 0 0; font-size: 15px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.ab-back { font-size: 13px; color: var(--ab-acc); padding: 6px 0; }
+.ab-subtabs { display: flex; gap: 0; margin-bottom: 12px; border: 1px solid var(--ab-line); overflow-x: auto; }
+.ab-subtabs button { flex: 1; padding: 9px 8px; font-size: 13px; color: var(--ab-mute); white-space: nowrap; border-right: 1px solid var(--ab-line); }
+.ab-subtabs button:last-child { border-right: 0; }
+.ab-subtabs button[aria-pressed="true"] { background: var(--ab-ink); color: #0a2544; font-weight: 600; }
+.ab-field { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 8px 0; }
+.ab-field > span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ab-mute); min-width: 74px; }
+.ab-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.ab-chips button { font-size: 13px; padding: 7px 10px; border: 1px solid var(--ab-line); color: var(--ab-ink); background: rgba(10,37,68,.6); font-variant-numeric: tabular-nums; }
+.ab-chips button[aria-pressed="true"] { border-color: var(--ab-acc); color: var(--ab-acc); box-shadow: inset 0 0 0 1px var(--ab-acc); }
+.ab-chips button:disabled { opacity: .4; cursor: not-allowed; }
+.ab-cvwrap { margin: 8px 0; border: 1px solid var(--ab-line); }
+.ab-cv { display: block; width: 100%; }
+.ab-cv.torsion { height: 230px; } .ab-cv.plate { height: 178px; cursor: crosshair; } .ab-cv.night { height: 150px; cursor: pointer; }
+.ab-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+.ab-mark { min-width: 160px; }
+.ab-cursor { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 10px; border: 1px dashed var(--ab-acc); margin: 8px 0; }
+.ab-cursor b { margin-right: auto; color: var(--ab-acc); font-variant-numeric: tabular-nums; }
+.ab-result { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; padding: 10px 12px; border: 1px solid var(--ab-acc); background: rgba(10,37,68,.75); margin: 10px 0; font-variant-numeric: tabular-nums; }
+.ab-result span { color: var(--ab-mute); font-size: 13px; }
+.ab-result .btn { margin-left: auto; }
+.ab-tag { font-size: 12px; padding: 3px 7px; border: 1px solid var(--ab-mute); color: var(--ab-mute); }
+.ab-tag.good { border-color: var(--ab-good); color: var(--ab-good); }
+.ab-scroll { overflow-x: auto; max-height: 340px; overflow-y: auto; border: 1px solid var(--ab-line); }
+.ab-tbl { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; margin: 6px 0; }
+.ab-scroll .ab-tbl { margin: 0; }
+.ab-tbl th { text-align: left; font-weight: 600; color: var(--ab-mute); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; border-bottom: 1px solid var(--ab-line); padding: 6px 8px; position: sticky; top: 0; background: var(--ab-bg2); }
+.ab-tbl td { padding: 5px 8px; border-bottom: 1px solid rgba(47,101,153,.45); vertical-align: top; }
+.ab-tbl tr.off td { opacity: .4; text-decoration: line-through; }
+.ab-tbl tr.hi td { color: var(--ab-acc); }
+.ab-tbl tr.tot td { font-weight: 600; border-top: 1px solid var(--ab-ink); }
+.ab-tbl td:last-child { text-align: right; }
+.ab-tog { font-size: 12px; color: var(--ab-acc); padding: 2px 6px; border: 1px solid var(--ab-line); }
+/* plots */
+.ab-svg { width: 100%; max-width: 620px; height: auto; display: block; margin: 8px 0; background: rgba(10,37,68,.82); border: 1px solid var(--ab-line); font-family: var(--ab-font); }
+.ab-svg.tappable { cursor: crosshair; }
+.ab-svg .grid { stroke: #1b4a7c; stroke-width: .6; }
+.ab-svg .frame { fill: none; stroke: var(--ab-line); stroke-width: 1; }
+.ab-svg .tk { fill: var(--ab-mute); font-size: 9.5px; }
+.ab-svg .al { fill: var(--ab-mute); font-size: 10px; letter-spacing: .04em; }
+.ab-svg .lb { fill: var(--ab-acc); font-size: 9.5px; }
+.ab-svg .zero { stroke: var(--ab-mute); stroke-width: .8; stroke-dasharray: 3 3; }
+.ab-svg .mark { stroke: var(--ab-acc); stroke-width: 1; stroke-dasharray: 4 3; }
+.ab-svg .band { fill: rgba(255,209,102,.08); }
+.ab-svg .fit { fill: none; stroke: var(--ab-acc); stroke-width: 1.6; }
+.ab-svg .fit.alt { stroke: var(--ab-good); }
+.ab-svg .fit.faint { stroke: var(--ab-mute); stroke-width: 1; stroke-dasharray: 4 3; }
+.ab-svg .fit.thin { stroke-width: 1; }
+.ab-svg .eb { stroke: var(--ab-ink); stroke-width: 1; opacity: .7; }
+.ab-svg .pt { fill: var(--ab-ink); stroke: #0a2544; stroke-width: 1; }
+.ab-svg .pt.alt { fill: var(--ab-good); }
+.ab-svg .pt.hollow { fill: #0a2544; stroke: var(--ab-ink); stroke-width: 1.2; }
+.ab-svg .pt.hi { fill: var(--ab-acc); }
+.ab-svg .planmk { stroke: var(--ab-acc); stroke-width: 1; }
+/* questions */
+.ab-q { border: 1px solid var(--ab-line); background: rgba(17,56,95,.85); padding: 12px; margin-bottom: 10px; }
+.ab-q.settled { border-color: var(--ab-good); }
+.ab-q h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ab-q > p { margin: 0 0 6px; }
+.ab-yours { padding: 6px 10px; border-left: 3px solid var(--ab-acc); background: rgba(10,37,68,.7); }
+.ab-claims { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 4px; }
+.ab-claims li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; font-size: 13px; padding: 6px 8px; border: 1px solid var(--ab-line); }
+.ab-claims li span { margin-right: auto; font-variant-numeric: tabular-nums; }
+.ab-claims li em { font-style: normal; font-size: 12px; color: var(--ab-mute); }
+.ab-claims li.confirmed em { color: var(--ab-good); } .ab-claims li.refuted em, .ab-claims li.overturned em { color: var(--ab-bad); }
+.ab-claims .btn { padding: 5px 10px; font-size: 12px; }
+.ab-opts { display: grid; gap: 6px; margin: 10px 0; }
+.ab-opts button { text-align: left; display: grid; gap: 2px; padding: 9px 12px; border: 1px solid var(--ab-line); }
+.ab-opts button small { color: var(--ab-mute); }
+.ab-opts button[aria-pressed="true"] { border-color: var(--ab-acc); box-shadow: inset 0 0 0 1px var(--ab-acc); }
+.ab-journal p { margin: 0; padding: 6px 0 6px 10px; border-left: 2px solid var(--ab-line); font-size: 13.5px; }
+.ab-journal p span { display: block; font-size: 11.5px; color: var(--ab-mute); }
+.ab-journal p.good { border-left-color: var(--ab-good); } .ab-journal p.bad { border-left-color: var(--ab-bad); } .ab-journal p.rival { border-left-color: var(--ab-acc); } .ab-journal p.year { border-left-color: var(--ab-ink); }
+.ab-end { max-width: 720px; margin: 0 auto; display: grid; gap: 8px; }
+.ab-end > p { margin: 0; }
+.ab-stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.ab-stats span { border: 1px solid var(--ab-line); padding: 6px 10px; font-size: 13px; }
+.ab-nb { border-top: 1px dashed var(--ab-line); padding-top: 10px; margin-top: 10px; }
+.ab-feature { background: #0d2d52; }
+.ab-feature .thumb { background: #0a2544; }
+.ab-feature .thumb canvas { image-rendering: auto; aspect-ratio: 16 / 10; }
+.ab-feature h2 { color: #ffd166; font-family: 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .14em; font-weight: 600; text-shadow: none; }
+.ab-feature .tag { background: #ffd166; color: #0d2d52; }
+.ab-on .toast { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.4; background: #ffd166; color: #0a2544; box-shadow: 0 0 0 1px #0a2544; border-radius: 2px; bottom: 22px; }
+.ab-on { background: #0a2544; }
 
 </style>
 </head>
@@ -3369,7 +3531,8 @@ const tabIcon = { talk: ['doc', '#73eff7'], files: ['doc'], exam: ['steth'], not
 /* ---------- routing ---------- */
 function route() {
   const h = location.hash.replace('#', '');
-  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else openHub();
+  document.body.classList.toggle('ab-on', h === 'aberration');
+  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else if (h === 'aberration') openAb(); else openHub();
 }
 window.addEventListener('hashchange', route);
 
@@ -3410,9 +3573,20 @@ function openHub() {
         <p class="save-note">${DRS.started ? esc(`Your campaign: cycle ${Math.min(DRS.cycle + 1, (DRS.ops || []).length || 6)} of ${(DRS.ops || []).length || 6} · ${DRS.force} fighters`) : 'Progress saves in this browser.'}</p>
       </div>
     </section>
+    <section class="feature pbox ab-feature" aria-labelledby="g3">
+      <div class="thumb"><canvas data-scene="ab-hub" width="320" height="200" aria-label="ABERRATION: a blueprint of a planet, its four moons and a spectrum"></canvas></div>
+      <div class="ftext">
+        <span class="tag">CARTRIDGE 03 · NEW</span>
+        <h2 id="g3">ABERRATION</h2>
+        <p>Run a physics institute from 1890 to 1915 in a universe whose laws are different every time. Swing a torsion balance, photograph spectra, time a fading glow and chart a planet's moons. Fit your own data, publish before your rivals, and survive replication.</p>
+        <ul class="chips"><li>Roguelike</li><li>Real experiments</li><li>New laws every run</li><li>Rivals & replication</li><li>Meta-progression</li></ul>
+        <div><a class="btn primary big" href="#aberration">${ABS.run && !ABS.run.over ? 'CONTINUE' : 'PLAY FREE'}</a></div>
+        <p class="save-note">${ABS.run && !ABS.run.over ? esc(`Your institute: ${ABS.run.year} · ★ ${ABS.run.prestige} · credibility ${ABS.run.cred}`) : ABS.meta.hist.length ? esc(`${ABS.meta.hist.length} past world${ABS.meta.hist.length === 1 ? '' : 's'} · ${ABS.meta.points} archive points`) : 'Progress saves in this browser.'}</p>
+      </div>
+    </section>
     <h3 class="shelf-h">MORE CARTRIDGES</h3>
     <div class="shelf">
-      ${[3, 4].map(n => `<div class="cart" aria-label="Empty slot"><div class="label">?</div><div class="ridges"><i></i><i></i><i></i><i></i><i></i></div><h4>SLOT 0${n}</h4><p>Coming soon</p></div>`).join('')}
+      ${[4].map(n => `<div class="cart" aria-label="Empty slot"><div class="label">?</div><div class="ridges"><i></i><i></i><i></i><i></i><i></i></div><h4>SLOT 0${n}</h4><p>Coming soon</p></div>`).join('')}
     </div>
     ${isBdayToday() ? '<div class="bday-banner">★ 7 SEPTEMBER ★ Happy birthday to the designer of The Deep Rear! ★</div>' : ''}
     <footer class="hub-foot"><span>PIXEL ARCADE</span><span>Games save to this browser only.</span><button class="linkbtn" data-act="backup">Back up or move your saves</button><span>Pixel Clinic is a game, not medical advice.</span>${installHint()}</footer>
@@ -3811,13 +3985,14 @@ function handbook(tab = 'cond') {
 /* ---------- arcade-wide backup codes ---------- */
 const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
 const dec = c => JSON.parse(decodeURIComponent(escape(atob(c.trim()))));
-function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS }); }
+function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS, aberration: ABS }); }
 function arcadeLoad(code) {
   const o = dec(code);
   const got = [];
   if (o && o.arcade) {
     if (o.clinic && o.clinic.v === 1) { S = Object.assign(newSave(), o.clinic, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
     if (o.deep && o.deep.v === 1) { DRS = Object.assign(drNewState(), o.deep); drSave(); got.push('The Deep Rear'); }
+    if (o.aberration && o.aberration.v === 1) { ABS = Object.assign(abNewSave(), o.aberration); ABW = ABS.run ? abWorld(ABS.run.seed) : null; abPersist(); got.push('ABERRATION'); }
   } else if (o && o.v === 1 && 'lvl' in o) { S = Object.assign(newSave(), o, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
   else if (o && o.v === 1 && 'cycle' in o) { DRS = Object.assign(drNewState(), o); drSave(); got.push('The Deep Rear'); }
   if (!got.length) throw new Error('empty');
@@ -3917,6 +4092,7 @@ function loop(ts) {
   document.querySelectorAll('canvas[data-scene]').forEach(cv => {
     const ctx = cv.getContext('2d');
     if (cv.dataset.scene.startsWith('dr-')) { drScene(cv, ts); return; }
+    if (cv.dataset.scene.startsWith('ab-')) { abScene(cv, ts); return; }
     if (cv.dataset.scene === 'hub') drawScene(ctx, { t: ts, lvl: Math.max(5, S.lvl), clock: 540 + (ts / 400) % 540, patient: { x: 96, look: DEMO, talking: Math.floor(ts / 2600) % 2 === 1 }, fx: Math.floor(ts / 2600) % 3 === 2 ? { icon: 'thermo' } : null });
     else drawScene(ctx, sceneOpts(ts));
   });
@@ -4436,6 +4612,1316 @@ document.addEventListener('input', e => {
     DRS.L.name = e.target.value.slice(0, 28); drSave();
     if (BDAY_RE.test(DRS.L.name)) { if (!DRU.bdayOpen) { DRU.bdayOpen = true; drBirthday(); } } else DRU.bdayOpen = false;
     const cv = document.querySelector('canvas[data-fighter="cur"]'); if (cv) drPaintStatic();
+  }
+});
+
+/* ===================== ABERRATION — ENGINE ===================== */
+/* A physics institute in a universe with its own laws. The laws are hidden, consistent within a run,
+   and different every run. Everything you learn comes from your own instruments and your own readings. */
+const AB_KEY = 'pixel-arcade/aberration/v1';
+const AB_Y0 = 1890, AB_Y1 = 1915, AB_DAYS = 300;
+function abRng(seed) { let s = Math.imul((seed >>> 0) ^ 0x9e3779b9, 0x85ebca6b) >>> 0; s = (s ^ (s >>> 13)) >>> 0 || 7; for (let k = 0; k < 6; k++) { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; } return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+const abG = r => { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
+const abClamp = (x, a, b) => (x < a ? a : x > b ? b : x);
+let abR = abRng(Date.now() >>> 0);   // live randomness for noise; worlds use their own seeded generator
+
+/* ---------- the questions the Academy wants answered ---------- */
+const AB_Q = [
+  { id: 'grav', n: 'The law of attraction', exp: 'torsion', kind: 'num', sym: 'n', maxErr: 0.12, d: 'Two masses attract with a force that falls off as 1/rⁿ. Find n.', val: W => W.n },
+  { id: 'series', n: 'The corundite series', exp: 'spectro', kind: 'num', sym: 'p', maxErr: 0.08, d: 'Heated corundite glows in sharp lines. Line k sits at λ = L(1 − k⁻ᵖ). Find p.', val: W => W.p },
+  { id: 'double', n: 'Is the third line double?', exp: 'spectro', kind: 'cat', opts: ['Single', 'Double'], d: 'With no magnet anywhere near it, is line 3 one line, or two lines so close they blur together?', val: W => (W.d0 > 0 ? 'Double' : 'Single') },
+  { id: 'split', n: 'How a magnet splits a line', exp: 'spectro', kind: 'cat', opts: ['∝ B', '∝ B¹·⁵', '∝ B²'], d: 'In a magnetic field B, line 3 splits apart. How does the extra separation grow with B?', val: W => ({ 1: '∝ B', 1.5: '∝ B¹·⁵', 2: '∝ B²' })[W.q] },
+  { id: 'glow', n: 'How the glow fades', exp: 'glow', kind: 'cat', opts: ['Exponential', 'Power law', 'Two exponentials'], d: 'Lumenite glows after it is lit, then fades. Which law does the fading follow?', val: W => ({ exp: 'Exponential', pow: 'Power law', dexp: 'Two exponentials' })[W.dform] },
+  { id: 'orbit', n: 'The moons of Vesta', exp: 'moons', kind: 'num', sym: 's', maxErr: 0.06, d: 'A moon\'s period grows as its orbit radius to the power s. Find s.', val: W => (W.n + 1) / 2 },
+];
+const abQ = id => AB_Q.find(q => q.id === id);
+
+/* ---------- a universe ---------- */
+function abWorld(seed) {
+  const r = abRng(seed);
+  const n = r() < 0.25 ? 2 : Math.round((1.65 + r() * 0.8) * 1000) / 1000;
+  const q = [1, 1.5, 2][Math.floor(r() * 3)];
+  const dform = ['exp', 'pow', 'dexp'][Math.floor(r() * 3)];
+  const W = {
+    seed, n, p: 1.6 + r() * 1.0, L: 5000 + r() * 1500, d0: r() < 0.5 ? 0 : 0.35 + r() * 0.6, q,
+    s: (q === 1 ? 0.9 : q === 1.5 ? 0.42 : 0.2) * (0.8 + r() * 0.4),
+    dform, tau: 3 + r() * 12, a: 0.9 + r() * 1.1, t1: 0.8 + r() * 1.5, t2: 9 + r() * 20, f: 0.35 + r() * 0.4,
+    drift: (r() - 0.5) * 2.6, dph: r() * Math.PI * 2, A: 0,
+    moons: [], T0: 1.1 + r() * 0.9, imp: [],
+  };
+  W.A = 40 * Math.pow(4, n);
+  const ser = []; for (let k = 2; k <= 7; k++) ser.push(W.L * (1 - Math.pow(k, -W.p)));
+  for (let tries = 0; W.imp.length < 3 && tries < 200; tries++) { const c = 3300 + r() * 3300; if (ser.concat(W.imp.map(x => x.c)).every(x => Math.abs(x - c) > 25)) W.imp.push({ c, I: 0.3 + r() * 0.5 }); }
+  const sExp = (n + 1) / 2, k = 0.85 + r() * 0.3;
+  [4, 7, 12, 21].forEach((rad, i) => { const R = rad * k * (0.93 + r() * 0.14); W.moons.push({ r: R, T: W.T0 * Math.pow(R / 4, sExp), ph: r() * Math.PI * 2, b: [1, 0.8, 0.5, 0.3][i] }); });
+  return W;
+}
+function abGlowTrue(W, t) {
+  if (W.dform === 'exp') return Math.exp(-t / W.tau);
+  if (W.dform === 'pow') return Math.pow(1 + t, -W.a);
+  return W.f * Math.exp(-t / W.t1) + (1 - W.f) * Math.exp(-t / W.t2);
+}
+
+/* ---------- instruments ---------- */
+const AB_PARTS = {
+  fibre: { n: 'Suspension fibre', exp: 'torsion', grades: ['Silk thread', 'Quartz fibre', 'Drawn quartz, annealed'], cost: [0, 260, 700], days: [0, 15, 30], d: 'Less jitter in the balance.' },
+  shield: { n: 'Thermal enclosure', exp: 'torsion', grades: ['None', 'Wooden case', 'Double-walled, lagged'], cost: [0, 220, 650], days: [0, 10, 25], d: 'Stops the room\'s warmth slowly twisting the fibre.' },
+  grating: { n: 'Diffraction grating', exp: 'spectro', grades: ['Prism', 'Ruled grating', 'Fine ruled grating', 'Master grating'], cost: [0, 380, 900, 1900], days: [0, 15, 30, 50], d: 'Sharper lines. Close pairs only separate at high grades.' },
+  lamp: { n: 'Comparison lamp', exp: 'spectro', grades: ['None', 'Iron comparison arc'], cost: [0, 320], days: [0, 10], d: 'Prints known reference lines on every plate, so the wavelength scale can be corrected.' },
+  magnet: { n: 'Electromagnet', exp: 'spectro', grades: ['None', '5-kilogauss magnet'], cost: [0, 650], days: [0, 25], d: 'Puts the glowing gas in a field.' },
+  cell: { n: 'Photometer cell', exp: 'glow', grades: ['Selenium cell', 'Shielded cell', 'Cooled cell'], cost: [0, 420, 1000], days: [0, 15, 30], d: 'Less dark noise, so faint glow can still be read.' },
+  aperture: { n: 'Telescope lens', exp: 'moons', grades: ['15 cm', '25 cm', '40 cm'], cost: [0, 800, 1700], days: [0, 30, 60], d: 'Bigger lenses show fainter moons.' },
+  drive: { n: 'Clock drive', exp: 'moons', grades: ['Hand guided', 'Weight-driven clock', 'Governed clock'], cost: [0, 450, 950], days: [0, 15, 30], d: 'Less smearing on the plates.' },
+};
+const AB_EXPS = {
+  torsion: { n: 'Torsion balance', d: 'Hang a rod from a fibre, bring a heavy sphere close, and read how far the rod turns.', cost: 5, days: 5 },
+  spectro: { n: 'Spectroscope', d: 'Heat corundite, spread its light into lines and photograph them.', cost: 15, days: 3 },
+  glow: { n: 'Photometer', d: 'Light a lumenite sample, then read how bright it is at times you choose.', cost: 10, days: 3 },
+  moons: { n: 'Telescope', d: 'Photograph Vesta and its moons on clear nights. Vesta is up from day 40 to day 200.', cost: 5, days: 1 },
+};
+const AB_RIVALS = [
+  { id: 'hall', n: 'Halloran Institute', d: 'Fast and flashy. Publishes early, and not always right.', speed: 1.5, care: 0.5 },
+  { id: 'vest', n: 'Vestergaard Observatory', d: 'Slow, meticulous, rarely wrong.', speed: 0.6, care: 0.95 },
+  { id: 'bur', n: 'Imperial Physical Bureau', d: 'Rich and steady. Usually right.', speed: 1.0, care: 0.8 },
+];
+const AB_QBASE = { grav: 7, series: 4.5, double: 9, split: 7, glow: 3.5, orbit: 10 };   // years a steady rival needs
+const AB_ROLES = { maker: 'Instrument maker', observer: 'Observer', theorist: 'Theorist' };
+const AB_NAMES = ['A. Lindqvist', 'M. Okonkwo', 'E. Hartmann', 'J. Ferreira', 'R. Takeda', 'C. Moreau', 'I. Novak', 'T. Brennan', 'S. Halvorsen', 'L. Varga', 'P. Achterberg', 'K. Ilić', 'D. Ostrowski', 'H. Sørensen', 'F. Castellanos', 'G. Whitcombe'];
+const AB_UNLOCKS = [
+  { id: 'quartz', n: 'Quartz fibre blueprint', cost: 3, d: 'Start every run with a quartz fibre.' },
+  { id: 'grating', n: 'Ruled grating blueprint', cost: 4, d: 'Start with a ruled grating.' },
+  { id: 'endow', n: 'Founders\' endowment', cost: 3, d: 'Start with 600 more marks.' },
+  { id: 'protege', n: 'A protégé', cost: 5, d: 'Start with a skill-2 theorist.' },
+  { id: 'mechanic', n: 'A mechanic', cost: 5, d: 'Start with a skill-2 instrument maker.' },
+  { id: 'dossier', n: 'Rival dossiers', cost: 2, d: 'See how reliable each rival institute is.' },
+  { id: 'station', n: 'Mountain station', cost: 6, d: 'Clear nights rise from 45% to 65%.' },
+];
+
+/* ---------- a run ---------- */
+function abNewRun(meta) {
+  const seed = (Math.random() * 1e9) >>> 0; const r = abRng(seed ^ 0xabcdef);
+  const has = u => meta.unlocks.includes(u);
+  const R = {
+    v: 1, seed, year: AB_Y0, day: 0, money: 1200 + (has('endow') ? 600 : 0), cred: 50, prestige: 0, yearPrestige: 0,
+    parts: { fibre: has('quartz') ? 1 : 0, shield: 0, grating: has('grating') ? 1 : 0, lamp: 0, magnet: 0, cell: 0, aperture: 0, drive: 0 },
+    builds: [], staff: [], cands: [], data: { torsion: [], spectro: [], glow: [], moons: [] }, plates: [], glowRuns: [],
+    claims: [], journal: [], over: null, sched: [], nid: 1, station: has('station'), dossier: has('dossier'),
+  };
+  if (has('protege')) R.staff.push(abPerson(r, 'theorist', 2));
+  if (has('mechanic')) R.staff.push(abPerson(r, 'maker', 2));
+  // rivals' timetables
+  AB_RIVALS.forEach(rv => AB_Q.forEach(q => { if (r() < 0.85) R.sched.push({ rv: rv.id, q: q.id, at: Math.round((AB_QBASE[q.id] / rv.speed) * (0.65 + r() * 0.7) * AB_DAYS), ok: r() < rv.care, done: false, u: r() }); }));
+  R.cands = abCandidates(r, 3);
+  abLog(R, 'The institute opens its doors. The Academy has posted six open questions.');
+  return R;
+}
+function abPerson(r, role, skill) { return { id: 'p' + Math.floor(r() * 1e9), role, skill, n: AB_NAMES[Math.floor(r() * AB_NAMES.length)], pay: 90 + skill * 110 + Math.floor(r() * 40) }; }
+function abCandidates(r, k) { const roles = Object.keys(AB_ROLES); const out = []; for (let i = 0; i < k; i++) out.push(abPerson(r, roles[(i + Math.floor(r() * 3)) % 3], 1 + Math.floor(r() * r() * 3.2))); return out; }
+const abSkill = (R, role) => R.staff.filter(p => p.role === role).reduce((m, p) => Math.max(m, p.skill), 0);
+const abGday = R => (R.year - AB_Y0) * AB_DAYS + R.day;
+function abLog(R, t, k) { R.journal.push({ y: R.year, d: R.day, t, k: k || '' }); if (R.journal.length > 120) R.journal.shift(); }
+
+/* spend days: builds progress, rivals publish, claims get replicated. Returns events for the UI. */
+function abSpend(R, W, days) {
+  const ev = [];
+  for (let i = 0; i < days && !R.over; i++) {
+    R.day++;
+    R.builds.forEach(b => { b.left--; if (b.left <= 0 && !b.done) { b.done = true; R.parts[b.part] = b.grade; abLog(R, `Workshop: ${AB_PARTS[b.part].grades[b.grade]} finished.`, 'build'); ev.push({ k: 'build', t: `${AB_PARTS[b.part].grades[b.grade]} is ready.` }); } });
+    R.builds = R.builds.filter(b => !b.done);
+    const g = abGday(R);
+    R.sched.forEach(s => { if (!s.done && g >= s.at) { s.done = true; const c = abRivalClaim(R, W, s); if (c) ev.push({ k: 'rival', t: `${abRivalName(s.rv)} claims: ${abClaimText(c)} (${abQ(s.q).n}).` }); } });
+    R.claims.forEach(c => { if (!c.fate && g >= c.resolveAt) ev.push(...abResolve(R, W, c)); });
+    if (R.day >= AB_DAYS) ev.push(...abYearEnd(R, W));
+  }
+  return ev;
+}
+const abRivalName = id => (AB_RIVALS.find(r => r.id === id) || { n: id }).n;
+function abClaimText(c) { const q = abQ(c.q); return q.kind === 'num' ? `${q.sym} = ${c.v.toFixed(3)} ± ${c.e.toFixed(3)}` : c.v; }
+function abRivalClaim(R, W, s) {
+  const q = abQ(s.q); if (R.claims.some(c => c.q === q.id && c.by === s.rv)) return null;
+  const truth = q.val(W); let c;
+  if (q.kind === 'num') { const e = q.maxErr * (0.4 + s.u * 0.5); const v = s.ok ? truth + abG(abR) * e * 0.6 : truth + (s.u < 0.5 ? -1 : 1) * e * (2.4 + s.u * 1.6); c = { v, e }; }
+  else { const wrong = q.opts.filter(o => o !== truth); c = { v: s.ok ? truth : wrong[Math.floor(s.u * wrong.length)] }; }
+  Object.assign(c, { id: 'c' + R.nid++, q: q.id, by: s.rv, at: abGday(R), year: R.year, resolveAt: abGday(R) + Math.round(AB_DAYS * (1.4 + s.u * 1.4)) });
+  R.claims.push(c); abLog(R, `${abRivalName(s.rv)} publishes on “${q.n}”: ${abClaimText(c)}.`, 'rival');
+  return c;
+}
+/* replication agrees with a number if the truth lies within two of its ± bars */
+function abCorrect(W, c) { const q = abQ(c.q), t = q.val(W); return q.kind === 'num' ? Math.abs(c.v - t) <= 2 * c.e : c.v === t; }
+/* replication catches up with every claim eventually */
+function abResolve(R, W, c) {
+  const q = abQ(c.q); const ok = abCorrect(W, c); c.fate = ok ? 'confirmed' : 'refuted'; const ev = [];
+  if (c.by === 'you') {
+    if (ok) {
+      const first = !R.claims.some(o => o !== c && o.q === c.q && o.at < c.at && (o.fate === 'confirmed' || (!o.fate && abCorrect(W, o))));
+      const prec = q.kind === 'num' ? abClamp(q.maxErr / Math.max(c.e, q.maxErr * 0.15), 1, 4) : 1.6;
+      const gain = Math.round((first ? 100 : 35) * (0.6 + 0.4 * prec) * (abSkill(R, 'theorist') >= 3 ? 1.15 : 1));
+      R.prestige += gain; R.yearPrestige += gain; R.cred = Math.min(100, R.cred + (first ? 10 : 4));
+      abLog(R, `Replicated: your result on “${q.n}” holds up. ${first ? 'Priority is yours.' : 'Someone got there first.'} +${gain} prestige.`, 'good');
+      ev.push({ k: 'good', t: `Your claim on “${q.n}” was confirmed. +${gain} prestige.` });
+    } else {
+      R.prestige -= 60; R.cred -= 28;
+      abLog(R, `Refuted: your result on “${q.n}” failed replication. ${q.kind === 'num' ? `The true value is outside ${abClaimText(c)}.` : `It is not “${c.v}”.`} Credibility −28.`, 'bad');
+      ev.push({ k: 'bad', t: `Your claim on “${q.n}” was refuted. Credibility −28.` });
+      if (R.cred <= 0) R.over = { k: 'closed', t: 'The Academy withdraws its recognition. The trustees close the institute.' };
+    }
+  } else abLog(R, `${abRivalName(c.by)}'s claim on “${q.n}” was ${ok ? 'confirmed' : 'refuted'} by replication.`, ok ? '' : 'rival');
+  return ev;
+}
+function abYearEnd(R, W) {
+  const y0 = (R.year - AB_Y0) * AB_DAYS; const sal = Math.round(R.staff.reduce((a, p) => a + p.pay * abClamp((y0 + AB_DAYS - Math.max(p.since || 0, y0)) / AB_DAYS, 0, 1), 0)), upkeep = 160;
+  const grant = Math.round(220 + 11 * R.cred + 0.6 * R.yearPrestige);
+  R.money += grant - sal - upkeep;
+  const ev = [{ k: 'year', t: `${R.year} closes. Grant ${grant}, salaries ${sal}, upkeep ${upkeep}.`, grant, sal, upkeep }];
+  abLog(R, `Year ${R.year}: grant ${grant} marks, salaries ${sal}, upkeep ${upkeep}. Balance ${R.money}.`, 'year');
+  R.year++; R.day = 0; R.yearPrestige = 0; R.cands = abCandidates(abR, 3);
+  if (R.money < 0) R.over = { k: 'broke', t: 'The institute cannot pay its debts. The creditors take the instruments.' };
+  else if (R.cred <= 0) R.over = { k: 'closed', t: 'The Academy withdraws its recognition.' };
+  else if (R.year > AB_Y1) R.over = { k: 'end', t: `It is ${AB_Y1 + 1}. The founders retire.` };
+  else if (AB_Q.every(q => R.claims.some(c => c.q === q.id && c.fate === 'confirmed'))) R.over = { k: 'done', t: 'Every open question has a confirmed answer. The age of discovery moves on.' };
+  return ev;
+}
+function abBuild(R, part) {
+  const P = AB_PARTS[part]; const g = R.parts[part] + 1; if (g >= P.grades.length) return 'Already the best.';
+  if (R.builds.some(b => b.part === part)) return 'Already being built.';
+  const mk = abSkill(R, 'maker'); if (!mk && g >= 2) return 'Needs an instrument maker.'; if (mk && g > mk + 1) return `Needs an instrument maker of skill ${g - 1}.`;
+  const cost = Math.round(P.cost[g] * (mk ? 1 - 0.08 * mk : 1.5)); if (R.money < cost) return 'Not enough money.';
+  R.money -= cost; R.builds.push({ part, grade: g, left: Math.round(P.days[g] / (1 + 0.35 * mk)) });
+  abLog(R, `Workshop starts: ${P.grades[g]} (${cost} marks).`); return null;
+}
+const abBuildCost = (R, part) => { const P = AB_PARTS[part], g = R.parts[part] + 1, mk = abSkill(R, 'maker'); return g >= P.grades.length ? null : { g, cost: Math.round(P.cost[g] * (mk ? 1 - 0.08 * mk : 1.5)), days: Math.round(P.days[g] / (1 + 0.35 * mk)), need: !mk && g >= 2 ? 'maker' : mk && g > mk + 1 ? 'skill' : null }; };
+
+/* ---------- experiment simulators ---------- */
+/* torsion: equilibrium twist for a sphere at distance r (cm) */
+/* the room warms and cools with the seasons and the fibre twists with it: a slow wave on top of every reading */
+const abSeasonTwist = (R, W, t) => W.drift * 2 * [1, 0.25, 0.06][R.parts.shield] * Math.sin(2 * Math.PI * t / AB_DAYS + W.dph);
+function abTorsionTrue(R, W, r) { return W.A * Math.pow(r, -W.n) + abSeasonTwist(R, W, abGday(R)); }
+const abFibreNoise = R => [0.45, 0.18, 0.07][R.parts.fibre];
+/* spectroscope: intensity profile over a wavelength window */
+const abGrFWHM = R => [7, 3, 1.15, 0.42][R.parts.grating];
+const AB_TEMP = { low: { b: 0.35, dop: 0.22 }, med: { b: 1, dop: 0.45 }, high: { b: 2.2, dop: 0.85 } };
+function abLines(W, B) {
+  const out = []; for (let k = 2; k <= 7; k++) { const c = W.L * (1 - Math.pow(k, -W.p)); const I = Math.pow(k, -1.1) * 1.6;
+    if (k === 3) { const sep = W.d0 + W.s * Math.pow(B, W.q); if (sep > 0) { out.push({ k, c: c - sep / 2, I: I / 2 }); out.push({ k, c: c + sep / 2, I: I / 2 }); } else out.push({ k, c, I }); }
+    else out.push({ k, c, I }); }
+  W.imp.forEach(m => out.push({ k: 0, c: m.c, I: m.I }));
+  return out;
+}
+function abPlate(R, W, set) {
+  const fw = Math.sqrt(Math.pow(abGrFWHM(R), 2) + Math.pow(AB_TEMP[set.temp].dop, 2));
+  const focus = 0.95 + abR() * 0.3, sig = fw * focus / 2.355;   // the true width on this plate is never known exactly
+  const g = R.parts.grating, cal = R.parts.lamp ? 0.12 : 1;
+  const off = abG(abR) * [1.6, 0.5, 0.2, 0.08][g] * cal, c2 = abG(abR) * [3.2, 0.8, 0.25, 0.08][g] * cal, mid = W.L * 0.85;
+  const lines = abLines(W, set.B).map(l => Object.assign({}, l, { c: l.c + off + c2 * Math.pow((l.c - mid) / 750, 2) }));
+  const bright = AB_TEMP[set.temp].b; const noise = 0.035 / Math.sqrt(bright * (set.exp === 'long' ? 3 : 1));
+  const lo = set.lo, hi = set.hi, N = Math.round(abClamp((hi - lo) / (fw / 8), 480, 12000)); const xs = new Array(N), ys = new Array(N);
+  for (let i = 0; i < N; i++) { const x = lo + (hi - lo) * i / (N - 1); let y = 0; for (const l of lines) { const z = (x - l.c) / sig; if (z > -8 && z < 8) y += l.I * Math.exp(-0.5 * z * z); } xs[i] = x; ys[i] = y + abG(abR) * noise; }
+  return { id: R.nid++, xs, ys, fw, noise, set: Object.assign({}, set), day: abGday(R), year: R.year };
+}
+/* glow: readings at chosen hours */
+const abCellDark = R => [0.03, 0.011, 0.004][R.parts.cell];
+const AB_EXPO = { weak: 0.45, normal: 1, strong: 1.7 };
+function abGlowRun(R, W, times, expo) {
+  const I0 = AB_EXPO[expo]; const dark = abCellDark(R);
+  return times.slice().sort((a, b) => a - b).map(t => { const I = I0 * abGlowTrue(W, t); const m = I + abG(abR) * Math.sqrt(0.0001 * I + dark * dark); return { t, I: Math.min(1.2, Math.max(-0.05, m)), sat: m >= 1.2, sig: Math.sqrt(0.0001 * I + dark * dark), I0 }; });
+}
+/* telescope: one night's plate */
+const abVisB = R => [0.48, 0.32, 0.2][R.parts.aperture];
+const abBlur = R => [0.55, 0.3, 0.13][R.parts.drive];
+const AB_HOURS = { dusk: 0.8, midnight: 1.0, dawn: 1.22 };
+function abNight(R, W, hour) {
+  const clear = abR() < (R.station ? 0.65 : 0.45);
+  const t = abGday(R) + (AB_HOURS[hour] || 1) + abG(abR) * 0.02;
+  if (!clear) return { clear: false, t };
+  const seeing = 0.05 + abR() * 0.25;
+  const moons = W.moons.map((m, i) => { const ang = 2 * Math.PI * t / m.T + m.ph; const x = m.r * Math.cos(ang); const behind = Math.abs(x) < 1.1 && Math.sin(ang) > 0;
+    return { i, x: x + abG(abR) * (abBlur(R) * 0.6 + seeing), xTrue: x, vis: m.b >= abVisB(R) && !behind, b: m.b }; });
+  return { clear: true, t, moons, id: R.nid++, seeing, hour };
+}
+
+/* ---------- statistics ---------- */
+function abLinFit(pts) {   // pts: {x, y, s}; weighted least squares, errors scaled by sqrt(chi2/dof) when the scatter is bigger than claimed
+  let S = 0, Sx = 0, Sy = 0, Sxx = 0, Sxy = 0;
+  pts.forEach(p => { const w = 1 / (p.s * p.s); S += w; Sx += w * p.x; Sy += w * p.y; Sxx += w * p.x * p.x; Sxy += w * p.x * p.y; });
+  const D = S * Sxx - Sx * Sx; if (pts.length < 2 || Math.abs(D) < 1e-12) return null;
+  const b = (S * Sxy - Sx * Sy) / D, a = (Sxx * Sy - Sx * Sxy) / D;
+  let chi = 0; pts.forEach(p => { chi += Math.pow((p.y - a - b * p.x) / p.s, 2); });
+  const dof = Math.max(1, pts.length - 2), k = Math.max(1, Math.sqrt(chi / dof));
+  return { a, b, eb: Math.sqrt(S / D) * k, ea: Math.sqrt(Sxx / D) * k, chi, dof };
+}
+function abSolve(M, v) {   // small dense linear solve
+  const n = v.length, A = M.map((r, i) => r.concat([v[i]]));
+  for (let c = 0; c < n; c++) { let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r; if (Math.abs(A[p][c]) < 1e-14) return null; [A[c], A[p]] = [A[p], A[c]];
+    for (let r = 0; r < n; r++) if (r !== c) { const f = A[r][c] / A[c][c]; for (let k = c; k <= n; k++) A[r][k] -= f * A[c][k]; } }
+  return A.map((r, i) => r[n] / r[i]);
+}
+/* torsion: th = A r^-n  (+ a seasonal wave a·sin + b·cos when season is on). Scan n, solve the rest linearly. */
+function abTorsionFit(pts, season) {
+  const P = pts.filter(p => !p.off); if (P.length < (season ? 5 : 3)) return null;
+  const basis = p => { const w = 2 * Math.PI * p.t / AB_DAYS; return season ? [Math.sin(w), Math.cos(w)] : []; };
+  if (!season && P.every(p => p.th > 0)) {
+    const f = abLinFit(P.map(p => ({ x: Math.log(p.r), y: Math.log(p.th), s: p.s / p.th }))); if (!f) return null;
+    let chi = 0; P.forEach(p => { chi += Math.pow((p.th - Math.exp(f.a) * Math.pow(p.r, f.b)) / p.s, 2); });
+    return { n: -f.b, e: f.eb, chi, dof: f.dof, model: r => Math.exp(f.a + f.b * Math.log(r)), twist: () => 0 };
+  }
+  let best = null; const scan = [];
+  for (let n = 1.2; n <= 3.0; n += 0.002) {
+    const F = P.map(p => [Math.pow(p.r, -n)].concat(basis(p))), m = F[0].length;
+    const M = []; const v = new Array(m).fill(0); for (let i = 0; i < m; i++) M.push(new Array(m).fill(0));
+    P.forEach((p, j) => { const w = 1 / (p.s * p.s); for (let i = 0; i < m; i++) { v[i] += w * F[j][i] * p.th; for (let k = 0; k < m; k++) M[i][k] += w * F[j][i] * F[j][k]; } });
+    const c = abSolve(M, v); if (!c) continue;
+    let chi = 0; P.forEach((p, j) => { let y = 0; for (let i = 0; i < m; i++) y += c[i] * F[j][i]; chi += Math.pow((p.th - y) / p.s, 2); });
+    scan.push([n, chi]); if (!best || chi < best.chi) best = { n, chi, c };
+  }
+  if (!best) return null;
+  const dof = Math.max(1, P.length - (season ? 4 : 2)), k = Math.max(1, best.chi / dof);
+  const ok = scan.filter(([, c]) => c <= best.chi + k); const e = Math.max(0.002, (Math.max(...ok.map(x => x[0])) - Math.min(...ok.map(x => x[0]))) / 2);
+  const c = best.c;
+  return { n: best.n, e, chi: best.chi, dof, model: r => c[0] * Math.pow(r, -best.n), twist: t => (season ? c[1] * Math.sin(2 * Math.PI * t / AB_DAYS) + c[2] * Math.cos(2 * Math.PI * t / AB_DAYS) : 0), amp: season ? Math.hypot(c[1], c[2]) : 0 };
+}
+/* find a peak near a wavelength, as one line or as a pair */
+function abPeak(pl, at, pair) {   // re-centre on the line before the real fit, so an off-centre tap does not cut the line in half
+  if (pair) { const w = (pl.set.B > 0 ? 6.5 : 1.0) + pl.fw; let sw = 0, sx = 0; for (let i = 0; i < pl.xs.length; i++) if (Math.abs(pl.xs[i] - at) <= w) { const y = pl.ys[i] - 2.5 * pl.noise; if (y > 0) { sw += y; sx += y * pl.xs[i]; } } if (sw > 0) at = sx / sw; return abPeak0(pl, at, pair); }
+  const a = abPeak0(pl, at, false); if (!a) return null; if (Math.abs(a.c - at) < 0.02 && !pair) return a; return abPeak0(pl, a.c, pair);
+}
+function abPeak0(pl, at, pair) {
+  const sig0 = pl.fw / 2.355, half = Math.max(sig0 * 4, 0.9) + (pair && pl.set.B > 0 ? 3.6 : 0);
+  const idx = []; for (let i = 0; i < pl.xs.length; i++) if (Math.abs(pl.xs[i] - at) <= half) idx.push(i);
+  if (idx.length < 6) return null;
+  // bin neighbouring samples (keeps all the information, fewer sums)
+  const m = Math.max(1, Math.ceil(idx.length / 170)), X = [], Y = [], Wt = [];
+  for (let j = 0; j < idx.length; j += m) { let sx = 0, sy = 0, c = 0; for (let u = j; u < Math.min(idx.length, j + m); u++) { sx += pl.xs[idx[u]]; sy += pl.ys[idx[u]]; c++; } X.push(sx / c); Y.push(sy / c); Wt.push(c / (pl.noise * pl.noise)); }
+  const nB = X.length, G1 = new Float64Array(nB), G2 = new Float64Array(nB);
+  const chiOf = (c1, c2, sg) => {   // one or two gaussians of width sg, best linear amplitudes
+    let s11 = 0, s12 = 0, s22 = 0, b1 = 0, b2 = 0; const k = -0.5 / (sg * sg);
+    for (let i = 0; i < nB; i++) { const x = X[i], y = Y[i], w = Wt[i]; const d1 = x - c1, g1 = d1 * d1 * k > -30 ? Math.exp(d1 * d1 * k) : 0; let g2 = 0; if (c2 !== null) { const d2 = x - c2; g2 = d2 * d2 * k > -30 ? Math.exp(d2 * d2 * k) : 0; } G1[i] = g1; G2[i] = g2; s11 += w * g1 * g1; s12 += w * g1 * g2; s22 += w * g2 * g2; b1 += w * g1 * y; b2 += w * g2 * y; }
+    let a1, a2 = 0; if (c2 === null) a1 = s11 > 0 ? b1 / s11 : 0; else { const ss = s11 + 2 * s12 + s22; a1 = a2 = ss > 0 ? (b1 + b2) / ss : 0; }   // a pair's two halves are equally bright
+    let chi = 0; for (let i = 0; i < nB; i++) { const r = Y[i] - a1 * G1[i] - a2 * G2[i]; chi += Wt[i] * r * r; }
+    return { chi, a1, a2 };
+  };
+  const widths = []; for (let k = 0.85; k <= 2.2; k += 0.05) widths.push(sig0 * k);
+  const step = Math.max(0.004, sig0 / 20), cst = Math.max(step, sig0 / 4); let s1 = null;
+  for (const sg of widths.filter((_, j) => j % 4 === 0)) for (let c = at - half * 0.6; c <= at + half * 0.6; c += cst) { const f = chiOf(c, null, sg); if (f.a1 > 0 && (!s1 || f.chi < s1.chi)) s1 = { c, sg, chi: f.chi }; }
+  if (!s1) return null;
+  { const c0 = s1.c; for (const sg of widths) for (let c = c0 - cst * 1.5; c <= c0 + cst * 1.5; c += step) { const f = chiOf(c, null, sg); if (f.a1 > 0 && f.chi < s1.chi) s1 = { c, sg, chi: f.chi }; } }
+  { const c0 = s1.c, g0 = s1.sg; for (let sg = g0 * 0.95; sg <= g0 * 1.05; sg += g0 * 0.004) for (let c = c0 - step; c <= c0 + step; c += step / 4) { const f = chiOf(c, null, sg); if (f.a1 > 0 && f.chi < s1.chi) s1 = { c, sg, chi: f.chi }; } }
+  let lo = s1.c, hi = s1.c; while (lo > at - half && chiOf(lo - step, null, s1.sg).chi < s1.chi + 1) lo -= step; while (hi < at + half && chiOf(hi + step, null, s1.sg).chi < s1.chi + 1) hi += step;
+  const k1 = Math.max(1, s1.chi / Math.max(1, nB - 3));
+  const out = { c: s1.c, e: Math.max(step, (hi - lo) / 2) * Math.sqrt(k1), chi1: s1.chi, width: s1.sg * 2.355 };
+  if (pair) {   // coarse grid, then refine. In a field the pair can be far apart, so search wider.
+    const dmax = pl.set.B > 0 ? 7 : Math.max(2.4 * sig0, 1.2), cr = Math.max(sig0 * 0.8, pl.set.B > 0 ? 1.2 : 0.3);
+    const cs = Math.max(step * 2, cr / 14), ds = Math.max(step * 2, dmax / 80); let s2 = null;
+    for (const sg of widths.filter((_, j) => j % 4 === 0)) for (let c = at - cr; c <= at + cr; c += cs) for (let d = 0.04; d <= dmax; d += ds) {
+      const f = chiOf(c - d / 2, c + d / 2, sg); if (f.a1 > 0 && f.a2 > 0 && (!s2 || f.chi < s2.chi)) s2 = { c, d, sg, chi: f.chi }; }
+    if (s2) {
+      const f0 = s2; const st2 = step * 1.5;
+      for (const sg of widths) for (let c = f0.c - cs * 1.5; c <= f0.c + cs * 1.5; c += st2) for (let d = Math.max(0.02, f0.d - ds * 1.5); d <= f0.d + ds * 1.5; d += st2) {
+        const f = chiOf(c - d / 2, c + d / 2, sg); if (f.a1 > 0 && f.a2 > 0 && f.chi < s2.chi) s2 = { c, d, sg, chi: f.chi }; }
+      { const b = s2; for (let sg = b.sg * 0.95; sg <= b.sg * 1.05; sg += b.sg * 0.005) for (let c = b.c - step; c <= b.c + step; c += step / 3) for (let d = Math.max(0.02, b.d - step * 1.5); d <= b.d + step * 1.5; d += step / 3) { const f = chiOf(c - d / 2, c + d / 2, sg); if (f.a1 > 0 && f.a2 > 0 && f.chi < s2.chi) s2 = { c, d, sg, chi: f.chi }; } }
+      const ch = d => chiOf(s2.c - d / 2, s2.c + d / 2, s2.sg).chi; let dl = s2.d, dh = s2.d;
+      while (dl > 0.02 && ch(dl - step) < s2.chi + 1) dl -= step; while (dh < 9 && ch(dh + step) < s2.chi + 1) dh += step;
+      Object.assign(out, { c2: s2.c, sep: s2.d, sepE: Math.max(0.02, (dh - dl) / 2), chi2: s2.chi, dchi: Math.max(0, s1.chi - s2.chi) });
+      if (!(pl.set.B > 0)) {   // how much better (or worse) than one line is a pair at each separation 0.02 … 2.00 Å
+        const raw = []; let gPrev = s1.sg;
+        for (let j = 1; j <= AB_PROF_N; j++) { const d = j * AB_PROF_STEP; let best = Infinity, gb = gPrev;
+          for (let sg = gPrev * 0.85; sg <= gPrev * 1.08; sg += gPrev * 0.0125) for (let c = s2.c - step * 2; c <= s2.c + step * 2; c += step) { const f = chiOf(c - d / 2, c + d / 2, sg); if (f.a1 > 0 && f.chi < best) { best = f.chi; gb = sg; } }
+          raw.push(best); gPrev = Math.max(sig0 * 0.5, gb); }
+        out.prof = raw.map(v => Math.round(Math.min(v - raw[0], 999) * 10) / 10);   // relative to a pair so close it is one line
+      }
+    }
+  }
+  return out;
+}
+const AB_PROF_N = 100, AB_PROF_STEP = 0.02, AB_DMIN = 0.35;
+/* combine zero-field pair profiles from many plates: one shared separation */
+function abDoublet(profs) {
+  if (!profs.length) return null; const S = new Array(AB_PROF_N).fill(0); profs.forEach(p => p.forEach((v, j) => { S[j] += v; }));
+  let jb = 0; S.forEach((v, j) => { if (v < S[jb]) jb = j; }); const min = Math.min(0, S[jb]);
+  const forDouble = -min;                                                       // pair beats one line by this much
+  const wide = S.slice(Math.round(AB_DMIN / AB_PROF_STEP) - 1); const forSingle = Math.max(0, Math.min(...wide) - min);   // every pair 0.35 Å or wider is ruled out by this much
+  let lo = jb, hi = jb; while (lo > 0 && S[lo - 1] < S[jb] + 1) lo--; while (hi < AB_PROF_N - 1 && S[hi + 1] < S[jb] + 1) hi++;
+  return { S, sep: (jb + 1) * AB_PROF_STEP, sepE: Math.max(AB_PROF_STEP, (hi - lo) * AB_PROF_STEP / 2), forDouble, forSingle, n: profs.length };
+}
+function abSeriesFit(pts) {   // pts: {k, l, s}; scan p, solve L linearly
+  if (new Set(pts.map(p => p.k)).size < 3) return null;
+  let best = null; const scan = [];
+  for (let p = 1.3; p <= 2.9; p += 0.0005) {
+    let sw = 0, sb = 0; pts.forEach(q => { const f = 1 - Math.pow(q.k, -p), w = 1 / (q.s * q.s); sw += w * f * f; sb += w * f * q.l; }); const L = sb / sw;
+    let chi = 0; pts.forEach(q => { chi += Math.pow((q.l - L * (1 - Math.pow(q.k, -p))) / q.s, 2); }); scan.push([p, chi]); if (!best || chi < best.chi) best = { p, L, chi };
+  }
+  const dof = Math.max(1, pts.length - 2), k = Math.max(1, best.chi / dof);
+  const ok = scan.filter(([, c]) => c <= best.chi + k); best.e = Math.max(0.0005, (Math.max(...ok.map(x => x[0])) - Math.min(...ok.map(x => x[0]))) / 2); best.dof = dof;
+  return best;
+}
+function abSplitFit(all) {   // pts: {B, d, s, dchi}; for each q, fit d = d0 + s B^q, using only clearly resolved pairs
+  const pts = all.filter(p => p.dchi >= 10).map(p => Object.assign({}, p, { s: Math.hypot(p.s, 0.04) }));
+  if (new Set(pts.map(p => p.B)).size < 3) return null;
+  return [1, 1.5, 2].map(q => { const f = abLinFit(pts.map(p => ({ x: Math.pow(p.B, q), y: p.d, s: p.s }))); return f && { q, d0: f.a, s: f.b, chi: f.chi, dof: f.dof }; }).filter(Boolean);
+}
+function abGlowFits(pts, level) {
+  const P = pts.filter(p => !p.sat && p.I > 0); if (P.length < 4) return null; const out = [];
+  const lin = (fx) => abLinFit(P.map(p => ({ x: fx(p.t), y: Math.log(p.I), s: p.sig / p.I })));
+  const chiOf = f => P.reduce((a, p) => a + Math.pow((p.I - f(p.t)) / p.sig, 2), 0);
+  const e = lin(t => t); if (e) { const f = t => Math.exp(e.a - t / (-1 / e.b)); out.push({ m: 'Exponential', par: `τ = ${(-1 / e.b).toFixed(2)} h`, chi: chiOf(t => Math.exp(e.a + e.b * t)), dof: P.length - 2, f: t => Math.exp(e.a + e.b * t) }); void f; }
+  const pw = lin(t => Math.log(1 + t)); if (pw) out.push({ m: 'Power law', par: `a = ${(-pw.b).toFixed(2)}`, chi: chiOf(t => Math.exp(pw.a + pw.b * Math.log(1 + t))), dof: P.length - 2, f: t => Math.exp(pw.a + pw.b * Math.log(1 + t)) });
+  if (level >= 2 && P.length >= 6) {
+    let best = null;
+    for (let t1 = 0.3; t1 <= 6; t1 *= 1.06) for (let t2 = t1 * 2; t2 <= 80; t2 *= 1.06) {
+      let s11 = 0, s12 = 0, s22 = 0, b1 = 0, b2 = 0;
+      P.forEach(p => { const w = 1 / (p.sig * p.sig), g1 = Math.exp(-p.t / t1), g2 = Math.exp(-p.t / t2); s11 += w * g1 * g1; s12 += w * g1 * g2; s22 += w * g2 * g2; b1 += w * g1 * p.I; b2 += w * g2 * p.I; });
+      const D = s11 * s22 - s12 * s12; if (Math.abs(D) < 1e-15) continue; const A1 = (b1 * s22 - b2 * s12) / D, A2 = (s11 * b2 - s12 * b1) / D; if (A1 < 0 || A2 < 0) continue;
+      const f = t => A1 * Math.exp(-t / t1) + A2 * Math.exp(-t / t2); const chi = chiOf(f); if (!best || chi < best.chi) best = { chi, f, t1, t2 };
+    }
+    if (best) out.push({ m: 'Two exponentials', par: `τ₁ = ${best.t1.toFixed(2)} h, τ₂ = ${best.t2.toFixed(1)} h`, chi: best.chi, dof: P.length - 4, f: best.f });
+  }
+  return out;
+}
+function abPeriodAt(obs, T, wantErr) {   // fit x = A cos + B sin at one period
+  let cc = 0, cs = 0, ss = 0, xc = 0, xs = 0; const w0 = 2 * Math.PI / T;
+  obs.forEach(o => { const c = Math.cos(w0 * o.t), s = Math.sin(w0 * o.t), w = 1 / (o.s * o.s); cc += w * c * c; cs += w * c * s; ss += w * s * s; xc += w * o.x * c; xs += w * o.x * s; });
+  const D = cc * ss - cs * cs; if (Math.abs(D) < 1e-12) return null; const A = (xc * ss - xs * cs) / D, B = (cc * xs - cs * xc) / D;
+  let chi = 0; obs.forEach(o => { chi += Math.pow((o.x - A * Math.cos(w0 * o.t) - B * Math.sin(w0 * o.t)) / o.s, 2); });
+  return { T, chi, r: Math.hypot(A, B), A, B };
+}
+function abPeriodScan(obs) {   // [period, power]: power = how much of the motion a circular orbit of this period explains
+  const chi0 = obs.reduce((a, o) => a + Math.pow(o.x / o.s, 2), 0); const out = [];
+  for (let T = 0.8; T <= 60; T *= 1.0015) { const f = abPeriodAt(obs, T); if (f) out.push([T, Math.max(0, 1 - f.chi / chi0)]); }
+  return out;
+}
+function abPeriodNear(obs, T0) {   // best period within ±7% of T0, with its uncertainty
+  if (obs.length < 4) return null; let best = null; const sc = [];
+  for (let T = T0 * 0.93; T <= T0 * 1.07; T *= 1.0003) { const f = abPeriodAt(obs, T); if (f) { sc.push(f); if (!best || f.chi < best.chi) best = f; } }
+  if (!best) return null; const dof = Math.max(1, obs.length - 3), k = Math.max(1, best.chi / dof);
+  const i = sc.indexOf(best); let lo = i, hi = i; while (lo > 0 && sc[lo - 1].chi < best.chi + k) lo--; while (hi < sc.length - 1 && sc[hi + 1].chi < best.chi + k) hi++;
+  best.eT = Math.max(best.T * 0.0006, (sc[hi].T - sc[lo].T) / 2); best.eR = Math.sqrt(2 / obs.reduce((a, o) => a + 1 / (o.s * o.s), 0)) * Math.sqrt(k); best.dof = dof; best.n = obs.length; best.chi2dof = best.chi / dof;
+  return best;
+}
+function abPeriod(obs) { if (obs.length < 4) return null; const sc = abPeriodScan(obs); const top = sc.reduce((m, x) => (x[1] > m[1] ? x : m), sc[0]); return abPeriodNear(obs, top[0]); }
+
+/* ---------- claims you make ---------- */
+function abPublish(R, qid, v, e) {
+  const q = abQ(qid); if (R.claims.some(c => c.q === qid && c.by === 'you' && c.fate !== 'refuted')) return 'You already have a claim on this.';
+  if (q.kind === 'num' && !(e > 0 && e <= q.maxErr)) return `The Academy requires an uncertainty no bigger than ±${q.maxErr}.`;
+  const c = { id: 'c' + R.nid++, q: qid, by: 'you', v, e, at: abGday(R), year: R.year, resolveAt: abGday(R) + Math.round(AB_DAYS * (1.2 + abR() * 1.2)) };
+  R.claims.push(c); abLog(R, `You publish on “${q.n}”: ${abClaimText(c)}.`, 'you'); return null;
+}
+/* challenge a rival's unresolved claim with your evidence. strength: how many sigma your data rules their value out (or delta-chi2 for categorical) */
+function abChallenge(R, W, c, strength) {
+  const q = abQ(c.q); const wrong = !abCorrect(W, c); const strong = q.kind === 'num' ? strength >= 2.5 : strength >= 10;
+  if (!strong) { R.cred -= 4; abLog(R, `The Academy found your challenge to ${abRivalName(c.by)} inconclusive. Credibility −4.`, 'bad'); return { k: 'weak', t: 'The referees say your evidence is not strong enough to overturn a published result. Credibility −4.' }; }
+  if (wrong) { c.fate = 'refuted'; c.overturned = true; R.prestige += 60; R.yearPrestige += 60; R.cred = Math.min(100, R.cred + 10); abLog(R, `You overturned ${abRivalName(c.by)}'s claim on “${q.n}”. +60 prestige.`, 'good'); return { k: 'win', t: `The Academy agrees: ${abRivalName(c.by)} was wrong. +60 prestige, credibility +10.` }; }
+  R.cred -= 22; abLog(R, `Your challenge to ${abRivalName(c.by)} on “${q.n}” failed. They were right. Credibility −22.`, 'bad');
+  if (R.cred <= 0) R.over = { k: 'closed', t: 'The Academy withdraws its recognition.' };
+  return { k: 'lose', t: `${abRivalName(c.by)} was right, and your data was misleading you. Credibility −22.` };
+}
+function abPoints(R) { return Math.max(1, Math.round(Math.max(0, R.prestige) / 60 + (Math.min(R.year, AB_Y1 + 1) - AB_Y0) / 4)); }
+
+/* ===================== ABERRATION — UI (shell, plots, lab, torsion) ===================== */
+let ABS = abLoadSave();
+let ABW = ABS.run ? abWorld(ABS.run.seed) : null;
+const ABU = {
+  screen: 'title', tab: 'lab', exp: null, sub: { torsion: 'run', spectro: 'plates', glow: 'run', moons: 'observe' },
+  tr: 10, swing: null, sweep: 'shuffled', plate: null, cursor: null, pc: {}, spec: { temp: 'med', B: 0, exp: 'long', win: 'survey', zoom: null },
+  plan: [], lastPlan: [], expo: 'normal', hour: 'midnight', pattern: 'vary', night: null, moon: 0,
+  fit: { torsion: 'plain', glow: 'Exponential' }, ax: { torsion: 'log', gx: 'log', gy: 'log' }, qmul: 1, pubOpt: null, news: [],
+};
+function abNewSave() { return { v: 1, meta: { points: 0, unlocks: [], hist: [], runs: 0 }, run: null }; }
+function abLoadSave() {
+  try { const s = JSON.parse(localStorage.getItem(AB_KEY)); if (s && s.v === 1) { const o = Object.assign(abNewSave(), s); o.meta = Object.assign(abNewSave().meta, s.meta || {}); return o; } } catch (e) {}
+  return abNewSave();
+}
+function abPersist() { try { localStorage.setItem(AB_KEY, JSON.stringify(ABS)); } catch (e) {} }
+const abFix = (v, d = 3) => (v === null || v === undefined || !isFinite(v) ? '–' : (+v).toFixed(d));
+const abMk = n => `${Math.round(n).toLocaleString('en-GB')} ℳ`;
+const abDate = (y, d) => `${y} · day ${d}`;
+const abRole = r => AB_ROLES[r];
+const abTheo = R => abSkill(R, 'theorist');
+const abObs = R => R.staff.filter(p => p.role === 'observer').sort((a, b) => b.skill - a.skill)[0] || null;
+
+/* ---------- small SVG plot helper (crisp at any size) ---------- */
+function abTicks(lo, hi, log) {
+  const out = [];
+  if (log) { for (let e = Math.floor(Math.log10(lo)); e <= Math.ceil(Math.log10(hi)); e++) [1, 2, 5].forEach(m => { const v = m * Math.pow(10, e); if (v >= lo * 0.999 && v <= hi * 1.001) out.push(v); }); return out; }
+  const raw = (hi - lo) / 5 || 1, mag = Math.pow(10, Math.floor(Math.log10(raw))); const st = [1, 2, 5, 10].map(x => x * mag).find(s => s >= raw);
+  for (let v = Math.ceil(lo / st) * st; v <= hi + st * 1e-6; v += st) out.push(Math.abs(v) < st * 1e-9 ? 0 : v);
+  return out;
+}
+const abTk = v => (Math.abs(v) >= 1000 ? v.toFixed(0) : String(+v.toPrecision(3)));
+function abRange(vals, log, pad = 0.08) {
+  vals = vals.filter(v => isFinite(v) && (!log || v > 0)); if (!vals.length) return log ? [1, 10] : [0, 1];
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  if (log) { const a = Math.log10(lo), b = Math.log10(hi), p = (b - a || 1) * pad; return [Math.pow(10, a - p), Math.pow(10, b + p)]; }
+  const p = (hi - lo || Math.abs(hi) || 1) * pad; return [lo - p, hi + p];
+}
+function abPlot(o) {
+  const W = 360, H = o.h || 200, L = 50, Rm = 10, T = 10, B = 34, pw = W - L - Rm, ph = H - T - B;
+  const fx = o.x.log ? Math.log10 : v => v, fy = o.y.log ? Math.log10 : v => v;
+  const X = v => L + (fx(v) - fx(o.x.min)) / (fx(o.x.max) - fx(o.x.min)) * pw, Y = v => T + ph - (fy(v) - fy(o.y.min)) / (fy(o.y.max) - fy(o.y.min)) * ph;
+  const cl = (v, a, b) => Math.max(a, Math.min(b, v));
+  let s = `<svg class="ab-svg${o.tap ? ' tappable' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label || o.y.label + ' against ' + o.x.label)}"${o.tap ? ` data-ab="plottap" data-id="${o.tap}" data-geo="${[L, pw, o.x.min, o.x.max, o.x.log ? 1 : 0, W].join(',')}"` : ''}>`;
+  abTicks(o.x.min, o.x.max, o.x.log).forEach(v => { const x = X(v); s += `<line class="grid" x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${T}" y2="${T + ph}"/><text class="tk" x="${x.toFixed(1)}" y="${T + ph + 13}" text-anchor="middle">${abTk(v)}</text>`; });
+  abTicks(o.y.min, o.y.max, o.y.log).forEach(v => { const y = Y(v); s += `<line class="grid" x1="${L}" x2="${L + pw}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/><text class="tk" x="${L - 4}" y="${(y + 3.5).toFixed(1)}" text-anchor="end">${abTk(v)}</text>`; });
+  (o.vb || []).forEach(b => { const x1 = cl(X(b.a), L, L + pw), x2 = cl(X(b.b), L, L + pw); s += `<rect class="${b.cls || 'band'}" x="${x1}" y="${T}" width="${Math.max(0, x2 - x1)}" height="${ph}"/>`; });
+  s += `<rect class="frame" x="${L}" y="${T}" width="${pw}" height="${ph}"/>`;
+  (o.hl || []).forEach(h => { const y = Y(h.y); if (y >= T && y <= T + ph) s += `<line class="${h.cls || 'zero'}" x1="${L}" x2="${L + pw}" y1="${y}" y2="${y}"/>`; });
+  (o.vl || []).forEach(v => { const x = X(v.x); if (x >= L && x <= L + pw) s += `<line class="${v.cls || 'mark'}" x1="${x}" x2="${x}" y1="${T}" y2="${T + ph}"/>${v.t ? `<text class="lb" x="${x + 3}" y="${T + 11}">${esc(v.t)}</text>` : ''}`; });
+  (o.lines || []).forEach(l => { const pts = l.pts.filter(p => isFinite(p[0]) && isFinite(p[1]) && (!o.y.log || p[1] > 0) && (!o.x.log || p[0] > 0)).map(p => `${cl(X(p[0]), L, L + pw).toFixed(1)},${cl(Y(p[1]), T, T + ph).toFixed(1)}`).join(' '); if (pts) s += `<polyline class="${l.cls || 'fit'}" points="${pts}"/>`; });
+  (o.pts || []).forEach(p => {
+    if ((o.y.log && p.y <= 0) || (o.x.log && p.x <= 0) || !isFinite(p.y)) return; const x = X(p.x), y = Y(p.y); if (x < L - 2 || x > L + pw + 2 || y < T - 2 || y > T + ph + 2) return;
+    if (p.ey) { const lo = p.y - p.ey, y1 = cl(o.y.log && lo <= 0 ? T + ph : Y(lo), T, T + ph), y2 = cl(Y(p.y + p.ey), T, T + ph); s += `<line class="eb ${p.cls || ''}" x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${y1.toFixed(1)}" y2="${y2.toFixed(1)}"/>`; }
+    s += `<circle class="pt ${p.cls || ''}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${p.r || 3}"/>`;
+  });
+  (o.tx || []).forEach(t => { s += `<text class="lb ${t.cls || ''}" x="${X(t.x).toFixed(1)}" y="${Y(t.y).toFixed(1)}" text-anchor="${t.a || 'start'}">${esc(t.t)}</text>`; });
+  s += `<text class="al" x="${L + pw / 2}" y="${H - 4}" text-anchor="middle">${esc(o.x.label)}</text><text class="al" transform="translate(12 ${T + ph / 2}) rotate(-90)" text-anchor="middle">${esc(o.y.label)}</text>`;
+  return s + '</svg>';
+}
+const abCurve = (f, lo, hi, n = 90, log) => { const out = []; for (let i = 0; i <= n; i++) { const x = log ? lo * Math.pow(hi / lo, i / n) : lo + (hi - lo) * i / n; out.push([x, f(x)]); } return out; };
+const abChips = (act, opts, cur, extra = '') => `<div class="ab-chips" role="group">${opts.map(o => `<button data-ab="${act}" data-id="${o[0]}" aria-pressed="${String(o[0]) === String(cur)}"${o[2] ? ' disabled' : ''}${extra}>${o[1]}</button>`).join('')}</div>`;
+
+/* ---------- open / render ---------- */
+function openAb() { UI.view = 'ab'; closeModal(); ABU.screen = 'title'; ABU.swing = null; abRender(); }
+function abRender(keepScroll) {
+  if (UI.view !== 'ab') return;
+  const prev = document.querySelector('.ab-main'); const top = keepScroll && prev ? prev.scrollTop : 0;
+  const R = ABS.run;
+  $('#app').innerHTML = `<div class="ab">${ABU.screen === 'title' || !R ? abTitleHTML() : R.over ? abEndHTML() : abRunHTML()}</div>`;
+  const m = document.querySelector('.ab-main'); if (m) m.scrollTop = top;
+  abPaint();
+}
+function abTitleHTML() {
+  const R = ABS.run, M = ABS.meta;
+  return `<main class="ab-main ab-titlewrap"><div class="ab-title">
+    <canvas data-scene="ab-title" class="ab-titlecv" aria-label="Blueprint of a planet with moons and a spectrum"></canvas>
+    <h1 class="ab-logo">ABERRATION</h1>
+    <p class="ab-kicker">Cartridge 03 · An institute of physics, ${AB_Y0}–${AB_Y1}</p>
+    <p>You run a young physics institute in a universe whose laws are not ours, and not the same twice. Build instruments, take readings with your own hands, fit them, and publish before your rivals. Every claim gets replicated. Wrong ones end careers.</p>
+    <div class="ab-menu">
+      ${R && !R.over ? `<button class="btn primary" data-ab="continue">Continue · ${R.year}</button>` : ''}
+      <button class="btn ${R && !R.over ? '' : 'primary'}" data-ab="newrun">New institute</button>
+      <button class="btn" data-ab="howto">How it works</button>
+      <button class="btn" data-ab="archive">Archive · ${M.points} point${M.points === 1 ? '' : 's'}</button>
+      <button class="btn" data-ab="notebook">Notebook · ${M.hist.length} past world${M.hist.length === 1 ? '' : 's'}</button>
+      <a class="btn" href="#arcade">Back to the arcade</a>
+    </div>
+  </div></main>`;
+}
+function abRunHTML() {
+  const R = ABS.run;
+  const tabs = [['lab', 'Lab'], ['questions', 'Questions'], ['workshop', 'Workshop'], ['staff', 'Staff'], ['journal', 'Journal']];
+  const busy = R.builds.length ? ` · ${R.builds.length} building` : '';
+  return `<header class="ab-hud">
+      <a class="ib" href="#arcade" aria-label="Back to the arcade">◂</a>
+      <button class="ab-brand" data-ab="totitle">ABERRATION</button>
+      <span class="ab-stat" title="Year and day">${R.year}<small> d${R.day}</small></span>
+      <span class="ab-stat" title="Money">${abMk(R.money)}</span>
+      <span class="ab-stat ${R.cred < 25 ? 'low' : ''}" title="Credibility">cred <b>${R.cred}</b></span>
+      <span class="ab-stat" title="Prestige">★ <b>${R.prestige}</b></span>
+      <div class="ab-yr" aria-hidden="true"><i style="width:${(R.day / AB_DAYS * 100).toFixed(1)}%"></i></div>
+    </header>
+    <nav class="ab-tabs" role="tablist">${tabs.map(t => `<button role="tab" data-ab="tab" data-id="${t[0]}" aria-selected="${ABU.tab === t[0]}">${t[1]}${t[0] === 'workshop' && busy ? ' •' : ''}</button>`).join('')}</nav>
+    <main class="ab-main">${abNewsHTML()}${abTabHTML()}</main>`;
+}
+function abNewsHTML() {
+  if (!ABU.news.length) return '';
+  return `<div class="ab-news">${ABU.news.slice(0, 3).map(e => `<p class="${e.k}">${esc(e.t)}</p>`).join('')}<button class="ab-x" data-ab="clearnews" aria-label="Dismiss news">✕</button></div>`;
+}
+function abTabHTML() {
+  const t = ABU.tab;
+  if (t === 'lab') return ABU.exp ? abExpHTML() : abLabHTML();
+  if (t === 'questions') return abQuestionsHTML();
+  if (t === 'workshop') return abWorkshopHTML();
+  if (t === 'staff') return abStaffHTML();
+  return abJournalHTML();
+}
+
+/* ---------- doing things costs time and money ---------- */
+function abDo(days, cost) {
+  const R = ABS.run; if (R.money < cost) { toast('Not enough money.'); SFX.bad(); return false; }
+  R.money -= cost; const ev = abSpend(R, ABW, days); abAfter(ev); return true;
+}
+function abAfter(ev) {
+  const R = ABS.run;
+  ev.forEach(e => ABU.news.unshift(e)); ABU.news = ABU.news.slice(0, 6);
+  abPersist();
+  if (R.over) { abFinishRun(); return; }
+  const big = ev.filter(e => e.k === 'year' || e.k === 'good' || e.k === 'bad');
+  if (big.length) setTimeout(() => abNewsModal(ev), 30);
+  else ev.filter(e => e.k === 'build' || e.k === 'rival').slice(0, 2).forEach(e => toast(e.t));
+}
+function abModal(html) { modal(html); const sh = document.querySelector('#modal .sheet'); if (sh) sh.classList.add('ab-sheet'); }
+function abNewsModal(ev) {
+  const R = ABS.run, yr = ev.find(e => e.k === 'year');
+  const rest = ev.filter(e => e.k !== 'year');
+  if (yr) SFX.level(); else if (ev.some(e => e.k === 'bad')) SFX.bad(); else SFX.good();
+  abModal(`${yr ? `<h2>${R.year - 1} closes</h2>
+    <table class="ab-tbl"><tr><td>Grant from the Academy</td><td>+${abMk(yr.grant)}</td></tr><tr><td>Salaries</td><td>−${abMk(yr.sal)}</td></tr><tr><td>Upkeep of the building</td><td>−${abMk(yr.upkeep)}</td></tr><tr class="tot"><td>Balance now</td><td>${abMk(R.money)}</td></tr></table>
+    <p class="ab-small">The grant grows with credibility (${R.cred}) and with the prestige you earned last year. Three new people are looking for posts: see Staff.</p>` : '<h2>News</h2>'}
+    ${rest.length ? `<div class="ab-evlist">${rest.map(e => `<p class="${e.k}">${esc(e.t)}</p>`).join('')}</div>` : ''}
+    <div class="row"><button class="btn primary" data-ab="close">Back to work</button></div>`);
+}
+
+/* ====================== LAB ====================== */
+function abLabHTML() {
+  const R = ABS.run, P = R.parts;
+  const cards = [
+    ['torsion', `${AB_PARTS.fibre.grades[P.fibre]} · ${P.shield ? AB_PARTS.shield.grades[P.shield] : 'no enclosure'}`, `${R.data.torsion.length} reading${R.data.torsion.length === 1 ? '' : 's'}`],
+    ['spectro', `${AB_PARTS.grating.grades[P.grating]}${P.lamp ? ' · comparison arc' : ''}${P.magnet ? ' · magnet' : ''}`, `${R.plates.length} plate${R.plates.length === 1 ? '' : 's'} · ${R.data.spectro.length} measured`],
+    ['glow', AB_PARTS.cell.grades[P.cell], `${R.glowRuns.length} run${R.glowRuns.length === 1 ? '' : 's'}`],
+    ['moons', `${AB_PARTS.aperture.grades[P.aperture]} lens · ${AB_PARTS.drive.grades[P.drive].toLowerCase()}`, `${R.data.moons.length} night${R.data.moons.length === 1 ? '' : 's'} on plates`],
+  ];
+  const mk = abSkill(R, 'maker');
+  return `<div class="ab-cards">${cards.map(c => `<button class="ab-card" data-ab="exp" data-id="${c[0]}"><span class="ab-ico ${c[0]}" aria-hidden="true"></span><b>${AB_EXPS[c[0]].n}</b><small>${esc(AB_EXPS[c[0]].d)}</small><span class="ab-meta">${esc(c[1])}<br>${esc(c[2])}</span></button>`).join('')}</div>
+    <h3 class="ab-h">Other work</h3>
+    <div class="ab-list">
+      <div class="ab-item"><div><b>Industrial contract</b><small>Calibrate gauges for the railway works. 30 days, +${abMk(200 + 70 * mk)}${mk ? ' (your instrument maker earns extra)' : ''}.</small></div><button class="btn" data-ab="contract">Take it</button></div>
+      <div class="ab-item"><div><b>Public lecture</b><small>4 days, +${abMk(45)}. Credibility +1 if it is at or below 60.</small></div><button class="btn" data-ab="lecture">Give it</button></div>
+      <div class="ab-item"><div><b>Write up and wait</b><small>Let 10 days pass. Builds progress; replications and rivals keep moving.</small></div><button class="btn" data-ab="wait">Wait</button></div>
+    </div>`;
+}
+function abExpHTML() {
+  const e = ABU.exp, subs = {
+    torsion: [['run', 'Take readings'], ['fit', 'Analysis']],
+    spectro: [['plates', 'Plates'], ['series', 'Series'], ['line3', 'Line 3'], ['split', 'Splitting']],
+    glow: [['run', 'Run'], ['fit', 'Analysis']],
+    moons: [['observe', 'Observe'], ['moon', 'Each moon'], ['law', 'Period law']],
+  }[e];
+  const sub = ABU.sub[e];
+  const body = e === 'torsion' ? (sub === 'run' ? abTorsionRunHTML() : abTorsionFitHTML()) : e === 'spectro' ? abSpectroHTML(sub) : e === 'glow' ? (sub === 'run' ? abGlowRunHTML() : abGlowFitHTML()) : abMoonsHTML(sub);
+  return `<div class="ab-exphead"><button class="ab-back" data-ab="labback">◂ Lab</button><h2>${AB_EXPS[e].n}</h2><button class="ab-back" data-ab="expinfo">What to know</button></div>
+    <div class="ab-subtabs">${subs.map(s => `<button data-ab="sub" data-id="${s[0]}" aria-pressed="${sub === s[0]}">${s[1]}</button>`).join('')}</div>${body}`;
+}
+const AB_INFO = {
+  torsion: `<p>A light rod hangs from a fine fibre. A heavy sphere on a rail pulls one end of the rod. The rod twists until the fibre's spring balances the pull, so the <b>rest point</b> of the light spot on the scale measures the force.</p>
+    <p>The rod never sits still: it swings. Mark the spot each time it turns round. Three or more turning points let you average out the swing <i>and</i> its slow dying away; two only roughly.</p>
+    <p>The force falls as 1/rⁿ. On log–log axes that is a straight line of slope −n. Spread your positions over the whole rail.</p>
+    <p><b>Watch for:</b> anything that pushes every reading the same way. The room warms and cools through the year, and a warm fibre twists. Look at the residuals against the day of the year.</p>`,
+  spectro: `<p>Heat corundite and its light splits into sharp lines. A <b>survey plate</b> shows the whole range coarsely. A <b>zoomed plate</b> shows ±12 Å around one spot in fine detail.</p>
+    <p>The series lines sit at λ = L(1 − k⁻ᵖ) for k = 2, 3, 4… They crowd together towards the series limit L. Some lines on the plate are not in the series at all: they come from the crucible.</p>
+    <p>Sharp gratings make narrow lines. A cool source makes them narrower still (less Doppler blur) but fainter, so it needs longer exposures. Without a comparison lamp, each plate's wavelength scale is slightly off, and the fit's ± does not know it.</p>
+    <p>Measuring a line as a <b>pair</b> asks whether two equally bright lines fit better than one. That needs a theorist. A real doublet in this kind of gas is at least ${AB_DMIN} Å wide.</p>`,
+  glow: `<p>Lumenite glows after a flash and then fades. You choose when the photometer reads it, from 0.1 to 60 hours after the flash.</p>
+    <p>Too bright, and the cell <b>saturates</b> (readings stop at 1.2). Too faint, and the cell's own dark noise swamps the glow. A stronger flash helps late readings and spoils early ones.</p>
+    <p>Readings are shown divided by the flash strength, so runs with different flashes line up. On log-y axes an exponential is a straight line; on log–log axes a power law is.</p>
+    <p>Compare fits by χ²: about one per degree of freedom means the model explains the data. Two exponentials have more knobs, so they always fit at least as well; the score charges 2 per extra knob.</p>`,
+  moons: `<p>Vesta is up from day 40 to day 200 of each year. Each clear night you get one plate: Vesta in the middle and its moons as dots on either side. A moon's distance from Vesta swings back and forth with its orbit.</p>
+    <p>Fainter moons need a bigger lens. A better clock drive makes sharper dots. Tap each dot to say which moon it is (I is brightest). An observer can do this for you.</p>
+    <p>A periodogram tries every period and shows how well each one explains the motion. <b>Beware aliases:</b> if you always look at the same hour, a moon that goes round once a day looks like it hardly moves. Vary the hour.</p>
+    <p>Then plot period against orbit size on log–log axes. The slope is s.</p>`,
+};
+
+/* ====================== TORSION ====================== */
+const AB_RAIL = [4, 5, 6, 8, 10, 13, 16, 20, 25];
+function abTorsionRunHTML() {
+  const R = ABS.run, S = ABU.swing, ob = abObs(R);
+  const est = S ? abSwingEstimate(S) : null;
+  return `<p class="ab-p">Put the sphere on the rail, set the rod swinging, and tap <b>MARK</b> each time the light spot turns round.</p>
+    <div class="ab-field"><span>Sphere at</span>${abChips('trpos', AB_RAIL.map(r => [r, r + ' cm', !!S]), ABU.tr)}</div>
+    <div class="ab-cvwrap"><canvas data-scene="ab-torsion" class="ab-cv torsion" aria-label="Torsion balance and its scale"></canvas></div>
+    ${S ? `<div class="ab-actions"><button class="btn primary big ab-mark" data-ab="mark">MARK</button><button class="btn" data-ab="record"${est && est.ok ? '' : ' disabled'}>Record</button><button class="btn" data-ab="discard">Discard</button></div>
+      <p class="ab-small">${S.marks.length} mark${S.marks.length === 1 ? '' : 's'}${est ? ` · rest point ≈ <b>${abFix(est.v, 2)}</b> ± ${abFix(est.s, 2)}` : ''}${est && est.warn ? ` · <span class="bad">${esc(est.warn)}</span>` : ''}</p>`
+      : `<div class="ab-actions"><button class="btn primary" data-ab="swing">Swing it · 5 days · ${abMk(5)}</button>${ob ? `<button class="btn" data-ab="obsread">${esc(ob.n)} reads it</button>` : ''}</div>
+      ${ob ? `<div class="ab-field"><span>Sweep all 9</span>${abChips('sweep', [['shuffled', 'Shuffled order'], ['ordered', 'Near to far']], ABU.sweep)}<button class="btn" data-ab="sweepgo">${esc(ob.n.split(' ').pop())} sweeps · 45 days · ${abMk(45)}</button></div>` : '<p class="ab-small">An observer on the staff could take readings for you, or a whole sweep of the rail.</p>'}`}
+    ${abTorsionTable(true)}`;
+}
+function abTorsionTable(short) {
+  const R = ABS.run; const D = R.data.torsion.slice().reverse(); if (!D.length) return '<p class="ab-small">No readings yet.</p>';
+  const rows = (short ? D.slice(0, 6) : D).map(p => `<tr class="${p.off ? 'off' : ''}"><td>${p.r} cm</td><td>${abFix(p.th, 2)}</td><td>±${abFix(p.s, 2)}</td><td>${Math.floor(p.t / AB_DAYS) + AB_Y0} d${p.t % AB_DAYS}</td><td>${p.by === 'you' ? 'you' : 'obs.'}</td>${short ? '' : `<td><button class="ab-tog" data-ab="troff" data-id="${p.id}">${p.off ? 'use' : 'drop'}</button></td>`}</tr>`).join('');
+  return `<h3 class="ab-h">${short ? 'Latest readings' : 'All readings'} <small>${R.data.torsion.length}</small></h3><div class="ab-scroll"><table class="ab-tbl data"><tr><th>Sphere</th><th>Rest point</th><th>±</th><th>When</th><th>By</th>${short ? '' : '<th></th>'}</tr>${rows}</table></div>`;
+}
+function abSwingTheta(S, ts) { const t = (ts - S.t0) / 1000; return S.eq + S.A0 * Math.exp(-t / S.tau) * Math.cos(2 * Math.PI * (t - 0.8) / S.T) + S.jit * Math.sin(ts / 37) * Math.sin(ts / 53); }
+function abSwingEstimate(S) {
+  const m = S.marks; if (m.length < 2) return null;
+  let v, s, warn = '';
+  if (m.length === 2) { v = (m[0] + m[1]) / 2; s = 0.35; warn = 'two marks only: the dying swing biases this'; }
+  else { const es = []; for (let i = 0; i + 2 < m.length; i++) es.push((m[i] + 2 * m[i + 1] + m[i + 2]) / 4); v = es.reduce((a, b) => a + b, 0) / es.length;
+    const sd = es.length > 1 ? Math.sqrt(es.reduce((a, b) => a + (b - v) * (b - v), 0) / (es.length - 1)) / Math.sqrt(es.length) : 0.08; s = Math.max(0.05, sd); }
+  for (let i = 1; i < m.length; i++) if (Math.sign(m[i] - v) === Math.sign(m[i - 1] - v)) { warn = 'two marks on the same side: mark each turning point once'; break; }
+  return { v, s: Math.hypot(s, abFibreNoise(ABS.run) * 0.6), ok: m.length >= 2, warn };
+}
+function abStartSwing() {
+  const R = ABS.run; if (R.money < 5) { toast('Not enough money.'); return; }
+  const eq = abTorsionTrue(R, ABW, ABU.tr) + abG(abR) * abFibreNoise(R);
+  ABU.swing = { r: ABU.tr, eq, c: Math.round(eq) + Math.round(abG(abR) * 2), A0: 4.5 + abR() * 1.5, T: 2.6, tau: 7.5, jit: abFibreNoise(R) * 0.5, t0: performance.now(), marks: [], t: abGday(R) };
+  abDo(5, 5); SFX.tool(); abRender(true);
+}
+function abRecordReading(by, r, th, s, t) {
+  const R = ABS.run; R.data.torsion.push({ id: R.nid++, r, th, s, t, by }); abLog(R, `Torsion: sphere at ${r} cm, rest point ${abFix(th, 2)} ± ${abFix(s, 2)}.`); abPersist();
+}
+function abObserverRead(r) { const R = ABS.run, ob = abObs(R); const e = 0.3 / ob.skill; const th = abTorsionTrue(R, ABW, r) + abG(abR) * abFibreNoise(R) + abG(abR) * e; abRecordReading('obs', r, th, Math.hypot(abFibreNoise(R), e), abGday(R)); }
+function abTorsionFitHTML() {
+  const R = ABS.run, th = abTheo(R); const season = ABU.fit.torsion === 'season' && th >= 1;
+  const P = R.data.torsion.filter(p => !p.off); const f = abTorsionFit(R.data.torsion, season); const lg = ABU.ax.torsion === 'log';
+  let plot = '<p class="ab-small">Take at least three readings to see a plot.</p>', res = '';
+  if (P.length) {
+    const xr = lg ? [3.5, 30] : [0, 27], yr = abRange(P.map(p => p.th - (f ? f.twist(p.t) : 0)).concat(P.map(p => p.th)), lg);
+    const pts = P.map(p => ({ x: p.r, y: p.th - (f ? f.twist(p.t) : 0), ey: p.s, cls: p.by === 'you' ? '' : 'alt' }));
+    plot = abPlot({ x: { min: xr[0], max: xr[1], log: lg, label: 'sphere distance r (cm)' }, y: { min: lg ? Math.max(yr[0], 0.05) : Math.min(0, yr[0]), max: yr[1], log: lg, label: season ? 'rest point, season removed' : 'rest point (divisions)' }, pts, lines: f ? [{ pts: abCurve(f.model, lg ? 3.5 : 3, xr[1], 90, lg) }] : [] });
+    if (f) {
+      const rs = P.map(p => ({ x: p.t % AB_DAYS, y: p.th - f.model(p.r), ey: p.s, cls: p.by === 'you' ? '' : 'alt' }));
+      const wave = season ? [{ pts: abCurve(d => f.twist(d), 0, 300), cls: 'fit alt' }] : [];
+      const ry = abRange(rs.map(p => p.y + p.ey).concat(rs.map(p => p.y - p.ey)).concat(wave.length ? wave[0].pts.map(q => q[1]) : []), false);
+      res = `<h3 class="ab-h">Residuals against the day of the year</h3>
+        ${abPlot({ h: 160, x: { min: 0, max: 300, label: 'day of the year' }, y: { min: ry[0], max: ry[1], label: 'reading − fit' }, pts: rs, hl: [{ y: 0 }], lines: wave })}
+        <p class="ab-small">If the points here follow a slow wave through the year, something seasonal is pushing every reading.${season && f ? ` The fitted seasonal twist is ±${abFix(f.amp, 2)} divisions.` : ''}</p>`;
+    }
+  }
+  return `<div class="ab-field"><span>Fit</span>${abChips('trfit', [['plain', 'Power law'], ['season', th >= 1 ? 'Power law + seasonal twist' : 'Seasonal twist (needs a theorist)', th < 1]], ABU.fit.torsion)}</div>
+    <div class="ab-field"><span>Axes</span>${abChips('trax', [['log', 'Log–log'], ['lin', 'Linear']], ABU.ax.torsion)}</div>
+    ${plot}
+    ${f ? `<div class="ab-result"><b>n = ${abFix(f.n)} ± ${abFix(f.e)}</b><span>χ²/dof = ${abFix(f.chi / f.dof, 2)} · ${P.length} readings</span>${abPubBtn('grav')}</div>` : P.length >= 3 ? '<p class="ab-small">Not enough good readings for this fit.</p>' : ''}
+    ${res}${abTorsionTable(false)}`;
+}
+function abPubBtn(q) { const R = ABS.run; const mine = R.claims.find(c => c.q === q && c.by === 'you' && c.fate !== 'refuted'); return mine ? `<span class="ab-tag">${mine.fate ? 'Confirmed' : 'Published'}: ${esc(abClaimText(mine))}</span>` : `<button class="btn primary" data-ab="publish" data-id="${q}">Publish…</button>`; }
+
+/* torsion drawing (animated) */
+function abDrawTorsion(ctx, w, h, ts) {
+  const R = ABS.run; if (!R) return; const S = ABU.swing;
+  abBlueprint(ctx, w, h);
+  const th = S ? abSwingTheta(S, ts) : 0, r = S ? S.r : ABU.tr;
+  // apparatus, seen from above
+  const cx = w * 0.3, cy = h * 0.34, rod = Math.min(w * 0.17, 70), ang = -0.006 * th;
+  ctx.strokeStyle = AB_C.line; ctx.lineWidth = 1.4; ctx.fillStyle = AB_C.line;
+  const ex = cx + Math.sin(ang) * rod, ey = cy - Math.cos(ang) * rod, fx2 = cx - Math.sin(ang) * rod, fy2 = cy + Math.cos(ang) * rod;
+  ctx.beginPath(); ctx.moveTo(fx2, fy2); ctx.lineTo(ex, ey); ctx.stroke();
+  [[ex, ey], [fx2, fy2]].forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 4, 0, 7); ctx.fill(); });
+  ctx.beginPath(); ctx.arc(cx, cy, 3, 0, 7); ctx.stroke(); ctx.beginPath(); ctx.arc(cx, cy, 9, 0, 7); ctx.setLineDash([2, 3]); ctx.stroke(); ctx.setLineDash([]);
+  // rail and sphere
+  const r0 = cx + 18, r1 = w - 18, sx = r0 + (r / 25) * (r1 - r0 - 20) + 10;
+  ctx.strokeStyle = AB_C.mute; ctx.beginPath(); ctx.moveTo(r0, cy - rod); ctx.lineTo(r1, cy - rod); ctx.stroke();
+  AB_RAIL.forEach(p => { const x = r0 + (p / 25) * (r1 - r0 - 20) + 10; ctx.beginPath(); ctx.moveTo(x, cy - rod - 4); ctx.lineTo(x, cy - rod + 4); ctx.stroke(); });
+  ctx.strokeStyle = AB_C.accent; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(sx, cy - rod, 13, 0, 7); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(sx - 13, cy - rod); ctx.lineTo(sx + 13, cy - rod); ctx.moveTo(sx, cy - rod - 13); ctx.lineTo(sx, cy - rod + 13); ctx.lineWidth = 0.8; ctx.stroke();
+  abLabel(ctx, `r = ${r} cm`, sx, cy - rod + 28, 'center', AB_C.accent);
+  abLabel(ctx, 'fibre and mirror', cx + 14, cy + 4, 'left');
+  // scale
+  const sy = h - 34, s0 = 14, s1 = w - 14, c = S ? S.c : 0, span = 9;
+  const X = v => s0 + (v - (c - span)) / (2 * span) * (s1 - s0);
+  ctx.strokeStyle = AB_C.line; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(s0, sy); ctx.lineTo(s1, sy); ctx.stroke();
+  for (let v = Math.ceil(c - span); v <= c + span; v += 0.5) { const x = X(v), big = Math.abs(v % 2) < 1e-9; ctx.beginPath(); ctx.moveTo(x, sy); ctx.lineTo(x, sy - (big ? 9 : v % 1 ? 3 : 6)); ctx.stroke(); if (big) abLabel(ctx, String(v), x, sy + 13, 'center'); }
+  abLabel(ctx, 'scale (divisions)', s0, sy - 16, 'left', AB_C.mute);
+  // beam and light spot
+  const spot = Math.max(s0, Math.min(s1, X(th)));
+  ctx.strokeStyle = 'rgba(255,209,102,.35)'; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(spot, sy - 2); ctx.stroke();
+  if (S) { const g = ctx.createRadialGradient(spot, sy - 4, 0, spot, sy - 4, 12); g.addColorStop(0, 'rgba(255,233,170,1)'); g.addColorStop(1, 'rgba(255,209,102,0)'); ctx.fillStyle = g; ctx.fillRect(spot - 12, sy - 16, 24, 24); }
+  ctx.fillStyle = AB_C.accent; ctx.fillRect(spot - 1, sy - 12, 2, 12);
+  if (S) S.marks.forEach((m, i) => { const x = X(m); ctx.fillStyle = AB_C.good; ctx.beginPath(); ctx.moveTo(x, sy + 18); ctx.lineTo(x - 4, sy + 25); ctx.lineTo(x + 4, sy + 25); ctx.fill(); if (i === S.marks.length - 1) abLabel(ctx, String(i + 1), x, sy + 32, 'center', AB_C.good); });
+  if (!S) abLabel(ctx, 'Rod at rest. Press Swing to start a reading.', w / 2, sy - 30, 'center', AB_C.mute);
+}
+
+/* ---------- shared canvas bits ---------- */
+const AB_C = { bg: '#0d2d52', grid: '#174372', grid2: '#1d4f84', line: '#d8ecff', mute: '#8fb1d4', accent: '#ffd166', good: '#7be0b0', bad: '#ff7a6b', plate: '#efe6cf' };
+function abBlueprint(ctx, w, h) {
+  ctx.fillStyle = AB_C.bg; ctx.fillRect(0, 0, w, h);
+  ctx.lineWidth = 1; ctx.strokeStyle = AB_C.grid; ctx.beginPath();
+  for (let x = 0.5; x < w; x += 16) { ctx.moveTo(x, 0); ctx.lineTo(x, h); } for (let y = 0.5; y < h; y += 16) { ctx.moveTo(0, y); ctx.lineTo(w, y); } ctx.stroke();
+  ctx.strokeStyle = AB_C.grid2; ctx.beginPath(); for (let x = 0.5; x < w; x += 80) { ctx.moveTo(x, 0); ctx.lineTo(x, h); } for (let y = 0.5; y < h; y += 80) { ctx.moveTo(0, y); ctx.lineTo(w, y); } ctx.stroke();
+}
+function abLabel(ctx, t, x, y, al, col) { ctx.font = '11px "IBM Plex Mono", ui-monospace, monospace'; ctx.textAlign = al || 'left'; ctx.fillStyle = col || AB_C.line; ctx.fillText(t, x, y); }
+function abFitCanvas(cv) {
+  const dpr = Math.min(3, window.devicePixelRatio || 1), w = cv.clientWidth, h = cv.clientHeight; if (!w || !h) return null;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { ctx, w, h };
+}
+function abScene(cv, ts) {
+  const k = cv.dataset.scene; if (k === 'ab-plate' || k === 'ab-night') return;   // static, painted on render
+  const f = abFitCanvas(cv); if (!f) return;
+  if (k === 'ab-torsion') abDrawTorsion(f.ctx, f.w, f.h, ts);
+  else abDrawTitle(f.ctx, f.w, f.h, ts, k === 'ab-hub');
+}
+function abDrawTitle(ctx, w, h, ts, small) {
+  abBlueprint(ctx, w, h);
+  const cx = w * 0.5, cy = h * (small ? 0.42 : 0.44), R0 = Math.min(w, h) * (small ? 0.09 : 0.08), t = ts / 1000;
+  ctx.strokeStyle = AB_C.line; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.arc(cx, cy, R0, 0, 7); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(cx, cy, R0 * 1.6, R0 * 0.35, -0.25, 0, 7); ctx.setLineDash([3, 3]); ctx.stroke(); ctx.setLineDash([]);
+  [[2.2, 1.0, 1.3], [3.3, 0.62, 2.1], [4.6, 0.42, 3.4], [6.1, 0.28, 5.0]].forEach(([a, sp, rr], i) => {
+    const A = R0 * a, B = A * 0.3, an = t * sp + i * 1.7;
+    ctx.strokeStyle = 'rgba(216,236,255,.35)'; ctx.beginPath(); ctx.ellipse(cx, cy, A, B, -0.12, 0, 7); ctx.stroke();
+    const x = cx + A * Math.cos(an) * Math.cos(-0.12) - B * Math.sin(an) * Math.sin(-0.12), y = cy + A * Math.cos(an) * Math.sin(-0.12) + B * Math.sin(an) * Math.cos(-0.12);
+    ctx.fillStyle = i === 0 ? AB_C.accent : AB_C.line; ctx.beginPath(); ctx.arc(x, y, rr * (small ? 0.8 : 1), 0, 7); ctx.fill();
+  });
+  // spectrum strip
+  const sy = h * (small ? 0.78 : 0.82), sh = small ? 10 : 16, x0 = w * 0.08, x1 = w * 0.92;
+  ctx.fillStyle = AB_C.plate; ctx.fillRect(x0, sy, x1 - x0, sh);
+  const p = 2.1 + 0.15 * Math.sin(t * 0.3);
+  for (let k = 2; k <= 12; k++) { const u = (1 - Math.pow(k, -p)) / 1.0; const x = x0 + (u - 0.7) / 0.32 * (x1 - x0); if (x < x0 || x > x1) continue; ctx.fillStyle = `rgba(13,45,82,${Math.max(0.2, 1 - k * 0.07)})`; ctx.fillRect(x - 1, sy, k === 3 ? 3 : 2, sh); }
+  ctx.strokeStyle = AB_C.line; ctx.strokeRect(x0 + 0.5, sy + 0.5, x1 - x0 - 1, sh - 1);
+  if (!small) { abLabel(ctx, 'FIG. 1 — VESTA AND ITS FOUR MOONS', x0, sy - 8, 'left', AB_C.mute); abLabel(ctx, 'λ →', x1, sy + sh + 13, 'right', AB_C.mute); }
+}
+
+/* ===================== ABERRATION — UI (spectroscope, photometer, telescope) ===================== */
+const AB_SURVEY = [3000, 7000];
+const abPlateRec = id => ABS.run.plates.find(p => p.id === id);
+function abPlateGet(rec) {
+  if (ABU.pc[rec.id]) return ABU.pc[rec.id];
+  const keep = abR; abR = abRng(rec.seed);   // each plate's grain is seeded, so it can be redrawn exactly after a reload
+  const fake = { parts: { grating: rec.g, lamp: rec.lamp }, nid: rec.id, year: rec.year, day: rec.day };
+  const pl = abPlate(fake, ABW, rec.set); abR = keep; pl.id = rec.id;
+  const keys = Object.keys(ABU.pc); if (keys.length > 6) delete ABU.pc[keys[0]];
+  ABU.pc[rec.id] = pl; return pl;
+}
+const abPlateName = rec => `#${rec.id} · ${rec.set.hi - rec.set.lo > 100 ? 'survey' : 'zoom ' + Math.round((rec.set.lo + rec.set.hi) / 2)} · ${{ low: 'cool', med: 'medium', high: 'hot' }[rec.set.temp]}${rec.set.B ? ' · ' + rec.set.B + ' kG' : ''}`;
+const abLineMeas = R => R.data.spectro.filter(m => m.kind === 'line' && m.k >= 2 && !m.off);
+const abProfs = R => R.data.spectro.filter(m => m.kind === 'pair' && m.k === 3 && !(m.B > 0) && !m.off && m.prof).map(m => m.prof);
+function abSplitPts(R) {
+  const pts = R.data.spectro.filter(m => m.kind === 'pair' && m.k === 3 && m.B > 0 && !m.off && m.sep).map(m => ({ B: m.B, d: m.sep, s: m.sepE, dchi: m.dchi }));
+  const d = abDoublet(abProfs(R)); if (d && d.forDouble >= 10) pts.push({ B: 0, d: d.sep, s: d.sepE, dchi: d.forDouble, zero: true });
+  return pts;
+}
+
+function abSpectroHTML(sub) {
+  const R = ABS.run;
+  if (sub === 'series') return abSeriesHTML();
+  if (sub === 'line3') return abLine3HTML();
+  if (sub === 'split') return abSplitHTML();
+  const sp = ABU.spec, rec = ABU.plate && abPlateRec(ABU.plate);
+  const mine = rec ? R.data.spectro.filter(m => m.plate === rec.id) : [];
+  const recent = R.plates.slice(-8).reverse();
+  return `<div class="ab-field"><span>Source</span>${abChips('sptemp', [['low', 'Cool · faint, narrow'], ['med', 'Medium'], ['high', 'Hot · bright, broad']], sp.temp)}</div>
+    <div class="ab-field"><span>Field</span>${R.parts.magnet ? abChips('spB', [0, 1, 2, 3, 4, 5].map(b => [b, b + ' kG']), sp.B) : '<small class="ab-dim">No magnet yet (Workshop).</small>'}</div>
+    <div class="ab-field"><span>Exposure</span>${abChips('spexp', [['short', 'Short · 2 days'], ['long', 'Long · 5 days, less grain']], sp.exp)}</div>
+    <div class="ab-field"><span>Window</span>${abChips('spwin', [['survey', `Survey ${AB_SURVEY[0]}–${AB_SURVEY[1]} Å`], ['zoom', sp.zoom ? `Zoom ${abFix(sp.zoom, 0)} ± 12 Å` : 'Zoom (pick a spot on a plate)', !sp.zoom]], sp.win)}</div>
+    <div class="ab-actions"><button class="btn primary" data-ab="plate">Take a plate · ${abMk(15)}</button></div>
+    ${recent.length ? `<div class="ab-field"><span>Plates</span>${abChips('pick', recent.map(r => [r.id, abPlateName(r)]), ABU.plate)}</div>` : '<p class="ab-small">No plates yet. Start with a survey: it shows every line, coarsely.</p>'}
+    ${rec ? `<div class="ab-cvwrap"><canvas data-scene="ab-plate" data-id="${rec.id}" data-ab="platetap" class="ab-cv plate" aria-label="Spectrum plate ${rec.id}: tap a line to select it"></canvas></div>
+      <p class="ab-small">${rec.g === 0 ? 'Prism' : AB_PARTS.grating.grades[rec.g]}${rec.lamp ? ', comparison arc printed above' : ', no comparison lamp'}. Taken ${abDate(rec.year, rec.day)}. Tap a line on the trace to select it.</p>
+      ${ABU.cursor !== null ? `<div class="ab-cursor"><b>λ ≈ ${abFix(ABU.cursor, 1)} Å</b><button class="btn primary" data-ab="measure" data-id="line">Measure line</button><button class="btn" data-ab="measure" data-id="pair"${abTheo(R) < 1 ? ' disabled title="Needs a theorist"' : ''}>As a pair${abTheo(R) < 1 ? ' (theorist)' : ''}</button><button class="btn" data-ab="zoomhere">Zoom here</button></div>` : ''}
+      ${mine.length ? `<h3 class="ab-h">Measured on this plate</h3><div class="ab-scroll"><table class="ab-tbl data"><tr><th>Line</th><th>λ (Å)</th><th>±</th><th>Note</th></tr>${mine.map(m => `<tr class="${m.off ? 'off' : ''}"><td>${m.k ? 'k = ' + m.k : '—'}</td><td>${abFix(m.l, 2)}</td><td>${abFix(m.s, 3)}</td><td>${m.kind === 'pair' ? `pair, sep ${abFix(m.sep, 2)} Å, Δχ² ${abFix(m.dchi, 1)}` : 'width ' + abFix(m.w, 2) + ' Å'}</td></tr>`).join('')}</table></div>` : ''}` : ''}`;
+}
+function abPaintPlate(cv) {
+  const rec = abPlateRec(+cv.dataset.id); if (!rec) return; const pl = abPlateGet(rec); const F = abFitCanvas(cv); if (!F) return; const { ctx, w, h } = F;
+  abBlueprint(ctx, w, h);
+  const lo = rec.set.lo, hi = rec.set.hi, X = l => (l - lo) / (hi - lo) * w;
+  const n = Math.max(1, Math.floor(w)); const mx = new Float64Array(n).fill(-1), mn = new Float64Array(n).fill(9);
+  for (let i = 0; i < pl.xs.length; i++) { const c = Math.min(n - 1, Math.max(0, Math.floor(X(pl.xs[i])))); if (pl.ys[i] > mx[c]) mx[c] = pl.ys[i]; if (pl.ys[i] < mn[c]) mn[c] = pl.ys[i]; }
+  let top = 8;
+  if (rec.lamp) { ctx.fillStyle = '#06182e'; ctx.fillRect(0, top, w, 10); ctx.fillStyle = AB_C.mute; for (let l = Math.ceil(lo / 37) * 37; l < hi; l += 37) { const x = X(l + 9 * Math.sin(l)); ctx.fillRect(x, top, 1, 10); } top += 14; }
+  const sy = top, sh = 34; ctx.fillStyle = AB_C.plate; ctx.fillRect(0, sy, w, sh);
+  for (let c = 0; c < n; c++) { const a = Math.max(0, Math.min(1, mx[c] / 0.9)); if (a > 0.04) { ctx.fillStyle = `rgba(13,30,50,${a})`; ctx.fillRect(c, sy, 1, sh); } }
+  const ty = sy + sh + 8, tb = h - 20, th = tb - ty; const ymax = Math.max(0.6, ...mx) * 1.05, Y = v => tb - Math.max(-0.1, v) / ymax * th;
+  ctx.strokeStyle = AB_C.grid2; ctx.beginPath(); ctx.moveTo(0, Y(0)); ctx.lineTo(w, Y(0)); ctx.stroke();
+  ctx.strokeStyle = AB_C.line; ctx.lineWidth = 1; ctx.beginPath(); for (let c = 0; c < n; c++) { const y = Y(mx[c]); if (c) ctx.lineTo(c + 0.5, y); else ctx.moveTo(c + 0.5, y); } ctx.stroke();
+  if (hi - lo < 100) { ctx.strokeStyle = 'rgba(216,236,255,.4)'; ctx.beginPath(); for (let c = 0; c < n; c++) { const y = Y(mn[c]); if (c) ctx.lineTo(c + 0.5, y); else ctx.moveTo(c + 0.5, y); } ctx.stroke(); }
+  abTicks(lo, hi, false).forEach(v => { const x = X(v); ctx.strokeStyle = AB_C.mute; ctx.beginPath(); ctx.moveTo(x, tb); ctx.lineTo(x, tb + 4); ctx.stroke(); if (x > 18 && x < w - 18) abLabel(ctx, abTk(v), x, h - 5, 'center', AB_C.mute); });
+  abLabel(ctx, 'Å', w - 4, h - 5, 'right', AB_C.mute);
+  ABS.run.data.spectro.filter(m => m.plate === rec.id).forEach(m => { const x = X(m.l); ctx.fillStyle = m.off ? AB_C.mute : AB_C.good; ctx.beginPath(); ctx.moveTo(x, ty + 2); ctx.lineTo(x - 4, ty - 5); ctx.lineTo(x + 4, ty - 5); ctx.fill(); if (m.k) abLabel(ctx, String(m.k), x, ty + 12, 'center', AB_C.good); });
+  if (ABU.cursor !== null && ABU.plate === rec.id) { const x = X(ABU.cursor); ctx.strokeStyle = AB_C.accent; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(x, 4); ctx.lineTo(x, tb); ctx.stroke(); ctx.setLineDash([]); }
+  cv._abGeo = { lo, hi, w };
+}
+function abTakePlate() {
+  const R = ABS.run, sp = ABU.spec, B = R.parts.magnet ? sp.B : 0;
+  const win = sp.win === 'zoom' && sp.zoom ? [sp.zoom - 12, sp.zoom + 12] : AB_SURVEY;
+  if (R.money < 15) { toast('Not enough money.'); return; }
+  const rec = { id: R.nid++, seed: (abR() * 4294967296) >>> 0, set: { temp: sp.temp, B, exp: sp.exp, lo: win[0], hi: win[1] }, g: R.parts.grating, lamp: R.parts.lamp, year: R.year, day: R.day };
+  R.plates.push(rec); if (R.plates.length > 60) R.plates.shift();
+  ABU.plate = rec.id; ABU.cursor = null; abLog(R, `Spectroscope: plate ${abPlateName(rec)}.`);
+  SFX.tool(); abDo(sp.exp === 'long' ? 5 : 2, 15); abRender(true);
+}
+function abMeasure(pair) {
+  const R = ABS.run, rec = abPlateRec(ABU.plate); if (!rec || ABU.cursor === null) return; const pl = abPlateGet(rec);
+  const cv = document.querySelector('canvas[data-scene="ab-plate"]'); const pxA = (rec.set.hi - rec.set.lo) / ((cv && cv.clientWidth) || 340);
+  const rng = Math.max(1.5 * pl.fw, 5 * pxA, pair && rec.set.B > 0 ? 3 : 0); let bi = -1;   // a split pair: tapping between its halves is fine
+  for (let i = 0; i < pl.xs.length; i++) if (Math.abs(pl.xs[i] - ABU.cursor) <= rng && (bi < 0 || pl.ys[i] > pl.ys[bi])) bi = i;
+  if (bi < 0 || pl.ys[bi] < 5 * pl.noise) { toast('No line there: just plate grain.'); SFX.bad(); return; }
+  const pk = abPeak(pl, pl.xs[bi], pair);
+  if (!pk || (pair && pk.sep === undefined)) { abModal(`<h2>Too coarse to measure</h2><p>There are too few readings across this line on this plate. Sharp lines need a zoomed plate: tap <b>Zoom here</b>, then take a plate.</p><div class="row"><button class="btn primary" data-ab="close">OK</button></div>`); return; }
+  ABU.pending = { pk, pair, plate: rec.id, B: rec.set.B }; SFX.blip();
+  const guess = abGuessK(R, pair ? pk.c2 : pk.c);
+  abModal(`<h2>${pair ? 'Measured as a pair' : 'Line measured'}</h2>
+    ${pair ? `<p>Centre <b>${abFix(pk.c2, 2)} Å</b>. Two equal lines <b>${abFix(pk.sep, 3)} ± ${abFix(pk.sepE, 3)} Å</b> apart fit ${pk.dchi >= 0.05 ? `better than one line by <b>Δχ² = ${abFix(pk.dchi, 1)}</b>` : 'no better than one line'}.</p><p class="ab-small">${pk.dchi >= 10 ? 'That is clearly two lines.' : pk.dchi >= 4 ? 'Suggestive, not decisive. More plates, a sharper grating or a cooler source would settle it.' : 'One line explains this plate just as well.'}${rec.set.B ? '' : ' At zero field, measurements of line 3 on several plates are combined on the Line 3 page.'}</p>`
+      : `<p>Centre <b>${abFix(pk.c, 3)} ± ${abFix(pk.e, 3)} Å</b> · width ${abFix(pk.width, 2)} Å</p>`}
+    <p>Which line is it?${guess ? ` <span class="ab-dim">(Your series fit suggests k = ${guess}.)</span>` : ''}</p>
+    <div class="ab-chips">${[2, 3, 4, 5, 6, 7, 8, 9].map(k => `<button data-ab="assign" data-id="${k}">k = ${k}</button>`).join('')}<button data-ab="assign" data-id="0">Not a series line</button></div>
+    <div class="row"><button class="btn" data-ab="close">Discard</button></div>`);
+}
+function abGuessK(R, l) { if (abTheo(R) < 1) return null; const f = abSeriesFit(abLineMeas(R).map(m => ({ k: m.k, l: m.l, s: m.s }))); if (!f) return null; let best = null; for (let k = 2; k <= 9; k++) { const d = Math.abs(f.L * (1 - Math.pow(k, -f.p)) - l); if (!best || d < best.d) best = { k, d }; } return best && best.d < 15 ? best.k : null; }
+function abAssign(k) {
+  const R = ABS.run, P = ABU.pending; if (!P) return; const pk = P.pk;
+  const m = { id: R.nid++, plate: P.plate, kind: P.pair ? 'pair' : 'line', k, l: P.pair ? pk.c2 : pk.c, s: pk.e, w: pk.width, B: P.B };
+  if (P.pair) Object.assign(m, { sep: pk.sep, sepE: pk.sepE, dchi: pk.dchi, prof: pk.prof || null });
+  R.data.spectro.push(m); ABU.pending = null; abPersist(); closeModal(); SFX.ok(); abRender(true);
+}
+function abSeriesHTML() {
+  const R = ABS.run, M = abLineMeas(R); const f = abSeriesFit(M.map(m => ({ k: m.k, l: m.l, s: m.s })));
+  if (!M.length) return '<p class="ab-p">Measure lines on your plates and say which k each one is. With three different k you can fit the series.</p>' + abLinesTable(R);
+  const yr = abRange(M.map(m => m.l).concat(f ? [f.L] : []), false, 0.06);
+  let s = abPlot({ x: { min: 1.5, max: 9.5, label: 'line number k' }, y: { min: yr[0], max: yr[1], label: 'wavelength λ (Å)' }, pts: M.map(m => ({ x: m.k, y: m.l, ey: m.s })), lines: f ? [{ pts: abCurve(k => f.L * (1 - Math.pow(k, -f.p)), 1.8, 9.4) }] : [], hl: f ? [{ y: f.L, cls: 'mark' }] : [], tx: f ? [{ x: 1.7, y: f.L, t: 'series limit L' }] : [] });
+  if (f) {
+    const rs = M.map(m => ({ x: m.k, y: m.l - f.L * (1 - Math.pow(m.k, -f.p)), ey: m.s })); const ry = abRange(rs.map(r => r.y + r.ey).concat(rs.map(r => r.y - r.ey)), false);
+    s += `<div class="ab-result"><b>p = ${abFix(f.p, 4)} ± ${abFix(f.e, 4)}</b><span>L = ${abFix(f.L, 1)} Å · χ²/dof = ${abFix(f.chi / f.dof, 2)} · ${M.length} lines</span>${abPubBtn('series')}</div>
+      <p class="ab-small">${f.chi / f.dof > 4 ? 'The points scatter far more than their error bars. Either a line has the wrong k, an impurity line got in, or the plates disagree about the wavelength scale.' : 'The fit explains the lines to within their errors.'}</p>
+      <h3 class="ab-h">Residuals</h3>${abPlot({ h: 150, x: { min: 1.5, max: 9.5, label: 'line number k' }, y: { min: ry[0], max: ry[1], label: 'λ − fit (Å)' }, pts: rs, hl: [{ y: 0 }] })}`;
+  }
+  return s + abLinesTable(R);
+}
+function abLinesTable(R) {
+  const M = R.data.spectro.filter(m => m.kind === 'line').slice().reverse(); if (!M.length) return '';
+  return `<h3 class="ab-h">Measured lines <small>${M.length}</small></h3><div class="ab-scroll"><table class="ab-tbl data"><tr><th>k</th><th>λ (Å)</th><th>±</th><th>Plate</th><th></th></tr>${M.map(m => `<tr class="${m.off ? 'off' : ''}"><td>${m.k || '—'}</td><td>${abFix(m.l, 2)}</td><td>${abFix(m.s, 3)}</td><td>#${m.plate}</td><td><button class="ab-tog" data-ab="spoff" data-id="${m.id}">${m.off ? 'use' : 'drop'}</button></td></tr>`).join('')}</table></div>`;
+}
+function abLine3HTML() {
+  const R = ABS.run; if (abTheo(R) < 1) return '<p class="ab-p">Deciding whether line 3 is secretly two lines takes a pair fit, and pair fits take a theorist. Hire one on the Staff page.</p>';
+  const ms = R.data.spectro.filter(m => m.kind === 'pair' && m.k === 3 && !(m.B > 0)); const d = abDoublet(abProfs(R));
+  let s = `<p class="ab-p">Zoom on line 3 with no field, measure it <b>as a pair</b>, and call it k = 3. Each plate's evidence is added up here for one shared separation.</p>`;
+  if (d) {
+    const ys = d.S.map((v, j) => [(j + 1) * AB_PROF_STEP, v]); const yr = abRange(ys.map(p => p[1]).concat([0, 4]), false);
+    s += abPlot({ x: { min: 0, max: 2, label: 'separation of the pair (Å)' }, y: { min: Math.max(yr[0], -120), max: Math.min(yr[1], 160), label: 'Δχ² against one line' }, lines: [{ pts: ys }], hl: [{ y: 0 }, { y: -10, cls: 'mark' }], vl: [{ x: AB_DMIN, t: `${AB_DMIN} Å` }], pts: [{ x: d.sep, y: Math.min(0, d.S[Math.round(d.sep / AB_PROF_STEP) - 1]), cls: 'hi', r: 4 }] })
+      + `<div class="ab-result"><b>A pair beats one line by Δχ² = ${abFix(d.forDouble, 1)}</b><span>best separation ${abFix(d.sep, 2)} ± ${abFix(d.sepE, 2)} Å · ${d.n} plate${d.n === 1 ? '' : 's'}</span><b>Pairs ${AB_DMIN} Å or wider are ruled out by Δχ² = ${abFix(d.forSingle, 1)}</b>${abPubBtn('double')}</div>
+      <p class="ab-small">Below zero, a pair fits better than one line. Referees treat Δχ² of 10 or more as decisive. Small numbers either way mean the plates are not sharp or clean enough to tell.</p>`;
+  }
+  if (ms.length) s += `<h3 class="ab-h">Pair measurements at zero field</h3><div class="ab-scroll"><table class="ab-tbl data"><tr><th>Plate</th><th>Sep. (Å)</th><th>Δχ²</th><th></th></tr>${ms.slice().reverse().map(m => `<tr class="${m.off ? 'off' : ''}"><td>${esc(abPlateName(abPlateRec(m.plate) || { id: m.plate, set: { lo: 0, hi: 200, temp: 'med' } }))}</td><td>${abFix(m.sep, 2)}</td><td>${abFix(m.dchi, 1)}</td><td><button class="ab-tog" data-ab="spoff" data-id="${m.id}">${m.off ? 'use' : 'drop'}</button></td></tr>`).join('')}</table></div>`;
+  return s;
+}
+function abSplitHTML() {
+  const R = ABS.run; if (!R.parts.magnet) return '<p class="ab-p">Splitting needs an electromagnet. Build one in the Workshop, then photograph line 3 at several field strengths.</p>';
+  if (abTheo(R) < 1) return '<p class="ab-p">Measuring a split line takes a pair fit, and that needs a theorist on the staff.</p>';
+  const pts = abSplitPts(R); const th = abTheo(R);
+  let s = '<p class="ab-p">Zoom on line 3, take plates at several fields, and measure each one <b>as a pair</b> (k = 3). Only clearly resolved pairs (Δχ² ≥ 10) count in the fits.</p>';
+  if (!pts.length) return s;
+  const fits = th >= 2 ? abSplitFit(pts) : null; const best = fits && fits.reduce((a, b) => (b.chi < a.chi ? b : a));
+  const yr = [0, Math.max(1, ...pts.map(p => p.d + p.s)) * 1.1];
+  s += abPlot({ x: { min: 0, max: 5.3, label: 'field B (kG)' }, y: { min: yr[0], max: yr[1], label: 'separation (Å)' }, pts: pts.map(p => ({ x: p.B, y: p.d, ey: p.s, cls: p.dchi >= 10 ? '' : 'hollow' })), lines: fits ? fits.map(f => ({ pts: abCurve(B => f.d0 + f.s * Math.pow(B, f.q), 0, 5.3), cls: f === best ? 'fit' : 'fit faint' })) : [] });
+  if (fits && fits.length) s += `<table class="ab-tbl"><tr><th>Law</th><th>χ²</th><th>χ²/dof</th></tr>${fits.map(f => `<tr class="${f === best ? 'hi' : ''}"><td>separation ∝ B${f.q === 1 ? '' : f.q === 1.5 ? '¹·⁵' : '²'}</td><td>${abFix(f.chi, 1)}</td><td>${abFix(f.chi / f.dof, 2)}</td></tr>`).join('')}</table><div class="ab-result">${abPubBtn('split')}</div>`;
+  else if (th < 2) s += '<p class="ab-small">Comparing the three laws properly takes a theorist of skill 2. You can still look at the shape.</p>';
+  else s += '<p class="ab-small">You need clearly resolved pairs at three or more different fields.</p>';
+  return s + `<p class="ab-small">Hollow points: the two halves are not clearly separated on that plate.</p>`;
+}
+
+/* ====================== PHOTOMETER ====================== */
+const AB_TL = { lo: 0.1, hi: 60 };
+const abTlU = t => Math.log(1 + t) / Math.log(1 + AB_TL.hi), abTlT = u => Math.exp(u * Math.log(1 + AB_TL.hi)) - 1;
+function abPlanSVG() {
+  const W = 360, H = 70, L = 14, pw = W - 28; const X = t => L + abTlU(t) * pw;
+  let s = `<svg class="ab-svg tappable" viewBox="0 0 ${W} ${H}" data-ab="plantap" role="img" aria-label="Reading plan: tap to add or remove reading times"><rect class="frame" x="${L}" y="14" width="${pw}" height="26"/>`;
+  [0.1, 0.5, 1, 2, 5, 10, 20, 40, 60].forEach(t => { const x = X(t); s += `<line class="grid" x1="${x}" x2="${x}" y1="14" y2="40"/><text class="tk" x="${x}" y="54" text-anchor="middle">${t}</text>`; });
+  ABU.plan.forEach(t => { const x = X(t); s += `<line class="planmk" x1="${x}" x2="${x}" y1="10" y2="44"/><circle class="pt hi" cx="${x}" cy="27" r="4"/>`; });
+  return s + `<text class="al" x="${L + pw / 2}" y="67" text-anchor="middle">hours after the flash</text></svg>`;
+}
+function abGlowRunHTML() {
+  const R = ABS.run, last = R.glowRuns[R.glowRuns.length - 1];
+  return `<p class="ab-p">Flash the sample, then the photometer reads it at the times you choose. Tap the strip to add a reading; tap one to remove it.</p>
+    <div class="ab-field"><span>Flash</span>${abChips('expo', [['weak', 'Weak ×0.45'], ['normal', 'Normal ×1'], ['strong', 'Strong ×1.7']], ABU.expo)}</div>
+    ${abPlanSVG()}
+    <div class="ab-actions"><span class="ab-small">${ABU.plan.length}/12 readings</span><button class="btn" data-ab="planclear">Clear</button>${ABU.lastPlan.length ? '<button class="btn" data-ab="planreuse">Reuse last plan</button>' : ''}<button class="btn primary" data-ab="glowgo"${ABU.plan.length < 2 ? ' disabled' : ''}>Run · 3 days · ${abMk(10)}</button></div>
+    ${last ? `<h3 class="ab-h">Last run <small>${{ weak: 'weak', normal: 'normal', strong: 'strong' }[last.expo]} flash</small></h3><div class="ab-scroll"><table class="ab-tbl data"><tr><th>Hour</th><th>Reading</th><th>±</th><th></th></tr>${last.pts.map(p => `<tr><td>${p.t}</td><td>${abFix(p.I, 4)}</td><td>${abFix(p.sig, 4)}</td><td>${p.sat ? '<span class="bad">saturated</span>' : p.I < 2 * p.sig ? '<span class="ab-dim">in the noise</span>' : ''}</td></tr>`).join('')}</table></div>` : ''}`;
+}
+const abGlowPts = R => R.glowRuns.filter(g => !g.off).flatMap(g => g.pts.map(p => ({ t: p.t, I: p.I / AB_EXPO[g.expo], sig: p.sig / AB_EXPO[g.expo], sat: p.sat })));
+const AB_GLOW_K = { Exponential: 2, 'Power law': 2, 'Two exponentials': 4 };
+function abGlowFitHTML() {
+  const R = ABS.run, pts = abGlowPts(R), th = abTheo(R); if (!pts.length) return '<p class="ab-p">Run the photometer first.</p>';
+  const fits = abGlowFits(pts, th) || []; const sel = fits.find(f => f.m === ABU.fit.glow) || fits[0];
+  const lx = ABU.ax.gx === 'log', ly = ABU.ax.gy === 'log';
+  const good = pts.filter(p => !p.sat && (!ly || p.I > 0)); const xr = lx ? [0.08, 75] : [0, 62], yr = abRange(good.map(p => p.I).concat(good.map(p => p.I + p.sig)), ly);
+  let s = `<div class="ab-field"><span>Axes</span>${abChips('gx', [['lin', 'Time linear'], ['log', 'Time log']], ABU.ax.gx)}${abChips('gy', [['lin', 'Glow linear'], ['log', 'Glow log']], ABU.ax.gy)}</div>
+    <div class="ab-field"><span>Model</span>${abChips('gfit', [['Exponential', 'Exponential'], ['Power law', 'Power law'], ['Two exponentials', th >= 2 ? 'Two exponentials' : 'Two exponentials (theorist 2)', th < 2]], sel ? sel.m : '')}</div>`;
+  s += abPlot({ x: { min: xr[0], max: xr[1], log: lx, label: 'hours after the flash' }, y: { min: ly ? Math.max(yr[0], 1e-4) : Math.min(0, yr[0]), max: yr[1], log: ly, label: 'glow ÷ flash' }, pts: pts.map(p => ({ x: lx ? Math.max(p.t, 0.1) : p.t, y: p.I, ey: p.sig, cls: p.sat ? 'hollow' : '' })), lines: sel ? [{ pts: abCurve(sel.f, lx ? 0.1 : 0, 62, 140, lx) }] : [] });
+  if (fits.length) {
+    const sc = f => f.chi + 2 * AB_GLOW_K[f.m]; const bestSc = Math.min(...fits.map(sc));
+    s += `<table class="ab-tbl"><tr><th>Model</th><th>χ²/dof</th><th>Score</th><th></th></tr>${fits.map(f => `<tr class="${f === sel ? 'hi' : ''}"><td>${f.m}<br><small>${esc(f.par)}</small></td><td>${abFix(f.chi / Math.max(1, f.dof), 2)}</td><td>${abFix(sc(f) - bestSc, 1)}</td><td>${sc(f) === bestSc ? 'best' : ''}</td></tr>`).join('')}</table>
+      <p class="ab-small">Score is χ² plus 2 for every adjustable number, shown relative to the best model. A model 10 or more behind is ruled out.</p>`;
+    if (sel) { const rs = pts.filter(p => !p.sat).map(p => ({ x: lx ? Math.max(p.t, 0.1) : p.t, y: (p.I - sel.f(p.t)) / p.sig })); const ry = abRange(rs.map(r => r.y).concat([-3, 3]), false);
+      s += `<h3 class="ab-h">Residuals of ${esc(sel.m.toLowerCase())}, in error bars</h3>${abPlot({ h: 150, x: { min: xr[0], max: xr[1], log: lx, label: 'hours after the flash' }, y: { min: ry[0], max: ry[1], label: '(reading − fit) ÷ ±' }, pts: rs, hl: [{ y: 0 }, { y: 2, cls: 'mark' }, { y: -2, cls: 'mark' }] })}<p class="ab-small">A good model leaves residuals scattered between −2 and +2 with no pattern. A curve means the law is wrong.</p>`; }
+    s += `<div class="ab-result">${abPubBtn('glow')}</div>`;
+  } else s += '<p class="ab-small">Need at least four unsaturated readings above zero.</p>';
+  s += `<h3 class="ab-h">Runs <small>${R.glowRuns.length}</small></h3><div class="ab-scroll"><table class="ab-tbl data"><tr><th>Run</th><th>Flash</th><th>Readings</th><th></th></tr>${R.glowRuns.slice().reverse().map(g => `<tr class="${g.off ? 'off' : ''}"><td>#${g.id}</td><td>${g.expo}</td><td>${g.pts.length}${g.pts.some(p => p.sat) ? ` (${g.pts.filter(p => p.sat).length} sat.)` : ''}</td><td><button class="ab-tog" data-ab="goff" data-id="${g.id}">${g.off ? 'use' : 'drop'}</button></td></tr>`).join('')}</table></div>`;
+  return s;
+}
+
+/* ====================== TELESCOPE ====================== */
+const AB_ROM = ['I', 'II', 'III', 'IV'];
+const abUp = R => R.day >= 40 && R.day < 200;
+const abMoonObs = (R, i) => R.data.moons.flatMap(n => n.dots.filter(d => d.lab === i).map(d => ({ t: n.t, x: d.x, s: n.s })));
+function abMoonsHTML(sub) {
+  const R = ABS.run; if (!R.per) R.per = [null, null, null, null];
+  if (sub === 'moon') return abMoonHTML();
+  if (sub === 'law') return abLawHTML();
+  const ob = abObs(R), up = abUp(R), night = ABU.night && R.data.moons.find(n => n.id === ABU.night);
+  const recent = R.data.moons.slice(-10).reverse();
+  return `<p class="ab-p">${up ? `Vesta is up tonight (it sets for the year on day 200).` : `Vesta is below the horizon. It rises again on day 40${R.day >= 200 ? ' next year' : ''}.`}</p>
+    <div class="ab-field"><span>Hour</span>${abChips('hour', [['dusk', 'Dusk'], ['midnight', 'Midnight'], ['dawn', 'Dawn']], ABU.hour)}</div>
+    <div class="ab-actions"><button class="btn primary" data-ab="observe"${up ? '' : ' disabled'}>Observe tonight · 1 day · ${abMk(5)}</button></div>
+    ${ob ? `<div class="ab-field"><span>${esc(ob.n)}</span>${abChips('pattern', [['vary', 'Vary the hour'], ['same', 'Same hour']], ABU.pattern)}<button class="btn" data-ab="observe10"${up ? '' : ' disabled'}>Observe 10 nights · ${abMk(50)}</button></div>` : '<p class="ab-small">An observer could take and label whole runs of nights.</p>'}
+    ${night ? `<div class="ab-cvwrap"><canvas data-scene="ab-night" data-id="${night.id}" data-ab="nighttap" class="ab-cv night" aria-label="Plate of Vesta and its moons. Tap a dot to label it."></canvas></div>
+      <p class="ab-small">Night of ${Math.floor(night.t / AB_DAYS) + AB_Y0} day ${Math.floor(night.t % AB_DAYS)}, ${night.hour}. ${night.dots.length} moon${night.dots.length === 1 ? '' : 's'} visible. Tap a dot to cycle its label I → II → III → IV → none. Moon I is the brightest.</p>` : ''}
+    ${recent.length ? `<div class="ab-field"><span>Nights</span>${abChips('nightpick', recent.map(n => [n.id, `${Math.floor(n.t / AB_DAYS) + AB_Y0} d${Math.floor(n.t % AB_DAYS)}${n.dots.some(d => d.lab < 0) ? ' ?' : ''}`]), ABU.night)}</div>` : ''}
+    <table class="ab-tbl"><tr><th>Moon</th>${AB_ROM.map(r => `<th>${r}</th>`).join('')}</tr><tr><td>Labelled nights</td>${[0, 1, 2, 3].map(i => `<td>${abMoonObs(R, i).length}</td>`).join('')}</tr></table>
+    <p class="ab-small">${R.data.moons.length} clear night${R.data.moons.length === 1 ? '' : 's'} so far, ${R.cloudy || 0} clouded out.</p>`;
+}
+function abPaintNight(cv) {
+  const R = ABS.run, n = R.data.moons.find(x => x.id === +cv.dataset.id); if (!n) return; const F = abFitCanvas(cv); if (!F) return; const { ctx, w, h } = F;
+  ctx.fillStyle = '#071a31'; ctx.fillRect(0, 0, w, h); ctx.strokeStyle = AB_C.grid; ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
+  const cx = w / 2, cy = h / 2 + 4, sc = (w / 2 - 10) / 28;
+  ctx.strokeStyle = 'rgba(143,177,212,.25)'; ctx.setLineDash([2, 4]); ctx.beginPath(); ctx.moveTo(8, cy); ctx.lineTo(w - 8, cy); ctx.stroke(); ctx.setLineDash([]);
+  [-20, -10, 10, 20].forEach(v => { const x = cx + v * sc; ctx.strokeStyle = AB_C.grid2; ctx.beginPath(); ctx.moveTo(x, cy + 30); ctx.lineTo(x, cy + 36); ctx.stroke(); abLabel(ctx, String(v), x, cy + 48, 'center', AB_C.mute); });
+  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, sc * 1.6); g.addColorStop(0, '#f6f0dc'); g.addColorStop(0.6, '#e5dcbf'); g.addColorStop(1, 'rgba(229,220,191,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, sc * 1.6, 0, 7); ctx.fill();
+  n.dots.forEach((d, j) => {
+    const x = cx + d.x * sc, rad = 1.6 + 2.6 * d.b + n.s * sc * 0.5; const gg = ctx.createRadialGradient(x, cy, 0, x, cy, rad * 2); gg.addColorStop(0, 'rgba(255,255,255,1)'); gg.addColorStop(0.45, 'rgba(230,240,255,.8)'); gg.addColorStop(1, 'rgba(230,240,255,0)'); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(x, cy, rad * 2, 0, 7); ctx.fill();
+    abLabel(ctx, d.lab >= 0 ? AB_ROM[d.lab] : '?', x, cy - 14 - (j % 2) * 12, 'center', d.lab >= 0 ? AB_C.accent : AB_C.mute);
+  });
+  abLabel(ctx, 'distance from Vesta (Vesta radii)', 10, h - 8, 'left', AB_C.mute);
+  cv._abGeo = { cx, sc };
+}
+function abObserveNight(hour, auto) {
+  const R = ABS.run; const pl = abNight(R, ABW, hour);
+  if (!pl.clear) { R.cloudy = (R.cloudy || 0) + 1; return null; }
+  const dots = pl.moons.filter(m => m.vis).map(m => ({ x: Math.round(m.x * 1000) / 1000, b: m.b * (0.9 + abR() * 0.2), lab: auto ? m.i : -1, tr: m.i })).sort(() => abR() - 0.5);
+  const rec = { id: R.nid++, t: Math.round(pl.t * 1000) / 1000, hour, s: Math.round((abBlur(R) * 0.6 + pl.seeing) * 1000) / 1000, dots };
+  R.data.moons.push(rec); return rec;
+}
+function abMoonHTML() {
+  const R = ABS.run, i = ABU.moon, obs = abMoonObs(R, i);
+  let s = `<div class="ab-field"><span>Moon</span>${abChips('moon', AB_ROM.map((r, j) => [j, `${r} · ${abMoonObs(R, j).length}`]), i)}</div>`;
+  if (obs.length < 4) return s + '<p class="ab-p">Label this moon on at least four nights to look for its period.</p>';
+  const tr = abRange(obs.map(o => o.t), false, 0.02), xr = abRange(obs.map(o => o.x).concat([0]), false);
+  s += abPlot({ h: 150, x: { min: tr[0], max: tr[1], label: 'day (counted from 1890)' }, y: { min: xr[0], max: xr[1], label: 'distance' }, pts: obs.map(o => ({ x: o.t, y: o.x, r: 2.2 })), hl: [{ y: 0 }] });
+  const scan = abPeriodScan(obs); const T0 = R.per[i];
+  s += `<h3 class="ab-h">Periodogram <small>tap a peak to choose a period</small></h3>${abPlot({ x: { min: 0.8, max: 60, log: true, label: 'trial period (days)' }, y: { min: 0, max: 1.05, label: 'how much it explains' }, lines: [{ pts: scan.filter((_, j) => j % 2 === 0), cls: 'fit thin' }], vl: T0 ? [{ x: T0, cls: 'mark', t: abFix(T0, 2) + ' d' }] : [], tap: 'per' })}`;
+  if (T0) {
+    const f = abPeriodNear(obs, T0);
+    if (f) {
+      const ph = obs.map(o => ({ x: ((o.t / f.T) % 1 + 1) % 1, y: o.x, r: 2.2 }));
+      s += `<div class="ab-result"><b>T = ${abFix(f.T, 3)} ± ${abFix(f.eT, 3)} days</b><span>orbit radius ${abFix(f.r, 2)} ± ${abFix(f.eR, 2)} · χ²/dof = ${abFix(f.chi2dof, 2)} · ${f.n} nights</span></div>
+        <p class="ab-small">${f.chi2dof > 3 ? 'The fold below is a mess: this is probably not the true period. Try another peak.' : 'The fold is clean: every night lies on one orbit.'}</p>
+        <h3 class="ab-h">All nights folded on this period</h3>${abPlot({ h: 150, x: { min: 0, max: 1, label: 'phase of the orbit' }, y: { min: xr[0], max: xr[1], label: 'distance' }, pts: ph, lines: [{ pts: abCurve(u => f.A * Math.cos(2 * Math.PI * u) + f.B * Math.sin(2 * Math.PI * u), 0, 1), cls: 'fit alt' }], hl: [{ y: 0 }] })}`;
+    }
+  }
+  return s;
+}
+function abMoonFits(R) { return [0, 1, 2, 3].map(i => { const T0 = R.per && R.per[i]; if (!T0) return null; const o = abMoonObs(R, i); return o.length >= 4 ? abPeriodNear(o, T0) : null; }); }
+function abKepler(R) {
+  const F = abMoonFits(R).map((f, i) => f && Object.assign({ i }, f)).filter(Boolean); if (F.length < 3) return null;
+  let b = 1.5, fit = null;
+  for (let k = 0; k < 3; k++) { fit = abLinFit(F.map(f => ({ x: Math.log(f.r), y: Math.log(f.T), s: Math.hypot(f.eT / f.T, b * f.eR / f.r) }))); if (!fit) return null; b = fit.b; }
+  return { s: fit.b, e: fit.eb, a: fit.a, chi: fit.chi, dof: fit.dof, F };
+}
+function abLawHTML() {
+  const R = ABS.run, F = abMoonFits(R), K = abKepler(R), th = abTheo(R);
+  let s = `<table class="ab-tbl"><tr><th>Moon</th><th>Period (days)</th><th>Radius</th></tr>${F.map((f, i) => `<tr><td>${AB_ROM[i]}</td><td>${f ? `${abFix(f.T, 3)} ± ${abFix(f.eT, 3)}` : '<span class="ab-dim">no period chosen</span>'}</td><td>${f ? `${abFix(f.r, 2)} ± ${abFix(f.eR, 2)}` : ''}</td></tr>`).join('')}</table>`;
+  if (!K) return s + '<p class="ab-p">Choose periods for at least three moons (on the Each moon page) to fit the law T ∝ rˢ.</p>';
+  const xr = abRange(K.F.map(f => f.r), true, 0.15), yr = abRange(K.F.map(f => f.T), true, 0.2);
+  s += abPlot({ x: { min: xr[0], max: xr[1], log: true, label: 'orbit radius (Vesta radii)' }, y: { min: yr[0], max: yr[1], log: true, label: 'period (days)' }, pts: K.F.map(f => ({ x: f.r, y: f.T, ey: f.eT })), lines: [{ pts: abCurve(r => Math.exp(K.a) * Math.pow(r, K.s), xr[0], xr[1], 40, true) }], tx: K.F.map(f => ({ x: f.r, y: f.T * 1.18, t: AB_ROM[f.i], a: 'middle' })) })
+    + `<div class="ab-result"><b>s = ${abFix(K.s)} ± ${abFix(K.e)}</b><span>χ²/dof = ${abFix(K.chi / K.dof, 2)} · ${K.F.length} moons</span>${abPubBtn('orbit')}</div>`;
+  if (th >= 2) { const g = abResult(R, 'grav'); s += `<p class="ab-note">Theorist's note: if attraction falls off as 1/rⁿ, a circular orbit's period goes as r^((n+1)/2).${g ? ` Your torsion result n = ${abFix(g.v)} predicts s = ${abFix((g.v + 1) / 2)} ± ${abFix(g.e / 2)}.` : ''}</p>`; }
+  return s;
+}
+
+/* ===================== ABERRATION — UI (questions, workshop, staff, endings, events) ===================== */
+const AB_SPLIT_LAB = { 1: '∝ B', 1.5: '∝ B¹·⁵', 2: '∝ B²' };
+/* your current best answer to a question, from your own data */
+function abResult(R, q) {
+  if (q === 'grav') { const season = ABU.fit.torsion === 'season' && abTheo(R) >= 1; const f = abTorsionFit(R.data.torsion, season); return f && { v: f.n, e: f.e, how: season ? 'season' : 'plain' }; }
+  if (q === 'series') { const f = abSeriesFit(abLineMeas(R).map(m => ({ k: m.k, l: m.l, s: m.s }))); return f && { v: f.p, e: f.e }; }
+  if (q === 'orbit') { const K = abKepler(R); return K && { v: K.s, e: K.e }; }
+  if (q === 'double') { if (abTheo(R) < 1) return null; const d = abDoublet(abProfs(R)); return d && { against: { Double: d.forSingle, Single: d.forDouble } }; }
+  if (q === 'split') { if (abTheo(R) < 2) return null; const f = abSplitFit(abSplitPts(R)); if (!f || !f.length) return null; const m = Math.min(...f.map(x => x.chi)); const a = {}; f.forEach(x => { a[AB_SPLIT_LAB[x.q]] = x.chi - m; }); return { against: a }; }
+  if (q === 'glow') { const fits = abGlowFits(abGlowPts(R), abTheo(R)); if (!fits || !fits.length) return null; const sc = f => f.chi + 2 * AB_GLOW_K[f.m]; const m = Math.min(...fits.map(sc)); const a = {}; fits.forEach(f => { a[f.m] = sc(f) - m; }); return { against: a }; }
+  return null;
+}
+function abResultText(q, res) {
+  if (!res) return '<span class="ab-dim">No result from your own data yet.</span>';
+  if (q.kind === 'num') return `<b>${q.sym} = ${abFix(res.v, 4)} ± ${abFix(res.e, 4)}</b>${res.e > q.maxErr ? ` <span class="bad">(too uncertain to print: the Academy wants ±${q.maxErr})</span>` : ''}`;
+  const ent = Object.entries(res.against).sort((a, b) => a[1] - b[1]); const second = ent[1];
+  return `Your data favour <b>${esc(ent[0][0])}</b>${second ? ` over ${esc(second[0])} by Δχ² = ${abFix(second[1], 1)}${second[1] < 10 ? ' (not decisive)' : ''}` : ''}${q.opts.filter(o => !(o in res.against)).length ? `. Not tested: ${q.opts.filter(o => !(o in res.against)).map(esc).join(', ')}` : ''}.`;
+}
+const abFate = c => (c.overturned ? 'overturned' : c.fate === 'confirmed' ? 'confirmed' : c.fate === 'refuted' ? 'refuted' : 'awaiting replication');
+function abQuestionsHTML() {
+  const R = ABS.run;
+  return `<p class="ab-p">The Academy's six open questions. Replication settles every claim one to three years after it is printed.</p>` + AB_Q.map(q => {
+    const res = abResult(R, q.id); const cl = R.claims.filter(c => c.q === q.id).sort((a, b) => a.at - b.at);
+    const mine = cl.find(c => c.by === 'you' && c.fate !== 'refuted'); const settled = cl.find(c => c.fate === 'confirmed');
+    return `<section class="ab-q${settled ? ' settled' : ''}"><h3>${esc(q.n)}${settled ? ' <span class="ab-tag good">settled</span>' : ''}</h3><p>${esc(q.d)}</p>
+      <p class="ab-small">Instrument: ${AB_EXPS[q.exp].n}${q.id === 'double' ? `. A real doublet here would be at least ${AB_DMIN} Å wide.` : ''}</p>
+      <p class="ab-yours">${abResultText(q, res)}</p>
+      ${cl.length ? `<ul class="ab-claims">${cl.map(c => `<li class="${abFate(c).split(' ')[0]}"><span>${c.year} · ${c.by === 'you' ? '<b>You</b>' : esc(abRivalName(c.by))}: ${esc(abClaimText(c))}</span><em>${abFate(c)}</em>${c.by !== 'you' && !c.fate ? `<button class="btn" data-ab="challenge" data-id="${c.id}">Challenge</button>` : ''}</li>`).join('')}</ul>` : ''}
+      <div class="ab-actions"><button class="btn" data-ab="gotoq" data-id="${q.exp}">Go to the ${AB_EXPS[q.exp].n.toLowerCase()}</button>${mine ? '' : `<button class="btn primary" data-ab="publish" data-id="${q.id}">Publish…</button>`}</div></section>`;
+  }).join('') + `<h3 class="ab-h">Rival institutes</h3><div class="ab-list">${AB_RIVALS.map(rv => `<div class="ab-item"><div><b>${esc(rv.n)}</b><small>${esc(rv.d)}${R.dossier ? ` Dossier: right about ${Math.round(rv.care * 100)}% of the time; works ${rv.speed > 1 ? 'fast' : rv.speed < 1 ? 'slowly' : 'at a steady pace'}.` : ''}</small></div></div>`).join('')}</div>`;
+}
+function abPublishModal(qid) {
+  const R = ABS.run, q = abQ(qid), res = abResult(R, qid); const others = R.claims.filter(c => c.q === qid && c.by !== 'you');
+  const prior = others.length ? `<div class="ab-evlist">${others.map(c => `<p>${c.year} · ${esc(abRivalName(c.by))}: ${esc(abClaimText(c))} (${abFate(c)})</p>`).join('')}</div>` : '';
+  if (!res) { abModal(`<h2>${esc(q.n)}</h2><p>The Academy only prints results backed by your own measurements, and you have none for this question yet${q.id === 'double' || q.id === 'split' ? ' (this one also needs a theorist for the fits)' : ''}.</p><div class="row"><button class="btn primary" data-ab="close">OK</button></div>`); return; }
+  if (q.kind === 'num') {
+    const muls = [1, 1.5, 2, 3]; if (!muls.includes(ABU.qmul)) ABU.qmul = 1; const e = res.e * ABU.qmul;
+    const prec = abClamp(q.maxErr / Math.max(e, q.maxErr * 0.15), 1, 4), gain = Math.round(100 * (0.6 + 0.4 * prec));
+    abModal(`<h2>Publish: ${esc(q.n)}</h2>${prior}
+      <p>Your fit: <b>${q.sym} = ${abFix(res.v, 4)} ± ${abFix(res.e, 4)}</b>${qid === 'grav' ? ` <span class="ab-dim">(${res.how === 'season' ? 'with the seasonal twist removed' : 'plain power law'})</span>` : ''}.</p>
+      <p>A fit's ± only counts random scatter. If anything might push every reading the same way, quote a wider uncertainty.</p>
+      <div class="ab-field"><span>Quote</span><div class="ab-chips">${muls.map(m => `<button data-ab="qmul" data-id="${m}" aria-pressed="${ABU.qmul === m}"${res.e * m > q.maxErr ? ' disabled' : ''}>±${abFix(res.e * m, 4)}</button>`).join('')}</div></div>
+      ${res.e > q.maxErr ? `<p class="bad">The Academy will not print an uncertainty above ±${q.maxErr}. Take more or better data.</p>` : `<p class="ab-small">You would print <b>${q.sym} = ${abFix(res.v, 4)} ± ${abFix(e, 4)}</b>. Replication agrees if the true value lies within ±${abFix(2 * e, 4)}. If you are first and right: about +${gain} prestige (precision bonus ×${abFix(prec, 1)}; it stops growing below ±${abFix(q.maxErr * 0.15, 4)}). If wrong: −60 prestige, −28 credibility.</p>`}
+      <div class="row"><button class="btn" data-ab="close">Not yet</button><button class="btn primary" data-ab="dopublish" data-id="${qid}"${res.e > q.maxErr ? ' disabled' : ''}>Print it · 5 days</button></div>`);
+  } else {
+    const ent = res.against; if (!ABU.pubOpt || !q.opts.includes(ABU.pubOpt)) ABU.pubOpt = Object.keys(ent).sort((a, b) => ent[a] - ent[b])[0];
+    abModal(`<h2>Publish: ${esc(q.n)}</h2>${prior}
+      <div class="ab-opts">${q.opts.map(o => `<button data-ab="pubopt" data-id="${esc(o)}" aria-pressed="${ABU.pubOpt === o}"><b>${esc(o)}</b><small>${o in ent ? (ent[o] < 0.05 ? 'best fit to your data' : `your data disfavour it by Δχ² = ${abFix(ent[o], 1)}`) : 'not tested by your analysis'}</small></button>`).join('')}</div>
+      <p class="ab-small">If you are first and right: +100 prestige. If wrong: −60 prestige, −28 credibility.</p>
+      <div class="row"><button class="btn" data-ab="close">Not yet</button><button class="btn primary" data-ab="dopublish" data-id="${qid}">Print it · 5 days</button></div>`);
+  }
+}
+function abDoPublish(qid) {
+  const R = ABS.run, q = abQ(qid), res = abResult(R, qid); if (!res) return;
+  const err = q.kind === 'num' ? abPublish(R, qid, res.v, res.e * ABU.qmul) : abPublish(R, qid, ABU.pubOpt, 0);
+  if (err) { toast(err); SFX.bad(); return; }
+  const c = R.claims[R.claims.length - 1]; if (qid === 'grav') c.how = res.how; if (qid === 'orbit') c.hours = [...new Set(R.data.moons.map(n => n.hour))].length;
+  if (qid === 'series') c.lamp = R.parts.lamp;
+  closeModal(); SFX.paper(); toast('Sent to the Academy. Replication will tell.'); abDo(5, 0); abRender(true);
+}
+function abChallengeInfo(R, c) {
+  const q = abQ(c.q), res = abResult(R, c.q);
+  if (!res) return { s: 0, t: 'You have no evidence of your own on this question yet.' };
+  if (q.kind === 'num') { const z = (Math.abs(res.v - c.v) - 2 * c.e) / res.e; return { s: z, t: `Their claim allows ${q.sym} from ${abFix(c.v - 2 * c.e, 3)} to ${abFix(c.v + 2 * c.e, 3)}. Your result, ${abFix(res.v, 4)} ± ${abFix(res.e, 4)}, ${z > 0 ? `lies <b>${abFix(z, 1)}</b> of your error bars outside that range` : 'is inside that range'}.` }; }
+  const a = res.against[c.v]; if (a === undefined) return { s: 0, t: `Your analysis cannot test “${esc(c.v)}” yet.` };
+  return { s: a, t: `Your data disfavour “${esc(c.v)}” by <b>Δχ² = ${abFix(a, 1)}</b>.` };
+}
+function abChallengeModal(cid) {
+  const R = ABS.run, c = R.claims.find(x => x.id === cid); if (!c) return; const q = abQ(c.q), info = abChallengeInfo(R, c);
+  const need = q.kind === 'num' ? 2.5 : 10, strong = info.s >= need;
+  abModal(`<h2>Challenge ${esc(abRivalName(c.by))}</h2><p>They claim <b>${esc(abClaimText(c))}</b> on “${esc(q.n)}”.</p><p>${info.t}</p>
+    <p class="ab-small">The referees act only on strong evidence: at least ${q.kind === 'num' ? '2.5 error bars outside their range' : 'Δχ² of 10'}. ${strong ? 'Yours clears that bar.' : '<span class="bad">Yours does not. They will call it inconclusive (credibility −4).</span>'} If the referees side with them after all, you lose 22 credibility. A challenge takes 10 days and ${abMk(20)} in fees.</p>
+    <div class="row"><button class="btn" data-ab="close">Leave it</button><button class="btn ${strong ? 'primary' : 'danger'}" data-ab="dochallenge" data-id="${cid}">File the challenge</button></div>`);
+}
+function abDoChallenge(cid) {
+  const R = ABS.run, c = R.claims.find(x => x.id === cid); if (!c || R.money < 20) { toast('Not enough money.'); return; }
+  const info = abChallengeInfo(R, c); R.money -= 20; const out = abChallenge(R, ABW, c, info.s);
+  (out.k === 'win' ? SFX.good : SFX.bad)(); const ev = abSpend(R, ABW, 10); ev.unshift({ k: out.k === 'win' ? 'good' : 'bad', t: out.t }); abAfter(ev); abRender(true);
+}
+
+/* ====================== WORKSHOP ====================== */
+function abWorkshopHTML() {
+  const R = ABS.run, mk = abSkill(R, 'maker');
+  const groups = ['torsion', 'spectro', 'glow', 'moons'];
+  return `<p class="ab-p">${mk ? `Your instrument maker (skill ${mk}) builds up to grade ${mk + 1}, cheaper and faster.` : 'Without an instrument maker you can only buy first-grade parts, at a 50% mark-up.'}</p>
+    ${R.builds.length ? `<h3 class="ab-h">On the bench</h3><div class="ab-list">${R.builds.map(b => `<div class="ab-item"><div><b>${esc(AB_PARTS[b.part].grades[b.grade])}</b><small>${b.left} day${b.left === 1 ? '' : 's'} to go</small></div></div>`).join('')}</div>` : ''}
+    ${groups.map(g => `<h3 class="ab-h">${AB_EXPS[g].n}</h3><div class="ab-list">${Object.keys(AB_PARTS).filter(k => AB_PARTS[k].exp === g).map(k => {
+      const P = AB_PARTS[k], cur = R.parts[k], nx = abBuildCost(R, k), busy = R.builds.some(b => b.part === k);
+      return `<div class="ab-item"><div><b>${esc(P.n)}: ${esc(P.grades[cur])}</b><small>${esc(P.d)}</small>${nx ? `<small>Next: ${esc(P.grades[nx.g])} · ${abMk(nx.cost)} · ${nx.days} days${nx.need === 'maker' ? ' · <span class="bad">needs an instrument maker</span>' : nx.need === 'skill' ? ` · <span class="bad">needs a maker of skill ${nx.g - 1}</span>` : ''}</small>` : '<small>Best there is.</small>'}</div>${nx ? `<button class="btn" data-ab="build" data-id="${k}"${busy || nx.need || R.money < nx.cost ? ' disabled' : ''}>${busy ? 'Building' : 'Build'}</button>` : ''}</div>`;
+    }).join('')}</div>`).join('')}`;
+}
+
+/* ====================== STAFF ====================== */
+function abStaffHTML() {
+  const R = ABS.run; const stars = n => '★'.repeat(n) + '☆'.repeat(3 - n);
+  const row = (p, act, lab) => `<div class="ab-item"><div><b>${esc(p.n)}</b><small>${abRole(p.role)} · skill ${stars(p.skill)} · ${abMk(p.pay)} a year</small></div><button class="btn${act === 'fire' ? '' : ' primary'}" data-ab="${act}" data-id="${p.id}">${lab}</button></div>`;
+  return `<h3 class="ab-h">Your staff</h3>${R.staff.length ? `<div class="ab-list">${R.staff.map(p => row(p, 'fire', 'Let go')).join('')}</div>` : '<p class="ab-small">Just you, for now.</p>'}
+    <h3 class="ab-h">Looking for a post</h3>${R.cands.length ? `<div class="ab-list">${R.cands.map(p => row(p, 'hire', 'Hire')).join('')}</div>` : '<p class="ab-small">Nobody this year. New people turn up when the year closes.</p>'}
+    <p class="ab-small">Salaries are paid when the year closes, for the part of the year each person worked. Letting someone go settles their pay at once.</p>
+    <h3 class="ab-h">What they do</h3><div class="ab-list">
+      <div class="ab-item"><div><b>Instrument maker</b><small>Needed for any part above the first grade; a maker of skill s builds up to grade s + 1. Cuts build costs and times, and earns more on industrial contracts.</small></div></div>
+      <div class="ab-item"><div><b>Observer</b><small>Reads the torsion balance for you (higher skill, less reading error) and can sweep the rail. Takes and labels runs of telescope nights.</small></div></div>
+      <div class="ab-item"><div><b>Theorist</b><small>Skill 1: the seasonal twist in torsion fits, and pair fits for spectral lines. Skill 2: two-exponential glow fits, the splitting-law comparison, and a note tying the moons to the law of attraction. Skill 3: better-written papers (+15% prestige).</small></div></div>
+    </div>`;
+}
+function abJournalHTML() {
+  const R = ABS.run; return `<div class="ab-journal">${R.journal.slice().reverse().map(j => `<p class="${j.k}"><span>${j.y} · d${j.d}</span>${esc(j.t)}</p>`).join('')}</div>`;
+}
+
+/* ====================== ENDINGS, ARCHIVE, NOTEBOOK ====================== */
+function abTruth(W, q) {
+  if (q === 'grav') return `n = ${W.n.toFixed(3)}`;
+  if (q === 'series') return `p = ${W.p.toFixed(4)}`;
+  if (q === 'double') return W.d0 > 0 ? `Double, ${W.d0.toFixed(2)} Å apart` : 'Single';
+  if (q === 'split') return AB_SPLIT_LAB[W.q];
+  if (q === 'glow') return W.dform === 'exp' ? `Exponential, τ = ${W.tau.toFixed(1)} h` : W.dform === 'pow' ? `Power law, a = ${W.a.toFixed(2)}` : `Two exponentials, ${W.t1.toFixed(1)} h and ${W.t2.toFixed(0)} h`;
+  return `s = ${((W.n + 1) / 2).toFixed(3)}`;
+}
+function abLessons(R, W) {
+  const out = [];
+  R.claims.filter(c => c.by === 'you' && c.fate === 'refuted').forEach(c => {
+    if (c.q === 'grav') out.push(c.how !== 'season' && R.parts.shield < 2 ? 'Your law of attraction was pushed off by the seasons: the warming room twisted the fibre. A lagged enclosure, or fitting the seasonal twist, would have caught it. The residuals-against-day plot shows it.' : 'Your n was wrong by more than you allowed. Spread the sphere over the whole rail and quote a wider error when you are unsure.');
+    if (c.q === 'series') out.push(c.lamp ? 'Your series fit was off. Check every line\'s k, and keep the crucible\'s impurity lines out.' : 'Your series value missed. Without a comparison lamp each plate\'s wavelength scale is a little wrong, and the fit\'s ± does not know that.');
+    if (c.q === 'double') out.push(c.v === 'Double' ? 'Line 3 was single. A slightly broad line can look like a pair on one plate; only a large combined Δχ² over several plates is real evidence.' : `Line 3 was double, ${W.d0.toFixed(2)} Å apart. It only shows with a fine grating and a cool source, over several plates.`);
+    if (c.q === 'split') out.push('The splitting law was not what you said. Use only clearly resolved pairs, at as many different fields as you can.');
+    if (c.q === 'glow') out.push('You picked the wrong fading law. Spread readings evenly in log-time from minutes to days, avoid saturated early readings, and look at the residuals.');
+    if (c.q === 'orbit') out.push(c.hours === 1 ? 'Your moon periods were aliases. Looking at the same hour every night cannot tell a period from its aliases. Vary the hour.' : 'Your orbit law missed. Check each moon\'s fold: a messy fold means the wrong peak.');
+  });
+  R.claims.filter(c => c.by !== 'you' && c.overturned).forEach(c => out.push(`You overturned ${abRivalName(c.by)} on “${abQ(c.q).n}”. That is how it is done.`));
+  if (R.over.k === 'broke') out.push('The money ran out. Salaries and upkeep come due every year; industrial contracts pay, and prestige grows the grant.');
+  if (R.over.k === 'closed') out.push('Credibility hit zero. Each refuted claim costs 28; a challenge you lose costs 22.');
+  if (!R.claims.some(c => c.by === 'you')) out.push('You never published. Rivals take priority, and the grant only grows with what you print and get right.');
+  return out;
+}
+function abFinishRun() {
+  const R = ABS.run; if (!R) return;
+  if (!R.endDone) {
+    R.endDone = true; const pts = abPoints(R); R.endPts = pts; ABS.meta.points += pts; ABS.meta.runs++;
+    ABS.meta.hist.unshift({ y1: Math.min(R.year, AB_Y1), prestige: R.prestige, pts, why: R.over.k, truth: AB_Q.map(q => abTruth(ABW, q.id)), mine: AB_Q.map(q => { const c = R.claims.filter(x => x.q === q.id && x.by === 'you').pop(); return c ? `${abClaimText(c)} (${c.fate || 'unresolved'})` : ''; }) });
+    ABS.meta.hist = ABS.meta.hist.slice(0, 30); abPersist(); SFX.level();
+  }
+  closeModal(); ABU.screen = 'run'; abRender();
+}
+function abEndHTML() {
+  const R = ABS.run, W = ABW; const mine = R.claims.filter(c => c.by === 'you');
+  return `<main class="ab-main"><div class="ab-end">
+    <h1 class="ab-logo sm">THE FILE</h1><p class="ab-kicker">${AB_Y0}–${Math.min(R.year, AB_Y1)}</p><p>${esc(R.over.t)}</p>
+    <div class="ab-stats"><span>★ <b>${R.prestige}</b> prestige</span><span><b>${mine.filter(c => c.fate === 'confirmed').length}</b> confirmed</span><span><b>${mine.filter(c => c.fate === 'refuted').length}</b> refuted</span><span>+<b>${R.endPts || 0}</b> archive points</span></div>
+    <h3 class="ab-h">How this universe really worked</h3>
+    <table class="ab-tbl"><tr><th>Question</th><th>The truth</th><th>You said</th></tr>${AB_Q.map(q => { const c = mine.filter(x => x.q === q.id).pop(); return `<tr><td>${esc(q.n)}</td><td>${esc(abTruth(W, q.id))}</td><td>${c ? `${esc(abClaimText(c))}<br><small class="${c.fate === 'confirmed' ? 'good' : c.fate === 'refuted' ? 'bad' : ''}">${abFate(c)}</small>` : '<span class="ab-dim">—</span>'}</td></tr>`; }).join('')}</table>
+    <h3 class="ab-h">What the file says</h3>${abLessons(R, W).map(l => `<p class="ab-note">${esc(l)}</p>`).join('') || '<p class="ab-note">A clean record.</p>'}
+    <p class="ab-small">The next universe will have different laws. Your methods carry over; the numbers do not.</p>
+    <div class="ab-menu"><button class="btn primary" data-ab="newrun">New institute</button><button class="btn" data-ab="archive">Archive · ${ABS.meta.points} points</button><button class="btn" data-ab="notebook">Notebook</button><button class="btn" data-ab="totitle">Title screen</button></div>
+  </div></main>`;
+}
+function abArchiveModal() {
+  const M = ABS.meta;
+  abModal(`<h2>The Archive</h2><p>Every institute leaves papers behind. Spend archive points on a head start for future institutes. You have <b>${M.points}</b>.</p>
+    <div class="ab-list">${AB_UNLOCKS.map(u => { const own = M.unlocks.includes(u.id); return `<div class="ab-item"><div><b>${esc(u.n)}</b><small>${esc(u.d)}</small></div>${own ? '<span class="ab-tag good">Owned</span>' : `<button class="btn" data-ab="buy" data-id="${u.id}"${M.points < u.cost ? ' disabled' : ''}>${u.cost} pts</button>`}</div>`; }).join('')}</div>
+    <p class="ab-small">Unlocks apply from your next institute. Points come from prestige and from years survived.</p>
+    <div class="row"><button class="btn primary" data-ab="close">Done</button></div>`);
+}
+function abNotebookModal() {
+  const H = ABS.meta.hist;
+  abModal(`<h2>Notebook of past worlds</h2>${H.length ? H.map((h, i) => `<div class="ab-nb"><b>World ${H.length - i}</b> <small>ended ${h.y1} · ★ ${h.prestige} · +${h.pts} pts</small>
+      <table class="ab-tbl"><tr><th>Question</th><th>Truth</th><th>You</th></tr>${AB_Q.map((q, j) => `<tr><td>${esc(q.n)}</td><td>${esc(h.truth[j])}</td><td>${esc(h.mine[j] || '—')}</td></tr>`).join('')}</table></div>`).join('') : '<p>No past worlds yet. When an institute closes, its true laws are written here.</p>'}
+    <div class="row"><button class="btn primary" data-ab="close">Close</button></div>`);
+}
+function abHowto() {
+  abModal(`<h2>How it works</h2>
+    <p><b>The world.</b> Every run is a new universe with its own laws of nature. Nothing about the numbers carries over. What carries over is what you learn about measuring.</p>
+    <p><b>The work.</b> Four instruments, six open questions. Take readings with your own hands, fit them, and look at the residuals. Everything costs days (300 a year) and money.</p>
+    <p><b>Publishing.</b> Print a result and replication checks it one to three years later. It holds if the truth lies within two of your ± bars. First and right: up to +260 prestige. Wrong: −60 prestige and −28 credibility. At zero credibility the institute closes.</p>
+    <p><b>The ± lies.</b> A fit's uncertainty counts only random scatter. Anything that pushes every reading the same way (a warm room, a mis-scaled plate, looking at the same hour each night) is invisible to it. Find those effects, or quote wider.</p>
+    <p><b>Rivals.</b> Three institutes are working on the same questions, some carelessly. If your data rule out a rival's claim, challenge it.</p>
+    <p><b>Money.</b> Each year the Academy pays a grant that grows with credibility and with the prestige you earned that year. Salaries and upkeep come out of it. Industrial contracts pay when you are short.</p>
+    <p><b>People.</b> Instrument makers build better parts. Observers take readings for you. Theorists unlock better fits.</p>
+    <p><b>Ending.</b> The run ends in ${AB_Y1 + 1}, when every question is settled, or when you go broke or lose the Academy's trust. Then the file shows how the universe really worked, and you earn archive points for a head start next time.</p>
+    <div class="row"><button class="btn primary" data-ab="close">Understood</button></div>`);
+}
+function abStartRun() {
+  ABS.run = abNewRun_(); ABW = abWorld(ABS.run.seed);
+  Object.assign(ABU, { screen: 'run', tab: 'lab', exp: null, swing: null, plate: null, cursor: null, pc: {}, plan: [], lastPlan: [], night: null, moon: 0, news: [], pending: null });
+  abPersist(); abRender(); if (ABS.meta.runs === 0) setTimeout(abHowto, 80);
+}
+function abNewRun_() { const R = abNewRun(ABS.meta); R.per = [null, null, null, null]; R.cloudy = 0; R.staff.forEach(p => { p.since = 0; }); return R; }
+
+/* ====================== EVENTS ====================== */
+function abPaint() {
+  const now = performance.now(); document.querySelectorAll('canvas[data-scene^="ab-"]').forEach(cv => abScene(cv, now));
+  document.querySelectorAll('canvas[data-scene="ab-plate"]').forEach(abPaintPlate);
+  document.querySelectorAll('canvas[data-scene="ab-night"]').forEach(abPaintNight);
+}
+window.addEventListener('resize', () => { if (UI.view === 'ab') abPaint(); });
+function abSvgX(el, e) {
+  const g = el.dataset.geo.split(',').map(Number), r = el.getBoundingClientRect(); const sx = (e.clientX - r.left) / r.width * g[5]; const u = (sx - g[0]) / g[1];
+  if (u < 0 || u > 1) return null; return g[4] ? Math.pow(10, Math.log10(g[2]) + u * (Math.log10(g[3]) - Math.log10(g[2]))) : g[2] + u * (g[3] - g[2]);
+}
+document.addEventListener('click', e => {
+  if (UI.view !== 'ab') return;
+  const b = e.target.closest('[data-ab]'); if (!b) return;
+  const act = b.dataset.ab, id = b.dataset.id, R = ABS.run;
+  if (b.disabled) return;
+  const re = () => abRender(true);
+  switch (act) {
+    case 'close': closeModal(); break;
+    case 'continue': ABU.screen = 'run'; SFX.tap(); abRender(); break;
+    case 'totitle': ABU.screen = 'title'; ABU.swing = null; abRender(); break;
+    case 'newrun':
+      if (R && !R.over) abModal(`<h2>Abandon this institute?</h2><p>The run ends now and its file is opened. You keep archive points for what it achieved.</p><div class="row"><button class="btn" data-ab="close">Keep going</button><button class="btn danger" data-ab="abandon">Abandon</button></div>`);
+      else abStartRun();
+      break;
+    case 'abandon': R.over = { k: 'quit', t: 'You hand the keys back to the trustees.' }; abFinishRun(); break;
+    case 'howto': abHowto(); break;
+    case 'archive': abArchiveModal(); break;
+    case 'buy': { const u = AB_UNLOCKS.find(x => x.id === id); if (u && ABS.meta.points >= u.cost && !ABS.meta.unlocks.includes(id)) { ABS.meta.points -= u.cost; ABS.meta.unlocks.push(id); abPersist(); SFX.good(); abArchiveModal(); } break; }
+    case 'notebook': abNotebookModal(); break;
+    case 'tab': ABU.tab = id; ABU.swing = null; SFX.tap(); abRender(); break;
+    case 'exp': ABU.exp = id; SFX.tap(); abRender(); break;
+    case 'gotoq': ABU.tab = 'lab'; ABU.exp = id; SFX.tap(); abRender(); break;
+    case 'labback': ABU.exp = null; ABU.swing = null; abRender(); break;
+    case 'expinfo': abModal(`<h2>${AB_EXPS[ABU.exp].n}</h2>${AB_INFO[ABU.exp]}<div class="row"><button class="btn primary" data-ab="close">Back to the bench</button></div>`); break;
+    case 'sub': ABU.sub[ABU.exp] = id; ABU.swing = null; SFX.tap(); abRender(); break;
+    case 'clearnews': ABU.news = []; re(); break;
+    case 'contract': { const mk = abSkill(R, 'maker'); if (abDo(30, 0)) { R.money += 200 + 70 * mk; abLog(R, `Industrial contract done: +${200 + 70 * mk} marks.`); abPersist(); SFX.ok(); } re(); break; }
+    case 'lecture': if (abDo(4, 0)) { R.money += 45; if (R.cred <= 60) R.cred += 1; abPersist(); SFX.ok(); } re(); break;
+    case 'wait': abDo(10, 0); re(); break;
+    /* torsion */
+    case 'trpos': ABU.tr = +id; SFX.tap(); re(); break;
+    case 'swing': abStartSwing(); break;
+    case 'mark': if (ABU.swing) { ABU.swing.marks.push(abSwingTheta(ABU.swing, performance.now())); SFX.blip(); re(); } break;
+    case 'record': { const S = ABU.swing, est = S && abSwingEstimate(S); if (est) { abRecordReading('you', S.r, est.v, est.s, S.t); ABU.swing = null; SFX.ok(); re(); } break; }
+    case 'discard': ABU.swing = null; re(); break;
+    case 'obsread': if (abObs(R) && R.money >= 5) { abObserverRead(ABU.tr); SFX.ok(); abDo(5, 5); } re(); break;
+    case 'sweep': ABU.sweep = id; re(); break;
+    case 'sweepgo': {
+      if (!abObs(R)) break; let rs = AB_RAIL.slice(); if (ABU.sweep === 'shuffled') rs.sort(() => abR() - 0.5);
+      const ev = []; for (const r of rs) { if (R.money < 5 || R.over) break; R.money -= 5; abObserverRead(r); ev.push(...abSpend(R, ABW, 5)); }
+      SFX.ok(); abAfter(ev); re(); break;
+    }
+    case 'trfit': ABU.fit.torsion = id; re(); break;
+    case 'trax': ABU.ax.torsion = id; re(); break;
+    case 'troff': { const p = R.data.torsion.find(x => x.id === +id); if (p) { p.off = !p.off; abPersist(); } re(); break; }
+    /* spectroscope */
+    case 'sptemp': ABU.spec.temp = id; re(); break;
+    case 'spB': ABU.spec.B = +id; re(); break;
+    case 'spexp': ABU.spec.exp = id; re(); break;
+    case 'spwin': ABU.spec.win = id; re(); break;
+    case 'plate': abTakePlate(); break;
+    case 'pick': ABU.plate = +id; ABU.cursor = null; re(); break;
+    case 'platetap': { const g = b._abGeo; if (!g) break; const r = b.getBoundingClientRect(); ABU.cursor = g.lo + (e.clientX - r.left) / r.width * (g.hi - g.lo); SFX.tap(); re(); break; }
+    case 'measure': abMeasure(id === 'pair'); break;
+    case 'zoomhere': ABU.spec.zoom = Math.round(ABU.cursor * 10) / 10; ABU.spec.win = 'zoom'; SFX.tap(); toast(`Next plate: ${abFix(ABU.spec.zoom, 1)} ± 12 Å`); re(); break;
+    case 'assign': abAssign(+id); break;
+    case 'spoff': { const m = R.data.spectro.find(x => x.id === +id); if (m) { m.off = !m.off; abPersist(); } re(); break; }
+    /* photometer */
+    case 'expo': ABU.expo = id; re(); break;
+    case 'plantap': {
+      const r = b.getBoundingClientRect(); const sx = (e.clientX - r.left) / r.width * 360; const u = (sx - 14) / 332; if (u < -0.02 || u > 1.02) break;
+      const hit = ABU.plan.findIndex(t => Math.abs(abTlU(t) - u) < 0.018);
+      if (hit >= 0) ABU.plan.splice(hit, 1);
+      else if (ABU.plan.length < 12) { let t = abTlT(abClamp(u, 0, 1)); t = t < 1 ? Math.round(t * 20) / 20 : t < 10 ? Math.round(t * 4) / 4 : Math.round(t); t = abClamp(t, AB_TL.lo, AB_TL.hi); if (!ABU.plan.includes(t)) ABU.plan.push(t); ABU.plan.sort((a, c) => a - c); }
+      else toast('Twelve readings is the most one run can take.');
+      SFX.tap(); re(); break;
+    }
+    case 'planclear': ABU.plan = []; re(); break;
+    case 'planreuse': ABU.plan = ABU.lastPlan.slice(); re(); break;
+    case 'glowgo': {
+      if (ABU.plan.length < 2 || R.money < 10) { toast('Not enough money.'); break; }
+      const pts = abGlowRun(R, ABW, ABU.plan, ABU.expo).map(p => ({ t: p.t, I: Math.round(p.I * 1e5) / 1e5, sig: Math.round(p.sig * 1e5) / 1e5, sat: p.sat }));
+      R.glowRuns.push({ id: R.nid++, expo: ABU.expo, pts, t: abGday(R) }); ABU.lastPlan = ABU.plan.slice();
+      abLog(R, `Photometer: ${pts.length} readings after a ${ABU.expo} flash${pts.some(p => p.sat) ? ` (${pts.filter(p => p.sat).length} saturated)` : ''}.`);
+      SFX.tool(); abDo(3, 10); re(); break;
+    }
+    case 'gx': ABU.ax.gx = id; re(); break;
+    case 'gy': ABU.ax.gy = id; re(); break;
+    case 'gfit': ABU.fit.glow = id; re(); break;
+    case 'goff': { const g = R.glowRuns.find(x => x.id === +id); if (g) { g.off = !g.off; abPersist(); } re(); break; }
+    /* telescope */
+    case 'hour': ABU.hour = id; re(); break;
+    case 'pattern': ABU.pattern = id; re(); break;
+    case 'observe': {
+      if (!abUp(R) || R.money < 5) { toast(abUp(R) ? 'Not enough money.' : 'Vesta is not up.'); break; }
+      const rec = abObserveNight(ABU.hour, false); if (rec) { ABU.night = rec.id; SFX.tool(); } else { toast('Clouded over. The night is lost.'); SFX.bad(); }
+      abDo(1, 5); re(); break;
+    }
+    case 'observe10': {
+      const ev = []; let last = null, clear = 0;
+      for (let i = 0; i < 10 && abUp(R) && R.money >= 5 && !R.over; i++) { const h = ABU.pattern === 'vary' ? ['dusk', 'midnight', 'dawn'][i % 3] : ABU.hour; const rec = abObserveNight(h, true); if (rec) { last = rec; clear++; } R.money -= 5; ev.push(...abSpend(R, ABW, 1)); }
+      if (last) ABU.night = last.id; toast(`${clear} clear night${clear === 1 ? '' : 's'} out of the run.`); abAfter(ev); re(); break;
+    }
+    case 'nightpick': ABU.night = +id; re(); break;
+    case 'nighttap': {
+      const g = b._abGeo, n = R.data.moons.find(x => x.id === ABU.night); if (!g || !n) break; const r = b.getBoundingClientRect(); const x = e.clientX - r.left;
+      let bi = -1, bd = 18; n.dots.forEach((d, j) => { const dd = Math.abs(g.cx + d.x * g.sc - x); if (dd < bd) { bd = dd; bi = j; } });
+      if (bi >= 0) { const d = n.dots[bi]; d.lab = d.lab >= 3 ? -1 : d.lab + 1; abPersist(); SFX.tap(); re(); }
+      break;
+    }
+    case 'moon': ABU.moon = +id; re(); break;
+    case 'plottap': {
+      if (id !== 'per') break; const T = abSvgX(b, e); if (!T) break; const obs = abMoonObs(R, ABU.moon); const sc = abPeriodScan(obs).filter(p => Math.abs(Math.log(p[0] / T)) < 0.05);
+      if (sc.length) { const top = sc.reduce((m, p) => (p[1] > m[1] ? p : m)); R.per[ABU.moon] = top[0]; abPersist(); SFX.blip(); re(); }
+      break;
+    }
+    /* publishing and challenges */
+    case 'publish': ABU.qmul = 1; ABU.pubOpt = null; abPublishModal(id); break;
+    case 'qmul': ABU.qmul = +id; abPublishModal(b.closest('.sheet').querySelector('[data-ab="dopublish"]').dataset.id); break;
+    case 'pubopt': { ABU.pubOpt = id; const q = b.closest('.sheet').querySelector('[data-ab="dopublish"]').dataset.id; abPublishModal(q); break; }
+    case 'dopublish': abDoPublish(id); break;
+    case 'challenge': abChallengeModal(id); break;
+    case 'dochallenge': closeModal(); abDoChallenge(id); break;
+    /* workshop & staff */
+    case 'build': { const err = abBuild(R, id); if (err) { toast(err); SFX.bad(); } else { SFX.tool(); abPersist(); } re(); break; }
+    case 'hire': { const i = R.cands.findIndex(p => p.id === id); if (i >= 0) { const p = R.cands.splice(i, 1)[0]; p.since = abGday(R); R.staff.push(p); abLog(R, `${p.n} joins as ${abRole(p.role).toLowerCase()}.`); abPersist(); SFX.good(); } re(); break; }
+    case 'fire': {
+      const i = R.staff.findIndex(p => p.id === id); if (i < 0) break; const p = R.staff[i]; const y0 = (R.year - AB_Y0) * AB_DAYS;
+      const owed = Math.round(p.pay * abClamp((abGday(R) - Math.max(p.since || 0, y0)) / AB_DAYS, 0, 1)); R.money -= owed; R.staff.splice(i, 1);
+      abLog(R, `${p.n} leaves. Pay settled: ${owed} marks.`); abPersist(); SFX.paper(); re(); break;
+    }
   }
 });
 
