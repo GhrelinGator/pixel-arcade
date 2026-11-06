@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixel Arcade</title>
-<meta name="description" content="Free browser games: Pixel Clinic, The Deep Rear and ABERRATION.">
+<meta name="description" content="Free browser games: Pixel Clinic, The Deep Rear, ABERRATION and The Disputation.">
 <meta name="theme-color" content="#1a1c2c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&family=UnifrakturMaguntia&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Pixel Arcade: one dark arcade world, Sweetie-16 palette, pixel display face + terminal body face */
@@ -635,6 +635,137 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .ab-feature .tag { background: #ffd166; color: #0d2d52; }
 .ab-on .toast { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.4; background: #ffd166; color: #0a2544; box-shadow: 0 0 0 1px #0a2544; border-radius: 2px; bottom: 22px; }
 .ab-on { background: #0a2544; }
+
+/* ===================== THE DISPUTATION: parchment, ink and rubric ===================== */
+.dp, .dp-sheet { --dp-bg: #efe2c2; --dp-bg2: #e6d4ad; --dp-card: #f6ecd3; --dp-ink: #2a1a10; --dp-mute: #6f5841; --dp-rule: #c9b07f; --dp-rub: #a3271c; --dp-gold: #a87b22; --dp-green: #2f5d4a;
+  --dp-font: 'EB Garamond', Garamond, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif; font-family: var(--dp-font); font-size: 18px; line-height: 1.42; color: var(--dp-ink); -webkit-font-smoothing: antialiased; }
+.dp { height: 100%; display: flex; flex-direction: column; max-width: 900px; margin: 0 auto;
+  background: radial-gradient(ellipse at 50% 20%, #f5ead0 0%, var(--dp-bg) 55%, #dfc898 100%); box-shadow: 0 0 0 1px #c9b07f; }
+.dp-on { background: #2b2118; }
+.dp canvas, .dp-sheet canvas { image-rendering: auto; }
+.dp .btn, .dp-sheet .btn { font-family: var(--dp-font); font-size: 16px; letter-spacing: .02em; text-transform: none; font-weight: 600; padding: 9px 14px; background: transparent; color: var(--dp-ink); box-shadow: none; border: 1.5px solid var(--dp-ink); border-radius: 3px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.dp .btn.primary, .dp-sheet .btn.primary { background: var(--dp-rub); border-color: var(--dp-rub); color: #f6ecd3; }
+.dp .btn.danger, .dp-sheet .btn.danger { border-color: var(--dp-rub); color: var(--dp-rub); }
+.dp .btn.big { font-size: 18px; padding: 12px 22px; }
+.dp .btn:disabled, .dp-sheet .btn:disabled { opacity: .4; }
+.dp .btn:active, .dp-sheet .btn:active { transform: translateY(1px); box-shadow: none; }
+.dp-sheet { background: var(--dp-card) !important; box-shadow: 0 -2px 0 0 var(--dp-rule) !important; border-top: 1px solid var(--dp-rule); }
+@media (min-width: 700px) { .dp-sheet { border: 1px solid var(--dp-rule); } }
+.dp-sheet h2 { font-family: var(--dp-font); font-size: 22px; font-weight: 600; font-variant: small-caps; letter-spacing: .06em; color: var(--dp-rub); }
+.dp-sheet .x { background: transparent; font-family: var(--dp-font); font-size: 14px; color: var(--dp-mute); }
+.dp b, .dp-sheet b { font-weight: 600; }
+.dp-main { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 14px 14px 60px; }
+.dp-center { display: grid; place-items: start center; }
+.dp-title { display: grid; gap: 12px; justify-items: center; text-align: center; max-width: 560px; width: 100%; }
+.dp-titlecv { width: 100%; height: clamp(170px, 46vw, 260px); border: 1px solid var(--dp-rule); }
+.dp-logo { font-family: 'UnifrakturMaguntia', var(--dp-font); font-weight: 400; font-size: clamp(40px, 11vw, 64px); color: var(--dp-rub); margin: 0; line-height: 1; }
+.dp-logo.sm { font-size: clamp(34px, 9vw, 52px); }
+.dp-kicker { font-variant: small-caps; letter-spacing: .14em; color: var(--dp-mute); margin: 0; font-size: 16px; }
+.dp-title > p { margin: 0; }
+.dp-menu { display: grid; gap: 8px; width: min(100%, 340px); margin-top: 6px; }
+.dp-hud { flex: none; display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--dp-rule); background: rgba(230,212,173,.7); flex-wrap: wrap; }
+.dp-hud .ib { width: 34px; height: 34px; display: grid; place-items: center; border: 1.5px solid var(--dp-rule); color: var(--dp-ink); text-decoration: none; flex: none; font-size: 15px; }
+.dp-brand { font-family: 'UnifrakturMaguntia', var(--dp-font); font-size: 22px; color: var(--dp-rub); margin-right: auto; padding: 0 2px; }
+.dp-stat { font-size: 15px; padding: 2px 8px; border: 1px solid var(--dp-rule); color: var(--dp-mute); white-space: nowrap; }
+.dp-stat b { color: var(--dp-ink); }
+.dp-stat.low { border-color: var(--dp-rub); color: var(--dp-rub); }
+.dp-h2 { font-size: 24px; font-weight: 600; font-variant: small-caps; letter-spacing: .05em; color: var(--dp-rub); margin: 4px 0 10px; }
+.dp-h3 { font-size: 15px; font-weight: 600; font-variant: small-caps; letter-spacing: .12em; color: var(--dp-rub); margin: 18px 0 6px; border-bottom: 1px solid var(--dp-rule); padding-bottom: 2px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.dp-h3 small { color: var(--dp-mute); font-variant: normal; letter-spacing: 0; font-weight: 400; font-style: italic; }
+.dp-small { font-size: 15px; color: var(--dp-mute); margin: 4px 0; }
+.dp-p { margin: 4px 0 10px; }
+.dp-big { font-size: 20px; margin: 0; }
+.dp-note { border-left: 3px solid var(--dp-rub); padding: 6px 12px; background: rgba(246,236,211,.75); margin: 6px 0; }
+.dp-card { background: rgba(246,236,211,.85); border: 1px solid var(--dp-rule); padding: 12px 14px; margin: 12px 0; display: grid; gap: 10px; justify-items: start; }
+.dp-card p { margin: 0; }
+.dp-ladder { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.dp-ladder li { font-size: 14px; padding: 3px 8px; border: 1px solid var(--dp-rule); color: var(--dp-mute); }
+.dp-ladder li.done { color: var(--dp-green); border-color: var(--dp-green); }
+.dp-ladder li.now { color: #f6ecd3; background: var(--dp-rub); border-color: var(--dp-rub); }
+.dp-stages { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 6px; counter-reset: st; }
+.dp-stages li { display: grid; padding: 8px 12px 8px 40px; border: 1px solid var(--dp-rule); position: relative; background: rgba(246,236,211,.6); }
+.dp-stages li::before { counter-increment: st; content: counter(st, upper-roman); position: absolute; left: 12px; top: 8px; color: var(--dp-rub); font-weight: 600; }
+.dp-stages li small { color: var(--dp-mute); font-style: italic; font-size: 15px; }
+.dp-stages li.done { opacity: .55; } .dp-stages li.now { border-color: var(--dp-rub); box-shadow: inset 3px 0 0 var(--dp-rub); }
+/* disputation */
+.dp-rival { display: grid; gap: 2px; margin-bottom: 8px; }
+.dp-rival > div { display: flex; flex-wrap: wrap; gap: 0 8px; align-items: baseline; }
+.dp-rival b { font-size: 20px; } .dp-rival i { color: var(--dp-mute); }
+.dp-rival p { margin: 0; font-size: 15px; color: var(--dp-mute); }
+.dp-thesis { padding: 10px 12px; border: 1.5px solid var(--dp-rub); background: rgba(246,236,211,.9); font-size: 19px; }
+.dp-thesis.mine { border-color: var(--dp-green); }
+.rub { color: var(--dp-rub); font-variant: small-caps; letter-spacing: .1em; font-weight: 600; margin-right: 6px; }
+.dp-thesis.mine .rub { color: var(--dp-green); }
+.dp-t { font-style: normal; font-weight: 600; }
+.dp-t i { font-weight: 400; font-style: italic; color: var(--dp-mute); }
+.dp-t.amb { text-decoration: underline wavy var(--dp-rub); text-underline-offset: 3px; }
+.dp-t.empty { color: var(--dp-mute); }
+.dp-bellrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 10px 0; }
+.dp-candles { display: inline-flex; gap: 3px; align-items: flex-end; }
+.dp-candle { width: 10px; height: 26px; }
+.dp-candle .wx { fill: #f8f1df; stroke: #8a6c4a; stroke-width: .8; } .dp-candle .fl { fill: #e8a33a; }
+.dp-candle.out .fl { fill: none; } .dp-candle.out .wx { fill: #cdbb95; stroke: #a99572; }
+.dp-strk { color: var(--dp-rub); letter-spacing: .15em; font-size: 16px; }
+.dp-reply { padding: 8px 12px; border-left: 3px solid var(--dp-ink); background: rgba(246,236,211,.85); margin: 8px 0; font-style: italic; }
+.dp-reply .who { font-style: normal; font-weight: 600; }
+.dp-reply.protect { border-left-color: var(--dp-gold); }
+.dp-reply .tell { margin: 4px 0 0; color: var(--dp-gold); font-size: 15px; }
+.dp-reply.good { border-left-color: var(--dp-green); font-style: normal; } .dp-reply.bad { border-left-color: var(--dp-rub); font-style: normal; }
+.dp-build { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 10px; background: rgba(246,236,211,.85); border: 1px dashed var(--dp-rule); }
+.dp-slot { font-family: var(--dp-font); font-size: 17px; padding: 6px 10px; border: 1.5px solid var(--dp-ink); border-radius: 3px; background: #fbf4e2; min-width: 60px; }
+.dp-slot.q { color: var(--dp-rub); border-color: var(--dp-rub); font-weight: 600; }
+.dp-slot .ph { color: var(--dp-mute); font-style: italic; }
+.dp-cop { font-style: italic; }
+.dp-build .btn { margin-left: auto; }
+.dp-lines { list-style: none; padding: 0; margin: 6px 0; display: grid; gap: 4px; }
+.dp-lines li { display: flex; gap: 10px; align-items: baseline; padding: 7px 10px; border: 1px solid var(--dp-rule); background: rgba(246,236,211,.75); cursor: default; }
+.dp-lines li[data-dp] { cursor: pointer; }
+.dp-lines li .n { color: var(--dp-rub); font-weight: 600; min-width: 1.5em; flex: none; }
+.dp-lines li > span:nth-child(2), .dp-lines li > span:only-child { flex: 1; }
+.dp-lines li em { font-size: 14px; color: var(--dp-mute); flex: none; max-width: 40%; text-align: right; }
+.dp-lines li.sel { background: #fff7df; border-color: var(--dp-rub); box-shadow: inset 4px 0 0 var(--dp-rub); }
+.dp-lines li.thesis { border-color: var(--dp-rub); } .dp-lines li.mine { border-style: dashed; border-color: var(--dp-green); } .dp-lines li.protect em { color: var(--dp-gold); }
+.dp-lines li.book { opacity: .92; }
+.dp-lines li .btn { margin-left: auto; padding: 4px 10px; font-size: 14px; }
+.dp-bench { margin: 8px 0; }
+.dp-foot { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; margin-top: 22px; }
+.dp-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.dp-question { padding: 12px 14px; border: 1.5px solid var(--dp-ink); background: #fbf4e2; margin: 10px 0; }
+.dp-question .dp-who { margin: 0; color: var(--dp-mute); font-size: 15px; }
+.dp-q { font-size: 22px; margin: 4px 0 12px; }
+.dp-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.dp-answers .btn { flex-direction: column; gap: 0; font-size: 18px; padding: 8px 6px; }
+.dp-answers .btn small { font-weight: 400; font-size: 13px; font-style: italic; opacity: .85; }
+.dp-dist { display: grid; gap: 8px; }
+.dp-drow { display: grid; gap: 4px; padding: 6px 0; border-top: 1px dashed var(--dp-rule); }
+.dp-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.dp-chips button { font-family: var(--dp-font); font-size: 15px; padding: 5px 10px; border: 1px solid var(--dp-rule); border-radius: 3px; background: #fbf4e2; color: var(--dp-ink); }
+.dp-chips button[aria-pressed="true"] { border-color: var(--dp-rub); color: #f6ecd3; background: var(--dp-rub); }
+.dp-chips.tabs { margin-bottom: 10px; }
+.dp-pick { display: grid; gap: 6px; }
+.dp-pick button { text-align: left; font-family: var(--dp-font); font-size: 18px; padding: 10px 12px; border: 1px solid var(--dp-rule); background: #fbf4e2; border-radius: 3px; }
+.dp-book { margin: 10px 0; border: 1px solid var(--dp-rule); padding: 6px 10px; background: rgba(246,236,211,.6); }
+.dp-book summary { cursor: pointer; font-weight: 600; font-variant: small-caps; letter-spacing: .08em; color: var(--dp-rub); }
+.dp-shop { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 6px; }
+.dp-shop li { display: flex; gap: 10px; justify-content: space-between; align-items: center; padding: 8px 12px; border: 1px solid var(--dp-rule); background: rgba(246,236,211,.85); }
+.dp-shop li > div { display: grid; } .dp-shop .btn { white-space: nowrap; flex: none; } .dp-shop small { color: var(--dp-mute); font-size: 15px; }
+.dp-tag { font-size: 14px; color: var(--dp-green); border: 1px solid var(--dp-green); padding: 2px 8px; }
+.dp-tbl { width: 100%; border-collapse: collapse; font-size: 16px; margin: 6px 0; }
+.dp-tbl th { text-align: left; font-variant: small-caps; color: var(--dp-rub); border-bottom: 1px solid var(--dp-rule); padding: 4px 6px; }
+.dp-tbl td { padding: 5px 6px; border-bottom: 1px solid rgba(201,176,127,.5); vertical-align: top; }
+.dp-tbl.moods td:first-child { color: var(--dp-rub); width: 8em; }
+.dp-proof { margin: 8px 0; padding-left: 22px; } .dp-proof li { margin: 4px 0; }
+.dp-end { max-width: 680px; margin: 0 auto; display: grid; gap: 8px; }
+.dp-stats { display: flex; flex-wrap: wrap; gap: 6px; } .dp-stats span { border: 1px solid var(--dp-rule); padding: 4px 10px; background: rgba(246,236,211,.8); }
+.dp-on .toast { font-family: 'EB Garamond', Georgia, serif; font-size: 17px; background: #2a1a10; color: #f6ecd3; box-shadow: 0 0 0 1px #c9b07f; border-radius: 3px; }
+.dp-feature { background: #e9dab6; }
+.dp-feature .thumb { background: #d9c393; }
+.dp-feature .thumb canvas { image-rendering: auto; aspect-ratio: 16 / 10; }
+.dp-feature h2 { color: #a3271c; text-shadow: none; }
+.dp-feature p { color: #2a1a10; }
+.dp-feature .tag { background: #a3271c; color: #f6ecd3; }
+.dp-feature .chips li { background: #f3e7c8; color: #2a1a10; }
+.dp-feature .save-note { color: #6f5841 !important; }
 
 </style>
 </head>
@@ -3531,8 +3662,8 @@ const tabIcon = { talk: ['doc', '#73eff7'], files: ['doc'], exam: ['steth'], not
 /* ---------- routing ---------- */
 function route() {
   const h = location.hash.replace('#', '');
-  document.body.classList.toggle('ab-on', h === 'aberration');
-  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else if (h === 'aberration') openAb(); else openHub();
+  document.body.classList.toggle('ab-on', h === 'aberration'); document.body.classList.toggle('dp-on', h === 'disputation');
+  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else if (h === 'aberration') openAb(); else if (h === 'disputation') openDp(); else openHub();
 }
 window.addEventListener('hashchange', route);
 
@@ -3584,9 +3715,20 @@ function openHub() {
         <p class="save-note">${ABS.run && !ABS.run.over ? esc(`Your institute: ${ABS.run.year} · ★ ${ABS.run.prestige} · credibility ${ABS.run.cred}`) : ABS.meta.hist.length ? esc(`${ABS.meta.hist.length} past world${ABS.meta.hist.length === 1 ? '' : 's'} · ${ABS.meta.points} archive points`) : 'Progress saves in this browser.'}</p>
       </div>
     </section>
+    <section class="feature pbox dp-feature" aria-labelledby="g4">
+      <div class="thumb"><canvas data-scene="dp-hub" width="320" height="200" aria-label="THE DISPUTATION: an illuminated letter D beside a burning candle"></canvas></div>
+      <div class="ftext">
+        <span class="tag">CARTRIDGE 04 · NEW</span>
+        <h2 id="g4">THE DISPUTATION</h2>
+        <p>Rise from bachelor to the Chair of a medieval university by public argument. Question rival masters until their own words contradict them, then defend your theses under the strict old rules of obligation. Real logic, checked step by step, and every word you grant stays on your record.</p>
+        <ul class="chips"><li>Roguelike</li><li>Real syllogistic logic</li><li>Elenchus</li><li>5 ranks</li><li>Meta-progression</li></ul>
+        <div><a class="btn primary big" href="#disputation">${DPS.run && !DPS.run.over ? 'CONTINUE' : 'PLAY FREE'}</a></div>
+        <p class="save-note">${DPS.run && !DPS.run.over ? esc(`Your career: ${dpRankName(DPS.run.rank)} · reputation ${DPS.run.rep}`) : DPS.meta.hist.length ? esc(`${DPS.meta.hist.length} past career${DPS.meta.hist.length === 1 ? '' : 's'} · ${DPS.meta.laurels} laurels`) : 'Progress saves in this browser.'}</p>
+      </div>
+    </section>
     <h3 class="shelf-h">MORE CARTRIDGES</h3>
     <div class="shelf">
-      ${[4].map(n => `<div class="cart" aria-label="Empty slot"><div class="label">?</div><div class="ridges"><i></i><i></i><i></i><i></i><i></i></div><h4>SLOT 0${n}</h4><p>Coming soon</p></div>`).join('')}
+      ${[5].map(n => `<div class="cart" aria-label="Empty slot"><div class="label">?</div><div class="ridges"><i></i><i></i><i></i><i></i><i></i></div><h4>SLOT 0${n}</h4><p>Coming soon</p></div>`).join('')}
     </div>
     ${isBdayToday() ? '<div class="bday-banner">★ 7 SEPTEMBER ★ Happy birthday to the designer of The Deep Rear! ★</div>' : ''}
     <footer class="hub-foot"><span>PIXEL ARCADE</span><span>Games save to this browser only.</span><button class="linkbtn" data-act="backup">Back up or move your saves</button><span>Pixel Clinic is a game, not medical advice.</span>${installHint()}</footer>
@@ -3985,13 +4127,14 @@ function handbook(tab = 'cond') {
 /* ---------- arcade-wide backup codes ---------- */
 const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
 const dec = c => JSON.parse(decodeURIComponent(escape(atob(c.trim()))));
-function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS, aberration: ABS }); }
+function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS, aberration: ABS, disputation: DPS }); }
 function arcadeLoad(code) {
   const o = dec(code);
   const got = [];
   if (o && o.arcade) {
     if (o.clinic && o.clinic.v === 1) { S = Object.assign(newSave(), o.clinic, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
     if (o.deep && o.deep.v === 1) { DRS = Object.assign(drNewState(), o.deep); drSave(); got.push('The Deep Rear'); }
+    if (o.disputation && o.disputation.v === 1) { DPS = Object.assign(dpNewSave(), o.disputation); dpSave(); got.push('THE DISPUTATION'); }
     if (o.aberration && o.aberration.v === 1) { ABS = Object.assign(abNewSave(), o.aberration); ABW = ABS.run ? abWorld(ABS.run.seed) : null; abPersist(); got.push('ABERRATION'); }
   } else if (o && o.v === 1 && 'lvl' in o) { S = Object.assign(newSave(), o, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
   else if (o && o.v === 1 && 'cycle' in o) { DRS = Object.assign(drNewState(), o); drSave(); got.push('The Deep Rear'); }
@@ -4093,6 +4236,7 @@ function loop(ts) {
     const ctx = cv.getContext('2d');
     if (cv.dataset.scene.startsWith('dr-')) { drScene(cv, ts); return; }
     if (cv.dataset.scene.startsWith('ab-')) { abScene(cv, ts); return; }
+    if (cv.dataset.scene.startsWith('dp-')) { dpScene(cv, ts); return; }
     if (cv.dataset.scene === 'hub') drawScene(ctx, { t: ts, lvl: Math.max(5, S.lvl), clock: 540 + (ts / 400) % 540, patient: { x: 96, look: DEMO, talking: Math.floor(ts / 2600) % 2 === 1 }, fx: Math.floor(ts / 2600) % 3 === 2 ? { icon: 'thermo' } : null });
     else drawScene(ctx, sceneOpts(ts));
   });
@@ -5924,6 +6068,693 @@ document.addEventListener('click', e => {
     }
   }
 });
+
+/* ===================== THE DISPUTATION — ENGINE ===================== */
+/* Categorical logic in the old style: All / No / Some / Some…not. Every term names something that exists
+   (existential import), so "All X are Y" also gives "Some X are Y". The game checks every step exactly. */
+const DP_KEY = 'pixel-arcade/disputation/v1';
+function dpRng(seed) { let s = (Math.imul((seed >>> 0) ^ 0x2545f491, 0x9e3779b1) >>> 0) || 99; return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+const dpPick = (a, r) => a[Math.floor(r() * a.length)];
+const dpShuffle = (a, r) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+/* ---------- statements ---------- */
+const DP_NEG = { A: 'O', O: 'A', E: 'I', I: 'E' };
+const dpSt = (q, s, p) => ({ q, s, p });
+const dpNeg = x => ({ q: DP_NEG[x.q], s: x.s, p: x.p });
+const dpKey = x => ((x.q === 'E' || x.q === 'I') && x.s > x.p ? x.q + x.p + ',' + x.s : x.q + x.s + ',' + x.p);   // No/Some read both ways
+const dpEq = (a, b) => dpKey(a) === dpKey(b);
+const dpTerms = X => [...new Set(X.flatMap(x => [x.s, x.p]))];
+
+/* consistency: universals forbid kinds of things; each "some" and each term needs one allowed kind.
+   The smallest kind containing given terms is their closure under "All"; it fails if it holds a "No" pair. */
+function dpOK(X) {
+  const up = new Map(), ex = []; const E = new Set();
+  for (const x of X) {
+    if (x.q === 'A') { if (!up.has(x.s)) up.set(x.s, []); up.get(x.s).push(x.p); }
+    else if (x.q === 'E') { E.add(x.s + ',' + x.p); E.add(x.p + ',' + x.s); }
+    else ex.push(x);
+  }
+  const close = seed => { const set = new Set(seed), st = [...seed]; while (st.length) { const t = st.pop(); const u = up.get(t); if (u) for (const y of u) if (!set.has(y)) { set.add(y); st.push(y); } } return set; };
+  const clash = set => { if (!E.size) return false; const a = [...set]; for (let i = 0; i < a.length; i++) for (let j = i + 1; j < a.length; j++) if (E.has(a[i] + ',' + a[j])) return true; return false; };
+  for (const t of dpTerms(X)) if (clash(close([t]))) return false;
+  for (const x of ex) { if (x.q === 'I') { if (clash(close([x.s, x.p]))) return false; } else { const c = close([x.s]); if (c.has(x.p) || clash(c)) return false; } }
+  return true;
+}
+const dpEntails = (X, phi) => !dpOK(X.concat([dpNeg(phi)]));
+function dpStatus(K, phi) { if (!dpOK(K.concat([dpNeg(phi)]))) return 'seq'; if (!dpOK(K.concat([phi]))) return 'rep'; return 'open'; }
+
+/* size of the smallest contradictory handful inside X (Infinity if X is consistent).
+   A master with foresight k notices any contradiction among k of their statements. */
+function dpMinBad(X) {
+  const ts = dpTerms(X), n = ts.length, ix = new Map(ts.map((t, i) => [t, i])), INF = 1e6;
+  const d = []; for (let i = 0; i < n; i++) { d.push(new Array(n).fill(INF)); d[i][i] = 0; }
+  for (const x of X) if (x.q === 'A') d[ix.get(x.s)][ix.get(x.p)] = 1;
+  for (let w = 0; w < n; w++) for (let i = 0; i < n; i++) { const a = d[i][w]; if (a >= INF) continue; for (let j = 0; j < n; j++) if (a + d[w][j] < d[i][j]) d[i][j] = a + d[w][j]; }
+  let best = INF;
+  for (const x of X) if (x.q === 'O') best = Math.min(best, 1 + d[ix.get(x.s)][ix.get(x.p)]);
+  for (const e of X) {
+    if (e.q !== 'E') continue; const u = ix.get(e.s), v = ix.get(e.p);
+    for (let w = 0; w < n; w++) best = Math.min(best, d[w][u] + d[w][v] + 1);
+    for (const x of X) if (x.q === 'I') { const a = ix.get(x.s), b = ix.get(x.p); best = Math.min(best, 2 + Math.min(d[a][u] + d[b][v], d[b][u] + d[a][v])); }
+  }
+  return best >= INF ? Infinity : best;
+}
+/* a smallest-we-can-find subset of K that forces phi (for explaining a fault) */
+function dpWhy(K, phi) {
+  let X = K.slice(); if (!dpEntails(X, phi)) return null;
+  for (let i = X.length - 1; i >= 0; i--) { const Y = X.slice(0, i).concat(X.slice(i + 1)); if (dpEntails(Y, phi)) X = Y; }
+  return X;
+}
+
+/* ---------- the traditional names of valid steps ---------- */
+const DP_MOODS = { '1AAA': 'Barbara', '1EAE': 'Celarent', '1AII': 'Darii', '1EIO': 'Ferio', '1AAI': 'Barbari', '1EAO': 'Celaront', '2EAE': 'Cesare', '2AEE': 'Camestres', '2EIO': 'Festino', '2AOO': 'Baroco', '2EAO': 'Cesaro', '2AEO': 'Camestros', '3AAI': 'Darapti', '3IAI': 'Disamis', '3AII': 'Datisi', '3EAO': 'Felapton', '3OAO': 'Bocardo', '3EIO': 'Ferison', '4AAI': 'Bramantip', '4AEE': 'Camenes', '4IAI': 'Dimaris', '4EAO': 'Fesapo', '4EIO': 'Fresison', '4AEO': 'Calemos' };
+function dpMood(prem, c) {
+  if (prem.length === 1) {
+    const a = prem[0];
+    if (a.s === c.p && a.p === c.s) return a.q === c.q ? 'simple conversion' : 'conversion by limitation';
+    if (a.s === c.s && a.p === c.p) return 'subalternation';
+    return null;
+  }
+  const flips = x => (x.q === 'E' || x.q === 'I' ? [x, dpSt(x.q, x.p, x.s)] : [x]);
+  for (const [maj0, min0] of [[prem[0], prem[1]], [prem[1], prem[0]]]) for (const maj of flips(maj0)) for (const mn of flips(min0)) {
+    const P = c.p, S = c.s; if (!(maj.s === P || maj.p === P) || !(mn.s === S || mn.p === S)) continue;
+    const M = maj.s === P ? maj.p : maj.s; if (M === S || M === P || !(mn.s === M || mn.p === M) || (mn.s === M ? mn.p : mn.s) !== S) continue;
+    const fig = maj.s === M ? (mn.p === M ? 1 : 3) : (mn.p === M ? 2 : 4); const nm = DP_MOODS[fig + maj.q + mn.q + c.q];
+    if (nm) return nm + (maj !== maj0 || mn !== min0 ? ', after converting a premise' : '');
+  }
+  return null;
+}
+
+/* ---------- the lexicon of the Studium ---------- */
+const DP_WORDS = ['souls', 'bodies', 'substances', 'accidents', 'intellects', 'habits', 'virtues', 'simples', 'composites', 'causes', 'motions', 'qualities', 'relations', 'numbers', 'angels', 'natures'];
+const DP_EQUIV = [{ w: 'forms', g: ['shapes', 'essences'] }, { w: 'acts', g: ['deeds', 'actualities'] }, { w: 'principles', g: ['beginnings', 'sources'] }, { w: 'images', g: ['pictures', 'likenesses'] }, { w: 'powers', g: ['abilities', 'authorities'] }, { w: 'ends', g: ['purposes', 'limits'] }];
+const DP_RANKS = [
+  { n: 'Bachelor', k: 2, extra: 3, bell: 8, dossier: 2, rq: 5, rlo: 1, rhi: 2, strikes: 2, breaths: 10, eq: 1 },
+  { n: 'Licentiate', k: 3, extra: 3, bell: 9, dossier: 2, rq: 6, rlo: 2, rhi: 3, strikes: 2, breaths: 10, eq: 1 },
+  { n: 'Master', k: 4, extra: 4, bell: 10, dossier: 2, rq: 7, rlo: 2, rhi: 3, strikes: 1, breaths: 9, eq: 2 },
+  { n: 'Regent Master', k: 5, extra: 4, bell: 11, dossier: 1, rq: 8, rlo: 2, rhi: 4, strikes: 1, breaths: 8, eq: 2 },
+  { n: 'Doctor', k: 6, extra: 4, bell: 12, dossier: 1, rq: 9, rlo: 3, rhi: 5, strikes: 1, breaths: 8, eq: 2 },
+];
+const DP_FIRST = ['Ysolde', 'Cuthwin', 'Ferrand', 'Petronel', 'Aldith', 'Bertilo', 'Oriel', 'Wystan', 'Sabeline', 'Maudry', 'Gerolt', 'Isembard', 'Hawise', 'Osric', 'Melisent', 'Rainald'];
+const DP_LAST = ['Marrow', 'Hale', 'Ost', 'Vey', 'Thornbury', 'Gallard', 'Pell', 'Ashdown', 'Crane', 'Vellacott', 'Brune', 'Quill', 'Harrowgate', 'Sallow'];
+const DP_EPI = ['the Knotted Doctor', 'the Quiet Blade', 'the Unbending', 'the Mild Doctor', 'the Doctor of Small Things', 'the Patient Doctor', 'the Iron Gloss', 'the Lantern of Varn', 'the Doctor of Corners', 'the Slow Fire'];
+const DP_BOSS = ['Regent of the Arts', 'Dean of the Faculty', 'Proctor of the Schools', 'Keeper of the Great Book', 'Chancellor of the Studium'];
+const DP_SCHOOLS = {
+  none: { n: 'Unaffiliated', d: 'No school, no perks, no debts.' },
+  lamp: { n: 'School of the Lamp', d: '+3 breaths of private reasoning whenever you respond.' },
+  gate: { n: 'The Gatehouse', d: 'Saying "I doubt it" never costs you fame.' },
+  wells: { n: 'Cloister of Wells', d: 'Every master you oppose has one more of their writings on the record.' },
+};
+const DP_UNLOCKS = [
+  { id: 'lamp', n: 'School of the Lamp', cost: 3, d: DP_SCHOOLS.lamp.d },
+  { id: 'gate', n: 'The Gatehouse', cost: 3, d: DP_SCHOOLS.gate.d },
+  { id: 'wells', n: 'Cloister of Wells', cost: 4, d: DP_SCHOOLS.wells.d },
+  { id: 'gloss', n: 'A glossator', cost: 3, d: 'Words with two senses are underlined whenever a master puts them to you.' },
+  { id: 'candles', n: 'Long candles', cost: 4, d: 'One more question in every disputation where you oppose.' },
+  { id: 'patron', n: 'A patron', cost: 5, d: 'Start every career with 3 more reputation.' },
+  { id: 'second', n: 'A second wind', cost: 5, d: 'One more slip allowed whenever you respond.' },
+];
+
+function dpNewRun(meta, school) {
+  const seed = (Math.random() * 1e9) >>> 0, r = dpRng(seed); const has = u => meta.unlocks.includes(u);
+  const words = dpShuffle(DP_WORDS, r).slice(0, 10), eqs = dpShuffle(DP_EQUIV, r).slice(0, 2);
+  const lex = words.map(w => ({ w, g: null, b: -1 })); const E = [];
+  eqs.forEach((e, b) => { const ids = e.g.map(g => { lex.push({ w: e.w, g, b }); return lex.length - 1; }); E.push({ w: e.w, ids }); });
+  const R = { v: 1, seed, lex, eqs: E, rank: 0, stage: 0, rep: 10 + (has('patron') ? 3 : 0), fame: 0, book: [], school: school || 'none', perks: meta.unlocks.slice(), n: 0,
+    items: { candle: 0, tablet: 0, dossier: 0 }, D: null, log: [], over: null, wins: 0, losses: 0, stats: { nonseq: 0, seqDenied: 0, repGranted: 0, doubtBad: 0, equiv: 0, spoiled: 0, timeout: 0, doubts: 0 } };
+  // the school's starting doctrine: five consistent statements, some about two-sensed words
+  const all = dpAllSts(lex.map((_, i) => i)); let book = [];
+  for (let tries = 0; book.length < 5 && tries < 500; tries++) {
+    const x = dpPick(all, r); if (tries < 200 && book.length < 2 && lex[x.s].b < 0 && lex[x.p].b < 0) continue;
+    if (book.some(y => dpEq(x, y)) || !dpOK(book.concat([x]))) continue;
+    if (dpStatus(book, x) !== 'open') continue; book.push(x);
+  }
+  R.book = book.map(st => ({ st, how: 'school', at: 0 }));
+  return R;
+}
+function dpAllSts(ids) { const out = []; for (const q of 'AEIO') for (const s of ids) for (const p of ids) if (s !== p && (q === 'A' || q === 'O' || s < p)) out.push(dpSt(q, s, p)); return out; }
+const dpConcrete = R => R.lex.map((_, i) => i);
+/* a bare two-sensed word is written as -(index+1); it stands for either sense */
+function dpSenses(x, eqs) {
+  const opts = v => (v < 0 ? eqs[-v - 1].ids : [v]); const out = [];
+  for (const s of opts(x.s)) for (const p of opts(x.p)) if (s !== p) out.push(dpSt(x.q, s, p));
+  return out;
+}
+const dpTrue = (M, x) => { const bs = 1 << x.s, bp = 1 << x.p;
+  if (x.q === 'A') return M.every(r => !(r & bs) || (r & bp)); if (x.q === 'E') return M.every(r => !((r & bs) && (r & bp)));
+  if (x.q === 'I') return M.some(r => (r & bs) && (r & bp)); return M.some(r => (r & bs) && !(r & bp)); };
+
+/* ---------- opposing: build a master whose own beliefs contradict their thesis, deep enough to miss ---------- */
+function dpGenOppose(R, boss) {
+  const P = DP_RANKS[R.rank], k = P.k + (boss ? 1 : 0), m = k; R.n++;
+  const r = dpRng(R.seed ^ Math.imul(R.n, 2654435761));
+  const nTerms = Math.min(R.lex.length, m + 1 + P.extra + (boss ? 1 : 0));
+  for (let tries = 0; tries < 600; tries++) {
+    const ids = dpShuffle(dpConcrete(R), r).slice(0, nTerms); const ch = ids.slice(0, m + 1), rest = ids.slice(m + 1);
+    const type = R.rank === 0 && !boss ? dpPick(['O', 'E'], r) : dpPick(['O', 'E', 'A', 'I'], r);
+    let route = [], T, protect = []; const link = (a, b) => route.push(dpSt('A', a, b));
+    if (type === 'O') { for (let i = 0; i < m; i++) link(ch[i], ch[i + 1]); T = dpSt('O', ch[0], ch[m]); }
+    else if (type === 'I') { for (let i = 0; i < m - 1; i++) link(ch[i], ch[i + 1]); route.push(dpSt('E', ch[m - 1], ch[m])); T = dpSt('I', ch[0], ch[m]); protect = [[ch[m - 1], ch[m]]]; }
+    else if (type === 'A') { for (let i = 0; i < m - 1; i++) link(ch[i], ch[i + 1]); route.push(dpSt('E', ch[0], ch[m])); T = dpSt('A', ch[m - 1], ch[m]); protect = [[ch[0], ch[m]]]; }
+    else { const a = 1 + Math.floor(r() * (m - 1)); for (let i = 0; i < a; i++) link(ch[i], ch[i + 1]); let prev = ch[0]; for (let i = a + 1; i <= m; i++) { link(prev, ch[i]); prev = ch[i]; } T = dpSt('E', ch[a], ch[m]); }
+    // a ranking keeps "All" acyclic; route terms in route order, the rest scattered
+    const pos = new Map(); ch.forEach((t, i) => pos.set(t, i * 10)); rest.forEach(t => pos.set(t, Math.floor(r() * (m * 10 + 10)) - 5));
+    const edges = route.filter(x => x.q === 'A').map(x => [x.s, x.p]);
+    rest.forEach(d => {
+      const higher = ids.filter(t => t !== d && pos.get(t) > pos.get(d)), lower = ids.filter(t => t !== d && pos.get(t) < pos.get(d));
+      if (higher.length && r() < 0.75) edges.push([d, dpPick(higher, r)]);
+      if (lower.length && r() < 0.45) edges.push([dpPick(lower, r), d]);
+    });
+    const up = t => { const s = new Set([t]), st = [t]; while (st.length) { const x = st.pop(); edges.forEach(([a, b]) => { if (a === x && !s.has(b)) { s.add(b); st.push(b); } }); } let mask = 0; s.forEach(y => { mask |= 1 << y; }); return mask; };
+    const bad = mask => protect.some(([a, b]) => (mask & (1 << a)) && (mask & (1 << b)));
+    let M = ids.map(up); if (M.some(bad)) continue;
+    for (let j = 0; j < 4; j++) { const a = dpPick(ids, r), b = dpPick(ids, r); const u = up(a) | up(b); if (a !== b && !bad(u)) M.push(u); }
+    M = [...new Set(M)];
+    if (dpTrue(M, T) || !route.every(x => dpTrue(M, x))) continue;
+    const F = [T].concat(route); if (dpMinBad(F) !== F.length) continue;
+    // the master's published writings: true by their lights, and they must not give the trap away
+    const trues = dpAllSts(ids).filter(x => dpTrue(M, x) && !route.some(y => dpEq(x, y)) && !dpEq(x, dpNeg(T)));
+    let dossier = []; const want = P.dossier + (R.school === 'wells' ? 1 : 0) + (R.items.dossier || 0);
+    if (R.rank <= 1 || r() < 0.4) dossier.push(dpPick(route, r));
+    for (let j = 0; j < 80 && dossier.length < want; j++) { const x = dpPick(trues, r); if (dossier.some(y => dpEq(x, y))) continue; const tryD = dossier.concat([x]); if (dpMinBad([T].concat(tryD, route)) >= k + 1 && dpMinBad([T].concat(tryD)) > k) dossier = tryD; }
+    if (dpMinBad([T].concat(dossier, route)) < k + 1 || dpMinBad([T].concat(dossier)) <= k) continue;
+    const name = `${dpPick(DP_FIRST, r)} ${dpPick(DP_LAST, r)}`;
+    const C = [{ st: T, how: 'thesis' }].concat(dossier.map(st => ({ st, how: 'writ' })));
+    return { mode: 'oppose', boss, k, terms: ids, M, T, route, C, derived: [], bell: P.bell + (boss ? 2 : 0) + (R.perks.includes('candles') ? 1 : 0) + (R.items.candle || 0), bell0: 0, strikes: 0,
+      rival: { n: `Master ${name}`, e: boss ? DP_BOSS[R.rank] : dpPick(DP_EPI, r) }, done: null, last: null };
+  }
+  return null;
+}
+/* the master answers a question; their sight reaches k statements */
+function dpRivalAnswer(D, phi) {
+  const C = D.C.map(c => c.st);
+  const seqV = dpMinBad(C.concat([dpNeg(phi)])) <= D.k, repV = dpMinBad(C.concat([phi])) <= D.k, truth = dpTrue(D.M, phi);
+  let ans, why;
+  if (seqV && !repV) { ans = true; why = 'seq'; }
+  else if (repV && !seqV) { ans = false; why = truth ? 'protect' : 'rep'; }
+  else { ans = truth; why = 'belief'; }
+  return { ans, why, st: ans ? phi : dpNeg(phi) };
+}
+/* your step of argument: valid, new, and about terms in its premises */
+function dpCheckStep(prem, c) {
+  if (c.s === c.p) return { ok: false, why: 'A term cannot be compared with itself.' };
+  const ts = new Set(dpTerms(prem)); if (!ts.has(c.s) || !ts.has(c.p)) return { ok: false, why: 'The conclusion may only use terms from its premises.' };
+  if (prem.some(x => dpEq(x, c))) return { ok: false, why: 'That is one of the premises.', soft: true };
+  if (!dpEntails(prem, c)) return { ok: false, why: 'Non sequitur: it does not follow.' };
+  return { ok: true, mood: dpMood(prem, c) };
+}
+
+/* ---------- responding: the master tries to make you contradict yourself ---------- */
+function dpGenRespond(R, boss) {
+  const P = DP_RANKS[R.rank]; R.n++; const r = dpRng(R.seed ^ Math.imul(R.n, 40503) ^ 77);
+  const bookTerms = dpTerms(R.book.map(b => b.st)); const nT = Math.min(R.lex.length, 6 + R.rank + (boss ? 1 : 0));
+  const eqIds = dpShuffle(R.eqs, r).slice(0, P.eq).flatMap(e => e.ids);
+  const others = dpShuffle(dpConcrete(R).filter(i => R.lex[i].b < 0), r).sort((a, b) => (bookTerms.includes(b) ? 1 : 0) - (bookTerms.includes(a) ? 1 : 0) + (r() - 0.5) * 0.9);
+  const terms = [...new Set(eqIds.concat(others))].slice(0, Math.max(nT, eqIds.length + 3));
+  const K = R.book.map(b => b.st); let T = null;
+  for (let tries = 0; tries < 200 && !T; tries++) { const x = dpPick(dpAllSts(terms), r); if (dpStatus(K, x) === 'open') T = x; }
+  const name = `${dpPick(DP_FIRST, r)} ${dpPick(DP_LAST, r)}`;
+  return { mode: 'respond', boss, terms, T, answers: [], asked: [], q: null, qn: 0, total: P.rq + (boss ? 2 : 0),
+    strikes: 0, maxStrikes: P.strikes + (R.perks.includes('second') ? 1 : 0), breaths: P.breaths + (R.school === 'lamp' ? 3 : 0) + (R.items.tablet || 0), notes: [], fame: 0,
+    rival: { n: `Master ${name}`, e: boss ? DP_BOSS[R.rank] : dpPick(DP_EPI, r) }, done: null, seed: r() * 1e9 >>> 0 };
+}
+const dpK = (R, D) => R.book.map(b => b.st).concat(D.T ? [D.T] : [], D.answers.flatMap(a => a.commit));
+function dpComplexity(K, phi) { const X = dpWhy(K, phi); return X ? X.length : 0; }
+function dpNextQuestion(R, D) {
+  const P = DP_RANKS[R.rank], r = dpRng(D.seed + D.qn * 977), K = dpK(R, D);
+  const asked = new Set(D.asked); const fresh = x => !asked.has(dpKey(x)) && !K.some(y => dpEq(x, y));
+  const cands = dpAllSts(D.terms).filter(fresh); const by = { seq: [], rep: [], open: [] };
+  cands.forEach(x => by[dpStatus(K, x)].push(x));
+  const lo = P.rlo + (D.boss ? 1 : 0), hi = P.rhi + (D.boss ? 1 : 0);
+  const pickHard = (list, neg) => {
+    const sample = dpShuffle(list, r).slice(0, 28).map(x => ({ x, c: dpComplexity(K, neg ? dpNeg(x) : x) })).filter(o => o.c > 1 || (o.c === 1 && R.rank === 0));
+    const inBand = sample.filter(o => o.c >= lo && o.c <= hi); const pool = inBand.length ? inBand : sample.sort((a, b) => b.c - a.c).slice(0, 3);
+    return pool.length ? dpPick(pool, r).x : null;
+  };
+  // equivocation trap: a bare two-sensed word whose senses get different answers
+  const eqs = R.eqs.map((e, i) => ({ e, i })).filter(o => o.e.ids.every(id => D.terms.includes(id)));
+  const baits = () => {
+    const out = []; const A = K.filter(x => x.q === 'A'), O = K.filter(x => x.q === 'O'), E = K.filter(x => x.q === 'E');
+    A.forEach(a => A.forEach(b => { if (a !== b && a.p === b.p && a.s !== b.s) out.push(dpSt('A', a.s, b.s)); }));   // undistributed middle
+    A.forEach(a => out.push(dpSt('A', a.p, a.s)));                                                                // converting "all"
+    O.forEach(o => out.push(dpSt('O', o.p, o.s)));                                                                // converting "some … not"
+    A.forEach(a => E.forEach(e => { if (e.s === a.s || e.p === a.s) { const z = e.s === a.s ? e.p : e.s; if (z !== a.p) out.push(dpSt('E', a.p, z)); } }));   // illicit process
+    return out.filter(x => D.terms.includes(x.s) && D.terms.includes(x.p) && fresh(x) && dpStatus(K, x) === 'open');
+  };
+  const roll = r(); let q = null, kind = '';
+  if (eqs.length && roll < 0.22) {
+    const tries = [];
+    eqs.forEach(({ e, i }) => D.terms.filter(t => !e.ids.includes(t)).forEach(t => 'AEIO'.split('').forEach(qq => [[-(i + 1), t], [t, -(i + 1)]].forEach(([s, p]) => {
+      const x = dpSt(qq, s, p); if (asked.has(dpKey(x))) return; const st = dpSenses(x, R.eqs).map(y => dpStatus(K, y)); if (new Set(st).size > 1) tries.push({ x, sc: (st.includes('seq') && st.includes('rep') ? 3 : 1) + r() });
+    }))));
+    if (tries.length) { tries.sort((a, b) => b.sc - a.sc); q = tries[0].x; kind = 'equiv'; }
+  }
+  if (!q && roll < 0.55 && by.seq.length) { q = pickHard(by.seq, false); kind = 'seq'; }
+  if (!q && roll < 0.85 && by.rep.length) { q = pickHard(by.rep, true); kind = 'rep'; }
+  if (!q) { const b = baits(); if (b.length) { q = dpPick(b, r); kind = 'bait'; } }
+  if (!q && by.open.length) { q = dpPick(by.open, r); kind = 'open'; }
+  if (!q && by.seq.length) { q = dpPick(by.seq, r); kind = 'seq'; }
+  if (!q && by.rep.length) { q = dpPick(by.rep, r); kind = 'rep'; }
+  return q && { st: q, kind };
+}
+/* judge one answer. parts: [{st, a: 'C' | 'N' | 'D'}] (one part, or one per sense after a distinction) */
+function dpJudge(K, parts) {
+  let k = K.slice(); const commit = [];
+  for (const pt of parts) {
+    const s = dpStatus(k, pt.st);
+    if (pt.a === 'C' && s === 'rep') return { fault: 'repGranted', st: pt.st, why: dpWhy(k, dpNeg(pt.st)) };
+    if (pt.a === 'N' && s === 'seq') return { fault: 'seqDenied', st: pt.st, why: dpWhy(k, pt.st) };
+    if (pt.a === 'D' && s !== 'open') return { fault: 'doubtBad', st: pt.st, status: s, why: s === 'seq' ? dpWhy(k, pt.st) : dpWhy(k, dpNeg(pt.st)) };
+    if (pt.a === 'C') { commit.push(pt.st); k.push(pt.st); } else if (pt.a === 'N') { commit.push(dpNeg(pt.st)); k.push(dpNeg(pt.st)); }
+  }
+  return { fault: null, commit };
+}
+
+/* ===================== THE DISPUTATION — UI ===================== */
+let DPS = dpLoad();
+const DPU = { screen: 'title', sel: [], ask: { q: 'A', s: null, p: null }, con: { q: 'A', s: null, p: null }, dist: null, showBook: false, hb: 'rules', retract: false };
+function dpNewSave() { return { v: 1, meta: { laurels: 0, unlocks: [], hist: [], runs: 0 }, run: null }; }
+function dpLoad() {
+  try { const s = JSON.parse(localStorage.getItem(DP_KEY)); if (s && s.v === 1) { const o = Object.assign(dpNewSave(), s); o.meta = Object.assign(dpNewSave().meta, s.meta || {}); return o; } } catch (e) {}
+  return dpNewSave();
+}
+function dpSave() { try { localStorage.setItem(DP_KEY, JSON.stringify(DPS)); } catch (e) {} }
+const DP_Q = { A: ['All', 'are'], E: ['No', 'are'], I: ['Some', 'are'], O: ['Some', 'are not'] };
+const DP_QN = { A: 'All … are …', E: 'No … are …', I: 'Some … are …', O: 'Some … are not …' };
+function dpTerm(id, opt = {}) {
+  const R = DPS.run; if (id === null || id === undefined) return '<span class="dp-t empty">…</span>';
+  if (id < 0) { const e = R.eqs[-id - 1]; return `<span class="dp-t${opt.gloss ? ' amb' : ''}">${esc(e.w)}</span>`; }
+  const t = R.lex[id]; return `<span class="dp-t">${esc(t.w)}${t.g ? ` <i>(as ${esc(t.g)})</i>` : ''}</span>`;
+}
+const dpTermText = id => { const R = DPS.run; if (id < 0) return R.eqs[-id - 1].w; const t = R.lex[id]; return t.g ? `${t.w} (as ${t.g})` : t.w; };
+const dpSay = (x, opt) => `${DP_Q[x.q][0]} ${dpTerm(x.s, opt)} ${DP_Q[x.q][1]} ${dpTerm(x.p, opt)}`;
+const dpSayT = x => `${DP_Q[x.q][0]} ${dpTermText(x.s)} ${DP_Q[x.q][1]} ${dpTermText(x.p)}`;
+const dpCandles = (n, total) => `<span class="dp-candles" aria-label="${n} questions left">${Array.from({ length: total }, (_, i) => `<svg class="dp-candle${i < n ? '' : ' out'}" viewBox="0 0 10 26" aria-hidden="true"><path class="fl" d="M5 1C7.6 4.2 7.4 6.6 5 8.6 2.6 6.6 2.4 4.2 5 1Z"/><rect class="wx" x="2.6" y="9" width="4.8" height="16" rx="1"/></svg>`).join('')}</span>`;
+const dpRankName = i => (DP_RANKS[i] || DP_RANKS[DP_RANKS.length - 1]).n;
+const DP_STAGES = ['You oppose', 'You respond', 'The quodlibet'];
+
+/* ---------- open & render ---------- */
+function openDp() { UI.view = 'dp'; closeModal(); DPU.screen = 'title'; dpRender(); }
+function dpRender(keep) {
+  if (UI.view !== 'dp') return;
+  const prev = document.querySelector('.dp-main'); const top = keep && prev ? prev.scrollTop : 0;
+  const R = DPS.run;
+  $('#app').innerHTML = `<div class="dp">${DPU.screen === 'title' || !R ? dpTitleHTML() : R.over ? dpEndHTML() : R.shop ? dpShopHTML() : R.D ? dpDispHTML() : dpHallHTML()}</div>`;
+  const m = document.querySelector('.dp-main'); if (m) m.scrollTop = top;
+}
+function dpTitleHTML() {
+  const R = DPS.run, M = DPS.meta;
+  return `<main class="dp-main dp-center"><div class="dp-title">
+    <canvas data-scene="dp-title" class="dp-titlecv" aria-label="An illuminated initial D with a burning candle"></canvas>
+    <h1 class="dp-logo">The Disputation</h1>
+    <p class="dp-kicker">Cartridge 04 · The Studium of Varn</p>
+    <p>Rise from bachelor to the Chair by public argument. Question rival masters until their own words contradict them. Then stand at the lectern and answer theirs, bound by every word you have ever granted.</p>
+    <div class="dp-menu">
+      ${R && !R.over ? `<button class="btn primary" data-dp="continue">Continue · ${esc(dpRankName(R.rank))}</button>` : ''}
+      <button class="btn ${R && !R.over ? '' : 'primary'}" data-dp="newrun">New career</button>
+      <button class="btn" data-dp="hb">The Handbook</button>
+      <button class="btn" data-dp="archive">The Archive · ${M.laurels} laurel${M.laurels === 1 ? '' : 's'}</button>
+      <button class="btn" data-dp="notebook">Past careers · ${M.hist.length}</button>
+      <a class="btn" href="#arcade">Back to the arcade</a>
+    </div></div></main>`;
+}
+function dpHud() {
+  const R = DPS.run;
+  return `<header class="dp-hud"><a class="ib" href="#arcade" aria-label="Back to the arcade">◂</a><button class="dp-brand" data-dp="totitle">The Disputation</button>
+    <span class="dp-stat">${esc(dpRankName(R.rank))}</span><span class="dp-stat ${R.rep <= 3 ? 'low' : ''}" title="Reputation">rep <b>${R.rep}</b></span><span class="dp-stat" title="Fame">fame <b>${R.fame}</b></span></header>`;
+}
+function dpHallHTML() {
+  const R = DPS.run, P = DP_RANKS[R.rank], slips = P.strikes + (R.perks.includes('second') ? 1 : 0) - 1;
+  return `${dpHud()}<main class="dp-main">
+    <h2 class="dp-h2">The ${esc(P.n)}'s term</h2>
+    <ol class="dp-ladder">${DP_RANKS.map((r, i) => `<li class="${i < R.rank ? 'done' : i === R.rank ? 'now' : ''}">${esc(r.n)}</li>`).join('')}<li>The Chair</li></ol>
+    <ol class="dp-stages">${DP_STAGES.map((s, i) => `<li class="${i < R.stage ? 'done' : i === R.stage ? 'now' : ''}"><b>${s}</b><small>${i === 0 ? 'Refute a master from their own words.' : i === 1 ? 'Answer a master without contradicting yourself.' : 'Refute the head of the faculty. Win to be promoted.'}</small></li>`).join('')}</ol>
+    <div class="dp-card"><p>${R.stage === 1 ? `A master will put ${P.rq} questions to you. ${slips === 0 ? 'A single slip and you are refuted.' : `You can survive ${slips} slip${slips === 1 ? '' : 's'}; one more and you are refuted.`}` : `This master notices a contradiction among up to <b>${P.k + (R.stage === 2 ? 1 : 0)}</b> of their own statements. Your trap must need more than that.`}</p>
+      <button class="btn primary big" data-dp="enter">Enter the hall</button></div>
+    ${dpBookHTML()}
+    <div class="dp-foot"><button class="btn" data-dp="hb">Handbook</button></div></main>`;
+}
+function dpBookHTML(selectable) {
+  const R = DPS.run; const B = R.book;
+  return `<details class="dp-book"${DPU.showBook ? ' open' : ''}><summary data-dp="booktog">Your Book of Commitments · ${B.length}</summary>
+    <p class="dp-small">Everything you have ever granted or denied in public. Every master holds you to all of it.</p>
+    <ul class="dp-lines">${B.map((b, i) => `<li${selectable ? ` data-dp="sel" data-id="b${i}" class="${DPU.sel.includes('b' + i) ? 'sel' : ''}"` : ''}><span class="n">${i + 1}</span><span>${dpSay(b.st)}</span><em>${b.how === 'school' ? 'school' : b.how === 'thesis' ? 'thesis' : 'answered'}</em></li>`).join('')}</ul></details>`;
+}
+
+/* ---------- the disputation screens ---------- */
+function dpDispHTML() { const D = DPS.run.D; return dpHud() + `<main class="dp-main">${D.mode === 'oppose' ? dpOpposeHTML() : dpRespondHTML()}</main>`; }
+function dpBuilder(key, terms, act) {
+  const b = DPU[key];
+  return `<div class="dp-build" data-key="${key}">
+    <button class="dp-slot q" data-dp="slot" data-id="${key}:q">${DP_Q[b.q][0]}</button>
+    <button class="dp-slot" data-dp="slot" data-id="${key}:s">${b.s === null ? '<span class="ph">term</span>' : dpTerm(b.s)}</button>
+    <span class="dp-cop">${DP_Q[b.q][1]}</span>
+    <button class="dp-slot" data-dp="slot" data-id="${key}:p">${b.p === null ? '<span class="ph">term</span>' : dpTerm(b.p)}</button>
+    ${act}</div>`;
+}
+function dpRival(D) { return `<div class="dp-rival"><div><b>${esc(D.rival.n)}</b><i>${esc(D.rival.e)}</i></div>${D.mode === 'oppose' ? `<p>Notices any contradiction among up to <b>${D.k}</b> of their own statements.</p>` : ''}</div>`; }
+const DP_WHY = { seq: 'it follows from what I have granted', rep: 'that contradicts what I have granted', belief: '', protect: '' };
+function dpOpposeHTML() {
+  const R = DPS.run, D = R.D; const lines = dpLines(); const prem = DPU.sel.map(id => lines.find(l => l.id === id)).filter(Boolean);
+  const pt = dpTerms(prem.map(l => l.st));
+  const last = D.last;
+  return `${dpRival(D)}
+    <div class="dp-thesis"><span class="rub">Thesis</span> ${dpSay(D.T)}</div>
+    <div class="dp-bellrow">${dpCandles(D.bell, D.bell + D.C.filter(c => c.how === 'ask').length)}<span class="dp-small">${D.bell ? `${D.bell} question${D.bell === 1 ? '' : 's'} left` : 'The bell has rung. Finish your argument or yield.'}</span><span class="dp-strk" title="Non sequiturs: three and the hall laughs you out">${'✗'.repeat(D.strikes)}${'○'.repeat(Math.max(0, 3 - D.strikes))}</span></div>
+    ${last ? `<div class="dp-reply ${last.why}"><span class="who">${esc(D.rival.n.replace('Master ', ''))}:</span> «${last.ans ? 'Concedo' : 'Nego'}${DP_WHY[last.why] ? ` — ${DP_WHY[last.why]}` : ''}.»${last.why === 'protect' ? '<p class="tell">They pause a long moment, frowning, before they answer.</p>' : ''}</div>` : ''}
+    <h3 class="dp-h3">Put a question</h3>
+    ${dpBuilder('ask', D.terms, `<button class="btn primary" data-dp="ask"${D.bell ? '' : ' disabled'}>Ask</button>`)}
+    <h3 class="dp-h3">The record <small>tap two lines to reason from them</small></h3>
+    <ul class="dp-lines">${lines.filter(l => l.id[0] === 'c').map(l => dpLineHTML(l)).join('')}</ul>
+    <h3 class="dp-h3">Your argument</h3>
+    ${lines.some(l => l.id[0] === 'd') ? `<ul class="dp-lines">${lines.filter(l => l.id[0] === 'd').map(l => dpLineHTML(l)).join('')}</ul>` : ''}
+    <div class="dp-bench"><p class="dp-small">${prem.length ? `From ${prem.map(l => `<b>${l.n}</b>`).join(' and ')}, therefore:` : 'Pick one or two lines above, then say what follows. A wrong step is a non sequitur.'}</p>
+      ${prem.length ? dpBuilder('con', pt, `<button class="btn primary" data-dp="infer">Therefore</button>`) : ''}</div>
+    <div class="dp-foot"><button class="btn" data-dp="hb">Handbook</button><button class="btn danger" data-dp="yield">Yield</button></div>`;
+}
+function dpLineHTML(l) { return `<li data-dp="sel" data-id="${l.id}" class="${DPU.sel.includes(l.id) ? 'sel' : ''} ${l.cls || ''}"><span class="n">${l.n}</span><span>${dpSay(l.st)}</span><em>${l.tag}</em></li>`; }
+function dpLines() {
+  const R = DPS.run, D = R.D; const out = [];
+  if (D.mode === 'oppose') {
+    D.C.forEach((c, i) => out.push({ id: 'c' + i, n: i + 1, st: c.st, tag: c.how === 'thesis' ? 'thesis' : c.how === 'writ' ? 'from their writings' : `asked: ${c.ans ? 'granted' : 'denied'}`, cls: c.how === 'thesis' ? 'thesis' : c.why === 'protect' ? 'protect' : '' }));
+    D.derived.forEach((d, i) => out.push({ id: 'd' + i, n: String.fromCharCode(97 + i), st: d.st, tag: d.mood || 'follows', cls: 'mine' }));
+  } else {
+    out.push({ id: 't', n: 'T', st: D.T, tag: 'your thesis', cls: 'thesis' });
+    D.answers.forEach((a, i) => a.commit.forEach((st, j) => out.push({ id: `a${i}.${j}`, n: `Q${i + 1}`, st, tag: 'answered today' })));
+    R.book.forEach((b, i) => out.push({ id: 'b' + i, n: i + 1, st: b.st, tag: b.how === 'school' ? 'school' : b.how === 'thesis' ? 'old thesis' : 'answered', cls: 'book' }));
+    D.notes.forEach((d, i) => out.push({ id: 'n' + i, n: String.fromCharCode(97 + i), st: d.st, tag: d.mood || 'follows', cls: 'mine' }));
+  }
+  return out;
+}
+function dpRespondHTML() {
+  const R = DPS.run, D = R.D; const lines = dpLines(); const prem = DPU.sel.map(id => lines.find(l => l.id === id)).filter(Boolean); const pt = dpTerms(prem.map(l => l.st));
+  const q = D.q && D.q.st; const bare = q && (q.s < 0 || q.p < 0); const gloss = R.perks.includes('gloss');
+  return `${dpRival(D)}
+    <div class="dp-thesis mine"><span class="rub">You hold</span> ${dpSay(D.T)}</div>
+    <div class="dp-bellrow"><span class="dp-small">Question ${Math.min(D.qn + 1, D.total)} of ${D.total}</span><span class="dp-strk" title="Slips">${'✗'.repeat(D.strikes)}${'○'.repeat(Math.max(0, D.maxStrikes - D.strikes))}</span><span class="dp-small">${D.breaths} breath${D.breaths === 1 ? '' : 's'}</span></div>
+    ${D.lastNote ? `<div class="dp-reply ${D.lastNote.k}">${D.lastNote.t}</div>` : ''}
+    ${q ? `<div class="dp-question"><p class="dp-who">${esc(D.rival.n)} asks:</p><p class="dp-q">«${dpSay(q, { gloss })}?»</p>
+      ${DPU.dist ? `<div class="dp-dist"><p class="dp-small">Distinguo: answer each sense on its own.</p>${dpSenses(q, R.eqs).map((st, i) => `<div class="dp-drow"><span>${dpSay(st)}</span><div class="dp-chips">${['C', 'N', 'D'].map(a => `<button data-dp="dans" data-id="${i}:${a}" aria-pressed="${DPU.dist[i] === a}">${{ C: 'Concedo', N: 'Nego', D: 'Dubito' }[a]}</button>`).join('')}</div></div>`).join('')}
+        <div class="dp-actions"><button class="btn" data-dp="undist">Back</button><button class="btn primary" data-dp="dsubmit"${dpSenses(q, R.eqs).every((_, i) => DPU.dist[i]) ? '' : ' disabled'}>Answer</button></div></div>`
+      : `<div class="dp-answers"><button class="btn primary" data-dp="ans" data-id="C">Concedo<small>I grant it</small></button><button class="btn primary" data-dp="ans" data-id="N">Nego<small>I deny it</small></button><button class="btn" data-dp="ans" data-id="D">Dubito<small>I doubt it</small></button><button class="btn" data-dp="distinguo">Distinguo<small>a word has two senses</small></button></div>`}
+      ${bare && gloss ? '<p class="dp-small">Your glossator underlines a word with two senses.</p>' : ''}</div>` : ''}
+    <h3 class="dp-h3">Your commitments <small>tap two to reason privately</small></h3>
+    <ul class="dp-lines">${lines.filter(l => l.id === 't' || l.id[0] === 'a').map(l => dpLineHTML(l)).join('')}</ul>
+    <details class="dp-book"${DPU.showBook ? ' open' : ''}><summary data-dp="booktog">Your Book · ${R.book.length}</summary><ul class="dp-lines">${lines.filter(l => l.id[0] === 'b').map(l => dpLineHTML(l)).join('')}</ul></details>
+    <h3 class="dp-h3">Private reasoning <small>each try costs a breath</small></h3>
+    ${lines.some(l => l.id[0] === 'n') ? `<ul class="dp-lines">${lines.filter(l => l.id[0] === 'n').map(l => dpLineHTML(l)).join('')}</ul>` : ''}
+    <div class="dp-bench"><p class="dp-small">${prem.length ? `From ${prem.map(l => `<b>${l.n}</b>`).join(' and ')}, therefore:` : 'Pick one or two of your commitments to see what they force. Wrong tries cost a breath but no shame.'}</p>
+      ${prem.length ? dpBuilder('con', pt, `<button class="btn primary" data-dp="try"${D.breaths ? '' : ' disabled'}>Try</button>`) : ''}</div>
+    <div class="dp-foot"><button class="btn" data-dp="hb">Handbook</button></div>`;
+}
+
+/* ---------- actions ---------- */
+function dpEnter() {
+  const R = DPS.run; DPU.sel = []; DPU.dist = null; DPU.ask = { q: 'A', s: null, p: null }; DPU.con = { q: 'A', s: null, p: null };
+  if (R.stage === 1) { const D = dpGenRespond(R, false); R.D = D; D.q = dpNextQuestion(R, D); if (D.q) D.asked.push(dpKey(D.q.st)); R.items.tablet = 0; }
+  else { const D = dpGenOppose(R, R.stage === 2); if (!D) { toast('The hall is empty today. Try again.'); return; } R.D = D; R.items.candle = 0; R.items.dossier = 0; }
+  dpSave(); SFX.paper(); dpRender(); dpFirstHelp(R.D.mode);
+}
+function dpFirstHelp(mode) {
+  const R = DPS.run; R.seen = R.seen || {}; if (R.seen[mode] || DPS.meta.runs > 0) return; R.seen[mode] = 1; dpSave();
+  if (mode === 'oppose') dpModal(`<h2>You oppose</h2><p>The master defends the thesis in red. Somewhere in what they believe is a contradiction with it, and they cannot see it.</p><p><b>Ask</b> questions to get them on the record. They must grant what they believe and anything that plainly follows. They deny anything that plainly contradicts what they have said.</p><p>Then <b>reason</b>: tap two lines on the record and state what follows. When a line you derive contradicts a line on the record, they are refuted.</p><p>They notice any contradiction among a few of their statements (shown under their name). Spring the trap through more statements than that, or they will see it coming and deny the last step.</p><div class="row"><button class="btn primary" data-dp="close">To the lectern</button></div>`);
+  else dpModal(`<h2>You respond</h2><p>Now a master questions you. For each proposition you must:</p><p><b>Concedo</b> if it follows from your commitments, <b>Nego</b> if it contradicts them, and answer as you please if it does neither. <b>Dubito</b> is only allowed then.</p><p>Your commitments are your thesis, today's answers, and your whole Book. Some words have two senses: <b>Distinguo</b> lets you answer each sense on its own.</p><p>Every free answer you give goes into your Book for the rest of your career.</p><div class="row"><button class="btn primary" data-dp="close">To the lectern</button></div>`);
+}
+function dpModal(html) { modal(html); const sh = document.querySelector('#modal .sheet'); if (sh) sh.classList.add('dp-sheet'); }
+function dpPicker(key, slot) {
+  const R = DPS.run, D = R.D;
+  if (slot === 'q') { dpModal(`<h2>Quantity and quality</h2><div class="dp-pick">${'AEIO'.split('').map(q => `<button data-dp="setslot" data-id="${key}:q:${q}">${DP_QN[q]}</button>`).join('')}</div>`); return; }
+  let terms = D.terms; if (key === 'con') { const lines = dpLines(); terms = dpTerms(DPU.sel.map(id => lines.find(l => l.id === id)).filter(Boolean).map(l => l.st)); }
+  dpModal(`<h2>${slot === 's' ? 'Subject' : 'Predicate'}</h2><div class="dp-pick">${terms.slice().sort((a, b) => dpTermText(a).localeCompare(dpTermText(b))).map(t => `<button data-dp="setslot" data-id="${key}:${slot}:${t}">${dpTerm(t)}</button>`).join('')}</div>`);
+}
+function dpAsk() {
+  const R = DPS.run, D = R.D, b = DPU.ask; if (!D.bell) return;
+  if (b.s === null || b.p === null) { toast('Choose both terms.'); return; } if (b.s === b.p) { toast('Ask about two different terms.'); return; }
+  const phi = dpSt(b.q, b.s, b.p); const a = dpRivalAnswer(D, phi);
+  D.C.push({ st: a.st, how: 'ask', ans: a.ans, why: a.why, asked: phi }); D.bell--; D.last = { ans: a.ans, why: a.why };
+  if (a.why === 'protect') R.stats.spoiled++;
+  (a.ans ? SFX.ok : SFX.tap)(); dpSave(); dpRender(true);
+}
+function dpInfer() {
+  const R = DPS.run, D = R.D, lines = dpLines(); const prem = DPU.sel.map(id => lines.find(l => l.id === id)).filter(Boolean); const b = DPU.con;
+  if (!prem.length || b.s === null || b.p === null) { toast('Finish the conclusion first.'); return; }
+  const c = dpSt(b.q, b.s, b.p); const chk = dpCheckStep(prem.map(l => l.st), c);
+  if (!chk.ok) {
+    if (chk.soft || /only use terms|itself/.test(chk.why)) { toast(chk.why); return; }
+    D.strikes++; R.stats.nonseq++; SFX.bad(); D.last = null;
+    if (D.strikes >= 3) { dpSave(); dpFinishDisp(false, 'laughed'); return; }
+    dpModal(`<h2>Non sequitur</h2><p>«${dpSay(c)}» does not follow from ${prem.map(l => `«${dpSay(l.st)}»`).join(' and ')}.</p><p class="dp-small">The hall murmurs. ${3 - D.strikes} more and they laugh you out. The Handbook lists every valid step.</p><div class="row"><button class="btn primary" data-dp="close">Steady</button></div>`);
+    dpSave(); dpRender(true); return;
+  }
+  D.derived.push({ st: c, from: prem.map(l => l.n), mood: chk.mood }); DPU.sel = []; DPU.con = { q: 'A', s: null, p: null }; SFX.blip();
+  const all = lines.map(l => l.st); const hit = all.find(x => dpEq(x, dpNeg(c)));
+  dpSave();
+  if (hit) { dpFinishDisp(true); return; }
+  dpRender(true);
+}
+function dpAnswer(parts, bare) {
+  const R = DPS.run, D = R.D; const K = dpK(R, D);
+  // which parts were free choices? (for fame)
+  let k2 = K.slice(); const free = parts.map(pt => { const s = dpStatus(k2, pt.st); if (pt.a === 'C') k2.push(pt.st); else if (pt.a === 'N') k2.push(dpNeg(pt.st)); return s === 'open'; });
+  const j = dpJudge(K, parts); const q = D.q;
+  if (j.fault) {
+    D.strikes++; R.stats[j.fault]++; if (bare && !DPU.distUsed) { const st = dpSenses(q.st, R.eqs).map(x => dpStatus(K, x)); if (new Set(st).size > 1) R.stats.equiv++; }
+    D.answers.push({ q: q.st, parts, commit: [], fault: j.fault }); SFX.bad();
+    const src = st => { if (D.T && dpEq(st, D.T)) return 'your thesis'; if (D.answers.some(a => a.commit.some(x => dpEq(x, st)))) return 'answered today'; const b = R.book.find(x => dpEq(x.st, st)); return b ? (b.how === 'school' ? 'your school' : b.how === 'thesis' ? 'an old thesis' : 'your Book') : ''; };
+    const target = j.fault === 'seqDenied' || (j.fault === 'doubtBad' && j.status === 'seq') ? j.st : dpNeg(j.st);
+    const why = j.why || []; const mood = why.length <= 2 ? dpMood(why, target) : null;
+    const verb = { seqDenied: 'denied', repGranted: 'granted', doubtBad: 'doubted' }[j.fault];
+    const refuted = D.strikes >= D.maxStrikes;
+    dpModal(`<h2>${refuted ? 'Refuted' : 'A slip'}</h2><p>You ${verb} «${dpSay(j.st)}».</p>
+      <p>But you are committed to:</p><ul class="dp-lines">${why.map(x => `<li><span>${dpSay(x)}</span><em>${src(x)}</em></li>`).join('')}</ul>
+      <p>and from ${why.length === 1 ? 'that' : 'these'} it follows that <b>${dpSay(target)}</b>${mood ? ` <span class="dp-small">(${esc(mood)})</span>` : ''}. ${j.fault === 'seqDenied' ? 'You had to grant it.' : j.fault === 'repGranted' ? 'You had to deny it.' : 'You may only doubt what neither follows nor contradicts.'}</p>
+      ${bare && !DPU.distUsed ? '<p class="dp-small">The question used a word with two senses. Answering without a distinction binds you in both senses at once.</p>' : ''}
+      <p class="dp-small">${refuted ? 'The master turns to the hall. You are refuted.' : `${D.maxStrikes - D.strikes} more slip${D.maxStrikes - D.strikes === 1 ? '' : 's'} and you are refuted.`}</p>
+      <div class="row"><button class="btn primary" data-dp="${refuted ? 'afterfault' : 'close'}">${refuted ? 'Leave the lectern' : 'Go on'}</button></div>`);
+    D.lastNote = { k: 'bad', t: `Slip: you ${verb} «${dpSay(j.st)}».` };
+    if (refuted) { dpSave(); return; }
+  } else {
+    const gain = free.filter((f, i) => f && parts[i].a !== 'D').length; const doubts = parts.filter((p, i) => p.a === 'D').length;
+    D.fame += gain; if (doubts) { R.stats.doubts += doubts; if (R.school !== 'gate') { R.fame = Math.max(0, R.fame - doubts); } }
+    const freeFlags = parts.map((p, i) => ({ a: p.a, f: free[i] })).filter(x => x.a !== 'D').map(x => x.f);
+    D.answers.push({ q: q.st, parts, commit: j.commit, free: freeFlags }); SFX.ok();
+    D.lastNote = { k: 'good', t: `${parts.map(p => ({ C: 'Concedo', N: 'Nego', D: 'Dubito' })[p.a]).join(' / ')}. ${gain ? `A free answer: it goes into your Book. +${gain} fame.` : doubts ? (R.school === 'gate' ? 'The Gatehouse lets you doubt freely.' : 'A doubt costs you 1 fame.') : 'Rightly answered.'}` };
+  }
+  DPU.dist = null; DPU.distUsed = false; D.qn++;
+  if (D.qn >= D.total) { dpSave(); dpFinishDisp(true); return; }
+  D.q = dpNextQuestion(R, D); if (!D.q) { dpSave(); dpFinishDisp(true); return; } D.asked.push(dpKey(D.q.st));
+  dpSave(); dpRender(true);
+}
+function dpTry() {
+  const R = DPS.run, D = R.D, lines = dpLines(); const prem = DPU.sel.map(id => lines.find(l => l.id === id)).filter(Boolean); const b = DPU.con;
+  if (!prem.length || b.s === null || b.p === null) { toast('Finish the conclusion first.'); return; }
+  const c = dpSt(b.q, b.s, b.p); const chk = dpCheckStep(prem.map(l => l.st), c);
+  if (!chk.ok && (chk.soft || /only use terms|itself/.test(chk.why))) { toast(chk.why); return; }
+  if (D.breaths <= 0) { toast('You are out of breath.'); return; }
+  D.breaths--;
+  if (!chk.ok) { toast('That does not follow.'); SFX.tap(); dpSave(); dpRender(true); return; }
+  D.notes.push({ st: c, mood: chk.mood }); DPU.sel = []; DPU.con = { q: 'A', s: null, p: null }; SFX.blip(); dpSave(); dpRender(true);
+}
+function dpFinishDisp(win, how) {
+  const R = DPS.run, D = R.D; const boss = D.boss; D.done = { win, how };
+  let rep = 0, fame = 0;
+  if (D.mode === 'oppose') {
+    if (win) { rep = boss ? 2 : 1; fame = (boss ? 5 : 3) + Math.floor(D.bell / 2); } else { rep = boss ? -4 : -3; if (how === 'timeout') R.stats.timeout++; }
+  } else {
+    if (win) { rep = 1; fame = 2 + D.fame; } else { rep = -3; fame = D.fame; }
+    const add = []; if (win && D.T) add.push({ st: D.T, how: 'thesis', at: R.rank });
+    D.answers.forEach(a => a.commit.forEach((st, i) => { if (a.free && a.free[i]) add.push({ st, how: 'answer', at: R.rank }); }));
+    add.forEach(b => { if (!R.book.some(x => dpEq(x.st, b.st)) && dpOK(R.book.map(x => x.st).concat([b.st]))) R.book.push(b); });
+  }
+  R.rep += rep; R.fame += fame; if (win) R.wins++; else R.losses++;
+  dpLog(R, `${DP_STAGES[R.stage]} against ${D.rival.n}: ${win ? 'won' : 'lost'}.`);
+  dpSave(); win ? SFX.good() : SFX.bad();
+  const proof = D.mode === 'oppose' && win ? `<ol class="dp-proof">${D.derived.map(d => `<li>${dpSay(d.st)} <span class="dp-small">from ${d.from.join(' and ')}${d.mood ? ` · ${esc(d.mood)}` : ''}</span></li>`).join('')}</ol>` : '';
+  const trap = D.mode === 'oppose' && !win ? `<p>They believed all of these, and together with the thesis they cannot all be true:</p><ul class="dp-lines">${D.route.map(x => `<li><span>${dpSay(x)}</span></li>`).join('')}</ul><p class="dp-small">That is ${D.route.length + 1} statements: one more than they could hold in view at once.</p>` : '';
+  dpModal(`<h2>${win ? (D.mode === 'oppose' ? 'Refuted!' : 'Your thesis stands') : how === 'laughed' ? 'Laughed out of the hall' : D.mode === 'oppose' ? 'The master stands' : 'You are refuted'}</h2>
+    ${win && D.mode === 'oppose' ? `<p>${esc(D.rival.n)} has granted things that contradict each other. The hall stamps its feet.</p>${proof}` : ''}
+    ${win && D.mode === 'respond' ? `<p>You answered every question without contradicting yourself. ${D.fame ? `Your ${D.fame} free answer${D.fame === 1 ? '' : 's'} now stand${D.fame === 1 ? 's' : ''} in your Book.` : ''}</p>` : ''}
+    ${trap}
+    <p class="dp-small">Reputation ${rep >= 0 ? '+' : ''}${rep} (now ${R.rep}) · fame +${fame}</p>
+    <div class="row"><button class="btn primary" data-dp="next">Continue</button></div>`);
+}
+function dpLog(R, t) { R.log.push(t); if (R.log.length > 80) R.log.shift(); }
+function dpNext() {
+  const R = DPS.run, D = R.D; closeModal(); if (!D || !D.done) return;
+  const win = D.done.win, stage = R.stage; R.D = null; DPU.sel = [];
+  if (R.rep <= 0) { R.over = { k: 'down', t: 'Your reputation is spent. The proctors send you down from the Studium.' }; dpEndRun(); return; }
+  if (stage === 2) {
+    if (win) {
+      R.rank++; R.stage = 0; R.rep += 1;
+      if (R.rank >= DP_RANKS.length) { R.over = { k: 'chair', t: 'You hold the Chair of the Studium of Varn. No master can make you contradict yourself, and you have made them all contradict themselves.' }; dpEndRun(); return; }
+      R.shop = true; dpSave(); dpRender(); SFX.level();
+      dpModal(`<h2>Inception</h2><p>The faculty gives you the cap and the book. You are now <b>${esc(dpRankName(R.rank))}</b>.</p><p class="dp-small">From here on the masters see further (${DP_RANKS[R.rank].k} statements), ask more, and forgive less. Reputation +1.</p><div class="row"><button class="btn primary" data-dp="close">To the Stationer's</button></div>`);
+      return;
+    }
+    dpSave(); dpRender(); dpModal(`<h2>No promotion yet</h2><p>You must win the quodlibet to rise. Another head of the faculty will hear you.</p><div class="row"><button class="btn primary" data-dp="close">Again</button></div>`); return;
+  }
+  R.stage++; dpSave(); dpRender();
+}
+function dpEndRun() {
+  const R = DPS.run; if (!R.endDone) {
+    R.endDone = true; const l = Math.max(1, R.rank * 2 + R.wins + (R.over.k === 'chair' ? 5 : 0)); R.laurels = l; DPS.meta.laurels += l; DPS.meta.runs++;
+    DPS.meta.hist.unshift({ rank: R.rank, school: R.school, wins: R.wins, losses: R.losses, book: R.book.length, l, k: R.over.k, date: new Date().toISOString().slice(0, 10) }); DPS.meta.hist = DPS.meta.hist.slice(0, 30);
+  }
+  dpSave(); DPU.screen = 'run'; dpRender(); SFX.level();
+}
+function dpLessons(R) {
+  const s = R.stats, out = [];
+  if (s.seqDenied) out.push(`You denied ${s.seqDenied} thing${s.seqDenied === 1 ? '' : 's'} that followed from your own commitments. Before you say Nego, look for two commitments that already force it.`);
+  if (s.repGranted) out.push(`You granted ${s.repGranted} thing${s.repGranted === 1 ? '' : 's'} your commitments contradicted. Check the contradictory: is "Some … are not …" already forced?`);
+  if (s.doubtBad) out.push('You doubted something that was already settled. Dubito is only for what neither follows nor contradicts.');
+  if (s.equiv) out.push('A word with two senses caught you. When a question uses one, say Distinguo and answer each sense alone.');
+  if (s.nonseq) out.push(`${s.nonseq} non sequitur${s.nonseq === 1 ? '' : 's'}. Common culprits: a middle term that never covers all of its class ("All A are B, all C are B" proves nothing), and turning "All A are B" round into "All B are A".`);
+  if (s.spoiled) out.push(`Masters hesitated and denied ${s.spoiled} time${s.spoiled === 1 ? '' : 's'}: your trap was short enough for them to see. Hide it in more, smaller steps, and do not let them grant shortcuts.`);
+  if (s.timeout) out.push('The bell beat you. Spend early questions finding which terms sit under which, then build the chain.');
+  if (!out.length) out.push('A clean career. The masters will remember it.');
+  return out;
+}
+function dpEndHTML() {
+  const R = DPS.run;
+  return `<main class="dp-main"><div class="dp-end">
+    <h1 class="dp-logo sm">The Roll</h1><p class="dp-kicker">${esc(DP_SCHOOLS[R.school].n)} · ${esc(R.over.k === 'chair' ? 'Holder of the Chair' : dpRankName(R.rank))}</p>
+    <p class="dp-big">${esc(R.over.t)}</p>
+    <div class="dp-stats"><span><b>${R.wins}</b> won</span><span><b>${R.losses}</b> lost</span><span><b>${R.book.length}</b> commitments</span><span>+<b>${R.laurels || 0}</b> laurels</span></div>
+    <h3 class="dp-h3">What the masters say about you</h3>${dpLessons(R).map(l => `<p class="dp-note">${esc(l)}</p>`).join('')}
+    <div class="dp-menu"><button class="btn primary" data-dp="newrun">New career</button><button class="btn" data-dp="archive">The Archive · ${DPS.meta.laurels}</button><button class="btn" data-dp="notebook">Past careers</button><button class="btn" data-dp="totitle">Title</button></div>
+  </div></main>`;
+}
+const DP_SHOP = [
+  { id: 'candle', n: 'A long candle', c: 2, d: 'Two more questions in your next disputation as opponent.' },
+  { id: 'tablet', n: 'A wax tablet', c: 2, d: 'Five more breaths of private reasoning the next time you respond.' },
+  { id: 'dossier', n: 'A dossier', c: 3, d: 'One more of the next opposed master\'s writings on the record.' },
+  { id: 'retract', n: 'A retraction', c: 4, d: 'Strike one commitment from your Book (not your school\'s).' },
+  { id: 'letter', n: 'A patron\'s letter', c: 5, d: 'Reputation +2.' },
+];
+function dpShopHTML() {
+  const R = DPS.run;
+  return `${dpHud()}<main class="dp-main"><h2 class="dp-h2">The Stationer's</h2><p class="dp-p">You have <b>${R.fame}</b> fame to spend before the ${esc(dpRankName(R.rank))}'s term.</p>
+    <ul class="dp-shop">${DP_SHOP.map(it => `<li><div><b>${esc(it.n)}</b><small>${esc(it.d)}${it.id !== 'retract' && it.id !== 'letter' && R.items[it.id] ? ` You have ${R.items[it.id]}.` : ''}</small></div><button class="btn" data-dp="buy" data-id="${it.id}"${R.fame < it.c ? ' disabled' : ''}>${it.c} fame</button></li>`).join('')}</ul>
+    ${DPU.retract ? `<h3 class="dp-h3">Strike which commitment?</h3><ul class="dp-lines">${R.book.map((b, i) => b.how === 'school' ? '' : `<li><span>${dpSay(b.st)}</span><button class="btn danger" data-dp="strike" data-id="${i}">Strike</button></li>`).join('')}</ul>` : ''}
+    ${dpBookHTML()}
+    <div class="dp-actions"><button class="btn primary big" data-dp="leaveshop">Begin the term</button></div></main>`;
+}
+
+/* ---------- handbook, archive, notebook ---------- */
+function dpHandbook(tab) {
+  DPU.hb = tab || DPU.hb; const t = DPU.hb;
+  const tabs = [['rules', 'Rules'], ['forms', 'The four forms'], ['moods', 'Valid steps'], ['traps', 'Pitfalls']];
+  const ex = { S: 'S', M: 'M', P: 'P' };
+  const moodRows = Object.entries(DP_MOODS).map(([k, n]) => { const fig = +k[0], [a, b, c] = k.slice(1).split('');
+    const maj = fig === 1 || fig === 3 ? ['M', 'P'] : ['P', 'M'], min = fig === 1 || fig === 2 ? ['S', 'M'] : ['M', 'S'];
+    const f = (q, x, y) => `${DP_Q[q][0]} ${x} ${DP_Q[q][1]} ${y}`; return `<tr><td><b>${n}</b></td><td>${f(a, ...maj)}<br>${f(b, ...min)}<br>∴ ${f(c, 'S', 'P')}</td></tr>`; }).join('');
+  void ex;
+  dpModal(`<button class="x" data-dp="close">CLOSE</button><h2>The Handbook</h2><div class="dp-chips tabs">${tabs.map(x => `<button data-dp="hbtab" data-id="${x[0]}" aria-pressed="${t === x[0]}">${x[1]}</button>`).join('')}</div>
+    ${t === 'rules' ? `<p><b>Opposing.</b> Ask the master propositions. They grant what they believe and deny what they do not, except that they grant anything that visibly follows from what they have already said and deny anything that visibly contradicts it. "Visibly" means: among as few statements as their foresight. Make them contradict themselves with a contradiction too big for them to see coming, then prove it step by step.</p>
+      <p><b>A denial is a commitment too.</b> Denying "All A are B" commits them to "Some A are not B".</p>
+      <p><b>Responding.</b> You must grant (Concedo) what follows from your commitments and deny (Nego) what contradicts them. Anything else you may grant or deny freely, or doubt (Dubito). Free answers go into your Book for good.</p>
+      <p><b>Distinguo.</b> Some words have two senses. A question using the bare word may be true in one sense and false in the other. Distinguish, and answer each sense alone. Answer without distinguishing and you are bound in both senses.</p>
+      <p><b>Existence.</b> In the Studium every term names something that exists. So "All A are B" also gives "Some A are B".</p>` : ''}
+    ${t === 'forms' ? `<table class="dp-tbl"><tr><th>Form</th><th>Its contradictory</th></tr><tr><td>All S are P</td><td>Some S are not P</td></tr><tr><td>No S are P</td><td>Some S are P</td></tr><tr><td>Some S are P</td><td>No S are P</td></tr><tr><td>Some S are not P</td><td>All S are P</td></tr></table>
+      <p>A statement and its contradictory can never both stand. Every refutation ends with one of these pairs.</p><p>"No" and "Some … are" read both ways: No S are P is the same as No P are S. "All" does not turn round: All S are P only gives Some P are S.</p>` : ''}
+    ${t === 'moods' ? `<p class="dp-small">The middle term M joins S and P. One-premise steps: No S are P ⇒ No P are S; Some S are P ⇒ Some P are S; All S are P ⇒ Some S are P and Some P are S; No S are P ⇒ Some S are not P.</p><table class="dp-tbl moods">${moodRows}</table>` : ''}
+    ${t === 'traps' ? `<p><b>Undistributed middle.</b> All A are M and All B are M: nothing follows about A and B.</p><p><b>Turning "all" round.</b> All A are B does not give All B are A.</p><p><b>Turning "some … not" round.</b> Some A are not B does not give Some B are not A.</p><p><b>Illicit process.</b> All M are P and No S are M does not give No S are P.</p><p><b>Four terms.</b> A word used in two senses is two terms. "Forms (as shapes)" and "forms (as essences)" do not join an argument.</p><p><b>Shortcuts tip off a master.</b> If they have granted "All A are C", then "All C are D" plus their thesis "Some A are not D" is only three statements: a master who sees three will spot it.</p>` : ''}`);
+}
+function dpArchive() {
+  const M = DPS.meta;
+  dpModal(`<h2>The Archive</h2><p>Laurels from past careers buy what the next career starts with. You have <b>${M.laurels}</b>.</p>
+    <ul class="dp-shop">${DP_UNLOCKS.map(u => `<li><div><b>${esc(u.n)}</b><small>${esc(u.d)}</small></div>${M.unlocks.includes(u.id) ? '<span class="dp-tag">Owned</span>' : `<button class="btn" data-dp="unlock" data-id="${u.id}"${M.laurels < u.cost ? ' disabled' : ''}>${u.cost}</button>`}</li>`).join('')}</ul>
+    <div class="row"><button class="btn primary" data-dp="close">Done</button></div>`);
+}
+function dpNotebook() {
+  const H = DPS.meta.hist;
+  dpModal(`<h2>Past careers</h2>${H.length ? `<table class="dp-tbl"><tr><th>When</th><th>Reached</th><th>Won / lost</th><th>Laurels</th></tr>${H.map(h => `<tr><td>${h.date}<br><small>${esc(DP_SCHOOLS[h.school].n)}</small></td><td>${h.k === 'chair' ? '<b>The Chair</b>' : esc(dpRankName(h.rank))}</td><td>${h.wins} / ${h.losses}</td><td>${h.l}</td></tr>`).join('')}</table>` : '<p>None yet.</p>'}<div class="row"><button class="btn primary" data-dp="close">Close</button></div>`);
+}
+function dpNewCareer() {
+  const owned = ['none'].concat(['lamp', 'gate', 'wells'].filter(s => DPS.meta.unlocks.includes(s)));
+  if (owned.length === 1) { dpStart('none'); return; }
+  dpModal(`<h2>Choose your school</h2><ul class="dp-shop">${owned.map(s => `<li><div><b>${esc(DP_SCHOOLS[s].n)}</b><small>${esc(DP_SCHOOLS[s].d)}</small></div><button class="btn primary" data-dp="school" data-id="${s}">Join</button></li>`).join('')}</ul>`);
+}
+function dpStart(school) {
+  DPS.run = dpNewRun(DPS.meta, school); DPU.screen = 'run'; DPU.sel = []; DPU.showBook = true; closeModal(); dpSave(); dpRender();
+  const R = DPS.run;
+  dpModal(`<h2>The Studium of Varn</h2><p>You arrive as a ${esc(dpRankName(0))}${school !== 'none' ? ` of the ${esc(DP_SCHOOLS[school].n)}` : ''}. Your school's doctrine is already in your Book, and you are bound by it.</p>
+    <p>Two words here have two senses: ${R.eqs.map(e => `<b>${esc(e.w)}</b> (${e.ids.map(i => esc(R.lex[i].g)).join(' / ')})`).join(' and ')}.</p>
+    <p class="dp-small">Each term has three disputations: you oppose, you respond, then the quodlibet against the head of the faculty. Lose your reputation and you are sent down.</p>
+    <div class="row"><button class="btn" data-dp="hb">Read the Handbook</button><button class="btn primary" data-dp="close">Begin</button></div>`);
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', e => {
+  if (UI.view !== 'dp') return; const b = e.target.closest('[data-dp]'); if (!b || b.disabled) return;
+  const act = b.dataset.dp, id = b.dataset.id, R = DPS.run;
+  if (act !== 'booktog' && b.tagName === 'SUMMARY') e.preventDefault();
+  switch (act) {
+    case 'close': closeModal(); break;
+    case 'continue': DPU.screen = 'run'; SFX.tap(); dpRender(); break;
+    case 'totitle': DPU.screen = 'title'; dpRender(); break;
+    case 'newrun': if (R && !R.over) dpModal(`<h2>Abandon this career?</h2><p>It ends now and goes on the roll. You keep its laurels.</p><div class="row"><button class="btn" data-dp="close">Keep going</button><button class="btn danger" data-dp="abandon">Abandon</button></div>`); else dpNewCareer(); break;
+    case 'abandon': closeModal(); R.D = null; R.over = { k: 'quit', t: 'You hand back your cap and leave the Studium.' }; dpEndRun(); break;
+    case 'school': dpStart(id); break;
+    case 'hb': dpHandbook(); break;
+    case 'hbtab': dpHandbook(id); break;
+    case 'archive': dpArchive(); break;
+    case 'unlock': { const u = DP_UNLOCKS.find(x => x.id === id); if (u && DPS.meta.laurels >= u.cost && !DPS.meta.unlocks.includes(id)) { DPS.meta.laurels -= u.cost; DPS.meta.unlocks.push(id); dpSave(); SFX.good(); dpArchive(); } break; }
+    case 'notebook': dpNotebook(); break;
+    case 'booktog': e.preventDefault(); DPU.showBook = !DPU.showBook; dpRender(true); break;
+    case 'enter': dpEnter(); break;
+    case 'slot': { const [key, slot] = id.split(':'); dpPicker(key, slot); break; }
+    case 'setslot': { const [key, slot, v] = id.split(':'); DPU[key][slot] = slot === 'q' ? v : +v; closeModal(); SFX.tap(); dpRender(true); break; }
+    case 'ask': dpAsk(); break;
+    case 'sel': {
+      const i = DPU.sel.indexOf(id); if (i >= 0) DPU.sel.splice(i, 1); else { DPU.sel.push(id); if (DPU.sel.length > 2) DPU.sel.shift(); }
+      const lines = dpLines(); const ts = dpTerms(DPU.sel.map(x => lines.find(l => l.id === x)).filter(Boolean).map(l => l.st));
+      if (!ts.includes(DPU.con.s)) DPU.con.s = null; if (!ts.includes(DPU.con.p)) DPU.con.p = null; SFX.tap(); dpRender(true); break;
+    }
+    case 'infer': dpInfer(); break;
+    case 'try': dpTry(); break;
+    case 'yield': dpModal(`<h2>Yield?</h2><p>You concede that you cannot refute them. Reputation −${R.D.boss ? 4 : 3}.</p><div class="row"><button class="btn" data-dp="close">Keep arguing</button><button class="btn danger" data-dp="doyield">Yield</button></div>`); break;
+    case 'doyield': closeModal(); dpFinishDisp(false, R.D.bell ? 'yield' : 'timeout'); break;
+    case 'ans': { const q = R.D.q.st; const bare = q.s < 0 || q.p < 0; const parts = dpSenses(q, R.eqs).map(st => ({ st, a: id })); DPU.distUsed = false; dpAnswer(parts, bare); break; }
+    case 'distinguo': {
+      const q = R.D.q.st; if (!(q.s < 0 || q.p < 0)) { if (R.school !== 'gate') R.fame = Math.max(0, R.fame - 1); toast('Nothing to distinguish: every word here has one sense. The hall smirks (−1 fame).'); SFX.bad(); dpSave(); dpRender(true); break; }
+      DPU.dist = {}; DPU.distUsed = true; SFX.tap(); dpRender(true); break;
+    }
+    case 'dans': { const [i, a] = id.split(':'); DPU.dist[+i] = a; dpRender(true); break; }
+    case 'undist': DPU.dist = null; DPU.distUsed = false; dpRender(true); break;
+    case 'dsubmit': { const q = R.D.q.st; const parts = dpSenses(q, R.eqs).map((st, i) => ({ st, a: DPU.dist[i] })); dpAnswer(parts, true); break; }
+    case 'afterfault': closeModal(); dpFinishDisp(false, 'refuted'); break;
+    case 'next': dpNext(); break;
+    case 'buy': {
+      const it = DP_SHOP.find(x => x.id === id); if (!it || R.fame < it.c) break;
+      if (id === 'retract') { DPU.retract = true; dpRender(true); break; }
+      R.fame -= it.c; if (id === 'letter') R.rep += 2; else R.items[id] = (R.items[id] || 0) + (id === 'candle' ? 2 : id === 'tablet' ? 5 : 1); SFX.good(); dpSave(); dpRender(true); break;
+    }
+    case 'strike': { const i = +id; if (R.fame >= 4 && R.book[i] && R.book[i].how !== 'school') { R.fame -= 4; R.book.splice(i, 1); DPU.retract = false; SFX.paper(); dpSave(); } dpRender(true); break; }
+    case 'leaveshop': R.shop = false; DPU.retract = false; dpSave(); dpRender(); break;
+  }
+});
+
+/* ---------- pictures: an illuminated initial and a candle ---------- */
+function dpScene(cv, ts) {
+  const dpr = Math.min(3, window.devicePixelRatio || 1), w = cv.clientWidth || cv.width, h = cv.clientHeight || cv.height; if (!w || !h) return;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const g = ctx.createRadialGradient(w * 0.5, h * 0.45, 10, w * 0.5, h * 0.5, Math.max(w, h) * 0.75); g.addColorStop(0, '#f6ecd2'); g.addColorStop(1, '#dcc79c'); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  // ruled text lines
+  const s = Math.min(w, h) / 100, x0 = w * 0.5 - 44 * s, y0 = h * 0.5 - 34 * s, box = 52 * s;
+  ctx.strokeStyle = 'rgba(122,98,72,.25)'; ctx.lineWidth = 1; for (let y = h * 0.16; y < h * 0.9; y += 9 * s) { ctx.beginPath(); ctx.moveTo(w * 0.08, y); ctx.lineTo(w * 0.92, y); ctx.stroke(); }
+  ctx.fillStyle = 'rgba(42,26,16,.55)'; for (let y = h * 0.16 + 6 * s, row = 0; y < h * 0.88; y += 9 * s, row++) { let x = x0 + box + 8 * s; if (y < y0 || y > y0 + box) x = w * 0.1; while (x < w * 0.9) { const len = (6 + ((row * 7 + Math.floor(x)) % 13)) * s * 0.7; ctx.fillRect(x, y - 1.2 * s, Math.min(len, w * 0.9 - x), 1.6 * s); x += len + 3 * s; } }
+  // the initial
+  ctx.fillStyle = '#efe0b8'; ctx.fillRect(x0, y0, box, box); ctx.strokeStyle = '#b38728'; ctx.lineWidth = 2.2 * s * 0.6; ctx.strokeRect(x0, y0, box, box);
+  ctx.strokeStyle = '#2f5d4a'; ctx.lineWidth = 1.2; for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.arc(x0 + (i % 2 ? box - 7 * s : 7 * s), y0 + (i < 2 ? 7 * s : box - 7 * s), 4 * s, 0, 7); ctx.stroke(); }
+  ctx.fillStyle = '#a3271c'; ctx.font = `${Math.round(44 * s)}px UnifrakturMaguntia, "EB Garamond", Georgia, serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('D', x0 + box / 2, y0 + box / 2 + 2 * s);
+  // a candle on the right
+  const cx = w * 0.84, cb = h * 0.86, chh = 30 * s; ctx.fillStyle = '#efe6d0'; ctx.fillRect(cx - 4 * s, cb - chh, 8 * s, chh); ctx.strokeStyle = 'rgba(42,26,16,.4)'; ctx.strokeRect(cx - 4 * s, cb - chh, 8 * s, chh);
+  const fl = Math.sin(ts / 140) * 0.8 + Math.sin(ts / 53) * 0.5; const fy = cb - chh - 2 * s;
+  const fg = ctx.createRadialGradient(cx, fy - 6 * s, 0, cx, fy - 6 * s, 16 * s); fg.addColorStop(0, 'rgba(255,214,120,.55)'); fg.addColorStop(1, 'rgba(255,214,120,0)'); ctx.fillStyle = fg; ctx.fillRect(cx - 16 * s, fy - 22 * s, 32 * s, 32 * s);
+  ctx.fillStyle = '#e8a33a'; ctx.beginPath(); ctx.moveTo(cx + fl * 0.6 * s, fy - 11 * s); ctx.quadraticCurveTo(cx + 4 * s, fy - 3 * s, cx, fy); ctx.quadraticCurveTo(cx - 4 * s, fy - 3 * s, cx + fl * 0.6 * s, fy - 11 * s); ctx.fill();
+}
 
 </script>
 </body>
