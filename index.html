@@ -595,6 +595,22 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .dtag.d1 { color: var(--warn); }
 .dtag.d2 { color: var(--bad); }
 
+/* Pixel Clinic: specialties, board exams, daily case */
+.specs { display: grid; gap: 10px; margin: 10px 0; }
+.spec { text-align: left; background: var(--panel, #1a1c2c); color: inherit; border: 3px solid var(--ink, #f4f4f4); padding: 12px; display: grid; gap: 4px; font: inherit; cursor: pointer; }
+.spec b { font-family: var(--font-d); font-size: 11px; color: var(--warn); font-weight: normal; }
+.spec small { font-size: 18px; opacity: .8; }
+.spec span { font-size: 19px; line-height: 1.2; }
+.spec.cur { border-color: var(--good); }
+.spec:hover, .spec:focus-visible { border-color: var(--warn); }
+.examq { font-size: 22px; line-height: 1.25; margin: 6px 0 10px; }
+.examopts { display: grid; gap: 8px; }
+.examopts .btn { justify-content: flex-start; text-align: left; white-space: normal; line-height: 1.25; }
+.examopts .btn.ok { border-color: var(--good); color: var(--good); opacity: 1; }
+.examopts .btn.no { border-color: var(--bad); color: var(--bad); opacity: 1; }
+.teach.bad { border-color: var(--bad); }
+.card.daily { border-color: var(--warn); }
+
 </style>
 </head>
 <body>
@@ -617,11 +633,22 @@ const RANKS = [
 const FEATURES = {
   3: ['Medication review: stop or hold a patient\'s own meds'],
   4: ['Patients start forgetting things. Read their documents!'],
-  6: ['Some patients leave their medication plan at home'],
+  6: ['Choose a specialty: family medicine, internal medicine or pediatrics', 'Board exams: pass one to be promoted, and renew your certification every 20 patients', 'Some patients leave their medication plan at home'],
   7: ['Drug-reaction cases: find the interaction that made them sick'],
   8: ['Golden coat. Endless hardest-difficulty shifts'],
 };
 const PATIENTS_PER_DAY = lvl => lvl === 1 ? 3 : lvl <= 3 ? 4 : 5;
+
+/* ---------- Specialties (chosen on promotion to LV6) ---------- */
+const SPECS = {
+  gp:   { n: 'Family medicine', tag: 'GP', titles: ['Family Physician', 'Senior Family Physician', 'Medical Legend'],
+          d: 'Everyone walks in: adults, children and teenagers. Patients come back, so you see whether your treatment worked, and anyone you missed returns sicker.' },
+  im:   { n: 'Internal medicine', tag: 'IM', titles: ['Internist', 'Chief of Medicine', 'Medical Legend'],
+          d: 'Adults, mostly older. Longer medication lists, and many patients bring two problems at once. You must name both.' },
+  peds: { n: 'Pediatrics', tag: 'PEDS', titles: ['Pediatrician', 'Chief of Pediatrics', 'Medical Legend'],
+          d: 'Children and teenagers. Parents tell the story, little ones can\'t say where it hurts, and some adult medicines are wrong for kids. Nine new childhood conditions.' },
+};
+const CERT_EVERY = 20;   // patients between board recertifications
 
 /* ---------- Exam tools ---------- */
 const TOOLS = [
@@ -665,6 +692,8 @@ const DRUGS = {
   ceti:  { n: 'Cetirizine', f: 'pill', c: '#73eff7', lvl: 1, g: 'Allergy & lungs', use: 'Antihistamine: hay fever, hives, itching.' },
   salb:  { n: 'Salbutamol inhaler', sub: 'albuterol', f: 'inhaler', c: '#41a6f6', lvl: 2, g: 'Allergy & lungs', use: 'Reliever inhaler: opens tight airways in asthma.', dose: '2 puffs as needed · reliever', stop: 'moderate' },
   pred:  { n: 'Prednisolone', f: 'pill', c: '#f4f4f4', lvl: 3, g: 'Allergy & lungs', tags: ['steroid'], use: 'Steroid tablets: asthma flares, severe allergy, gout.' },
+  mupi:  { n: 'Mupirocin cream', f: 'tube', c: '#ffcd75', lvl: 6, g: 'Antibiotics', tags: ['abx', 'topical'], use: 'Antibiotic skin cream for a small patch of impetigo.' },
+  chlor: { n: 'Chloramphenicol eye drops', f: 'tube', c: '#73eff7', lvl: 6, g: 'Antibiotics', tags: ['abx', 'topical'], use: 'Antibiotic eye drops for bacterial pink eye (conjunctivitis).' },
   adr:   { n: 'Adrenaline shot', sub: 'epinephrine IM', f: 'syringe', c: '#ef7d57', lvl: 5, g: 'Allergy & lungs', use: 'Life-saving injection for anaphylaxis.' },
 
   ome:   { n: 'Omeprazole', f: 'capsule', c: '#5d275d', lvl: 2, g: 'Stomach', tags: ['ppi'], use: 'Acid blocker (PPI): reflux, ulcers, H. pylori combo.' },
@@ -839,11 +868,17 @@ const VAGUE_OPEN = {
   foot:    ['My foot\'s killing me.', 'I can hardly walk on this foot.'],
   swell:   ['Something\'s swollen up and it\'s worrying me.', 'I\'ve swollen up.'],
   kid:     ['My little one has been so miserable since last night.', 'My child is unwell and won\'t settle.'],
+  kidfever: ['My little one has had a fever and isn\'t themselves.', 'My child is hot and miserable.'],
+  kidcough: ['My child has a horrible cough.', 'Their breathing sounds awful.'],
+  kidskin: ['My child has come out in spots.', 'There\'s something on my child\'s skin.'],
+  kideye:  ['My child\'s eyes look awful.', 'Something\'s wrong with my child\'s eyes.'],
+  kidcry:  ['Something\'s really wrong with my little one.', 'My little one is so unsettled.'],
   slur:    ['I... feel... strange.', 'Some...thing\'s... wrong... with me.'],
 };
 const VAGUE_OF = {
   cold: ['nose', 'throat'], flu: ['fever', 'cough', 'head'], strep: ['throat', 'fever'], hayfever: ['nose'], tension: ['head'], sprain: ['foot', 'leg', 'swell'],
-  otitis: ['kid'], uti: ['pee', 'belly'], gastro: ['belly', 'stomach'], gerd: ['chest', 'throat'], asthma: ['breath', 'cough'], bronchitis: ['cough'], hives: ['skin'],
+  otitis: ['kid', 'kidfever', 'kidcry'], croup: ['kidcough', 'kidfever'], bronchiolitis: ['kidcough'], hfmd: ['kidskin', 'kidfever'], febseiz: ['kidfever'],
+  impetigo: ['kidskin'], scarlet: ['kidskin', 'kidfever'], conj: ['kideye'], intuss: ['kidcry'], kawasaki: ['kidfever', 'kidskin', 'kideye', 'kidcry'], uti: ['pee', 'belly'], gastro: ['belly', 'stomach'], gerd: ['chest', 'throat'], asthma: ['breath', 'cough'], bronchitis: ['cough'], hives: ['skin'],
   htn: ['checkup'], dm2: ['checkup', 'pee', 'tired'], migraine: ['head'], gout: ['foot', 'swell'], lyme: ['skin', 'leg', 'fever', 'tired'],
   pneumonia: ['cough', 'breath', 'fever', 'chest'], acecough: ['cough'],
   hypothyroid: ['tired', 'foggy', 'checkup'], anemia: ['tired', 'breath', 'checkup'], depression: ['tired', 'foggy', 'checkup'], pyelo: ['fever', 'back', 'pee', 'stomach'],
@@ -853,7 +888,7 @@ const VAGUE_OF = {
   serotonin: ['shaky', 'heart', 'stomach', 'fever'], rhabdo: ['leg', 'pee', 'tired'], overwarf: ['skin', 'nose'], lithtox: ['shaky', 'stomach', 'foggy'], hyperk: ['tired', 'heart', 'leg'],
 };
 /* diagnosed from the story; tests only rule out look-alikes, so Expert patients stay clear about the tell-tale parts */
-const HISTORY_DX = ['tension', 'migraine', 'depression', 'gerd', 'angina', 'backpain'];
+const HISTORY_DX = ['tension', 'migraine', 'depression', 'gerd', 'angina', 'backpain', 'febseiz'];
 /* Expert: what a vague patient says instead of the real answer */
 const VAGUE_ANS = {
   more: ['I don\'t know how to explain it. It just feels wrong.', 'It\'s hard to put into words.'],
@@ -1350,6 +1385,101 @@ const DISEASES = [
     related: ['mi', 'afib'],
     info: 'On potassium-raising drugs (spironolactone, ACE) plus co-trimoxazole; weakness, peaked T waves. Stop culprits, refer.',
     teach: 'Trimethoprim acts like a potassium-sparing diuretic. Combined with spironolactone and an ACE inhibitor, potassium can spike to deadly levels.' },
+  /* ===== CHILDREN (pediatrics and family medicine, LV6+) ===== */
+  { id: 'croup', told: ['resp'], n: 'Croup', sys: 'Lungs', lvl: 6, age: [1, 5], kid: true, nonbac: true, look: ['cough'],
+    complaint: ['They\'ve got a cough that sounds like a barking seal, and their breathing was noisy in the night.', 'My little one woke up barking like a seal and struggling to breathe in.'],
+    a: { onset: 'It started last night. They had a runny nose for a couple of days before that.', pain: 'They say their throat hurts a bit.', fever: 'A bit warm. 38 last night.', resp: 'A loud barking cough and a hoarse voice. When they cry, their breathing makes a harsh noise going in.', better: 'The cold night air on the way here seemed to calm it.', general: 'Tired from the night, but playing a bit now.', exposure: 'Half the nursery has colds.' },
+    x: { thermo: 37.9, spo2: 96, steth: { lungs: 'Harsh, high-pitched noise breathing IN (stridor) when upset, quiet at rest. Chest otherwise clear.' }, light: { throat: 'Throat a little red. Voice hoarse.' } },
+    keys: [['q:resp'], ['x:steth']],
+    rx: [{ any: ['pred'], first: ['pred'] }], opt: ['para', 'ibu', 'rest'],
+    harm: { salb: [6, 'Croup is swelling around the voice box, not tight airways. A reliever inhaler does nothing.'] },
+    related: ['bronchiolitis', 'asthma'],
+    info: 'Toddler with a barking, seal-like cough, hoarse voice and a harsh noise breathing in (stridor) after a cold. One dose of steroid.',
+    teach: 'A barking cough plus stridor means croup, a virus that swells the voice box. One dose of steroid calms the swelling. Antibiotics do nothing.' },
+
+  { id: 'bronchiolitis', told: ['resp'], n: 'Bronchiolitis', sys: 'Lungs', lvl: 6, age: [1, 1], kid: true, nonbac: true, look: ['cough'],
+    complaint: ['My baby has had a cold for three days, and now they\'re breathing fast and coughing.'],
+    a: { onset: 'A runny nose three days ago. The cough and fast breathing started yesterday.', fever: 'A little warm. 37.9.', resp: 'Coughing, breathing fast, and I can hear a whistle. Their tummy sucks in a bit with each breath.', gi: 'Feeding a bit less than usual, but still wetting nappies.', general: 'Tired and grumpy, but waking and crying normally.', exposure: 'Their big sister has a cold.' },
+    x: { thermo: 37.9, spo2: 95, bp: [92, 58, 140], steth: { lungs: 'Fine crackles AND wheeze on both sides. Breathing fast, with the skin pulling in between the ribs.' } },
+    keys: [['q:resp'], ['x:steth'], ['x:spo2'], ['q:gi', 'q:general']],
+    rx: [{ any: ['rest'], first: ['rest'] }], opt: ['para'],
+    harm: { salb: [6, 'Reliever inhalers don\'t help bronchiolitis in babies.'], pred: [6, 'Steroids don\'t help bronchiolitis.'] },
+    related: ['croup', 'pneumonia', 'asthma'],
+    info: 'Baby under 2 whose cold moved to the chest: fast breathing, crackles and wheeze, feeding a bit less. Home care; watch oxygen and feeding.',
+    teach: 'Bronchiolitis is a virus in a baby\'s smallest airways. Inhalers, steroids and antibiotics don\'t help: small frequent feeds and close watching do. Low oxygen, poor feeding or exhaustion means hospital.' },
+
+  { id: 'hfmd', told: ['skin'], n: 'Hand, foot and mouth disease', sys: 'Skin & allergy', lvl: 6, age: [1, 5], kid: true, nonbac: true, look: ['rash'],
+    complaint: ['They\'ve got little blisters on their hands and feet, and they won\'t eat because their mouth hurts.'],
+    a: { onset: 'A fever two days ago, then the spots yesterday.', pain: 'Their mouth. They cry when they drink.', fever: 'Yes, 38.3 two days ago. Less now.', skin: 'Small blisters on their palms and the soles of their feet, and a few on their bottom. Not very itchy.', gi: 'Not eating, drinking only a little.', exposure: 'Two kids at nursery had the same thing last week.', general: 'Grumpy, but alert.' },
+    x: { thermo: 37.8, light: { throat: 'Several small painful ulcers on the tongue and inside the cheeks.' }, palp: { skin: 'Small oval blisters on the palms, soles and buttocks.' } },
+    keys: [['x:light'], ['x:palp', 'q:skin'], ['q:exposure']],
+    rx: [{ any: ['para', 'ibu'], first: ['para', 'ibu'] }, { any: ['rest'], first: ['rest'] }],
+    related: ['scarlet', 'impetigo', 'kawasaki'],
+    info: 'Small child with fever, mouth ulcers and small blisters on the palms and soles; an outbreak at nursery. Pain relief and fluids.',
+    teach: 'Hand, foot and mouth disease is a virus that passes in about a week. Pain relief helps them drink. Antibiotics do nothing; watch for dehydration.' },
+
+  { id: 'febseiz', told: ['neuro'], n: 'Febrile seizure (simple)', sys: 'Brain & nerves', lvl: 6, age: [1, 4], kid: true, nonbac: true, look: ['fever', 'tired'],
+    complaint: ['They had a fit this morning with a high fever. They went stiff and shook for about two minutes.', 'My child had a seizure with their fever. It stopped on its own, but I was terrified.'],
+    a: { onset: 'This morning. They\'ve had a cold and a fever since yesterday.', fever: 'Yes, 39.2 this morning.', resp: 'A runny nose and a little cough.', neuro: 'Their whole body went stiff and jerked for about two minutes, then they were sleepy for half an hour. Now they\'re their normal self. It\'s just like the one last year that the hospital called a febrile seizure.', skin: 'No rash.', exposure: 'Their dad had fits with fevers as a toddler too.', general: 'Tired, but playing with my phone now.' },
+    x: { thermo: 38.9, palp: { focus: 'Neck soft and moves freely. No rash anywhere. Alert, moving all four limbs normally.' }, oto: 'Both eardrums a little pink. No bulging.', light: { throat: 'Throat a little red.', eyes: 'Pupils equal and reactive. Alert and following your finger.' } },
+    keys: [['q:neuro'], ['x:palp'], ['x:thermo', 'q:fever']],
+    rx: [{ any: ['rest'], first: ['rest'] }], opt: ['para', 'ibu'],
+    related: ['meningitis'],
+    info: 'Child under 6 with a short whole-body seizure during a fever, back to normal; no stiff neck or rash. Reassurance and fever care.',
+    teach: 'A short whole-body seizure with a fever, in a young child who is back to normal, is a simple febrile seizure. Check for meningitis (stiff neck, rash). Fever medicine is for comfort and doesn\'t prevent the next one. A first-ever, long or repeated seizure, or a child who doesn\'t recover, needs hospital.' },
+
+  { id: 'impetigo', told: ['skin'], n: 'Impetigo', sys: 'Skin & allergy', lvl: 6, age: [2, 9], kid: true, look: ['rash'],
+    complaint: ['They\'ve got crusty, golden sores around their nose that keep spreading.'],
+    a: { onset: 'About five days ago. It started as a little red spot by a scratch.', skin: 'Sores with a yellow-gold crust around the nose and mouth. A bit itchy. Two new ones yesterday.', fever: 'No fever.', exposure: 'A boy in their class had something similar.', general: 'Otherwise completely fine.' },
+    x: { palp: { skin: 'Three honey-coloured crusted sores around the nose and mouth. A small area. No blisters elsewhere.' } },
+    keys: [['x:palp'], ['q:skin']],
+    rx: [{ any: ['mupi'], first: ['mupi'] }], opt: ['rest'],
+    harm: { amox: [6, 'Amoxicillin covers impetigo germs poorly, and a small patch only needs cream.'] },
+    related: ['hfmd', 'hives'],
+    info: 'Child with honey-coloured crusted sores around the nose and mouth, spreading; no fever. Antibiotic cream for a small patch.',
+    teach: 'Golden crusts mean impetigo, a skin infection that spreads by touch. A small patch needs an antibiotic cream, and they stay off school until 48 hours into treatment.' },
+
+  { id: 'scarlet', told: ['skin', 'pain'], n: 'Scarlet fever', sys: 'Ear, nose & throat', lvl: 6, age: [3, 9], kid: true, look: ['fever', 'rash'],
+    complaint: ['They\'ve got a sore throat, a fever, and now a red rash that feels like sandpaper.'],
+    a: { onset: 'Sore throat and fever two days ago. The rash came this morning.', pain: 'Their throat. They say it hurts to swallow.', fever: 'Yes, up to 39.', skin: 'A fine red rash on their chest and tummy. It feels rough, like sandpaper.', gi: 'Threw up once yesterday.', exposure: 'There\'s a letter from school about scarlet fever going round.', general: 'Off their food and tired.' },
+    x: { thermo: 38.8, light: { throat: 'Tonsils RED and SWOLLEN. Tongue red and bumpy like a STRAWBERRY.' }, palp: { skin: 'Fine sandpaper-like red rash on the chest and tummy, worst in the skin creases.', nodes: 'Tender swollen lymph nodes in the neck.' }, rapid: { strep: 'Strep A: POSITIVE' } },
+    keys: [['x:rapid'], ['x:light'], ['x:palp', 'q:skin']],
+    rx: [{ any: ['amox', 'azi'], first: ['amox'] }], opt: ['para', 'ibu', 'rest'],
+    related: ['strep', 'hfmd', 'kawasaki'],
+    info: 'Child with a sore throat, fever, strawberry tongue and a sandpaper rash; strep test positive. Amoxicillin.',
+    teach: 'Scarlet fever is strep throat with a rash. A penicillin-type antibiotic treats it, so check for a penicillin allergy first.' },
+
+  { id: 'conj', told: ['skin'], n: 'Pink eye (bacterial conjunctivitis)', sys: 'Ear, nose & throat', lvl: 6, age: [2, 9], kid: true, look: [],
+    complaint: ['Their eye is red and gunky. It was glued shut when they woke up.'],
+    a: { onset: 'Yesterday morning. Now the other eye is starting too.', pain: 'Gritty, they say. It doesn\'t really hurt.', skin: 'Thick yellow goo from the eye, and crusty lashes in the morning.', fever: 'No fever.', neuro: 'They can see fine.', exposure: 'Lots of pink eye at school.', general: 'Otherwise fine.' },
+    x: { light: { eyes: 'Both eyes RED with thick YELLOW discharge. Pupils equal and reactive, vision normal, no pain in bright light.' } },
+    keys: [['x:light'], ['q:skin']],
+    rx: [{ any: ['chlor', 'rest'], first: ['chlor', 'rest'] }],
+    related: ['hayfever'],
+    info: 'Child with red, sticky eyes, yellow discharge and lashes stuck together in the morning; vision normal. Eye cleaning, or antibiotic drops.',
+    teach: 'Sticky yellow discharge means bacterial conjunctivitis. It usually clears with cleaning; antibiotic drops speed it up. Pain, light sensitivity or blurred vision is something else and needs urgent care.' },
+
+  { id: 'intuss', told: ['pain'], n: 'Intussusception', sys: 'Gut', lvl: 7, age: [1, 2], kid: true, refer: true, look: ['pale', 'pain'],
+    complaint: ['My baby keeps screaming and pulling their legs up, then going quiet and floppy. Over and over.'],
+    a: { onset: 'Since this morning, every 15 or 20 minutes.', pain: 'They scream and draw their knees up to their tummy, then go pale and floppy in between.', fever: 'No fever.', gi: 'They\'ve been sick three times. The last nappy had red, jelly-looking stuff in it.', general: 'Floppy and pale between the attacks. Won\'t feed.' },
+    x: { thermo: 37.2, bp: [88, 52, 150], palp: { abd: 'A sausage-shaped LUMP in the right upper belly. Tender.' }, us: 'Ultrasound, belly: TARGET SIGN. The bowel has telescoped into itself (INTUSSUSCEPTION).' },
+    keys: [['q:pain'], ['q:gi'], ['x:palp', 'x:us']],
+    rx: [], refer: true,
+    harm: { lop: [15, 'Loperamide can hide a blocked bowel. Dangerous here.'], ors: [4, 'Rehydration alone misses a surgical emergency.'] },
+    related: ['gastro', 'appendicitis'],
+    info: 'Baby with bouts of screaming and drawing up the legs, pale and floppy in between, vomiting, red-currant jelly stool; a sausage-shaped lump. Emergency referral.',
+    teach: 'Bouts of screaming with the legs drawn up, then pale and floppy, in a baby is intussusception until proven otherwise. The bowel telescopes into itself. It is an emergency, and hospitals can often fix it without surgery if it is caught early.' },
+
+  { id: 'kawasaki', told: ['fever', 'onset'], n: 'Kawasaki disease', sys: 'Heart & vessels', lvl: 7, age: [1, 5], kid: true, refer: true, look: ['fever', 'rash'],
+    complaint: ['They\'ve had a high fever for five days now, and the antibiotic from the weekend clinic did nothing.'],
+    a: { onset: 'Five days of fever. Then red eyes, a rash, and now their hands are swollen.', fever: 'Yes, 39 to 40 every day, even with medicine.', skin: 'A blotchy rash on their body. Their hands and feet are red and puffy.', pain: 'Their lips are sore and cracked.', general: 'So irritable. Nothing settles them.' },
+    x: { thermo: 39.4, light: { eyes: 'Both eyes RED, but NO discharge.', throat: 'Lips RED and CRACKED. Strawberry tongue.' }, palp: { skin: 'Blotchy red rash on the body. Hands and feet red and SWOLLEN.', nodes: 'One large swollen lymph node on the side of the neck.' }, rapid: { strep: 'Strep A: negative' } },
+    keys: [['q:onset', 'q:fever'], ['x:light'], ['x:palp']],
+    rx: [], refer: true,
+    harm: { amox: [6, 'Antibiotics don\'t treat Kawasaki disease. They have already failed once.'] },
+    related: ['scarlet', 'hfmd'],
+    info: 'Young child with five or more days of high fever, red eyes without discharge, red cracked lips, a rash, swollen hands and feet, and one big neck node. Hospital referral.',
+    teach: 'Five days of fever plus red eyes, red cracked lips, a rash, swollen hands and a neck node is Kawasaki disease. It can damage the heart\'s arteries, so it needs hospital treatment quickly.' },
 ];
 
 /* ---------- Names ---------- */
@@ -1425,8 +1555,18 @@ function cautionsFor(id) {
 const unlockedDrugs = lvl => Object.keys(DRUGS).filter(id => DRUGS[id].rx !== false && DRUGS[id].lvl <= lvl);
 const toolOK = (id, lvl) => TOOL[id] && TOOL[id].lvl <= lvl;
 function ctxOf(p, stops = []) { return { age: p.age, conds: p.conds, allergies: p.allergies, cur: p.meds.map(m => m.id).filter(id => !stops.includes(id)) }; }
+/* one condition, or two merged (internal medicine): what the visit as a whole needs */
+function comboDef(d, e) {
+  if (!e) return d;
+  const need = new Set((d.rx || []).concat(e.rx || []).flatMap(x => x.any).concat(d.opt || [], e.opt || []));
+  const harm = Object.assign({}, e.harm || {}, d.harm || {}); Object.keys(harm).forEach(k => { if (need.has(k)) delete harm[k]; });
+  return { id: d.id, n: d.n + ' and ' + e.n, rx: (d.rx || []).concat(e.rx || []), opt: [...new Set((d.opt || []).concat(e.opt || []))], harm,
+    nonbac: !!(d.nonbac && e.nonbac), refer: !!(d.refer || e.refer), stop: (d.stop || []).concat(e.stop || []), stopTags: (d.stopTags || []).concat(e.stopTags || []),
+    stopOk: (d.stopOk || []).concat(e.stopOk || []), related: [], teach: d.teach + ' ' + e.teach };
+}
+const caseDef = p => comboDef(DIS[p.did], p.did2 ? DIS[p.did2] : null);
 function requiredStops(p) {
-  const d = DIS[p.did];
+  const d = caseDef(p);
   const s = new Set(d.stop || []);
   (d.stopTags || []).forEach(t => p.meds.forEach(m => { if (tagsOf(m.id).includes(t)) s.add(m.id); }));
   return [...s].filter(id => p.meds.some(m => m.id === id));
@@ -1435,7 +1575,7 @@ function isNewOrOtc(p, id) { const m = p.meds.find(x => x.id === id); return !!m
 
 /* find a safe treatment the player could choose; null if impossible */
 function solve(p, lvl) {
-  const d = DIS[p.did];
+  const d = caseDef(p);
   const avail = new Set(unlockedDrugs(lvl).concat(['rest']));
   const req = requiredStops(p);
   if (req.length && lvl < 3) return null;
@@ -1498,10 +1638,31 @@ function modCount(r, lvl, kid) {
   return [0, r() < 0.5 ? 1 : 0, r() < 0.75 ? 1 : 0, 1 + (r() < 0.3), 1 + (r() < 0.5), 2, 2 + (r() < 0.4), 2 + (r() < 0.5), 3 + (r() < 0.5)][lvl] | 0;
 }
 
-function pickDisease(r, lvl, recent) {
-  const pool = DISEASES.filter(d => d.lvl <= lvl);
+/* which conditions walk in: family medicine sees everyone, internal medicine adults, pediatrics children and teens */
+function poolFor(lvl, spec) {
+  const all = DISEASES.filter(d => d.lvl <= lvl);
+  if (spec === 'im') return all.filter(d => !d.kid && d.age[1] >= 18);
+  if (spec === 'peds') return all.filter(d => d.kid || d.age[0] <= 17);
+  return all;
+}
+function ageRange(r, d, spec) {
+  let [lo, hi] = d.age;
+  if (spec === 'peds' && !d.kid) { lo = Math.max(lo, 12); hi = Math.min(hi, 17); }
+  if (spec === 'im') { lo = Math.max(lo, 18); if (hi >= 60 && r() < 0.7) lo = Math.max(lo, 50); }
+  return [lo, Math.max(lo, hi)];
+}
+/* internal medicine: a second, unrelated problem that can be treated alongside the first */
+function pickSecond(r, d, lvl, sex) {
+  /* the "while I'm here" problem is an everyday one (LV4 and below), never a second emergency */
+  const c = DISEASES.filter(e => e.lvl <= Math.min(lvl, 4) && e.id !== d.id && !e.kid && !e.refer && !e.addMods && !e.stop && !e.stopTags && e.sys !== d.sys
+    && !(d.related || []).includes(e.id) && !(e.related || []).includes(d.id) && (!e.sex || !d.sex || e.sex === d.sex)
+    && Math.max(e.age[0], d.age[0], 18) <= Math.min(e.age[1], d.age[1]));
+  return c.length ? pick(r, c) : null;
+}
+function pickDisease(r, lvl, recent, spec) {
+  const pool = poolFor(lvl, spec);
   const w = pool.map(d => {
-    let x = d.lvl === lvl && lvl < 8 ? 3 : 1;
+    let x = d.lvl === lvl && lvl < 8 && !(d.kid && spec !== 'peds') ? 3 : 1;
     const k = recent.indexOf(d.id);
     if (k >= 0) x *= k < 3 ? 0.05 : 0.4;
     return x;
@@ -1509,21 +1670,27 @@ function pickDisease(r, lvl, recent) {
   return wpick(r, pool, w);
 }
 
-function genPatient(lvl, seed, recent = [], forceId, diff = 0) {
+function genPatient(lvl, seed, recent = [], forceId, diff = 0, spec = null, force2) {
   const r = RNG(seed);
-  const d = forceId ? DIS[forceId] : pickDisease(r, lvl, recent);
+  const d = forceId ? DIS[forceId] : pickDisease(r, lvl, recent, spec);
+  let e = null;
+  if (force2 !== undefined) e = force2 ? DIS[force2] : null;
+  else if (spec === 'im' && !d.refer && !d.addMods && !d.kid && r() < 0.4) e = pickSecond(r, d, lvl);
+  const def = comboDef(d, e);
   let p = null;
   for (let attempt = 0; attempt < 60; attempt++) {
-    const sex = d.sex || (r() < (d.sexF ?? 0.5) ? 'f' : 'm');
-    const age = ri(r, d.age[0], d.age[1]);
+    const sex = d.sex || (e && e.sex) || (r() < (d.sexF ?? 0.5) ? 'f' : 'm');
+    let [lo, hi] = ageRange(r, d, spec);
+    if (e) { lo = Math.max(lo, e.age[0]); hi = Math.min(hi, e.age[1]); if (hi < lo) hi = lo; }
+    const age = ri(r, lo, hi);
     let mods = (d.addMods || []).slice();
     if (attempt < 50) {
-      const want = modCount(r, lvl, d.kid);
+      const want = Math.min(4, modCount(r, lvl, d.kid) + (spec === 'im' ? 1 : 0));
       const usedConds = new Set(mods.map(id => MODS[id].cond).filter(Boolean));
       const usedMeds = new Set(mods.flatMap(id => MODS[id].meds || []));
       let cands = Object.keys(MODS).filter(id => {
         const m = MODS[id];
-        if (m.only || m.lvl > lvl || mods.includes(id) || (d.excl || []).includes(id)) return false;
+        if (m.only || m.lvl > lvl || mods.includes(id) || (d.excl || []).includes(id) || (e && (e.excl || []).includes(id))) return false;
         if (d.kid && id !== 'pen_allergy') return false;
         if (!modFits(m, sex, age)) return false;
         if (m.cond && usedConds.has(m.cond)) return false;
@@ -1531,7 +1698,7 @@ function genPatient(lvl, seed, recent = [], forceId, diff = 0) {
         return true;
       });
       for (let k = 0; k < want && cands.length; k++) {
-        const rel = cands.map(id => modRelevant(id, d, lvl, age) ? (modHitsFirst(id, d, lvl, age) ? 2 : 1) : 0);
+        const rel = cands.map(id => modRelevant(id, def, lvl, age) ? (modHitsFirst(id, def, lvl, age) ? 2 : 1) : 0);
         const forceRel = k === 0 && rel.some(Boolean) && r() < (lvl >= 4 ? 0.85 : lvl >= 2 ? 0.7 : 0.5);
         const w = cands.map((id, i) => rel[i] === 2 ? 16 : rel[i] === 1 ? 4 : (forceRel ? 0 : 1));
         const id = wpick(r, cands, w);
@@ -1541,9 +1708,12 @@ function genPatient(lvl, seed, recent = [], forceId, diff = 0) {
         if (m.allergy) cands = cands.filter(c => !MODS[c].allergy || r() < 0.3);
       }
     }
-    p = buildPatient(r, d, lvl, sex, age, mods, seed, diff);
+    p = buildPatient(r, d, lvl, sex, age, mods, seed, diff, e);
     if (solve(p, lvl)) break;
   }
+  /* two problems that can't be treated safely together: keep just the first */
+  if (e && !solve(p, lvl)) return genPatient(lvl, seed, recent, d.id, diff, spec, null);
+  p.lvl = lvl; p.spec = spec; p.gen = { lvl, seed, forceId: d.id, diff, spec, force2: e ? e.id : null };
   return p;
 }
 
@@ -1561,8 +1731,25 @@ function vagueOpener(r, d, lvl) {
   return pick(r, VAGUE_OPEN[wpick(r, groups, w)]);
 }
 const NEG_ANS = /^(No|Nothing|Not|None|Never)\b/i;
-function buildPatient(r, d, lvl, sex, age, mods, seed, diff = 0) {
+/* two conditions in one patient: answers, findings and looks combined */
+function mergeAnswers(a, b) {
+  const out = Object.assign({}, a || {});
+  Object.entries(b || {}).forEach(([q, y]) => { const x = out[q];
+    if (!x || NEG_ANS.test(x)) out[q] = y; else if (!NEG_ANS.test(y) && y !== x) out[q] = `${x} And the other thing: ${y.charAt(0).toLowerCase() + y.slice(1)}`; });
+  return out;
+}
+function mergeFindings(a, b) {
+  a = a || {}; b = b || {}; const out = Object.assign({}, b, a);
+  ['steth', 'light', 'palp', 'rapid', 'tox'].forEach(k => { if (a[k] || b[k]) out[k] = Object.assign({}, b[k] || {}, a[k] || {}); });
+  if (a.lab || b.lab) { out.lab = Object.assign({}, b.lab || {}, a.lab || {}); const ex = ((a.lab || {}).extra || []).concat((b.lab || {}).extra || []); if (ex.length) out.lab.extra = ex; }
+  if (a.thermo !== undefined && b.thermo !== undefined) out.thermo = Math.max(a.thermo, b.thermo);
+  if (a.spo2 !== undefined && b.spo2 !== undefined) out.spo2 = Math.min(a.spo2, b.spo2);
+  ['oto', 'dip', 'ecg', 'xray', 'us', 'ct', 'bpNote'].forEach(k => { if (a[k] && b[k] && a[k] !== b[k]) out[k] = a[k] + ' ' + b[k]; });
+  return out;
+}
+function buildPatient(r, d0, lvl, sex, age, mods, seed, diff = 0, e = null) {
   const kid = age < 12;
+  const d = e ? Object.assign({}, d0, { a: mergeAnswers(d0.a, e.a), x: mergeFindings(d0.x, e.x), look: [...new Set((d0.look || []).concat(e.look || []))], told: (d0.told || []).concat(e.told || []) }) : d0;
   const M = mods.map(id => MODS[id]);
   const conds = [...new Set(M.map(m => m.cond).filter(Boolean))];
   const allergies = [...new Set(M.map(m => m.allergy).filter(Boolean))];
@@ -1590,9 +1777,15 @@ function buildPatient(r, d, lvl, sex, age, mods, seed, diff = 0) {
   const preg = conds.includes('preg');
 
   const cPick = pick(r, d.complaint);
-  const cText = Array.isArray(cPick) ? cPick[0] : cPick;
-  const opener = diff >= 1 ? (vagueOpener(r, d, lvl) || cText) : cText;
+  let cText = Array.isArray(cPick) ? cPick[0] : cPick;
+  let opener = diff >= 1 ? (vagueOpener(r, d0, lvl) || cText) : cText;
   const toldRaw = (d.told || []).concat(Array.isArray(cPick) ? cPick[1] : []);
+  if (e) { /* the second problem comes up at the door */
+    const c2 = pick(r, e.complaint), t2 = Array.isArray(c2) ? c2[0] : c2;
+    if (Array.isArray(c2)) toldRaw.push(...c2[1]);
+    opener += ' Oh, and while I\'m here: ' + (diff >= 1 ? (vagueOpener(r, e, lvl) || t2) : t2);
+    cText += ' And: ' + t2;
+  }
   /* ---- answers ---- */
   const ans = {};
   QUESTIONS.forEach(q => {
@@ -1615,8 +1808,8 @@ function buildPatient(r, d, lvl, sex, age, mods, seed, diff = 0) {
     } else if (q.id === 'more') {
       a = cText;
     } else if (q.id === 'social') {
-      const e = mods.find(id => MODS[id].socialSay);
-      a = e ? MODS[e].socialSay : (d.a.social || pick(r, SOCIAL));
+      const sm = mods.find(id => MODS[id].socialSay);
+      a = sm ? MODS[sm].socialSay : age < 18 ? 'No! I don\'t smoke or drink.' : (d.a.social || pick(r, SOCIAL));
     } else {
       a = (d.a && d.a[q.id]) || QDEF[q.id] || '...';
     }
@@ -1677,11 +1870,12 @@ function buildPatient(r, d, lvl, sex, age, mods, seed, diff = 0) {
   /* ---- keys (clues the player should find) ---- */
   const avail = o => { const [k, v] = o.split(':'); if (k === 'q') return v in ans; if (k === 'x') return toolOK(v, lvl); if (k === 'doc') return hasDoc(v); return false; };
   const keys = [];
-  const addKey = (opts, why, mod) => { const o = opts.filter(avail); if (o.length && !keys.some(k => k.o.join() === o.join())) keys.push({ o, why, mod }); };
-  (d.keys || []).forEach(k => addKey(k, null));
+  const addKey = (opts, why, mod, dis) => { const o = opts.filter(avail); if (o.length && !keys.some(k => k.o.join() === o.join())) keys.push({ o, why, mod, dis }); };
+  (d0.keys || []).forEach(k => addKey(k, null, undefined, d0.id));
+  if (e) (e.keys || []).forEach(k => addKey(k, null, undefined, e.id));
   mods.forEach(id => {
     const m = MODS[id];
-    if (!(d.addMods || []).includes(id) && !modRelevant(id, d, lvl, age)) return;
+    if (!(d.addMods || []).includes(id) && !modRelevant(id, comboDef(d0, e), lvl, age)) return;
     const rev = [];
     if (m.meds) {
       if (meds.some(x => x.mod === id && x.inPlan)) rev.push('doc:meds');
@@ -1701,13 +1895,13 @@ function buildPatient(r, d, lvl, sex, age, mods, seed, diff = 0) {
   /* Expert: the patient is vague about most of what they would normally tell you. Never about a clue
      that only the story can give, so every case stays solvable; exams and tests carry the rest. */
   const vague = [];
-  if (diff >= 2 && !d.id.startsWith('stroke')) {
+  if (diff >= 2 && d0.id !== 'stroke' && !(e && e.id === 'stroke')) {
     /* conditions diagnosed from the story (tests only rule out look-alikes) keep their tell-tale answers clear */
     const keep = new Set();
-    if (HISTORY_DX.includes(d.id)) keys.filter(k => !k.mod).forEach(k => { if (k.o.every(o => o.startsWith('q:'))) k.o.forEach(o => keep.add(o.slice(2))); });
+    keys.filter(k => !k.mod && HISTORY_DX.includes(k.dis)).forEach(k => { if (k.o.every(o => o.startsWith('q:'))) k.o.forEach(o => keep.add(o.slice(2))); });
     Object.keys(VAGUE_ANS).forEach(q => {
       if (!(q in ans) || keep.has(q)) return;
-      const real = q === 'more' || (d.a && q in d.a);
+      const real = q === 'more' || (d.a && q in d.a);   // d.a already holds both conditions' answers
       if (real && NEG_ANS.test(ans[q]) && QDEF[q]) ans[q] = QDEF[q]; /* a plain "no", not a tell-tale one */
       const positive = real && ans[q] !== QDEF[q];
       /* unsure about most real symptoms, and about some things that are actually fine */
@@ -1738,7 +1932,7 @@ function buildPatient(r, d, lvl, sex, age, mods, seed, diff = 0) {
   }
 
   return {
-    seed, did: d.id, name, sex, age, kid, mods, conds, allergies, meds, planHome, forgot,
+    seed, did: d0.id, did2: e ? e.id : null, name, sex, age, kid, mods, conds, allergies, meds, planHome, forgot,
     complaint: opener, told, ans, find, docs, keys, par, look, diff, vague,
   };
 }
@@ -1782,7 +1976,7 @@ function matchSlots(slots, items) {
 }
 
 function gradeCase(p, st, lvl) {
-  const d = DIS[p.did];
+  const d = caseDef(p);
   const items = st.rx.slice();
   const drugs = items.filter(id => DRUGS[id]);
   const stops = st.stops.slice();
@@ -1792,17 +1986,29 @@ function gradeCase(p, st, lvl) {
   const good = [];
   const pen = (sev, msg, pts) => issues.push({ sev, msg, pts: pts ?? SEV_PTS[sev] });
 
-  /* diagnosis. On Hard a right answer needs at least one of its clues found; on Expert, an exam or test that confirms it */
+  /* diagnosis. On Hard a right answer needs at least one of its clues found; on Expert, an exam or test that confirms it.
+     A patient with two problems needs both named; each is worth half. */
   const diff = p.diff || 0;
   const dn = done(st, p);
-  const dKeys = p.keys.filter(k => !k.mod);
-  let guess = false;
-  if (diff >= 1 && st.dx === d.id && dKeys.length) {
-    const objective = dKeys.filter(k => k.o.some(o => o.startsWith('x:')));
-    guess = diff >= 2 && objective.length ? !objective.some(k => k.o.some(o => o.startsWith('x:') && dn.includes(o))) : !dKeys.some(k => k.o.some(o => dn.includes(o)));
-  }
-  const close = (d.related || []).includes(st.dx);
-  const dxPts = st.dx === d.id ? (guess ? 10 : 35) : close ? (diff >= 2 ? 0 : 15) : 0;
+  const ids = [p.did].concat(p.did2 ? [p.did2] : []), chosen = p.did2 ? [st.dx, st.dx2] : [st.dx];
+  const each = 35 / ids.length, used = new Set(), dxRes = [];
+  ids.forEach(id => { const k = chosen.findIndex((c, i) => c === id && !used.has(i)); if (k >= 0) { used.add(k); dxRes.push({ id, ok: true }); } });
+  ids.forEach(id => { if (dxRes.some(x => x.id === id)) return; const k = chosen.findIndex((c, i) => c && !used.has(i) && (DIS[id].related || []).includes(c));
+    if (k >= 0) { used.add(k); dxRes.push({ id, close: true, got: chosen[k] }); } else dxRes.push({ id, ok: false, got: chosen.find((c, i) => c && !used.has(i)) }); });
+  let dxPtsRaw = 0, guess = false;
+  dxRes.forEach(x => {
+    if (x.ok) {
+      const dKeys = p.keys.filter(k => !k.mod && (k.dis === x.id || (!k.dis && x.id === p.did)));
+      let g = false;
+      if (diff >= 1 && dKeys.length) { const objective = dKeys.filter(k => k.o.some(o => o.startsWith('x:')));
+        g = diff >= 2 && objective.length ? !objective.some(k => k.o.some(o => o.startsWith('x:') && dn.includes(o))) : !dKeys.some(k => k.o.some(o => dn.includes(o))); }
+      x.guess = g; if (g) guess = true; dxPtsRaw += g ? each * 10 / 35 : each;
+    } else if (x.close && diff < 2) dxPtsRaw += each * 15 / 35;
+  });
+  const dxPts = Math.round(dxPtsRaw);
+  /* the same patient back again, and still missed */
+  if (p.ret && dxRes.some(x => !x.ok)) pen('moderate', 'This patient came back because the first diagnosis was wrong, and it was missed again.', 10);
+  if (p.ret && dxRes.every(x => x.ok)) good.push({ msg: 'Second look: you caught what the first visit missed.', pts: 0 });
 
   /* treatment requirements */
   const slots = d.rx || [];
@@ -1866,15 +2072,17 @@ function gradeCase(p, st, lvl) {
   const bonus = good.reduce((s, g) => s + g.pts, 0);
   const raw = dxPts + txPts + thorPts + effPts - penalty + bonus;
   const score = Math.max(0, Math.min(100, raw));
-  return { score, letter: letterOf(score), guess, diff, dxPts, txPts, thorPts, effPts, txNotes, issues, good, missed, over, par: p.par, time: st.time, correct: d, chosen: st.dx };
+  return { score, letter: letterOf(score), guess, diff, dxPts, txPts, thorPts, effPts, txNotes, issues, good, missed, over, par: p.par, time: st.time, correct: DIS[p.did], correct2: p.did2 ? DIS[p.did2] : null, dxRes, chosen: st.dx, chosen2: st.dx2 || null, teach: d.teach };
 }
 function letterOf(s) { return s >= 95 ? 'S' : s >= 85 ? 'A' : s >= 70 ? 'B' : s >= 55 ? 'C' : s >= 40 ? 'D' : 'F'; }
 function nameOf(id) { if (id === 'rest') return 'Rest & home care'; return DRUGS[id] ? DRUGS[id].n : (DIS[id] ? DIS[id].n : id); }
 
 /* ---------- progression ---------- */
 function newSave() {
-  return { v: 1, diff: 0, lvl: 1, atRank: [], total: 0, day: 1, dayDone: 0, dayLen: 0, clock: 0, dayScores: [], best: 0, majors: 0, history: [], recent: [], cur: null, seen: {}, muted: false, started: false };
+  return { v: 1, diff: 0, lvl: 1, atRank: [], total: 0, day: 1, dayDone: 0, dayLen: 0, clock: 0, dayScores: [], best: 0, majors: 0, history: [], recent: [], cur: null, seen: {}, muted: false, started: false,
+    spec: null, certDue: 0, probation: 0, renewFails: 0, examPending: null, examRetakeAt: 0, exam: null, exams: [], returns: [], daily: {} };
 }
+const rankName = (lvl, spec) => (lvl >= 6 && spec && SPECS[spec] ? SPECS[spec].titles[lvl - 6] : RANKS[lvl - 1].t);
 function rankProgress(s) {
   const R = RANKS[s.lvl - 1];
   if (!R.need) return { max: true, n: s.atRank.length, need: 0, avg: avg(s.atRank), target: 0 };
@@ -1882,27 +2090,148 @@ function rankProgress(s) {
   return { max: false, n: Math.min(s.atRank.length, R.need), need: R.need, avg: avg(last), target: R.avg };
 }
 function avg(a) { return a.length ? Math.round(a.reduce((x, y) => x + y, 0) / a.length) : 0; }
+/* returns the new level on a promotion; a specialist's promotion waits for a board exam instead */
 function recordResult(s, p, res) {
-  const bonus = (DIFFS[p.diff || 0] || DIFFS[0]).promo;
-  s.total++; s.atRank.push(Math.min(100, res.score + bonus)); s.dayDone++; s.dayScores.push(res.score);
+  const bonus = (DIFFS[p.diff || 0] || DIFFS[0]).promo - (s.probation > 0 ? 10 : 0);
+  s.total++; s.atRank.push(Math.max(0, Math.min(100, res.score + bonus))); s.dayDone++; s.dayScores.push(res.score);
+  if (s.probation > 0) s.probation--;
   s.best = Math.max(s.best, res.score);
   s.majors += res.issues.filter(i => i.sev === 'major').length;
-  s.seen[p.did] = (s.seen[p.did] || 0) + 1;
+  [p.did].concat(p.did2 ? [p.did2] : []).forEach(id => { s.seen[id] = (s.seen[id] || 0) + 1; });
   s.recent.unshift(p.did); s.recent = s.recent.slice(0, 6);
-  s.history.unshift({ d: p.did, s: res.score, g: res.letter, day: s.day, df: p.diff || 0 }); s.history = s.history.slice(0, 40);
+  s.history.unshift({ d: p.did, d2: p.did2 || undefined, s: res.score, g: res.letter, day: s.day, df: p.diff || 0, ok: res.dxRes.every(x => x.ok) }); s.history = s.history.slice(0, 40);
+  if (s.spec === 'gp') planReturn(s, p, res);
   const R = RANKS[s.lvl - 1];
   if (R.need && s.atRank.length >= R.need && avg(s.atRank.slice(-R.need)) >= R.avg) {
+    if (s.lvl >= 6 && s.spec) { if (!s.examPending && s.total >= (s.examRetakeAt || 0)) s.examPending = 'promo'; return 0; }
     s.lvl++; s.atRank = []; return s.lvl;
   }
+  if (s.spec && s.certDue && s.total >= s.certDue && !s.examPending) s.examPending = 'renew';
   return 0;
 }
+function chooseSpec(s, spec) { s.spec = spec; s.certDue = s.total + CERT_EVERY; s.probation = 0; s.renewFails = 0; s.examPending = null; s.examRetakeAt = 0; s.returns = []; }
+/* family medicine: patients come back */
+function planReturn(s, p, res) {
+  if (p.daily || p.ret) return;
+  const r = Math.random(), first = p.name.split(' ')[0], d = DIS[p.did];
+  const missed = res.dxRes.some(x => !x.ok), serious = [p.did].concat(p.did2 ? [p.did2] : []).some(id => DIS[id].refer || DIS[id].lvl >= 5);
+  const major = res.issues.find(i => i.sev === 'major');
+  if (missed && serious && r < 0.75) s.returns.push({ kind: 'back', due: s.total + 1 + (Math.random() < 0.5 ? 1 : 0), gen: p.gen, prev: { dx: [res.chosen, res.chosen2].filter(Boolean), rx: [], day: s.day, score: res.score } });
+  else if (major && r < 0.6) s.returns.push({ kind: 'note', due: s.total + 1, bad: true, t: `${first} came back the next day after your prescription. ${major.msg} They're all right this time, but it was close.` });
+  else if (res.score >= 85 && r < 0.3) s.returns.push({ kind: 'note', due: s.total + 1, t: d.refer ? `The hospital wrote about ${first}: your diagnosis of ${d.n.toLowerCase()} was right, and sending them in made the difference.` : `${first} dropped by to say thank you. The ${d.n.toLowerCase()} has settled.` });
+}
+function dueReturn(s, kind) { const i = s.returns.findIndex(x => x.kind === kind && s.total >= x.due); return i >= 0 ? s.returns.splice(i, 1)[0] : null; }
+function genReturn(ret) {
+  const g = ret.gen, p = genPatient(g.lvl, g.seed, [], g.forceId, g.diff, g.spec, g.force2);
+  p.ret = ret.prev; p.complaint = 'I\'m back, Doctor. It\'s got worse since I saw you. ' + p.complaint;
+  return p;
+}
+
+/* ---------- board exams: questions built from the game's own cases, rules and tests ---------- */
+const EXAM_N = 5, EXAM_PASS = { promo: 4, renew: 3 };
+function shuffleR(r, a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function txText(d, lvl) {
+  if (d.refer && !(d.rx || []).length) return 'Refer to hospital' + ((d.stop || []).length ? ', stopping ' + d.stop.map(nameOf).join(' and ') : '');
+  const parts = (d.rx || []).map(sl => sl.first.filter(id => id === 'rest' || (DRUGS[id] && DRUGS[id].lvl <= lvl)).map(nameOf).join(' or ')).filter(Boolean);
+  return parts.join(' + ') + (d.refer ? ' + refer to hospital' : '');
+}
+function findingText(d, t) {
+  const v = (d.x || {})[t]; if (v === undefined) return null;
+  if (typeof v === 'number') return t === 'thermo' ? `Temperature ${v} °C` : t === 'spo2' ? `Oxygen ${v}%` : `${v}`;
+  if (Array.isArray(v)) return `Blood pressure ${v[0]}/${v[1]}, pulse ${v[2]}`;
+  if (typeof v === 'object') return Object.values(v).filter(x => typeof x === 'string').join(' ');
+  return String(v);
+}
+const qDx = (r, d, pool) => {
+  const sents = d.info.split(/(?<=\.)\s+/); const clue = sents.length > 1 ? sents.slice(0, -1).join(' ') : d.info;
+  const near = pool.filter(x => x.id !== d.id && ((d.related || []).includes(x.id) || x.sys === d.sys));
+  const far = pool.filter(x => x.id !== d.id && !near.includes(x));
+  const opts = shuffleR(r, near).concat(shuffleR(r, far)).slice(0, 3).map(x => x.n);
+  if (opts.length < 3) return null;
+  return { k: 'dx', q: `Which condition fits? “${clue}”`, opts: [d.n].concat(opts), why: d.teach, dis: d.id };
+};
+const qTx = (r, d, pool, lvl) => {
+  const right = txText(d, lvl); if (!right) return null;
+  const ok = new Set((d.rx || []).flatMap(sl => sl.any).concat(d.opt || [], d.refer ? ['refer'] : []));
+  const cands = [...new Set(pool.filter(x => x.id !== d.id).map(x => txText(x, lvl)).filter(Boolean))].filter(t => t !== right);
+  /* never offer a plan that is also acceptable for this condition */
+  const fine = t => { const ids = Object.keys(DRUGS).filter(id => t.includes(DRUGS[id].n)).concat(t.includes('Rest') ? ['rest'] : [], t.includes('hospital') ? ['refer'] : []); return ids.length && ids.every(id => ok.has(id)); };
+  const opts = shuffleR(r, cands.filter(t => !fine(t))).slice(0, 3); if (opts.length < 3) return null;
+  return { k: 'tx', q: `First-choice plan for ${d.n.toLowerCase()}?`, opts: [right].concat(opts), why: d.teach, dis: d.id };
+};
+const qTest = (r, d, lvl) => {
+  const keyTools = new Set((d.keys || []).flatMap(k => k.filter(o => o.startsWith('x:')).map(o => o.slice(2))));
+  const pos = [...keyTools].filter(t => toolOK(t, lvl) && findingText(d, t) && !['thermo', 'bp'].includes(t));
+  if (!pos.length) return null; const t = pick(r, pos);
+  const others = TOOLS.filter(x => x.lvl <= lvl && !keyTools.has(x.id) && (d.x || {})[x.id] === undefined).map(x => x.n);
+  if (others.length < 3) return null;
+  return { k: 'test', q: `Which exam or test shows ${d.n.toLowerCase()}?`, opts: [TOOL[t].n].concat(shuffleR(r, others).slice(0, 3)), why: `${TOOL[t].n}: ${findingText(d, t)}`, dis: d.id };
+};
+const qAvoid = (r, lvl, spec) => {
+  const tries = shuffleR(r, Object.keys(MODS).filter(id => !MODS[id].only && MODS[id].lvl <= lvl && (MODS[id].cond || MODS[id].allergy || MODS[id].meds)));
+  if (spec === 'peds') tries.unshift('kid');
+  for (const id of tries) {
+    const m = id === 'kid' ? {} : MODS[id], age = id === 'kid' ? 6 : 45;
+    const ctx = { age, conds: m.cond ? [m.cond] : [], allergies: m.allergy ? [m.allergy] : [], cur: m.meds || [] };
+    const drugs = unlockedDrugs(lvl).filter(x => !(m.meds || []).includes(x));
+    const bad = drugs.filter(x => safety([x], ctx).some(i => i.sev === 'major'));
+    const KIDSAFE = ['para', 'ibu', 'amox', 'azi', 'ceti', 'salb', 'pred', 'ors', 'mupi', 'chlor', 'ome'];
+    const safe = drugs.filter(x => !serious(safety([x], ctx)).length && (id !== 'kid' || KIDSAFE.includes(x)));
+    if (!bad.length || safe.length < 3) continue;
+    const b = pick(r, bad), msg = safety([b], ctx).find(i => i.sev === 'major').msg;
+    const who = id === 'kid' ? 'A 6-year-old needs a medicine.' : `Your patient: ${modLabel(id).toLowerCase()}.`;
+    return { k: 'avoid', q: `${who} Which of these must you avoid?`, opts: [nameOf(b)].concat(shuffleR(r, safe).slice(0, 3).map(nameOf)), why: msg };
+  }
+  return null;
+};
+function buildExam(s, kind) {
+  const r = RNG((Date.now() ^ (s.total * 7919)) >>> 0), lvl = s.lvl, pool = poolFor(lvl, s.spec);
+  /* lean on conditions you have recently got wrong */
+  const missed = new Set(s.history.filter(h => h.ok === false || h.s < 70).flatMap(h => [h.d, h.d2].filter(Boolean)));
+  const pickD = usedD => { const c = pool.filter(d => !usedD.has(d.id)); return wpick(r, c, c.map(d => (missed.has(d.id) ? 4 : 1) * (d.lvl >= lvl - 2 ? 1.5 : 1))); };
+  const qs = [], usedD = new Set(), plan = shuffleR(r, ['dx', 'tx', 'test', 'avoid', pick(r, ['dx', 'tx'])]);
+  for (const k of plan) {
+    let q = null;
+    for (let t = 0; t < 30 && !q; t++) { if (k === 'avoid') { q = qAvoid(r, lvl, s.spec); break; } const d = pickD(usedD); q = k === 'dx' ? qDx(r, d, pool) : k === 'tx' ? qTx(r, d, pool, lvl) : qTest(r, d, lvl); if (q) usedD.add(d.id); }
+    if (q && !qs.some(x => x.q === q.q)) qs.push(q);
+  }
+  while (qs.length < EXAM_N) { const d = pickD(usedD); const q = qDx(r, d, pool); if (q) { usedD.add(d.id); qs.push(q); } }
+  /* shuffle each question's options; remember where the answer went */
+  qs.forEach(q => { const order = shuffleR(r, q.opts.map((_, i) => i)); q.a = order.indexOf(0); q.opts = order.map(i => q.opts[i]); });
+  return { kind, qs: qs.slice(0, EXAM_N), i: 0, right: 0, picked: null };
+}
+/* outcome of a finished exam; returns { pass, msg, newLvl } */
+function examOutcome(s) {
+  const ex = s.exam, pass = ex.right >= EXAM_PASS[ex.kind]; s.exams.unshift({ kind: ex.kind, right: ex.right, n: ex.qs.length, day: s.day, pass }); s.exams = s.exams.slice(0, 20);
+  s.exam = null; s.examPending = null; let newLvl = 0, msg = '';
+  if (ex.kind === 'promo') {
+    if (pass) { s.lvl++; s.atRank = []; newLvl = s.lvl; msg = 'You passed the board exam.'; }
+    else { s.examRetakeAt = s.total + 3; msg = 'Not this time. You can retake the exam after three more patients, and your promotion progress is kept.'; }
+  } else if (pass) { s.certDue = s.total + CERT_EVERY; s.probation = 0; s.renewFails = 0; msg = `Certification renewed for another ${CERT_EVERY} patients.`; }
+  else if (!s.renewFails) { s.renewFails = 1; s.probation = 5; s.certDue = s.total + 5; msg = 'You failed the renewal. You are on probation: your next five patients count 10 points lower toward promotion, and then you retake it.'; }
+  else {
+    s.renewFails = 0; s.probation = 0; s.atRank = [];
+    if (s.lvl > 6) { s.lvl--; s.certDue = s.total + CERT_EVERY; msg = `A second failed renewal. The board drops you to ${rankName(s.lvl, s.spec)}.`; }
+    else { s.lvl = 5; s.spec = null; s.certDue = 0; s.returns = []; msg = 'A second failed renewal. The board withdraws your specialty: you are back to Senior Physician, and you choose a specialty again at the next promotion.'; }
+  }
+  return { pass, msg, newLvl };
+}
+
+/* ---------- the daily case: the same patient for everyone today ---------- */
+function dailyInfo(date) {
+  const t = date || new Date(), key = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+  let h = 2166136261; for (const ch of 'pixel-clinic-daily:' + key) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+  const n = Math.floor(Date.UTC(t.getFullYear(), t.getMonth(), t.getDate()) / 864e5);
+  return { key, seed: h >>> 0, lvl: 3 + (n % 4), diff: 1 };
+}
+function genDaily(info) { const p = genPatient(info.lvl, info.seed, [], undefined, info.diff, 'gp'); p.daily = info.key; return p; }
 function unlocksFor(lvl) {
   return {
     tools: TOOLS.filter(t => t.lvl === lvl), drugs: Object.keys(DRUGS).filter(id => DRUGS[id].rx !== false && DRUGS[id].lvl === lvl),
     diseases: DISEASES.filter(d => d.lvl === lvl), features: FEATURES[lvl] || [],
   };
 }
-function newCaseState() { return { asked: [], exams: [], docs: [], looks: [], time: 0, log: [], dx: null, rx: [], stops: [], refer: false, done: false }; }
+function newCaseState() { return { asked: [], exams: [], docs: [], looks: [], time: 0, log: [], dx: null, dx2: null, rx: [], stops: [], refer: false, done: false }; }
 
 /* ===================== PIXEL ART ===================== */
 const PX = { K: '#1a1c2c', P: '#5d275d', R: '#b13e53', O: '#ef7d57', Y: '#ffcd75', G: '#a7f070', g: '#38b764', T: '#257179', N: '#29366f', B: '#3b5dc9', b: '#41a6f6', C: '#73eff7', W: '#f4f4f4', L: '#94b0c2', S: '#566c86', D: '#333c57', w: '#7a4a2b', x: '#a86a3d', h: '#f6d3b3', e: '#c2c3c7' };
@@ -3589,6 +3918,8 @@ const fmtClock = m => { const h = Math.floor(m / 60), mm = Math.floor(m % 60); r
 const firstName = p => p.name.split(' ')[0].toUpperCase();
 const speaker = () => P.kid ? 'PARENT' : firstName(P);
 const dayLen = () => S.dayLen || PATIENTS_PER_DAY(S.lvl);
+const curLvl = () => (P && P.lvl ? P.lvl : S.lvl);
+const needSpec = () => S.lvl >= 6 && !S.spec;
 function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2200); }
 const tabIcon = { talk: ['doc', '#73eff7'], files: ['doc'], exam: ['steth'], notes: ['doc', '#a7f070'], treat: ['pill', '#a7f070'] };
 
@@ -3622,7 +3953,7 @@ function openHub() {
         <span class="tag">CARTRIDGE 01 · NEW</span>
         <h2 id="g1">PIXEL CLINIC</h2>
         <p>You're the new doctor in town. Patients walk in with a complaint and a stack of papers. Ask questions, examine them, read their files, then diagnose and prescribe without missing a dangerous drug interaction.</p>
-        <ul class="chips"><li>Medical mystery</li><li>43 conditions</li><li>36 medicines</li><li>8 ranks</li><li>Hard &amp; Expert modes</li></ul>
+        <ul class="chips"><li>Medical mystery</li><li>43 conditions</li><li>36 medicines</li><li>8 ranks</li><li>3 specialties</li><li>Board exams</li><li>Daily case</li><li>Hard &amp; Expert modes</li></ul>
         <div><a class="btn primary big" href="#pixel-clinic">${S.total ? 'CONTINUE' : 'PLAY FREE'}</a></div>
         <p class="save-note">${esc(prog)}</p>
       </div>
@@ -3679,14 +4010,15 @@ function openGame() {
   </div>`;
   if (!P) sayIdle(); else { say(speaker(), CS.lastSay || P.complaint, 'pt', false); }
   renderAll();
+  if (S.exam) setTimeout(() => { if (UI.view === 'game' && !document.querySelector('#modal')) examQ(); }, 80);
 }
 function renderAll() { if (UI.view !== 'game') return; renderHud(); renderRight(); renderDialog(false); }
 
 function renderHud() {
-  const R = RANKS[S.lvl - 1], pr = rankProgress(S);
+  const pr = rankProgress(S);
   const pct = pr.max ? 100 : Math.round(100 * pr.n / pr.need);
   const dfl = (P ? P.diff : S.diff) || 0;
-  $('#hud-rank').innerHTML = `<b>LV${S.lvl} ${esc(R.t.toUpperCase())}</b>
+  $('#hud-rank').innerHTML = `<b>${P && P.daily ? 'DAILY CASE' : `LV${S.lvl} ${esc(rankName(S.lvl, S.spec).toUpperCase())}`}${S.probation > 0 ? ' <span class="dtag d2">PROBATION</span>' : ''}</b>
     <div class="barrow"><div class="bar" title="Promotion progress"><i style="width:${pct}%"></i></div>${dfl ? `<span class="dtag d${dfl}">${esc(DIFFS[dfl].t.toUpperCase())}</span>` : ''}</div>`;
   const clock = 480 + S.clock + (CS ? CS.time : 0);
   $('#hud-meta').innerHTML = `<b>${fmtClock(clock)}</b>DAY ${S.day} · ${Math.min(S.dayDone + (P ? 1 : 0), dayLen())}/${dayLen()}`;
@@ -3715,7 +4047,9 @@ function renderDialog(animate) {
 }
 function sayIdle() {
   const left = dayLen() - S.dayDone;
-  if (!S.started) say('NURSE PIKA', 'Welcome to Pixel Clinic, Doctor! Patients will come in with a complaint and their papers. Talk to them, examine them, read their files, then diagnose and prescribe. Tap START SHIFT when you\'re ready.', 'sys');
+  if (needSpec()) say('NURSE PIKA', 'Congratulations, Doctor! You\'ve earned the right to specialize. Choose family medicine, internal medicine or pediatrics to carry on.', 'sys');
+  else if (S.examPending) say('NURSE PIKA', S.examPending === 'promo' ? 'Your promotion is waiting on one thing: the board exam. Good luck!' : 'Time to renew your board certification. Five questions.', 'sys');
+  else if (!S.started) say('NURSE PIKA', 'Welcome to Pixel Clinic, Doctor! Patients will come in with a complaint and their papers. Talk to them, examine them, read their files, then diagnose and prescribe. Tap START SHIFT when you\'re ready.', 'sys');
   else if (left <= 0) say('NURSE PIKA', `That's everyone for day ${S.day}. Nice work! Ready for tomorrow?`, 'sys');
   else say('NURSE PIKA', `Day ${S.day}. ${left} patient${left === 1 ? ' is' : 's are'} waiting. Watch out for allergies and drug interactions!`, 'sys');
 }
@@ -3765,7 +4099,7 @@ function filesHTML() {
 function examHTML() {
   return `<h3><span>EXAMINE &amp; TEST</span><span>time cost</span></h3>
   <div class="grid">${TOOLS.map(t => {
-    const lock = t.lvl > S.lvl, d = CS.exams.includes(t.id);
+    const lock = t.lvl > curLvl(), d = CS.exams.includes(t.id);
     return `<button class="tile ${lock ? 'locked' : d ? 'done' : ''}" data-act="exam" data-id="${t.id}" ${lock ? `aria-label="${esc(t.n)}, locked until rank ${t.lvl}"` : ''}>${iconImg(lock ? 'lock' : t.id, null, 'ico lg')}${esc(t.n)}<small>${lock ? 'LV' + t.lvl : d ? 'DONE' : t.t + ' min'}</small></button>`;
   }).join('')}</div>`;
 }
@@ -3777,6 +4111,7 @@ function notesHTML() {
   return `<h3><span>CHART · ${esc(P.name.toUpperCase())}</span><span>${P.age} ${P.sex === 'f' ? 'F' : 'M'}</span></h3>
   <div class="notes">
     <div class="note"><b>Complaint</b>"${esc(P.complaint)}"</div>
+    ${P.ret ? `<div class="note ex"><b>Previous visit (day ${P.ret.day})</b>You diagnosed ${esc(P.ret.dx.map(nameOf).join(' and ') || 'nothing')}. Score ${P.ret.score}.</div>` : ''}
     ${km.length ? `<div class="note"><b>Known medicines</b>${km.map(m => esc(DRUGS[m.id].n)).join(', ')}</div>` : ''}
   </div>
   <h3>HISTORY</h3><div class="notes">${qa || '<p class="empty">No questions asked yet.</p>'}</div>
@@ -3784,19 +4119,20 @@ function notesHTML() {
   <h3>FILES READ</h3><div class="qlist">${docs || '<p class="empty">No files read yet.</p>'}</div>`;
 }
 function treatHTML() {
-  const avail = unlockedDrugs(S.lvl);
+  const L = curLvl(), avail = unlockedDrugs(L);
   const groups = ['All'].concat(DRUG_GROUPS.filter(g => avail.some(id => DRUGS[id].g === g)));
   if (!groups.includes(UI.filter)) UI.filter = 'All';
   const list = avail.filter(id => UI.filter === 'All' || DRUGS[id].g === UI.filter);
-  const lockedN = Object.keys(DRUGS).filter(id => DRUGS[id].rx !== false && DRUGS[id].lvl > S.lvl).length;
+  const lockedN = Object.keys(DRUGS).filter(id => DRUGS[id].rx !== false && DRUGS[id].lvl > L).length;
   const sel = CS.rx;
   const km = knownMeds(P, CS);
-  const dx = CS.dx ? DIS[CS.dx] : null;
+  const dx = CS.dx ? DIS[CS.dx] : null, dx2 = CS.dx2 ? DIS[CS.dx2] : null;
   const chips = sel.map(id => `<button data-act="rx" data-id="${id}" aria-label="Remove ${esc(nameOf(id))}">${esc(nameOf(id))} ×</button>`)
     .concat(CS.stops.map(id => `<button class="stopchip" data-act="stop" data-id="${id}">STOP ${esc(DRUGS[id].n)} ×</button>`))
     .concat(CS.refer ? ['<button class="refchip" data-act="refer">HOSPITAL ×</button>'] : []).join('');
-  return `<h3><span>1 · DIAGNOSIS</span></h3>
-  <button class="pick ${dx ? '' : 'unset'}" data-act="dxpick">${dx ? esc(dx.n) : 'Choose a diagnosis…'}<em>${dx ? 'CHANGE' : 'PICK'} ▸</em></button>
+  return `<h3><span>1 · DIAGNOSIS${P.did2 ? 'ES' : ''}</span>${P.did2 ? '<span>two problems</span>' : ''}</h3>
+  <button class="pick ${dx ? '' : 'unset'}" data-act="dxpick" data-id="1">${dx ? esc(dx.n) : P.did2 ? 'First problem…' : 'Choose a diagnosis…'}<em>${dx ? 'CHANGE' : 'PICK'} ▸</em></button>
+  ${P.did2 ? `<button class="pick ${dx2 ? '' : 'unset'}" data-act="dxpick" data-id="2">${dx2 ? esc(dx2.n) : 'Second problem…'}<em>${dx2 ? 'CHANGE' : 'PICK'} ▸</em></button>` : ''}
   <h3><span>2 · YOUR ORDERS</span><span>${sel.length}/5 items</span></h3>
   <div class="chipsel">${chips || '<span class="empty">Nothing yet. Pick medicines, home care or a referral below.</span>'}</div>
   <h3><span>PHARMACY</span><span>i = info (1 min)</span></h3>
@@ -3812,10 +4148,10 @@ function treatHTML() {
     <button class="tog refer" data-act="refer" aria-pressed="${CS.refer}">${iconImg('refer')}<span>Refer to hospital<small>emergencies only</small></span></button>
   </div>
   <h3><span>3 · PATIENT'S OWN MEDICINES</span></h3>
-  ${S.lvl < 3 ? `<p class="locknote">${iconImg('lock', null, 'ico sm')} Stopping a patient's medicines unlocks at Resident (LV3).</p>`
+  ${L < 3 ? `<p class="locknote">${iconImg('lock', null, 'ico sm')} Stopping a patient's medicines unlocks at Resident (LV3).</p>`
     : km.length ? km.map(m => `<div class="medrow"><span>${esc(DRUGS[m.id].n)}<small>${esc(DRUGS[m.id].dose || '')}</small></span><button data-act="stop" data-id="${m.id}" aria-pressed="${CS.stops.includes(m.id)}">${CS.stops.includes(m.id) ? 'STOPPED' : 'KEEP'}</button></div>`).join('')
     : '<p class="locknote">No medicines on record yet. Read their files or ask what they take.</p>'}
-  <div class="sign"><button class="btn primary big block" data-act="sign" ${CS.dx ? '' : 'disabled'}>SIGN &amp; FINISH VISIT</button></div>`;
+  <div class="sign"><button class="btn primary big block" data-act="sign" ${CS.dx && (!P.did2 || CS.dx2) ? '' : 'disabled'}>SIGN &amp; FINISH VISIT</button></div>`;
 }
 
 /* ---------- difficulty picker (clinic screen and visit report) ---------- */
@@ -3827,18 +4163,21 @@ function diffPickHTML(label) {
 }
 /* ---------- menu (no patient in the room) ---------- */
 function menuHTML() {
-  const R = RANKS[S.lvl - 1], pr = rankProgress(S);
+  const pr = rankProgress(S);
   const left = dayLen() - S.dayDone;
-  const label = !S.started ? 'START FIRST SHIFT' : left <= 0 ? `START DAY ${S.day + 1}` : 'NEXT PATIENT';
+  const label = needSpec() ? 'CHOOSE YOUR SPECIALTY' : S.examPending ? 'TAKE THE BOARD EXAM' : !S.started ? 'START FIRST SHIFT' : left <= 0 ? `START DAY ${S.day + 1}` : 'NEXT PATIENT';
+  const dl = dailyInfo(), dd = S.daily[dl.key];
   return `<div class="panel"><div class="menu">
     <h2 class="gt">PIXEL CLINIC</h2>
-    <p class="sub">${esc(R.t)} · Day ${S.day} · ${Math.max(0, left)} waiting</p>
+    <p class="sub">${esc(rankName(S.lvl, S.spec))}${S.spec ? ' · ' + esc(SPECS[S.spec].n) : ''} · Day ${S.day} · ${Math.max(0, left)} waiting</p>
     <button class="btn primary big block" data-act="start">${label}</button>
+    ${S.spec ? `<div class="card"><span class="k">BOARD CERTIFICATION</span><span>${S.probation > 0 ? `<b style="color:var(--bad);font-weight:normal">Probation:</b> ${S.probation} more patient${S.probation === 1 ? '' : 's'} count 10 points lower, then you retake the renewal.` : S.examPending ? 'An exam is waiting for you.' : `Certified. Renewal exam in ${Math.max(0, S.certDue - S.total)} patients.`}</span></div>` : ''}
+    ${S.started && S.lvl >= 3 ? `<div class="card daily"><span class="k">DAILY CASE · ${esc(dl.key)}</span><span>${dd ? `Done today: <b style="font-weight:normal;color:var(--warn)">${dd.letter} · ${dd.score}/100</b>. A new case tomorrow.` : 'The same patient for everyone today, on Hard. Doesn\'t affect your career. Compare scores with a friend.'}</span><div class="row" style="margin-top:6px"><button class="btn ${dd ? '' : 'primary'}" data-act="daily">${dd ? 'SHARE RESULT' : 'PLAY TODAY\'S CASE'}</button></div></div>` : ''}
     ${diffPickHTML('DIFFICULTY')}
     <div class="card">
       <span class="k">PROMOTION TRACK</span>
       ${pr.max ? '<span>Top rank reached. You are a Medical Legend!</span>' : `
-      <span>Treat ${pr.need} patients with an average of ${pr.target}+ to become <b style="color:var(--warn);font-weight:normal">${esc(RANKS[S.lvl].t)}</b>.</span>
+      <span>Treat ${pr.need} patients with an average of ${pr.target}+ to become <b style="color:var(--warn);font-weight:normal">${esc(rankName(S.lvl + 1, S.spec))}</b>${S.spec ? ', then pass a board exam' : S.lvl === 5 ? ', then choose a specialty' : ''}.</span>
       <div class="meter" aria-hidden="true"><i style="width:${Math.min(100, pr.avg)}%"></i><b style="left:${pr.target}%"></b></div>
       <span class="hint" style="margin:0">${pr.n}/${pr.need} patients · average ${pr.n ? pr.avg : '–'} (need ${pr.target})</span>`}
     </div>
@@ -3854,13 +4193,20 @@ function menuHTML() {
 
 /* ====================== ACTIONS ====================== */
 function startOrNext() {
+  if (needSpec()) { specChooser(false, 'start'); return; }
+  if (S.examPending) { startExam(false); return; }
   if (!S.started) { S.started = true; S.dayLen = PATIENTS_PER_DAY(S.lvl); persist(); howto(true); return; }
   if (S.dayDone >= dayLen()) { S.day++; S.dayDone = 0; S.dayScores = []; S.clock = 0; S.dayLen = PATIENTS_PER_DAY(S.lvl); }
   nextPatient();
 }
 function nextPatient() {
+  if (needSpec()) { specChooser(false, 'start'); return; }
+  if (S.examPending) { startExam(false); return; }
+  if (S.spec === 'gp' && S.returns.some(x => x.kind === 'note' && S.total >= x.due) && !UI.noteShown) { UI.noteShown = true; followUp(() => { UI.noteShown = false; nextPatient(); }); return; }
+  closeModal();
   const seed = (Date.now() ^ Math.floor(Math.random() * 1e9)) >>> 0;
-  P = genPatient(S.lvl, seed, S.recent, undefined, S.diff || 0);
+  const back = S.spec === 'gp' ? dueReturn(S, 'back') : null;
+  P = back ? genReturn(back) : genPatient(S.lvl, seed, S.recent, undefined, S.diff || 0, S.spec);
   CS = newCaseState();
   UI.tab = 'talk'; UI.filter = 'All';
   UI.anim = { phase: 'in', t0: performance.now() };
@@ -3876,7 +4222,7 @@ function ask(id) {
 }
 function exam(id) {
   const t = TOOL[id];
-  if (t.lvl > S.lvl) { toast(`${t.n} unlocks at ${RANKS[t.lvl - 1].t} (LV${t.lvl})`); return; }
+  if (t.lvl > curLvl()) { toast(`${t.n} unlocks at ${RANKS[t.lvl - 1].t} (LV${t.lvl})`); return; }
   if (!CS.exams.includes(id)) { CS.exams.push(id); CS.time += t.t; }
   say('EXAM · ' + t.n.toUpperCase(), P.find[id].join('\n'), 'exam');
   UI.fx = { icon: id, until: performance.now() + 1500 }; SFX.tool();
@@ -3916,12 +4262,14 @@ function drugInfo(id, free) {
     ${P && !free ? '<div class="row"><button class="btn primary" data-act="rxclose" data-id="' + id + '">' + (CS.rx.includes(id) ? 'REMOVE FROM ORDERS' : 'ADD TO ORDERS') + '</button></div>' : ''}`);
 }
 function dxPicker(q = '') {
-  const pool = DISEASES.filter(d => d.lvl <= S.lvl && (!q || d.n.toLowerCase().includes(q.toLowerCase())));
+  const known = poolFor(curLvl(), P.spec);
+  const pool = known.filter(d => !q || d.n.toLowerCase().includes(q.toLowerCase()));
+  const cur = UI.dxSlot === 2 ? CS.dx2 : CS.dx;
   const groups = SYS.filter(s => pool.some(d => d.sys === s));
-  const html = groups.map(s => `<div class="dxg">${esc(s.toUpperCase())}</div>${pool.filter(d => d.sys === s).map(d => `<div class="dxr ${CS.dx === d.id ? 'sel' : ''}"><button class="main" data-act="dx" data-id="${d.id}">${esc(d.n)}</button><button class="inf" data-act="dxinfo" data-id="${d.id}" aria-label="About ${esc(d.n)}">i</button></div>`).join('')}`).join('');
+  const html = groups.map(s => `<div class="dxg">${esc(s.toUpperCase())}</div>${pool.filter(d => d.sys === s).map(d => `<div class="dxr ${cur === d.id ? 'sel' : ''}"><button class="main" data-act="dx" data-id="${d.id}">${esc(d.n)}</button><button class="inf" data-act="dxinfo" data-id="${d.id}" aria-label="About ${esc(d.n)}">i</button></div>`).join('')}`).join('');
   if ($('#dxlist') && q !== null) { $('#dxlist').innerHTML = html || '<p class="empty">No match.</p>'; return; }
-  modal(`<button class="x" data-act="close">CLOSE</button><h2>WHAT DOES ${P.kid ? 'THE CHILD' : esc(firstName(P))} HAVE?</h2>
-    <label for="dxq" class="hint">Search conditions you know (${DISEASES.filter(d => d.lvl <= S.lvl).length} at your rank). Tap i for notes (1 min).</label>
+  modal(`<button class="x" data-act="close">CLOSE</button><h2>${P.did2 ? (UI.dxSlot === 2 ? 'THE SECOND PROBLEM?' : 'THE FIRST PROBLEM?') : `WHAT DOES ${P.kid ? 'THE CHILD' : esc(firstName(P))} HAVE?`}</h2>
+    <label for="dxq" class="hint">Search conditions you know (${known.length}${P.spec ? ' in your specialty' : ' at your rank'}). Tap i for notes (1 min).</label>
     <input id="dxq" class="search" type="search" autocomplete="off" placeholder="Type to filter…">
     <div class="dxl" id="dxlist">${html}</div>`);
   $('#dxq').addEventListener('input', e => dxPicker(e.target.value));
@@ -3939,10 +4287,11 @@ function confirmSign() {
   if (!P || !CS) return;
   const d = DIS[CS.dx];
   if (!d) { toast('Choose a diagnosis first.'); UI.tab = 'treat'; renderPanel(); return; }
+  if (P.did2 && !CS.dx2) { toast('This patient has two problems. Pick the second diagnosis too.'); UI.tab = 'treat'; renderPanel(); return; }
   if (!CS.rx.length && !CS.refer && !CS.stops.length) { toast('Order something first: a medicine, home care or a referral.'); UI.tab = 'treat'; renderPanel(); return; }
   modal(`<button class="x" data-act="close">BACK</button><h2>SIGN THE CHART?</h2>
     <div class="paper"><div class="ph">VISIT SUMMARY<span>${esc(P.name)}</span></div><table>
-    <tr><td>Diagnosis</td><td>${esc(d.n)}</td></tr>
+    <tr><td>Diagnosis</td><td>${esc(d.n)}${P.did2 && CS.dx2 ? ' + ' + esc(DIS[CS.dx2].n) : ''}</td></tr>
     <tr><td>Prescribed</td><td>${CS.rx.length ? CS.rx.map(nameOf).map(esc).join(', ') : '—'}</td></tr>
     <tr><td>Stopped</td><td>${CS.stops.length ? CS.stops.map(nameOf).map(esc).join(', ') : '—'}</td></tr>
     <tr><td>Hospital</td><td>${CS.refer ? 'Referred' : 'Home'}</td></tr>
@@ -3951,10 +4300,11 @@ function confirmSign() {
     <div class="row"><button class="btn" data-act="close">KEEP WORKING</button><button class="btn primary" data-act="finish">SIGN</button></div>`);
 }
 function finish() {
-  const res = gradeCase(P, CS, S.lvl);
+  const res = gradeCase(P, CS, curLvl());
   const pBefore = P, prevLvl = S.lvl;
-  const leveled = recordResult(S, P, res);
-  S.clock += CS.time + 4;
+  let leveled = 0;
+  if (P.daily) { S.daily[P.daily] = { score: res.score, letter: res.letter, ok: res.dxRes.every(x => x.ok), time: CS.time }; }
+  else { leveled = recordResult(S, P, res); S.clock += CS.time + 4; }
   UI.outLook = pBefore.look; UI.anim = { phase: 'out', t0: performance.now() };
   P = null; CS = null; persist();
   res.score >= 85 ? SFX.good() : res.score >= 55 ? SFX.ok() : SFX.bad();
@@ -3966,16 +4316,17 @@ function finish() {
 /* ---------- report ---------- */
 function report(r, p, prevLvl, leveled) {
   const d = r.correct;
-  const right = r.chosen === d.id, close = !right && (d.related || []).includes(r.chosen);
   const part = (label, pts, max, items) => `<div class="part"><div class="ph2"><span>${label}</span><b>${pts}/${max}</b></div><div class="pbar"><i style="width:${Math.round(100 * pts / max)}%"></i></div><ul>${items}</ul></div>`;
-  const dxItems = right ? `<li class="ok">${esc(d.n)}</li>${r.guess ? `<li class="no">${r.diff >= 2 ? 'Unconfirmed: no exam or test backed it up' : 'A guess: you found no clue that points to it'}, so it counts for ${r.dxPts}/35.</li>` : ''}` : `<li class="no">You said: ${esc(nameOf(r.chosen))}</li><li class="info">Actually: ${esc(d.n)}${close ? (r.diff >= 2 ? ' (close, but Expert gives nothing for near misses)' : ' (close!)') : ''}</li>`;
+  const dxItems = r.dxRes.map(x => { const D = DIS[x.id];
+    if (x.ok) return `<li class="ok">${esc(D.n)}</li>${x.guess ? `<li class="no">${r.diff >= 2 ? 'Unconfirmed: no exam or test backed it up' : 'A guess: you found no clue that points to it'}, so it counts for less.</li>` : ''}`;
+    return `${x.got ? `<li class="no">You said: ${esc(nameOf(x.got))}</li>` : ''}<li class="info">${r.dxRes.length > 1 ? 'Missed' : 'Actually'}: ${esc(D.n)}${x.close ? (r.diff >= 2 ? ' (close, but Expert gives nothing for near misses)' : ' (close!)') : ''}</li>`; }).join('');
   const txItems = r.txNotes.map(n => `<li class="${n.ok ? 'ok' : 'no'}">${esc(n.t)}</li>`).join('') || '<li class="ok">Nothing required</li>';
   const thItems = r.missed.length ? r.missed.map(m => `<li class="no">${m.why ? `Missed: ${esc(m.why)}. ` : 'Missed a key clue. '}${esc(m.how.slice(0, 2).join(' or '))}</li>`).join('') : '<li class="ok">You found every key clue</li>';
   const efItems = `<li class="info">${r.time} min used · target about ${r.par} min</li>`;
   const pr = rankProgress(S);
-  const dayOver = S.dayDone >= dayLen();
-  UI.after = { leveled, prevLvl, dayOver };
-  modal(`<h2>VISIT REPORT · ${esc(p.name.toUpperCase())}</h2>
+  const dayOver = !p.daily && S.dayDone >= dayLen();
+  UI.after = { leveled, prevLvl, dayOver, daily: p.daily };
+  modal(`<h2>${p.daily ? 'DAILY CASE' : 'VISIT REPORT'} · ${esc(p.name.toUpperCase())}</h2>
     <div class="rep-top"><div class="grade g-${r.letter}">${r.letter}</div><div class="rep-score">${r.score}/100<small>${gradeLine(r.letter)}</small></div></div>
     <div class="parts">
       ${part('DIAGNOSIS', r.dxPts, 35, dxItems)}
@@ -3985,15 +4336,19 @@ function report(r, p, prevLvl, leveled) {
     </div>
     ${r.issues.length ? `<h2 style="font-size:10px;color:var(--bad)">MISTAKES</h2>${r.issues.map(i => `<div class="issue ${i.sev}"><b>${i.sev.toUpperCase()}</b><span>${esc(i.msg)}</span><em>−${i.pts}</em></div>`).join('')}` : ''}
     ${r.good.length ? r.good.map(g => `<div class="goodl">${esc(g.msg)}${g.pts ? ` <b style="color:var(--good);font-weight:normal">+${g.pts}</b>` : ''}</div>`).join('') : ''}
-    <div class="teach"><b>DOCTOR'S NOTE</b>${esc(d.teach)}</div>
-    ${leveled ? '' : pr.max ? '' : `<div class="card" style="margin-top:10px"><span class="k">PROMOTION TRACK</span><div class="meter"><i style="width:${Math.min(100, pr.avg)}%"></i><b style="left:${pr.target}%"></b></div><span class="hint" style="margin:0">${pr.n}/${pr.need} patients · average ${pr.avg} (need ${pr.target})${(p.diff || 0) ? ` · ${esc(DIFFS[p.diff].t)} adds +${DIFFS[p.diff].promo}` : ''}</span></div>`}
-    ${diffPickHTML('NEXT PATIENT')}
-    <div class="row"><button class="btn primary big" data-act="afterReport">${leveled ? 'CONTINUE ★' : dayOver ? 'END OF DAY' : 'NEXT PATIENT'}</button></div>`);
+    <div class="teach"><b>DOCTOR'S NOTE</b>${esc(r.teach || d.teach)}</div>
+    ${p.daily ? `<div class="card" style="margin-top:10px"><span class="k">TODAY'S CASE · ${esc(p.daily)}</span><span>Everyone gets this same patient today. Share your result (no spoilers) and compare.</span><div class="row" style="margin-top:6px"><button class="btn primary" data-act="sharedaily">SHARE RESULT</button></div></div>` :
+    leveled || pr.max ? '' : `<div class="card" style="margin-top:10px"><span class="k">PROMOTION TRACK</span><div class="meter"><i style="width:${Math.min(100, pr.avg)}%"></i><b style="left:${pr.target}%"></b></div><span class="hint" style="margin:0">${pr.n}/${pr.need} patients · average ${pr.avg} (need ${pr.target})${(p.diff || 0) ? ` · ${esc(DIFFS[p.diff].t)} adds +${DIFFS[p.diff].promo}` : ''}</span></div>`}
+    ${p.daily ? '' : diffPickHTML('NEXT PATIENT')}
+    <div class="row"><button class="btn primary big" data-act="afterReport">${p.daily ? 'BACK TO THE CLINIC' : leveled ? 'CONTINUE ★' : S.examPending ? 'TO THE BOARD EXAM' : dayOver ? 'END OF DAY' : 'NEXT PATIENT'}</button></div>`);
 }
 function gradeLine(l) { return { S: 'Flawless! Textbook medicine.', A: 'Excellent care.', B: 'Good job, a few slips.', C: 'Patient survived. Review the notes.', D: 'Risky visit. Learn from the mistakes.', F: 'That went badly. Check every mistake below.' }[l]; }
 function afterReport() {
   const a = UI.after || {}; UI.after = null;
+  if (a.daily) { closeModal(); sayIdle(); renderAll(); return; }
+  if (a.leveled === 6 && !S.spec) { specChooser(a.dayOver, 'promo'); return; }
   if (a.leveled) { levelUp(a.leveled, a.dayOver); return; }
+  if (S.examPending) { startExam(a.dayOver); return; }
   if (a.dayOver) { daySummary(); return; }
   closeModal(); nextPatient();
 }
@@ -4004,12 +4359,65 @@ function levelUp(lvl, dayOver) {
     .concat(u.tools.map(t => `<div>${iconImg(t.id)}<span>${esc(t.n)}<small>New exam tool</small></span></div>`))
     .concat(u.drugs.map(id => `<div>${iconImg(DRUGS[id].f, DRUGS[id].c)}<span>${esc(DRUGS[id].n)}<small>${esc(DRUGS[id].use)}</small></span></div>`))
     .concat(u.diseases.length ? [`<div>${iconImg('doc')}<span>${u.diseases.length} new conditions<small>${esc(u.diseases.map(d => d.n).join(', '))}</small></span></div>`] : [])
-    .concat(u.features.map(f => `<div>${iconImg('star')}<span>${esc(f)}</span></div>`));
+    .concat(u.features.filter(f => !/^Choose a specialty/.test(f) || !S.spec).map(f => `<div>${iconImg('star')}<span>${esc(f)}</span></div>`));
   UI.after = { dayOver };
-  modal(`<div class="lvlup"><span class="tag">PROMOTED!</span><div class="big">${esc(RANKS[lvl - 1].t.toUpperCase())}</div><p>You reached LV${lvl}. New things in your clinic:</p>
+  modal(`<div class="lvlup"><span class="tag">PROMOTED!</span><div class="big">${esc(rankName(lvl, S.spec).toUpperCase())}</div><p>You reached LV${lvl}. New things in your clinic:</p>
     <div class="unl">${rows.join('')}</div>
     <button class="btn primary big" data-act="afterLevel">LET'S GO</button></div>`);
   renderAll();
+}
+/* ---------- specialty ---------- */
+function specChooser(dayOver, from) {
+  const change = from === 'career';
+  UI.after = { dayOver, specFrom: from };
+  modal(`${change ? '<button class="x" data-act="close">CLOSE</button>' : ''}<h2>${change ? 'CHANGE SPECIALTY' : 'CHOOSE YOUR SPECIALTY'}</h2>
+    <p>${change ? 'Switching retrains you: your promotion progress starts again, and so does your certification.' : 'You\'re ready to specialize. This decides who walks into your clinic from now on.'}</p>
+    <div class="specs">${Object.entries(SPECS).map(([k, X]) => `<button class="spec ${S.spec === k ? 'cur' : ''}" data-act="pickspec" data-id="${k}"><b>${esc(X.n.toUpperCase())}</b><small>${esc(X.titles[0])}</small><span>${esc(X.d)}</span></button>`).join('')}</div>
+    <p class="hint">Specialists sit board exams: one to earn each promotion, and a renewal every ${CERT_EVERY} patients to keep the job. Questions come from cases like yours, and lean on ones you've got wrong.</p>`);
+}
+/* ---------- board exams ---------- */
+function startExam(dayOver) {
+  if (!S.exam) { S.exam = buildExam(S, S.examPending || 'renew'); persist(); }
+  UI.afterExam = { dayOver }; examQ();
+}
+function examQ() {
+  const ex = S.exam; if (!ex) return; const q = ex.qs[ex.i], answered = ex.picked !== null;
+  const title = ex.kind === 'promo' ? `BOARD EXAM · ${rankName(S.lvl + 1, S.spec).toUpperCase()}` : 'CERTIFICATION RENEWAL';
+  modal(`<h2>${esc(title)}</h2><p class="hint">Question ${ex.i + 1} of ${ex.qs.length} · ${ex.right} right so far · pass mark ${EXAM_PASS[ex.kind]}</p>
+    <p class="examq">${esc(q.q)}</p>
+    <div class="examopts">${q.opts.map((o, i) => `<button class="btn ${answered ? (i === q.a ? 'ok' : i === ex.picked ? 'no' : '') : ''}" data-act="bq" data-id="${i}" ${answered ? 'disabled' : ''}>${esc(o)}</button>`).join('')}</div>
+    ${answered ? `<div class="teach"><b>${ex.picked === q.a ? 'RIGHT' : 'NOT QUITE'}</b>${esc(q.why)}</div><div class="row"><button class="btn primary big" data-act="bqnext">${ex.i + 1 < ex.qs.length ? 'NEXT QUESTION' : 'SEE RESULT'}</button></div>` : ''}`);
+}
+function examAnswer(i) { const ex = S.exam; if (!ex || ex.picked !== null) return; ex.picked = i; if (i === ex.qs[ex.i].a) { ex.right++; SFX.ok(); } else SFX.bad(); persist(); examQ(); }
+function examNext() {
+  const ex = S.exam; if (!ex) return;
+  if (ex.i + 1 < ex.qs.length) { ex.i++; ex.picked = null; persist(); examQ(); return; }
+  const kind = ex.kind, right = ex.right, n = ex.qs.length, out = examOutcome(S); persist(); renderHud();
+  out.pass ? SFX.good() : SFX.bad();
+  UI.after = Object.assign({}, UI.afterExam || {}, { leveled: out.newLvl });
+  modal(`<h2>${out.pass ? 'PASSED' : 'NOT PASSED'}</h2><div class="rep-top"><div class="grade g-${out.pass ? 'A' : 'D'}">${right}/${n}</div><div class="rep-score">${kind === 'promo' ? 'Board exam' : 'Renewal'}<small>${esc(out.msg)}</small></div></div>
+    <div class="row"><button class="btn primary big" data-act="afterExam">${out.newLvl ? 'CONTINUE ★' : 'CONTINUE'}</button></div>`);
+}
+/* ---------- family medicine follow-ups ---------- */
+function followUp(then) {
+  const note = S.spec === 'gp' ? dueReturn(S, 'note') : null;
+  if (!note) { then(); return; }
+  persist(); UI.afterNote = then; (note.bad ? SFX.bad : SFX.ok)();
+  modal(`<h2>FOLLOW-UP</h2><div class="teach ${note.bad ? 'bad' : ''}"><b>${note.bad ? 'A PATIENT CAME BACK' : 'GOOD NEWS'}</b>${esc(note.t)}</div><div class="row"><button class="btn primary big" data-act="afterNote">NEXT PATIENT</button></div>`);
+}
+/* ---------- daily case ---------- */
+function startDaily() {
+  if (P) { toast('Finish the patient in the room first.'); return; }
+  const info = dailyInfo(); if (S.daily[info.key]) { shareDaily(); return; }
+  P = genDaily(info); CS = newCaseState(); UI.tab = 'talk'; UI.filter = 'All'; UI.anim = { phase: 'in', t0: performance.now() };
+  persist(); renderAll(); say('', '…', 'sys', false); SFX.tap();
+  setTimeout(() => { if (P) { say(speaker(), P.complaint); UI.talkUntil = performance.now() + 1800; persist(); } }, 1400);
+}
+function shareDaily() {
+  const info = dailyInfo(), r = S.daily[info.key]; if (!r) return;
+  const text = `Pixel Clinic daily case ${info.key}: ${r.letter} (${r.score}/100) · diagnosis ${r.ok ? '✓' : '✗'} · ${r.time} min\nhttps://ghrelingator.github.io/pixel-arcade/#pixel-clinic`;
+  if (navigator.share) { navigator.share({ text }).catch(() => {}); return; }
+  (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(() => toast('Result copied. Paste it to a friend.'), () => modal(`<button class="x" data-act="close">CLOSE</button><h2>SHARE</h2><textarea class="code" readonly>${esc(text)}</textarea>`));
 }
 function daySummary() {
   const sc = S.dayScores;
@@ -4030,6 +4438,8 @@ function howto(first) {
       <div>${iconImg('pill', '#a7f070')}<span>TREAT<small>Pick a diagnosis, prescribe, give advice, stop risky meds or refer to hospital. Then sign.</small></span></div>
     </div>
     <p style="margin-top:12px">Too easy? Pick <b>Hard</b> or <b>Expert</b> on the clinic screen. Patients stop handing you the answer in their first sentence, and a diagnosis needs evidence behind it.</p>
+    <p>At LV6 you choose a specialty: <b>family medicine</b> (everyone, and patients come back), <b>internal medicine</b> (older adults, often two problems at once) or <b>pediatrics</b> (children and teens). Specialists sit board exams to be promoted and to keep their certification.</p>
+    <p>Once you've started, there's a <b>daily case</b> on the clinic screen: the same patient for everyone that day, so you can compare scores with a friend.</p>
     <p>You're graded on diagnosis, treatment, finding the key clues and speed. <b style="color:var(--bad);font-weight:normal">Allergies, dangerous interactions and wrong-patient drugs cost big points.</b> Treat enough patients with a good average to get promoted.</p>
     <div class="row"><button class="btn primary big" data-act="${first ? 'firstgo' : 'close'}">${first ? 'OPEN THE CLINIC' : 'GOT IT'}</button></div>`);
 }
@@ -4042,10 +4452,11 @@ function career() {
     if (u.drugs.length) bits.push(u.drugs.length + ' medicines');
     if (u.diseases.length) bits.push(u.diseases.length + ' conditions');
     bits.push(...u.features);
-    return `<div class="rung ${st}"><span class="n">${L < S.lvl ? '✓' : L}</span><b>${esc(R.t)}</b><small>${L === 1 ? 'Starting kit: ' : ''}${esc(bits.join(' · ') || '')}${R.need ? ` · Next: ${R.need} patients, avg ${R.avg}+` : ''}</small></div>`;
+    return `<div class="rung ${st}"><span class="n">${L < S.lvl ? '✓' : L}</span><b>${esc(rankName(L, S.spec))}</b><small>${L === 1 ? 'Starting kit: ' : ''}${esc(bits.join(' · ') || '')}${R.need ? ` · Next: ${R.need} patients, avg ${R.avg}+` : ''}</small></div>`;
   }).join('');
   modal(`<button class="x" data-act="close">CLOSE</button><h2>CAREER</h2>
     <div class="stats"><div><b>${S.total}</b><span>patients</span></div><div><b>${S.day}</b><span>day</span></div><div><b>${S.best}</b><span>best score</span></div><div><b>${S.majors}</b><span>major mistakes</span></div></div>
+    ${S.spec ? `<div class="card" style="margin:10px 0"><span class="k">SPECIALTY</span><span>${esc(SPECS[S.spec].n)}. ${esc(SPECS[S.spec].d)}</span>${S.exams.length ? `<span class="hint" style="margin:4px 0 0">Board exams: ${S.exams.slice(0, 5).map(x => `${x.kind === 'promo' ? 'promotion' : 'renewal'} ${x.right}/${x.n} ${x.pass ? '✓' : '✗'}`).join(' · ')}</span>` : ''}${!P ? '<div class="row" style="margin-top:6px"><button class="btn" data-act="changespec">CHANGE SPECIALTY</button></div>' : ''}</div>` : ''}
     <div class="ladder">${ladder}</div>
     <h2 style="margin-top:16px;font-size:10px">BACKUP YOUR SAVE</h2>
     <p class="hint">Progress lives in this browser. Copy this code somewhere safe to restore it later or on another device.</p>
@@ -4119,10 +4530,21 @@ document.addEventListener('click', e => {
     case 'refer': toggleRefer(); break;
     case 'filter': UI.filter = id; renderPanel(); break;
     case 'dinfo': drugInfo(id); break;
-    case 'dxpick': dxPicker(); break;
+    case 'dxpick': UI.dxSlot = id === '2' ? 2 : 1; dxPicker(); break;
     case 'dxinfo': dxInfo(id); break;
     case 'dxback': dxPicker(); break;
-    case 'dx': CS.dx = id; persist(); closeModal(); SFX.blip(); renderPanel(); break;
+    case 'dx': if (UI.dxSlot === 2 && P.did2) CS.dx2 = id; else CS.dx = id; persist(); closeModal(); SFX.blip(); renderPanel(); break;
+    case 'pickspec': { const a = UI.after || {}; if (!SPECS[id]) break; chooseSpec(S, id); if (a.specFrom === 'career') S.atRank = []; persist(); SFX.level(); renderHud();
+      if (a.specFrom === 'promo') levelUp(6, a.dayOver);
+      else { closeModal(); UI.after = null; toast(`You are now in ${SPECS[id].n}.`); sayIdle(); renderAll(); }
+      break; }
+    case 'changespec': if (S.spec && S.lvl >= 6 && !P) specChooser(false, 'career'); break;
+    case 'bq': examAnswer(+id); break;
+    case 'bqnext': examNext(); break;
+    case 'afterExam': { const a = UI.after || {}; UI.after = null; if (a.leveled) levelUp(a.leveled, a.dayOver); else if (a.dayOver) daySummary(); else { closeModal(); nextPatient(); } break; }
+    case 'afterNote': { const f = UI.afterNote; UI.afterNote = null; closeModal(); if (f) f(); break; }
+    case 'daily': startDaily(); break;
+    case 'sharedaily': shareDaily(); break;
     case 'sign': confirmSign(); break;
     case 'finish': closeModal(); finish(); break;
     case 'afterReport': afterReport(); break;
