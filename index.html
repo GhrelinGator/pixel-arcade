@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixel Arcade</title>
-<meta name="description" content="Free browser games: Pixel Clinic, The Deep Rear and Unwritten.">
+<meta name="description" content="Free browser games: Pixel Clinic, The Deep Rear and Turnover.">
 <meta name="theme-color" content="#1a1c2c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito+Sans:ital,wght@0,400;0,700;0,800;1,400&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito+Sans:ital,wght@0,400;0,700;0,800;1,400&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Pixel Arcade: one dark arcade world, Sweetie-16 palette, pixel display face + terminal body face */
@@ -480,119 +480,110 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .dr-secnote { margin: -4px 0 10px; color: var(--mute); font-size: 18px; line-height: 1.15; }
 .dr-end > .stats, .dr-end > .dr-sec, .dr-title > .dr-sec { justify-self: stretch; }
 
-/* ===================== UNWRITTEN: cut paper ===================== */
-.uw, .uw-sheet { --uw-paper: #f4ecdc; --uw-card: #fffaf0; --uw-ink: #1f2a44; --uw-mute: #5d6478; --uw-fb: #c8553d; --uw-pm: #2a7f7a; --uw-gold: #e3a43b; --uw-rose: #e58f7a; --uw-sage: #8fae8b; --uw-line: #e2d6bd; --uw-sh: rgba(31,42,68,.16);
-  --uw-head: 'DM Serif Display', Georgia, 'Times New Roman', serif; --uw-body: 'Nunito Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  font-family: var(--uw-body); font-size: 16px; line-height: 1.45; color: var(--uw-ink); -webkit-font-smoothing: antialiased; }
-.uw { height: 100%; display: flex; flex-direction: column; max-width: 860px; margin: 0 auto; background: var(--uw-paper); }
-.uw-on { background: #e9dfc8; }
-.uw canvas, .uw-sheet canvas { image-rendering: auto; }
-.uw .btn, .uw-sheet .btn { font-family: var(--uw-body); font-size: 15px; font-weight: 800; letter-spacing: .01em; text-transform: none; padding: 10px 16px; border-radius: 999px; background: var(--uw-card); color: var(--uw-ink); border: 2px solid var(--uw-ink); box-shadow: 3px 3px 0 var(--uw-sh); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
-.uw .btn.primary, .uw-sheet .btn.primary { background: var(--uw-ink); color: var(--uw-paper); }
-.uw .btn.danger, .uw-sheet .btn.danger { border-color: var(--uw-fb); color: var(--uw-fb); }
-.uw .btn.big { font-size: 17px; padding: 13px 22px; }
-.uw .btn.block { display: flex; width: 100%; margin-top: 12px; }
-.uw .btn:disabled, .uw-sheet .btn:disabled { opacity: .4; box-shadow: none; }
-.uw .btn:active, .uw-sheet .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--uw-sh); }
-.uw .btn.fb { background: var(--uw-fb); border-color: var(--uw-fb); color: #fff; } .uw .btn.pm { background: var(--uw-pm); border-color: var(--uw-pm); color: #fff; }
-.uw-sheet { background: var(--uw-paper) !important; box-shadow: 0 -3px 0 var(--uw-ink) !important; border-radius: 16px 16px 0 0; }
-@media (min-width: 700px) { .uw-sheet { border-radius: 16px; box-shadow: 6px 6px 0 var(--uw-sh) !important; border: 2px solid var(--uw-ink); } }
-.uw-sheet h2 { font-family: var(--uw-head); font-weight: 400; font-size: 26px; color: var(--uw-ink); line-height: 1.15; margin: 4px 0 10px; }
-.uw b, .uw-sheet b { font-weight: 800; }
-.uw-main { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 14px 14px 40px; }
-.uw-center { display: grid; place-items: start center; }
-.uw-title { display: grid; gap: 12px; justify-items: center; text-align: center; max-width: 560px; width: 100%; }
-.uw-titlecv { width: 100%; height: clamp(180px, 50vw, 280px); border-radius: 16px; border: 2px solid var(--uw-ink); box-shadow: 5px 5px 0 var(--uw-sh); }
-.uw-logo { font-family: var(--uw-head); font-weight: 400; font-size: clamp(44px, 13vw, 72px); margin: 4px 0 0; line-height: 1; letter-spacing: -.01em; }
-.uw-logo.sm { font-size: clamp(38px, 10vw, 56px); }
-.uw-kicker { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--uw-fb); margin: 0; }
-.uw-title > p { margin: 0; }
-.uw-menu { display: grid; gap: 9px; width: min(100%, 340px); margin-top: 6px; }
-.uw-hud { flex: none; display: flex; align-items: center; gap: 6px; padding: 9px 12px; flex-wrap: wrap; border-bottom: 2px solid var(--uw-ink); background: var(--uw-paper); }
-.uw-hud .ib { width: 34px; height: 34px; display: grid; place-items: center; border: 2px solid var(--uw-ink); border-radius: 50%; color: var(--uw-ink); text-decoration: none; flex: none; font-size: 14px; }
-.uw-brand { font-family: var(--uw-head); font-size: 23px; margin-right: auto; color: var(--uw-ink); }
-.uw-pill { font-size: 13px; padding: 3px 10px; border-radius: 999px; background: var(--uw-card); border: 1.5px solid var(--uw-line); white-space: nowrap; display: inline-flex; gap: 6px; align-items: center; }
-.uw-pill.low { border-color: var(--uw-fb); color: var(--uw-fb); }
-.uw-days { display: inline-flex; gap: 3px; } .uw-days i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--uw-ink); } .uw-days i.on { background: var(--uw-gold); }
-.uw-tabs { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 10px 12px 0; }
-.uw-tabs button { font-weight: 800; font-size: 14px; padding: 9px 4px; border-radius: 12px 12px 0 0; background: var(--uw-line); color: var(--uw-mute); }
-.uw-tabs button[aria-selected="true"] { background: var(--uw-ink); color: var(--uw-paper); }
-.uw-card { background: var(--uw-card); border: 2px solid var(--uw-ink); border-radius: 16px; padding: 14px; margin-bottom: 14px; box-shadow: 4px 4px 0 var(--uw-sh); }
-.uw-card.result { border-color: var(--uw-gold); }
-.uw-h2 { font-family: var(--uw-head); font-weight: 400; font-size: 23px; margin: 0 0 8px; line-height: 1.15; }
-.uw-p { margin: 4px 0 12px; }
-.uw-small { font-size: 13.5px; color: var(--uw-mute); margin: 6px 0; }
-.uw-big { font-size: 19px; margin: 0; }
-.uw-story { font-family: var(--uw-head); font-size: 19px; line-height: 1.35; margin: 0 0 4px; }
-.uw-link { font-size: 13px; font-weight: 800; color: var(--uw-pm); text-decoration: underline; text-underline-offset: 3px; padding: 4px 0; }
-.uw-rows { display: grid; gap: 8px; margin-top: 10px; }
-.uw-row { display: grid; gap: 4px; }
-.uw-row > span { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--uw-mute); }
-.uw-seg { display: flex; flex-wrap: wrap; gap: 5px; }
-.uw-seg button { font-size: 14px; font-weight: 700; padding: 7px 12px; border-radius: 999px; border: 1.5px solid var(--uw-line); background: #fff; color: var(--uw-ink); }
-.uw-seg button[aria-pressed="true"] { background: var(--uw-gold); border-color: var(--uw-ink); box-shadow: 2px 2px 0 var(--uw-sh); }
-.uw-seg button:disabled { opacity: .35; }
-.uw-step { display: inline-flex; align-items: center; gap: 12px; }
-.uw-step button { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--uw-ink); background: #fff; font-size: 20px; font-weight: 800; }
-.uw-step button:disabled { opacity: .3; }
-.uw-step b { font-family: var(--uw-head); font-weight: 400; font-size: 26px; min-width: 22px; text-align: center; }
-.uw-jury { width: 100%; max-width: 360px; display: block; margin: 4px auto 6px; }
-.uw-jury .jr { animation: uwpop .32s cubic-bezier(.2, 1.6, .5, 1) both; } .uw-jury .fb { fill: var(--uw-fb); } .uw-jury .pm { fill: var(--uw-pm); }
-@keyframes uwpop { from { transform-box: fill-box; transform-origin: center bottom; opacity: 0; } }
-.uw-verdict { font-size: 17px; margin: 4px 0; } .uw .fb, .uw-sheet .fb { color: var(--uw-fb); } .uw .pm, .uw-sheet .pm { color: var(--uw-pm); }
-.uw .btn.fb, .uw .btn.pm { color: #fff; }
-.uw-book { display: grid; gap: 8px; }
-.uw-entry { background: var(--uw-card); border: 2px solid var(--uw-line); border-radius: 14px; padding: 10px 12px; cursor: pointer; }
-.uw-entry.sel { border-color: var(--uw-ink); box-shadow: 3px 3px 0 var(--uw-sh); background: #fff6df; }
-.uw-entry.used { opacity: .55; }
-.uw-entry.rb-ready { border-color: var(--uw-fb); background: #fff2ea; }
-.uw-entry.rb-agree, .uw-entry.rb-used, .uw-entry.rb-weak { opacity: .62; cursor: default; }
-.uw-entry .rb-note { margin: 6px 0 0; }
-.uw-entry.rb-ready .rb-note { color: var(--uw-fb); font-weight: 700; }
-.uw-entry header { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; } .uw-entry header span { color: var(--uw-mute); }
-.uw-tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; } .uw-tags i { font-style: normal; font-size: 12.5px; padding: 2px 8px; border-radius: 999px; background: var(--uw-paper); border: 1px solid var(--uw-line); }
-.uw-entryfoot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13.5px; }
-.uw-entryfoot em { font-style: normal; font-weight: 800; } .uw-entryfoot em.ok { color: var(--uw-pm); } .uw-entryfoot em.no { color: var(--uw-fb); }
-.uw-entryfoot .uw-link { margin-left: auto; } .uw-entryfoot .btn { margin-left: auto; padding: 6px 12px; font-size: 13px; }
-.uw-bar { display: inline-block; width: 90px; height: 10px; border-radius: 999px; background: var(--uw-pm); overflow: hidden; border: 1.5px solid var(--uw-ink); }
-.uw-bar i { display: block; height: 100%; background: var(--uw-fb); }
-.uw-pair { display: grid; gap: 6px; margin: 8px 0; } .uw-pair > div { display: flex; align-items: center; gap: 10px; font-size: 14px; }
-.uw-clause { background: var(--uw-card); border: 2px solid var(--uw-ink); border-radius: 14px; padding: 12px; margin-bottom: 10px; box-shadow: 3px 3px 0 var(--uw-sh); }
-.uw-clause.open { border-style: dashed; }
-.uw-clause.settled { border-color: var(--uw-line); box-shadow: none; background: transparent; }
-.uw-clause h3 { font-family: var(--uw-head); font-weight: 400; font-size: 20px; margin: 0 0 2px; display: flex; gap: 8px; align-items: baseline; }
-.uw-clause h3 em { font-family: var(--uw-body); font-style: normal; font-size: 12px; font-weight: 800; color: var(--uw-fb); text-transform: uppercase; letter-spacing: .08em; }
-.uw-clause p { margin: 0 0 8px; }
-.uw-tbl { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 6px 0; }
-.uw-tbl th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--uw-mute); border-bottom: 2px solid var(--uw-ink); padding: 5px 6px; }
-.uw-tbl td { padding: 6px; border-bottom: 1px solid var(--uw-line); vertical-align: top; }
-.uw-tbl tr.me td { font-weight: 800; } .uw-tbl tr.ok td:last-child { color: var(--uw-pm); } .uw-tbl tr.no td:last-child { color: var(--uw-fb); font-weight: 800; } .uw-tbl tr.dim td { color: var(--uw-mute); }
-.uw-tbl small { color: var(--uw-mute); }
-.uw-rcode { list-style: none; padding: 0; margin: 6px 0 10px; display: grid; gap: 3px; font-size: 14px; }
-.uw-rcode li { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px dashed var(--uw-line); padding: 3px 0; } .uw-rcode li span { color: var(--uw-mute); } .uw-rcode li b { text-align: right; }
-.uw-rule { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-.uw-reveal { border-radius: 12px; padding: 10px 12px; margin-top: 10px; border: 2px solid var(--uw-pm); background: #eef6f4; } .uw-reveal.no { border-color: var(--uw-fb); background: #fbeeea; } .uw-reveal p { margin: 0 0 6px; }
-.uw-close { display: flex; justify-content: center; margin: 18px 0 6px; }
-.uw-end { max-width: 680px; margin: 0 auto; display: grid; gap: 10px; }
-.uw-end > p { margin: 0; }
-.uw-note { border-left: 4px solid var(--uw-gold); padding: 6px 12px; background: var(--uw-paper); margin: 6px 0; }
-.uw-list { display: grid; gap: 8px; margin: 8px 0; }
-.uw-item { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 10px 12px; border: 2px solid var(--uw-line); border-radius: 14px; background: var(--uw-card); }
-.uw-item > div { display: grid; } .uw-item small { color: var(--uw-mute); font-size: 13.5px; } .uw-item.locked { opacity: .55; }
-.uw-tag { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px; border: 1.5px solid var(--uw-pm); color: var(--uw-pm); white-space: nowrap; }
-.uw-on .toast { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; background: #1f2a44; color: #f4ecdc; border-radius: 999px; box-shadow: 3px 3px 0 rgba(31,42,68,.2); }
-.uw-feature { background: #f4ecdc; }
-.uw-feature .thumb { background: #e9dfc8; }
-.uw-feature .thumb canvas { image-rendering: auto; aspect-ratio: 16 / 10; border-radius: 10px; }
-.uw-feature h2 { color: #c8553d; text-shadow: none; }
-.uw-feature p { color: #1f2a44; }
-.uw-feature .tag { background: #1f2a44; color: #f4ecdc; }
-.uw-feature .chips li { background: #fffaf0; color: #1f2a44; }
-.uw-feature .save-note { color: #5d6478 !important; }
-
-.uw-exam { margin-top: 12px; } .uw-exam summary { cursor: pointer; font-weight: 800; padding: 6px 0; }
-.uw-xc { display: grid; grid-template-columns: auto 1fr; gap: 4px 8px; padding: 8px 0; border-top: 1px dashed var(--uw-line); font-size: 14px; }
-.uw-xc > span { grid-column: 2; color: var(--uw-mute); } .uw-xc.no > span { color: var(--uw-fb); font-weight: 700; }
+/* ===================== TURNOVER: lab notebook ===================== */
+.tn, .tn-sheet { --tn-paper: #fbf7ec; --tn-card: #fffdf6; --tn-ink: #1c2b4a; --tn-mute: #5b6680; --tn-red: #c8402f; --tn-green: #2b7a5f; --tn-hi: #ffe27a; --tn-line: #ddd3bd; --tn-blue: #1f4e8c; --tn-sh: rgba(28,43,74,.14);
+  --tn-hand: 'Caveat', 'Segoe Print', 'Comic Sans MS', cursive; --tn-body: 'Nunito Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: var(--tn-body); font-size: 16px; line-height: 1.45; color: var(--tn-ink); -webkit-font-smoothing: antialiased; }
+.tn { height: 100%; display: flex; flex-direction: column; max-width: 820px; margin: 0 auto; background-color: var(--tn-paper);
+  background-image: linear-gradient(rgba(70,110,170,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(70,110,170,.09) 1px, transparent 1px); background-size: 18px 18px; }
+.tn-on { background: #e9e3d3; }
+.tn canvas, .tn-sheet canvas { image-rendering: auto; }
+.tn .btn, .tn-sheet .btn { font-family: var(--tn-body); font-size: 15px; font-weight: 800; letter-spacing: .01em; text-transform: none; padding: 10px 14px; border-radius: 10px; background: var(--tn-card); color: var(--tn-ink); border: 2px solid var(--tn-ink); box-shadow: 2px 2px 0 var(--tn-sh); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; }
+.tn .btn.primary, .tn-sheet .btn.primary { background: var(--tn-ink); color: var(--tn-paper); }
+.tn .btn.danger, .tn-sheet .btn.danger { border-color: var(--tn-red); color: var(--tn-red); }
+.tn .btn.block { display: flex; width: 100%; margin-top: 12px; }
+.tn .btn:disabled, .tn-sheet .btn:disabled { opacity: .38; box-shadow: none; }
+.tn .btn:active, .tn-sheet .btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--tn-sh); }
+.tn-sheet { background: var(--tn-paper) !important; box-shadow: 0 -3px 0 var(--tn-ink) !important; border-radius: 14px 14px 0 0; }
+@media (min-width: 700px) { .tn-sheet { border-radius: 14px; box-shadow: 5px 5px 0 var(--tn-sh) !important; border: 2px solid var(--tn-ink); } }
+.tn-sheet h2 { font-family: var(--tn-hand); font-weight: 700; font-size: 32px; color: var(--tn-ink); line-height: 1.05; margin: 2px 0 10px; }
+.tn-sheet p { margin: 0 0 10px; } .tn-sheet .tn-row { margin-top: 12px; }
+.tn-main { flex: 1; overflow-y: auto; padding: 10px 12px 28px; -webkit-overflow-scrolling: touch; }
+.tn h1 { font-family: var(--tn-hand); font-weight: 700; font-size: 54px; line-height: .95; margin: 8px 0 6px; letter-spacing: .02em; }
+.tn h3 { font-family: var(--tn-hand); font-weight: 700; font-size: 26px; line-height: 1.05; margin: 0 0 6px; }
+.tn-lede { font-size: 17px; margin: 0 0 14px; }
+.tn-small { font-size: 14px; color: var(--tn-mute); margin: 4px 0; }
+.tn-back { display: inline-block; color: var(--tn-ink); font-weight: 800; text-decoration: none; padding: 6px 0; }
+.tn-title canvas { width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 10px; border: 2px solid var(--tn-ink); box-shadow: 3px 3px 0 var(--tn-sh); display: block; }
+.tn-menu { display: grid; gap: 8px; margin: 10px 0 14px; }
+.tn-end h1 { margin-top: 18px; }
+/* hud */
+.tn-hud { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--tn-ink); color: var(--tn-paper); }
+.tn-icon { background: none; border: 2px solid rgba(251,247,236,.5); color: var(--tn-paper); border-radius: 8px; width: 40px; height: 40px; font-size: 18px; }
+.tn-when { display: grid; line-height: 1.15; } .tn-when b { font-size: 15px; } .tn-when span { font-size: 13px; opacity: .8; }
+.tn-stats { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 10px; justify-content: flex-end; font-weight: 800; font-size: 14px; font-variant-numeric: tabular-nums; }
+.tn-stats .low { color: #ffb4a8; }
+.tn-enz { padding: 6px 12px; font-size: 14px; background: var(--tn-hi); border-bottom: 2px solid var(--tn-ink); }
+.tn-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--tn-ink); background: var(--tn-card); }
+.tn-tabs button { background: none; border: none; padding: 11px 4px; font-family: var(--tn-body); font-weight: 800; font-size: 15px; color: var(--tn-mute); border-bottom: 4px solid transparent; }
+.tn-tabs button[aria-pressed="true"] { color: var(--tn-ink); border-bottom-color: var(--tn-red); }
+.tn-tabs small { background: var(--tn-red); color: #fff; border-radius: 999px; padding: 0 6px; font-size: 12px; }
+/* cards */
+.tn-card { background: var(--tn-card); border: 2px solid var(--tn-ink); border-radius: 12px; padding: 12px; margin: 0 0 12px; box-shadow: 3px 3px 0 var(--tn-sh); }
+.tn-card > p { margin: 4px 0 8px; }
+.tn-intro { margin: 2px 2px 10px; }
+.tn-q header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; } .tn-q header h3 { margin: 0; flex: 1; }
+.tn-num { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--tn-ink); display: grid; place-items: center; font-weight: 800; font-size: 14px; flex: none; }
+.tn-chip { font-size: 12px; font-weight: 800; padding: 3px 8px; border-radius: 999px; border: 2px solid var(--tn-mute); color: var(--tn-mute); white-space: nowrap; }
+.tn-chip.review { border-color: var(--tn-blue); color: var(--tn-blue); } .tn-chip.ok { border-color: var(--tn-green); color: #fff; background: var(--tn-green); } .tn-chip.bad { border-color: var(--tn-red); color: #fff; background: var(--tn-red); }
+.tn-q.ok { border-color: var(--tn-green); } .tn-q.bad { border-color: var(--tn-red); }
+.tn-res { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-top: 6px; } .tn-res span { color: var(--tn-mute); font-size: 14px; } .tn-res b { font-size: 19px; font-variant-numeric: tabular-nums; }
+.tn-meter { height: 8px; background: #ece4d0; border-radius: 99px; overflow: hidden; margin: 6px 0 2px; } .tn-meter i { display: block; height: 100%; background: var(--tn-blue); border-radius: 99px; } .tn-meter.ok i { background: var(--tn-green); }
+.tn-advice { background: #fff5c2; border-left: 4px solid var(--tn-hi); padding: 6px 10px; margin: 8px 0; font-size: 15px; }
+.tn-claim { margin: 6px 0; }
+.tn-rivals { list-style: none; margin: 6px 0; padding: 0; font-size: 14px; } .tn-rivals li { padding: 3px 0; border-top: 1px dashed var(--tn-line); } .tn-rivals i { color: var(--tn-mute); }
+.tn-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.tn-okc { color: var(--tn-green); font-weight: 800; } .tn-badc { color: var(--tn-red); font-weight: 800; }
+/* bench controls */
+.tn-seg { display: flex; gap: 0; border: 2px solid var(--tn-ink); border-radius: 10px; overflow: hidden; margin: 0 0 12px; background: var(--tn-card); }
+.tn-seg button { flex: 1; background: none; border: none; border-left: 2px solid var(--tn-ink); padding: 10px 6px; font-family: var(--tn-body); font-weight: 800; font-size: 15px; color: var(--tn-ink); min-height: 44px; }
+.tn-seg button:first-child { border-left: none; }
+.tn-seg button[aria-pressed="true"] { background: var(--tn-ink); color: var(--tn-paper); }
+.tn-seg.sm { margin: 4px 0 0; } .tn-seg.sm button { font-size: 14px; padding: 8px 4px; }
+.tn-seg.col { flex-direction: column; } .tn-seg.col button { border-left: none; border-top: 2px solid var(--tn-ink); text-align: left; padding: 10px; } .tn-seg.col button:first-child { border-top: none; }
+.tn-views { margin-bottom: 8px; }
+.tn-field { margin: 10px 0; } .tn-field > span { font-weight: 800; font-size: 14px; }
+.tn-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tn-chips button { min-width: 48px; min-height: 40px; padding: 6px 9px; border-radius: 8px; border: 2px solid var(--tn-ink); background: var(--tn-card); font-family: var(--tn-body); font-weight: 800; font-size: 14px; color: var(--tn-ink); font-variant-numeric: tabular-nums; }
+.tn-chips button[aria-pressed="true"] { background: var(--tn-blue); border-color: var(--tn-blue); color: #fff; }
+.tn-strip { display: flex; align-items: center; gap: 4px; margin: 10px 0 0; } .tn-strip i { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--tn-ink); background: var(--tn-card); }
+.tn-strip i.on { background: var(--tn-blue); border-color: var(--tn-blue); } .tn-strip span { margin-left: 6px; font-size: 14px; color: var(--tn-mute); font-weight: 700; }
+.tn-check { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 10px 0 0; font-weight: 800; } .tn-check input { width: 22px; height: 22px; accent-color: var(--tn-blue); } .tn-check .tn-small { flex-basis: 100%; margin: 0 0 0 30px; font-weight: 400; }
+.tn-empty { color: var(--tn-mute); font-style: italic; margin: 8px 0; }
+/* plots and fits */
+.tn-plot { width: 100%; max-width: 560px; height: auto; display: block; margin: 4px auto; background: #fffef9; border-radius: 8px; }
+.tn-plot text { font-family: var(--tn-body); font-size: 10px; fill: var(--tn-mute); } .tn-plot text.l { font-size: 11px; font-weight: 700; fill: var(--tn-ink); }
+.tn-plot .g { stroke: rgba(70,110,170,.15); } .tn-plot .a { stroke: var(--tn-ink); stroke-width: 1.5; }
+.tn-fit { font-size: 15px; margin: 6px 0; }
+.tn-fits { list-style: none; padding: 0; margin: 8px 0; font-size: 14px; } .tn-fits li { border-left: 5px solid var(--c); padding: 4px 8px; margin: 4px 0; background: #fbf7ec; border-radius: 0 6px 6px 0; }
+.tn-runs { margin-top: 10px; font-size: 14px; } .tn-runs summary { cursor: pointer; font-weight: 800; padding: 6px 0; }
+.tn-runrow { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-top: 1px dashed var(--tn-line); } .tn-runrow input { width: 22px; height: 22px; accent-color: var(--tn-blue); flex: none; }
+.tn-runrow.off span { text-decoration: line-through; color: var(--tn-mute); } .tn-runrow .dot { width: 12px; height: 12px; border-radius: 50%; margin-left: auto; flex: none; }
+/* gels */
+.tn-gels { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 8px; }
+.tn-gel { margin: 0; flex: 0 0 150px; } .tn-gel svg { width: 150px; height: 260px; display: block; } .tn-gel figcaption { font-size: 12px; color: var(--tn-mute); text-align: center; }
+.tn-hit { cursor: pointer; }
+.tn-marks { display: grid; gap: 2px; font-size: 14px; margin: 6px 0 8px; }
+/* journal, lists, tables */
+.tn-list { list-style: none; padding: 0; margin: 6px 0; } .tn-list li { padding: 6px 0; border-top: 1px dashed var(--tn-line); } .tn-list li i { color: var(--tn-mute); }
+.tn-list li.good { color: var(--tn-green); font-weight: 700; } .tn-list li.bad { color: var(--tn-red); font-weight: 700; }
+.tn-log { list-style: none; padding: 0; margin: 0; font-size: 14px; } .tn-log li { padding: 5px 0; border-top: 1px dashed var(--tn-line); } .tn-log span { display: inline-block; min-width: 54px; color: var(--tn-mute); font-variant-numeric: tabular-nums; }
+.tn-log li.rival { color: #8a5a12; } .tn-log li.good { color: var(--tn-green); } .tn-log li.bad { color: var(--tn-red); } .tn-log li.year { font-weight: 800; } .tn-log li.you { color: var(--tn-blue); }
+.tn-tbl { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; } .tn-tbl th, .tn-tbl td { text-align: left; padding: 5px 4px; border-bottom: 1px dashed var(--tn-line); vertical-align: top; }
+.tn-ul { padding-left: 20px; margin: 6px 0 10px; } .tn-ul li { margin: 4px 0; }
+.tn-big { font-size: 26px; font-weight: 800; margin: 6px 0; font-variant-numeric: tabular-nums; }
+.tn-opts { display: grid; gap: 8px; margin: 10px 0; } .tn-opts .btn { justify-content: flex-start; text-align: left; }
+.tn-unlock { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 8px 0; border-top: 1px dashed var(--tn-line); }
+.tn-on .toast { font-family: var(--tn-body, 'Nunito Sans', system-ui, sans-serif); font-size: 15px; font-weight: 700; background: #1c2b4a; color: #fbf7ec; border-radius: 10px; }
+/* hub card */
+.tn-feature { background: #fbf7ec; }
+.tn-feature .thumb { background: #e9e3d3; }
+.tn-feature .thumb canvas { image-rendering: auto; aspect-ratio: 16 / 10; border-radius: 10px; }
+.tn-feature h2 { color: #c8402f; text-shadow: none; }
+.tn-feature p { color: #1c2b4a; }
+.tn-feature .tag { background: #1c2b4a; color: #fbf7ec; }
+.tn-feature .chips li { background: #fffdf6; color: #1c2b4a; }
+.tn-feature .save-note { color: #5b6680 !important; }
 
 /* Pixel Clinic difficulty */
 .diffpick .filters { margin: 2px 0 4px; }
@@ -3605,8 +3596,8 @@ const tabIcon = { talk: ['doc', '#73eff7'], files: ['doc'], exam: ['steth'], not
 function route() {
   const h = location.hash.replace('#', '');
   closeModal(); /* a modal belongs to the screen that opened it; its buttons are dead anywhere else */
-  document.body.classList.toggle('uw-on', h === 'unwritten');
-  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else if (h === 'unwritten') openUw(); else openHub();
+  document.body.classList.toggle('tn-on', h === 'turnover');
+  if (h === 'pixel-clinic') openGame(); else if (h === 'deep-rear') openDeep(); else if (h === 'turnover') openTn(); else openHub();
 }
 window.addEventListener('hashchange', route);
 
@@ -3647,15 +3638,15 @@ function openHub() {
         <p class="save-note">${DRS.started ? esc(`Your campaign: cycle ${Math.min(DRS.cycle + 1, (DRS.ops || []).length || 6)} of ${(DRS.ops || []).length || 6} · ${DRS.force} fighters`) : 'Progress saves in this browser.'}</p>
       </div>
     </section>
-    <section class="feature pbox uw-feature" aria-labelledby="g3">
-      <div class="thumb"><canvas data-scene="uw-hub" width="320" height="200" aria-label="UNWRITTEN: paper figures gathered before a city hall"></canvas></div>
+    <section class="feature pbox tn-feature" aria-labelledby="g3">
+      <div class="thumb"><canvas data-scene="tn-hub" width="320" height="200" aria-label="TURNOVER: a lab notebook page with a rate curve and a gel"></canvas></div>
       <div class="ftext">
         <span class="tag">CARTRIDGE 03 · NEW</span>
-        <h2 id="g3">UNWRITTEN</h2>
-        <p>Every city judges by a moral Custom nobody has written down, and it's different in every city. Design cases, put them to juries of citizens, and work out the hidden principles from how they vote. Then rule on real disputes by your Code and defend it against rival codifiers.</p>
-        <ul class="chips"><li>Moral detective</li><li>Real experiments</li><li>New Custom every city</li><li>Rivals</li><li>4 kinds of city</li></ul>
-        <div><a class="btn primary big" href="#unwritten">${UWS.run && UWS.run.phase !== 'over' ? 'CONTINUE' : 'PLAY FREE'}</a></div>
-        <p class="save-note">${UWS.run && UWS.run.phase !== 'over' ? esc(`Your commission: ${UWS.run.city.name} · session ${UWS.run.session} · standing ${UWS.run.standing}`) : UWS.meta.hist.length ? esc(`${UWS.meta.hist.length} past cit${UWS.meta.hist.length === 1 ? 'y' : 'ies'} · ${UWS.meta.laurels} laurels`) : 'Progress saves in this browser.'}</p>
+        <h2 id="g3">TURNOVER</h2>
+        <p>Run a small enzyme lab. Each year a newly found enzyme arrives with six open questions. Run the experiments, fit your data, publish before the rival labs, and be right.</p>
+        <ul class="chips"><li>Biochemistry</li><li>Real experiments</li><li>Curve fitting</li><li>Rival labs</li><li>New enzyme every year</li></ul>
+        <div><a class="btn primary big" href="#turnover">${TNS.run && !TNS.run.over ? 'CONTINUE' : 'PLAY FREE'}</a></div>
+        <p class="save-note">${TNS.run && !TNS.run.over ? esc(`Your lab: year ${tnYear(TNS.run)} of ${TNS.run.years} · ${TNS.run.E.name} · ★ ${TNS.run.prestige}`) : TNS.meta.hist.length ? esc(`${TNS.meta.hist.length} past lab${TNS.meta.hist.length === 1 ? '' : 's'} · ${TNS.meta.laurels} laurels`) : 'Progress saves in this browser.'}</p>
       </div>
     </section>
     <h3 class="shelf-h">MORE CARTRIDGES</h3>
@@ -4074,14 +4065,14 @@ function handbook(tab = 'cond') {
 /* ---------- arcade-wide backup codes ---------- */
 const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
 const dec = c => JSON.parse(decodeURIComponent(escape(atob(c.trim()))));
-function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS, unwritten: UWS }); }
+function arcadeCode() { return enc({ arcade: 1, clinic: Object.assign({}, S, { cur: null }), deep: DRS, turnover: TNS }); }
 function arcadeLoad(code) {
   const o = dec(code);
   const got = [];
   if (o && o.arcade) {
     if (o.clinic && o.clinic.v === 1) { S = Object.assign(newSave(), o.clinic, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
     if (o.deep && o.deep.v === 1) { DRS = Object.assign(drNewState(), o.deep); drSave(); got.push('The Deep Rear'); }
-    if (o.unwritten && o.unwritten.v === 1) { UWS = Object.assign(uwNewSave(), o.unwritten); uwSave(); got.push('UNWRITTEN'); }
+    if (o.turnover && o.turnover.v === 1) { const t = tnNewSave(); t.meta = Object.assign(t.meta, o.turnover.meta || {}); t.run = o.turnover.run && o.turnover.run.v === 2 ? o.turnover.run : null; TNS = t; tnSave(); got.push('TURNOVER'); }
   } else if (o && o.v === 1 && 'lvl' in o) { S = Object.assign(newSave(), o, { cur: null }); P = null; CS = null; persist(); got.push('Pixel Clinic'); }
   else if (o && o.v === 1 && 'cycle' in o) { DRS = Object.assign(drNewState(), o); drSave(); got.push('The Deep Rear'); }
   if (!got.length) throw new Error('empty');
@@ -4187,7 +4178,7 @@ function loop(ts) {
   document.querySelectorAll('canvas[data-scene]').forEach(cv => {
     const ctx = cv.getContext('2d');
     if (cv.dataset.scene.startsWith('dr-')) { drScene(cv, ts); return; }
-    if (cv.dataset.scene.startsWith('uw-')) { uwScene(cv, ts); return; }
+    if (cv.dataset.scene.startsWith('tn-')) { tnScene(cv, ts); return; }
     if (cv.dataset.scene === 'hub') drawScene(ctx, { t: ts, lvl: Math.max(5, S.lvl), clock: 540 + (ts / 400) % 540, patient: { x: 96, look: DEMO, talking: Math.floor(ts / 2600) % 2 === 1 }, fx: Math.floor(ts / 2600) % 3 === 2 ? { icon: 'thermo' } : null });
     else drawScene(ctx, sceneOpts(ts));
   });
@@ -4710,602 +4701,847 @@ document.addEventListener('input', e => {
   }
 });
 
-/* ===================== UNWRITTEN — ENGINE ===================== */
-/* Every city judges by a Custom nobody has written down: a handful of hidden principles, applied by
-   citizens who each feel them a little differently. You design cases, juries vote, and you infer the Custom. */
-const UW_KEY = 'pixel-arcade/unwritten/v1';
-function uwRng(seed) { let s = (Math.imul((seed >>> 0) ^ 0x51ed270b, 0x2c1b3c6d) >>> 0) || 1234567; return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
-const uwPick = (a, r) => a[Math.floor(r() * a.length)];
-const uwShuffle = (a, r) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-function uwErf(x) { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x); const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x); return s * y; }
-const uwPhi = z => 0.5 * (1 + uwErf(z / Math.SQRT2));
+/* ===================== TURNOVER: an enzyme lab =====================
+   Every run, a newly found enzyme with hidden, real properties. Three benches measure it (pH, reaction
+   rates, gels), the fits are honest, and the pitfalls are the ones real biochemists fall into:
+   reading rates too late, gels without reducing agent, treating an impure prep as pure enzyme. */
+const TN_KEY = 'pixel-arcade/turnover/v1';
+const TN_WK = 24;   // weeks in a lab year; each year brings a new enzyme
+function tnRng(seed) { let s = Math.imul((seed >>> 0) ^ 0x9e3779b9, 0x85ebca6b) >>> 0; s = (s ^ (s >>> 13)) >>> 0 || 7; for (let k = 0; k < 6; k++) { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; } return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+const tnG = r => { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
+const tnClamp = (x, a, b) => (x < a ? a : x > b ? b : x);
+const tnPick = (r, a) => a[Math.floor(r() * a.length)];
+const tnLogU = (r, a, b) => Math.exp(Math.log(a) + r() * Math.log(b / a));
+let tnLive = tnRng(Date.now() >>> 0);   // measurement noise; enzymes use their own seeded generator
 
-/* ---------- the principles a Custom can hold ---------- */
-const UW_SEV = { loss: 1, injury: 2, grave: 4 };
-const UW_TOL = 0.5;   // the slightest harm to nobody's benefit is already wrong
-const UW_P = [
-  { id: 'rate', t: 'The many and the few', q: 'To outweigh one person harmed, the number who must be spared', opts: [[1, 'is one'], [2, 'is two'], [3, 'is three'], [5, 'is five']], def: 1 },
-  { id: 'allow', t: 'Doing and allowing', q: 'Letting harm happen, compared with causing it,', opts: [[0, 'is no wrong at all'], [0.5, 'counts half'], [1, 'is just as bad']], def: 1 },
-  { id: 'means', t: 'Means and side effects', q: 'Harming someone as the very means of saving others', opts: [[0, 'is no worse than a side effect'], [1.5, 'is somewhat worse'], [3, 'is much worse'], [99, 'is never allowed']], def: 0 },
-  { id: 'hands', t: 'Hands and distance', q: 'Harming someone with your own hands', opts: [[0, 'is no worse than from a distance'], [1.5, 'is somewhat worse'], [3, 'is much worse']], def: 0 },
-  { id: 'acc', t: 'Foresight', q: 'Harm that nobody could have foreseen', opts: [[0, 'counts for nothing'], [0.5, 'counts half'], [1, 'counts in full']], def: 1 },
-  { id: 'consent', t: 'Consent', q: 'Harm to people who agreed beforehand to bear it', opts: [[0, 'is no wrong'], [0.5, 'counts half'], [1, 'counts in full']], def: 1 },
-  { id: 'kin', t: 'Family', q: 'Harming your own family', opts: [[0.5, 'is half as bad: a family matter'], [1, 'is like harming anyone'], [2, 'is twice as bad: a betrayal']], def: 1 },
-  { id: 'gain', t: 'Profit', q: 'Profiting from the harm', opts: [[0, 'changes nothing'], [1.5, 'makes it somewhat worse'], [3, 'makes it much worse']], def: 0 },
-  { id: 'promise', t: 'Promises', q: 'Breaking a promise in doing it', opts: [[0, 'changes nothing'], [1.5, 'makes it somewhat worse'], [3, 'makes it much worse']], def: 0 },
+/* ---------- the enzyme ---------- */
+const TN_ORGS = ['a hot-spring microbe', 'a deep-sea tube worm', 'a cave fungus', 'a desert lichen', 'a salt-marsh bacterium', 'a peat-bog moss', 'a glacier alga', 'a volcanic-vent archaeon'];
+const TN_PAIRS = [['glimate', 'glimase'], ['orvine', 'orvinase'], ['telose', 'telosidase'], ['brannate', 'brannase'], ['quorate', 'quorase'], ['mylate', 'mylase'], ['serpine', 'serpinase'], ['dovanol', 'dovanol oxidase']];
+const TN_PUR = [[0.30, 0.45], [0.62, 0.78], [0.90, 0.97]];
+function tnEnzyme(seed) {
+  const r = tnRng(seed);
+  const [sub, name] = tnPick(r, TN_PAIRS);
+  const u = r(), subs = u < 0.34 ? 1 : u < 0.67 ? 2 : 4;
+  const coop = subs > 1 && r() < 0.55;
+  const E = { seed, name, sub, org: tnPick(r, TN_ORGS), subs };
+  E.opt = Math.round((5.3 + r() * 3.4) * 100) / 100; const gap = 2.2 + r() * 1.4; E.pK1 = E.opt - gap / 2; E.pK2 = E.opt + gap / 2;
+  E.K = tnLogU(r, 0.08, 12); E.kcat = tnLogU(r, 8, 1500);
+  E.n = coop ? Math.min(subs, 1.7 + r() * 0.9) : 1;
+  E.ss = subs > 1 && r() < 0.4;                  // chains joined by sulfur bridges
+  E.mass = Math.round(24 + r() * 64);            // kDa per chain
+  E.shape = 0.9 + r() * 0.2;                     // native gels misjudge a protein's size by its shape
+  E.inh = tnPick(r, ['comp', 'non', 'unc']); E.Ki = tnLogU(r, 3, 60);   // µM
+  /* protein in each well (µg/mL): set so that, once pure, long reads run low-substrate wells down noticeably */
+  const P = 1.58 * E.K * E.mass / E.kcat; E.P = Number(P.toPrecision(2));
+  /* other proteins in the extract, kept clear of the enzyme's own bands */
+  const avoid = [E.mass, E.mass * 2, E.mass * subs, E.mass * subs * E.shape];
+  E.cont = [];
+  for (let t = 0; E.cont.length < 3 && t < 300; t++) {
+    const m = Math.round(tnLogU(r, 16, 210)), nm = m * (r() < 0.3 ? 2 : 1) * (0.92 + r() * 0.16);
+    const taken = avoid.concat(E.cont.flatMap(c => [c.m, c.nm]));
+    if ([m, nm].some(x => taken.some(y => Math.abs(Math.log(x / y)) < 0.2))) continue;
+    E.cont.push({ m, nm, w: 0.3 + r() });
+  }
+  const tw = E.cont.reduce((a, c) => a + c.w, 0); E.cont.forEach(c => { c.w /= tw; });
+  E.purs = TN_PUR.map(([a, b]) => Math.round((a + r() * (b - a)) * 1000) / 1000);
+  return E;
+}
+const tnVmax = (E, prep) => E.kcat * E.P * prep.pur / E.mass;   // µM/s
+
+/* ---------- questions ---------- */
+const TN_INH = { comp: 'Competes with the substrate', non: 'Binds elsewhere (non-competitive)', unc: 'Binds only the busy enzyme (uncompetitive)' };
+const TN_Q = [
+  { id: 'ph', n: 'Best pH', bench: 'ph', kind: 'num', bar: 0.12, rel: false, unit: '', dig: 2, d: 'At what pH does it work fastest?', val: E => E.opt },
+  { id: 'k', n: 'Half-speed point', bench: 'kin', kind: 'num', bar: 0.15, rel: true, unit: 'mM', dig: 3, d: 'How much substrate does it need to run at half its top speed? (Km, or K½ for an S-shaped curve.)', val: E => E.K },
+  { id: 'coop', n: 'Teamwork', bench: 'kin', kind: 'cat', opts: ['No: a plain curve', 'Yes: an S-shaped curve'], d: 'Does substrate landing on one active site make the next one easier? That bends the rate curve into an S.', val: E => (E.n > 1 ? 'Yes: an S-shaped curve' : 'No: a plain curve') },
+  { id: 'inh', n: 'How compound B blocks it', bench: 'kin', kind: 'cat', opts: Object.values(TN_INH), d: 'Compound B slows the enzyme down. How?', val: E => TN_INH[E.inh] },
+  { id: 'sub', n: 'How many chains', bench: 'gel', kind: 'cat', opts: ['1', '2', '4'], d: 'Is the enzyme one protein chain, or several stuck together?', val: E => String(E.subs) },
+  { id: 'kcat', n: 'Turnover number', bench: 'calc', kind: 'num', bar: 0.15, rel: true, unit: '/s', dig: 3, d: 'Flat out, how many substrate molecules does one active site turn over each second? (kcat)', val: E => E.kcat },
 ];
-const uwP = id => UW_P.find(p => p.id === id);
-const uwOptLabel = (id, v) => { const o = uwP(id).opts.find(x => x[0] === v); return o ? o[1] : '?'; };
-const uwMid = p => p.opts[Math.floor((p.opts.length - 1) / 2)][0];
-
-/* how wrong a case is, under a set of principle values P (positive: wrong) */
-function uwW(P, c) {
-  const sev = UW_SEV[c.sev], doing = c.act === 'do';
-  const H = c.h * (doing ? 1 : P.allow) * (c.path === 'accident' ? P.acc : 1) * (c.consent ? P.consent : 1) * (c.kin ? P.kin : 1);
-  let x = sev * (H - c.s / P.rate);
-  if (c.path === 'means') x += P.means * (doing ? 1 : P.allow);
-  if (doing && c.force === 'hands') x += P.hands;
-  if (c.gain) x += P.gain;
-  if (c.promise) x += P.promise;
-  return x - UW_TOL;
+const tnQ = id => TN_Q.find(q => q.id === id);
+const tnBar = (q, v) => (q.rel ? q.bar * Math.abs(v) : q.bar);
+function tnFmt(q, v, e) {
+  if (q.kind !== 'num') return String(v);
+  const f = x => (Math.abs(x) >= 100 ? Math.round(x).toString() : Number(x.toPrecision(q.dig)).toString());
+  return e === undefined ? `${f(v)}${q.unit ? ' ' + q.unit : ''}` : `${f(v)} ± ${f(e)}${q.unit ? ' ' + q.unit : ''}`;
 }
 
-/* ---------- cities ---------- */
-const UW_TIERS = [
-  { id: 'village', n: 'Village', hidden: 4, sig: 0.6, fac: 0, days: 6, rivals: 1, skill: 2, dil: 0.5, d: 'Four principles to find, steady juries, one rival.' },
-  { id: 'town', n: 'Market town', hidden: 6, sig: 0.8, fac: 0, days: 6, rivals: 2, skill: 3, dil: 0.6, d: 'Six principles, noisier juries, two rivals.' },
-  { id: 'city', n: 'Free city', hidden: 9, sig: 1.0, fac: 0.3, days: 5, rivals: 2, skill: 5, dil: 0.7, d: 'All nine principles, a dissenting faction, fewer days.' },
-  { id: 'capital', n: 'Capital', hidden: 9, sig: 1.2, fac: 0.42, days: 5, rivals: 3, skill: 6, dil: 0.85, d: 'Everything at once, a strong faction, three sharp rivals.' },
+/* ---------- equipment, rivals, unlocks ---------- */
+const TN_PARTS = {
+  spec: { n: 'Spectrophotometer', grades: ['Old', 'Modern', 'Research grade'], cost: [0, 500, 1300], weeks: [0, 3, 5], d: 'Reads reaction rates. Better ones are less noisy.' },
+  pur: { n: 'Purification', grades: ['Crude extract', 'One column', 'Two columns'], cost: [0, 400, 1000], weeks: [0, 2, 4], d: 'Each step gives a purer preparation (a new prep). Purity changes how fast a well runs, so data from different preps are kept apart.' },
+};
+const TN_NOISE = [0.05, 0.026, 0.013];
+const TN_STRIP = 8;   // wells per run
+const TN_WIN = { quick: { n: 'Quick (10 s)', T: 10, f: 3 }, std: { n: 'Standard (1 min)', T: 60, f: 1 }, long: { n: 'Long (10 min)', T: 600, f: 0.35 } };
+const TN_S = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30, 100];   // mM
+const TN_I = [0, 5, 20, 80];                               // µM compound B
+const TN_PH = [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
+const TN_COST = { well: 10, ph: 8, sds: 60, native: 80, stain: 40 };
+const TN_RIVALS = [
+  { id: 'hal', n: 'Halvorsen Lab', d: 'Fast and flashy. Often first, not always right.', speed: 1.4, care: 0.55 },
+  { id: 'kes', n: 'The Kessler Group', d: 'Slow and meticulous. Rarely wrong.', speed: 0.7, care: 0.95 },
+  { id: 'mer', n: 'Meridian Institute', d: 'Well funded and steady. Usually right.', speed: 1.0, care: 0.8 },
 ];
-const UW_SESSIONS = 6;
-const UW_CITY = ['Hollin', 'Varrow', 'Tamsey', 'Corlay', 'Esk', 'Brindle', 'Oldmere', 'Saltash', 'Wending', 'Calder', 'Fenwick', 'Marrowby', 'Thistlecombe', 'Quayle'];
-const UW_RIVALN = ['Ottoline Fairweather', 'Barnaby Quist', 'Hester Vane', 'Jory Calloway', 'Wenna Ashby', 'Silas Mortlake', 'Perpetua Lowe', 'Ambrose Tull', 'Clemency Hart', 'Tobias Rook'];
-const UW_RIVALE = ['who trusts the ledger', 'who trusts old sayings', 'who trusts the loudest jury', 'who trusts nobody', 'who trusts first impressions', 'who trusts the market crowd'];
-function uwNewCity(tier, seed) {
-  const r = uwRng(seed), T = UW_TIERS[tier];
-  for (let tries = 0; tries < 50; tries++) {
-    const hidden = uwShuffle(UW_P.map(p => p.id), r).slice(0, T.hidden);
-    const P = {}; UW_P.forEach(p => { P[p.id] = hidden.includes(p.id) ? uwPick(p.opts, r)[0] : p.def; });
-    if (hidden.filter(id => P[id] !== uwP(id).def).length < Math.ceil(T.hidden / 2)) continue;   // a city should be distinctive
-    let fac = null;
-    if (T.fac) { const pid = uwPick(hidden.filter(id => id !== 'rate'), r) || 'means'; const others = uwP(pid).opts.map(o => o[0]).filter(v => v !== P[pid]); fac = { pid, val: uwPick(others, r), share: Math.round(T.fac * (0.8 + r() * 0.4) * 100) / 100 }; }
-    return { seed, tier, name: uwPick(UW_CITY, r), P, hidden: UW_P.map(p => p.id).filter(id => hidden.includes(id)), sig: T.sig, fac };
-  }
-  return null;
-}
-/* share of the whole citizenry that would forbid this case */
-function uwFrac(city, c) {
-  const main = uwPhi(uwW(city.P, c) / city.sig); if (!city.fac) return main;
-  const P2 = Object.assign({}, city.P, { [city.fac.pid]: city.fac.val });
-  return (1 - city.fac.share) * main + city.fac.share * uwPhi(uwW(P2, c) / city.sig);
-}
-const uwVerdict = (city, c) => uwFrac(city, c) > 0.5;
-/* a jury of n citizens votes */
-function uwJury(city, c, n, r) { const f = uwFrac(city, c); let k = 0; for (let i = 0; i < n; i++) if (r() < f) k++; return k; }
+const TN_QBASE = { ph: 5, k: 8, coop: 11, inh: 12, sub: 10, kcat: 15 };   // weeks a steady rival needs in year 1; they get quicker
+const TN_UNLOCKS = [
+  { id: 'col', n: 'A column on day one', cost: 3, d: 'Start with one purification column already set up.' },
+  { id: 'spec', n: 'A modern spectrophotometer', cost: 4, d: 'Start with less noisy rate readings.' },
+  { id: 'fund', n: 'A founding gift', cost: 3, d: 'Start with $700 more.' },
+  { id: 'dossier', n: 'Rival dossiers', cost: 2, d: 'See how careful each rival lab is.' },
+  { id: 'year', n: 'A fourth year', cost: 6, d: 'Runs last four years instead of three.' },
+];
 
-/* a Code: the player's (or a rival's) chosen value for each hidden principle; undecided means the middle option */
-function uwCodeP(code, city) { const P = {}; UW_P.forEach(p => { P[p.id] = city.hidden.includes(p.id) ? (code[p.id] !== undefined && code[p.id] !== null ? code[p.id] : uwMid(p)) : p.def; }); return P; }
-const uwPredict = (code, city, c) => uwPhi(uwW(uwCodeP(code, city), c) / city.sig);
-
-/* ---------- cases ---------- */
-const UW_AGENTS = ['ferryman', 'miller', 'lamplighter', 'weaver', 'bailiff', 'shepherd', 'brewer', 'bridge-keeper', 'glassblower', 'beekeeper', 'tanner', 'harbourmaster'];
-const UW_DANGERS = ['a flood', 'a runaway cart', 'a fire in the granary', 'a falling bridge', 'a stampede of cattle', 'a storm tide', 'a rockslide', 'a burst dam'];
-const UW_SEVW = { loss: ['loses everything they own', 'lose everything they own'], injury: ['is badly hurt', 'are badly hurt'], grave: ['is gravely harmed', 'are gravely harmed'] };
-function uwDefaultCase() { return { sev: 'injury', h: 1, s: 5, act: 'do', path: 'side', force: 'distance', consent: false, kin: false, gain: false, promise: false, ag: 0, dz: 0 }; }
-function uwRandCase(r) {
-  return { sev: uwPick(['loss', 'injury', 'grave'], r), h: r() < 0.7 ? 1 + Math.floor(r() * 2) : 1 + Math.floor(r() * 5), s: Math.floor(r() * 10), act: r() < 0.7 ? 'do' : 'allow',
-    path: r() < 0.4 ? 'means' : r() < 0.75 ? 'side' : 'accident', force: r() < 0.4 ? 'hands' : 'distance', consent: r() < 0.2, kin: r() < 0.2, gain: r() < 0.2, promise: r() < 0.2,
-    ag: Math.floor(r() * UW_AGENTS.length), dz: Math.floor(r() * UW_DANGERS.length) };
-}
-const uwKey = c => [c.sev, c.h, c.s, c.act, c.path, c.act === 'do' ? c.force : '-', +c.consent, +c.kin, +c.gain, +c.promise].join('|');
-function uwStory(c) {
-  const A = UW_AGENTS[c.ag % UW_AGENTS.length], D = UW_DANGERS[c.dz % UW_DANGERS.length], one = c.h === 1;
-  const who = one ? 'one person' : `${c.h} people`;
-  let s1;
-  if (c.act === 'do') {
-    const how = c.force === 'hands' ? 'with their own hands' : 'from a distance';
-    s1 = c.path === 'means' ? `A ${A}, ${how}, puts ${who} in the way of ${D}: their harm is what stops it.`
-      : c.path === 'side' ? `A ${A}, ${how}, turns ${D} aside, knowing it will reach ${who}.`
-      : `A ${A}, ${how}, turns ${D} aside. Nobody could have known ${who} ${one ? 'was' : 'were'} in its path.`;
-  } else {
-    s1 = c.path === 'means' ? `A ${A} could pull ${who} clear of ${D}, but leaves ${one ? 'them' : 'them'} there: their harm is what stops it.`
-      : c.path === 'side' ? `A ${A} could save ${who} from ${D}, but turns away, knowing what will happen.`
-      : `A ${A} does nothing about ${D}, never suspecting that ${who} ${one ? 'is' : 'are'} in its path.`;
-  }
-  const out = [s1, `${one ? 'One person' : `${c.h} people`} ${UW_SEVW[c.sev][one ? 0 : 1]}.`, c.s ? `Because of it, ${c.s === 1 ? 'one other is' : `${c.s} others are`} spared the same.` : 'Nobody else is spared by it.'];
-  if (c.consent) out.push(`${one ? 'The person harmed' : 'Those harmed'} had agreed beforehand to bear the risk.`);
-  if (c.kin) out.push(`${one ? 'They are' : 'They are all'} the ${A}'s own family.`);
-  if (c.gain) out.push(`The ${A} profits from it.`);
-  if (c.promise) out.push(c.act === 'do' ? `The ${A} had sworn never to do such a thing.` : `The ${A} had sworn to protect them.`);
-  return out.join(' ');
-}
-const UW_TITLE_N = [['Flood', 'High Water', 'Millrace'], ['Runaway Cart', 'Hill Road', 'Broken Axle'], ['Granary Fire', 'Smoke', 'Grain Loft'], ['Bridge', 'Span', 'River Crossing'], ['Stampede', 'Cattle', 'Drove Road'], ['Storm Tide', 'Sea Wall', 'Spring Tide'], ['Rockslide', 'Quarry', 'Scree'], ['Dam', 'Sluice', 'Reservoir']];
-const uwCaseTitle = (c, i) => { const T = UW_TITLE_N[c.dz % UW_TITLE_N.length]; return `The ${T[(c.ag + i) % T.length]} Case`; };
-/* the short tags that describe a case in the book */
-function uwTags(c) {
-  return [`${c.h} ${c.sev === 'loss' ? 'ruined' : c.sev === 'injury' ? 'hurt' : 'gravely harmed'}`, `${c.s} spared`, c.act === 'do' ? 'caused' : 'allowed', { means: 'as means', side: 'side effect', accident: 'unforeseeable' }[c.path],
-    c.act === 'do' ? (c.force === 'hands' ? 'own hands' : 'at a distance') : null, c.consent ? 'consented' : null, c.kin ? 'family' : null, c.gain ? 'profits' : null, c.promise ? 'broken promise' : null].filter(Boolean);
-}
-/* which principles could matter in this case at all */
-function uwTouches(c) {
-  const t = ['rate']; if (c.act === 'allow') t.push('allow'); if (c.path === 'means') t.push('means'); if (c.path === 'accident') t.push('acc');
-  if (c.act === 'do' && c.force === 'hands') t.push('hands'); if (c.consent) t.push('consent'); if (c.kin) t.push('kin'); if (c.gain) t.push('gain'); if (c.promise) t.push('promise'); return t;
-}
-
-/* ---------- the docket, the rivals, the exam ---------- */
-/* decisive cases that test the hidden principles, preferring ones a careless Code would get wrong */
-function uwPickCases(city, r, n, minMargin, avoid, adv) {
-  const naive = {}; const seen = new Set(avoid || []); const pool = [];
-  for (let i = 0; i < 500 && pool.length < 260; i++) {
-    const c = uwRandCase(r); const k = uwKey(c); if (seen.has(k)) continue; seen.add(k);
-    const f = uwFrac(city, c); if (Math.abs(f - 0.5) < minMargin) continue;
-    // a fair test case is one where getting some hidden principle wrong would flip the verdict
-    const v0 = uwW(city.P, c) > 0;
-    const touched = uwTouches(c).filter(id => city.hidden.includes(id) && uwP(id).opts.some(o => o[0] !== city.P[id] && (uwW(Object.assign({}, city.P, { [id]: o[0] }), c) > 0) !== v0));
-    if (!touched.length) continue;
-    const trap = (uwPredict(naive, city, c) > 0.5) !== (f > 0.5);
-    pool.push({ c, f, sc: touched.length * 2 + (adv && trap ? 3 : 0) + r() * 2, touched });
-  }
-  pool.sort((a, b) => b.sc - a.sc); const out = [], cover = new Set();
-  for (const o of pool) { if (out.length >= n) break; const fresh = o.touched.filter(id => id !== 'rate' && !cover.has(id)).length; if (fresh || out.length >= n - 1 || pool.length < n * 3) { out.push(o.c); o.touched.forEach(id => cover.add(id)); } }
-  for (const o of pool) { if (out.length >= n) break; if (!out.includes(o.c)) out.push(o.c); }
-  return out;
-}
-/* the sealed exam: each case tests one principle as cleanly as possible, and the cases for a principle
-   between them rule out every wrong answer to it, so the score reads as "how much of the Custom you found" */
-function uwExamCases(city, r, n, minMargin) {
-  const flips = (c, id) => { const v0 = uwW(city.P, c) > 0; return uwP(id).opts.map(o => o[0]).filter(v => v !== city.P[id] && (uwW(Object.assign({}, city.P, { [id]: v }), c) > 0) !== v0); };
-  const pool = [], seen = new Set();
-  for (let i = 0; i < 4000 && pool.length < 900; i++) {
-    const c = uwRandCase(r); const k = uwKey(c); if (seen.has(k)) continue; seen.add(k);
-    if (Math.abs(uwFrac(city, c) - 0.5) < minMargin) continue;
-    const fl = {}; city.hidden.forEach(id => { const f = flips(c, id); if (f.length) fl[id] = f; });
-    const t = Object.keys(fl); if (t.length) pool.push({ c, t, fl, k, z: r() });
-  }
-  const order = uwShuffle(city.hidden, r), out = [], used = new Set(), cov = {};
-  for (let i = 0; out.length < n && i < n * 3; i++) {
-    const X = order[i % order.length]; const got = cov[X] || (cov[X] = new Set());
-    let best = null, bs = -1e9;
-    for (const o of pool) { if (used.has(o.k) || !o.fl[X]) continue; const sc = o.fl[X].filter(v => !got.has(v)).length * 4 + o.fl[X].length * 0.5 - (o.t.length - 1) * 2 + o.z; if (sc > bs) { bs = sc; best = o; } }
-    if (best) { used.add(best.k); best.fl[X].forEach(v => got.add(v)); out.push(best.c); }
-  }
-  pool.sort((a, b) => a.t.length - b.t.length || a.z - b.z);
-  for (const o of pool) { if (out.length >= n) break; if (!used.has(o.k)) { used.add(o.k); out.push(o.c); } }
-  return out;
-}
-function uwRivalCode(city, r, skill) {
-  const code = {}; const right = uwShuffle(city.hidden, r).slice(0, Math.min(skill, city.hidden.length));
-  city.hidden.forEach(id => { const opts = uwP(id).opts.map(o => o[0]); code[id] = right.includes(id) ? city.P[id] : uwPick(opts.filter(v => v !== city.P[id]), r); });
-  return code;
-}
-/* a rival looks for a case where your Code gets the city wrong */
-function uwFindFlaw(city, code, r, tries) {
-  let best = null;
-  for (let i = 0; i < tries; i++) { const c = uwRandCase(r); const f = uwFrac(city, c); if (Math.abs(f - 0.5) < 0.25) continue; const p = uwPredict(code, city, c); if ((p > 0.5) !== (f > 0.5)) { const gap = Math.abs(p - f); if (!best || gap > best.gap) best = { c, f, p, gap }; } }
-  return best;
-}
-const uwCodeScore = (city, code, cases) => cases.filter(c => (uwPredict(code, city, c) > 0.5) === uwVerdict(city, c)).length;
-
-/* ---------- a career in one city ---------- */
-function uwNewRun(meta, tier) {
-  const seed = (Math.random() * 1e9) >>> 0, r = uwRng(seed ^ 0x9e37), T = UW_TIERS[tier]; const has = u => meta.unlocks.includes(u);
-  const city = uwNewCity(tier, seed);
-  const names = uwShuffle(UW_RIVALN, r);
-  const rivals = Array.from({ length: T.rivals }, (_, i) => ({ id: 'r' + i, n: names[i], e: uwPick(UW_RIVALE, r), code: uwRivalCode(city, r, T.skill - (i === 0 ? 0 : r() < 0.5 ? 1 : 0)), standing: 10, used: [] }));
-  const R = { v: 1, seed, tier, city, session: 1, days: T.days + (has('clerk') ? 1 : 0), standing: 10 + (has('patron') ? 3 : 0), hearings: [], code: {}, rivals, phase: 'work', nid: 1,
-    docket: [], dockI: 0, log: [], over: null, perks: meta.unlocks.slice(), stats: { dockRight: 0, dockWrong: 0, rebutted: 0, rebuts: 0, failedRebuts: 0 } };
-  if (has('records')) { for (let i = 0; i < 3; i++) { const c = uwRandCase(r); R.hearings.push({ id: R.nid++, c, n: 31, f: uwJury(city, c, 31, r), session: 0, old: true }); } }
-  uwLog(R, `You arrive in ${city.name}. The Assembly wants the Custom written down within ${UW_SESSIONS} sessions.`);
+/* ---------- a run ---------- */
+function tnNewRun(meta) {
+  const has = u => (meta.unlocks || []).includes(u);
+  const seed = (Math.random() * 1e9) >>> 0;
+  const R = {
+    v: 2, seed, week: 0, years: has('year') ? 4 : 3, money: 1500 + (has('fund') ? 700 : 0), cred: 60, prestige: 0, yearPrestige: 0,
+    parts: { spec: has('spec') ? 1 : 0, pur: has('col') ? 1 : 0 }, builds: [], log: [], past: [],
+    nid: 1, over: null, dossier: has('dossier'), stats: { runs: 0, spent: 0 },
+  };
+  tnNewEnzyme(R);
   return R;
 }
-function uwLog(R, t, k) { R.log.push({ s: R.session, t, k: k || '' }); if (R.log.length > 100) R.log.shift(); }
-const UW_JURY = [{ n: 7, days: 1, t: 'Small jury' }, { n: 15, days: 2, t: 'Full jury' }, { n: 31, days: 3, t: 'Grand jury' }];
-const uwJuryDays = (R, j) => (j.n === 31 && R.perks.includes('herald') ? 2 : j.days);
-function uwHold(R, c, n) {
-  const j = UW_JURY.find(x => x.n === n); const d = uwJuryDays(R, j); if (R.days < d) return 'Not enough days left this session.';
-  const r = uwRng((R.seed ^ (R.nid * 7919)) >>> 0); R.days -= d;
-  const h = { id: R.nid++, c: JSON.parse(JSON.stringify(c)), n, f: uwJury(R.city, c, n, r), session: R.session }; R.hearings.push(h);
-  return h;
+/* a new year, a new enzyme: fresh preps, data and questions; equipment and money carry over */
+function tnNewEnzyme(R) {
+  const y = Math.floor(R.week / TN_WK), r = tnRng((R.seed ^ 0x51ed) + y * 7919);
+  R.E = tnEnzyme((R.seed + y * 104729) >>> 0); R.preps = []; R.runs = []; R.reads = []; R.claims = []; R.sched = [];
+  R.preps.push({ id: 'A', pur: R.E.purs[R.parts.pur], grade: R.parts.pur });
+  const quick = [1, 0.88, 0.76, 0.68][Math.min(y, 3)], t0 = y * TN_WK;
+  TN_RIVALS.forEach(rv => TN_Q.forEach(q => { if (r() < 0.8) R.sched.push({ rv: rv.id, q: q.id, at: t0 + Math.max(2, Math.round(TN_QBASE[q.id] * quick / rv.speed * (0.7 + r() * 0.6))), ok: r() < rv.care, u: r(), done: false }); }));
+  tnLog(R, `Year ${y + 1}: a sample of ${R.E.name} arrives, purified from ${R.E.org}. The Society posts six open questions about it.`, 'year');
 }
-function uwOpenDocket(R) {
-  const r = uwRng((R.seed ^ (R.session * 104729)) >>> 0); const n = R.session === UW_SESSIONS ? 3 : 2;
-  R.docket = uwPickCases(R.city, r, n, 0.2, R.hearings.map(h => uwKey(h.c)).concat(R.docket.map(d => uwKey(d.c))), R.session >= 2).map((c, i) => ({ c, title: uwCaseTitle(c, R.session * 3 + i), ruled: null }));
-  R.dockI = 0; R.phase = 'docket';
-}
-function uwRule(R, forbid) {
-  const D = R.docket[R.dockI]; if (!D || D.ruled !== null) return null;
-  const truth = uwVerdict(R.city, D.c); D.ruled = forbid; D.truth = truth; D.f = uwFrac(R.city, D.c); D.right = forbid === truth;
-  /* rivals rule by their Code, but like you they think it over: when their Code is wrong they sometimes catch it */
-  const rr = uwRng((R.seed ^ (R.session * 7717) ^ (R.dockI * 131)) >>> 0);
-  D.rivals = R.rivals.filter(rv => rv.standing > 0).map(rv => { let p = uwPredict(rv.code, R.city, D.c) > 0.5; if (p !== truth && rr() < 0.55) p = truth; const ok = p === truth; rv.standing += ok ? 1 : -3; return { n: rv.n, forbid: p, ok }; });
-  if (D.right) { R.standing += 1; R.stats.dockRight++; } else { R.standing -= 3; R.stats.dockWrong++; }
-  uwLog(R, `${D.title}: you ruled ${forbid ? 'Forbidden' : 'Permitted'}. The city ${truth ? 'forbids' : 'permits'} it.`, D.right ? 'good' : 'bad');
-  return D;
-}
-function uwRivalsMove(R) {
-  const r = uwRng((R.seed ^ (R.session * 6151)) >>> 0), T = UW_TIERS[R.tier]; const out = [];
-  R.rivals.forEach(rv => {
-    if (rv.standing <= 0) return;
-    // from the second session on, at most one rival a session catches your Code out in public
-    if (R.session >= 2 && !out.length && r() < T.dil * (0.5 + 0.1 * R.session)) { const flaw = uwFindFlaw(R.city, R.code, r, 70); if (flaw) { const n = 31, k = uwJury(R.city, flaw.c, n, r); R.standing -= 2; R.stats.rebutted++; out.push({ rv: rv.n, c: flaw.c, k, n, p: flaw.p }); uwLog(R, `${rv.n} rebutted your Code in public.`, 'bad'); } }
-    if (r() < 0.5) { const id = uwPick(R.city.hidden, r); if (rv.code[id] !== R.city.P[id] && r() < 0.6) rv.code[id] = R.city.P[id]; }   // rivals learn too
-  });
-  return out;
-}
-/* you rebut a rival with one of your hearings */
-function uwRebut(R, rv, h) {
-  if (rv.used.includes(h.id)) return { k: 'used', t: 'You have already used that hearing against them.' };
-  rv.used.push(h.id);
-  const pr = uwPredict(rv.code, R.city, h.c) > 0.5, share = h.f / h.n, decisive = h.n >= 15 && (share >= 2 / 3 || share <= 1 / 3), jury = share > 0.5;
-  if (decisive && pr !== jury) { rv.standing -= 2; R.standing += 1; R.stats.rebuts++; uwLog(R, `You rebutted ${rv.n}'s Code with hearing #${h.id}.`, 'good'); return { k: 'win', t: `The Assembly agrees: ${rv.n}'s Code says ${pr ? 'Forbidden' : 'Permitted'}, but ${h.f} of ${h.n} jurors forbade it. Their standing −2, yours +1.` }; }
-  R.standing -= 1; R.stats.failedRebuts++; uwLog(R, `Your rebuttal of ${rv.n} fell flat.`, 'bad');
-  return { k: 'lose', t: pr === jury ? `Their Code agrees with that jury. Nothing to rebut. Your standing −1.` : `That jury was too small or too split (${h.f} of ${h.n}) to overturn anything. Your standing −1.` };
-}
-function uwEndSession(R) {
-  const ev = uwRivalsMove(R);
-  if (R.standing <= 0) { R.over = { k: 'dismissed', t: 'The Assembly has lost faith in you. Your commission is withdrawn.' }; R.phase = 'over'; return ev; }
-  if (R.session >= UW_SESSIONS) { R.phase = 'exam'; return ev; }
-  R.session++; R.days = UW_TIERS[R.tier].days + (R.perks.includes('clerk') ? 1 : 0); R.phase = 'work'; R.docket = [];
+const tnPrep = R => R.preps[R.preps.length - 1];
+const tnYear = R => Math.floor(R.week / TN_WK) + 1;
+const tnWeekOfYear = R => (R.week % TN_WK) + 1;
+function tnLog(R, t, k) { R.log.push({ w: R.week, t, k: k || '' }); if (R.log.length > 150) R.log.shift(); }
+const tnRivalName = id => (TN_RIVALS.find(x => x.id === id) || { n: 'You' }).n;
+
+/* time passes: builds finish, rivals publish, replication catches up, grants arrive */
+function tnSpend(R, weeks) {
+  const ev = [];
+  for (let i = 0; i < weeks && !R.over; i++) {
+    R.week++;
+    R.builds.forEach(b => { b.left--; if (b.left <= 0) { b.done = true; R.parts[b.part] = Math.max(R.parts[b.part], b.grade); const P = TN_PARTS[b.part];
+      let t = `${P.n}: ${P.grades[b.grade]} is ready.`;
+      if (b.part === 'pur') { const id = String.fromCharCode(65 + R.preps.length); R.preps.push({ id, pur: R.E.purs[b.grade], grade: b.grade }); t += ` Your new preparation of ${R.E.name} is prep ${id}.`; }
+      tnLog(R, t, 'build'); ev.push({ k: 'build', t }); } });
+    R.builds = R.builds.filter(b => !b.done);
+    R.sched.forEach(s => { if (!s.done && R.week >= s.at) { s.done = true; const c = tnRivalClaim(R, s); if (c) ev.push({ k: 'rival', t: `${tnRivalName(s.rv)} publishes on “${tnQ(s.q).n}”: ${tnFmt(tnQ(s.q), c.v, c.e)}.` }); } });
+    R.claims.forEach(c => { if (!c.fate && R.week >= c.resolveAt) ev.push(...tnResolve(R, c)); });
+    if (R.week % TN_WK === 0) ev.push(...tnYearEnd(R));
+  }
   return ev;
 }
-function uwExam(R) {
-  const r = uwRng((R.seed ^ 0x5eed) >>> 0); const cases = uwExamCases(R.city, r, 12, 0.18);
-  /* dismissed rivals do not sit the test; with nobody left, the Assembly still wants two thirds right */
-  const mine = uwCodeScore(R.city, R.code, cases); const rivals = R.rivals.filter(rv => rv.standing > 0).map(rv => ({ n: rv.n, score: uwCodeScore(R.city, rv.code, cases), standing: rv.standing }));
-  const best = rivals.length ? Math.max(...rivals.map(x => x.score)) : 7; const adopted = mine > best || (rivals.length > 0 && mine === best && R.standing >= Math.max(...rivals.filter(x => x.score === best).map(x => x.standing)));
-  R.exam = { cases, mine, rivals, adopted, details: cases.map(c => ({ c, truth: uwVerdict(R.city, c), mine: uwPredict(R.code, R.city, c) > 0.5, f: uwFrac(R.city, c) })) };
-  R.over = adopted ? { k: 'adopted', t: `The Assembly of ${R.city.name} adopts your Code. The Custom is written at last, and it carries your name.` } : { k: 'passed', t: `The Assembly adopts another Code. Yours goes into the archive.` };
-  R.phase = 'over';
-  return R.exam;
-}
-function uwLaurels(R) {
-  /* laurels pay for understanding, not for finishing: only exam marks above coin-flipping count */
-  const ex = R.exam; if (!ex || !R.over || R.over.k === 'quit') return 0;
-  return Math.max(0, ex.mine - 6) + (R.over.k === 'adopted' ? 3 + 2 * R.tier : 0) + (R.standing >= 10 ? 1 : 0);
-}
-
-/* ===================== UNWRITTEN — UI ===================== */
-let UWS = uwLoad();
-const UWU = { screen: 'title', tab: 'hear', b: uwDefaultCase(), jury: 15, cmp: [], last: null };
-function uwNewSave() { return { v: 1, meta: { laurels: 0, unlocks: [], hist: [], runs: 0, tierMax: 0 }, run: null }; }
-function uwLoad() {
-  try { const s = JSON.parse(localStorage.getItem(UW_KEY)); if (s && s.v === 1) { const o = Object.assign(uwNewSave(), s); o.meta = Object.assign(uwNewSave().meta, s.meta || {}); return o; } } catch (e) {}
-  return uwNewSave();
-}
-function uwSave() { try { localStorage.setItem(UW_KEY, JSON.stringify(UWS)); } catch (e) {} }
-const UW_UNLOCKS = [
-  { id: 'clerk', n: 'A clerk', cost: 4, d: 'One more day of hearings every session.' },
-  { id: 'herald', n: 'A herald', cost: 4, d: 'Grand juries take 2 days instead of 3.' },
-  { id: 'stat', n: 'A tally-keeper', cost: 3, d: 'Shows how far each vote could be chance, and whether two hearings really differ.' },
-  { id: 'records', n: 'Old records', cost: 3, d: 'Every city starts with three old grand-jury verdicts in your Book.' },
-  { id: 'patron', n: 'A patron in the Assembly', cost: 4, d: 'Start every commission with 3 more standing.' },
-];
-const uwPct = x => Math.round(x * 100) + '%';
-const uwVerd = forbid => `<b class="${forbid ? 'fb' : 'pm'}">${forbid ? 'Forbidden' : 'Permitted'}</b>`;
-const uwDecided = R => R.city.hidden.some(id => R.code[id] !== undefined && R.code[id] !== null);
-
-/* ---------- open & render ---------- */
-function openUw() { UI.view = 'uw'; closeModal(); UWU.screen = 'title'; uwRender(); }
-function uwRender(keep) {
-  if (UI.view !== 'uw') return;
-  const prev = document.querySelector('.uw-main'); const top = keep && prev ? prev.scrollTop : 0;
-  const R = UWS.run;
-  $('#app').innerHTML = `<div class="uw">${UWU.screen === 'title' || !R ? uwTitleHTML() : R.phase === 'over' ? uwEndHTML() : uwRunHTML()}</div>`;
-  const m = document.querySelector('.uw-main'); if (m) m.scrollTop = top;
-}
-function uwTitleHTML() {
-  const R = UWS.run, M = UWS.meta;
-  return `<main class="uw-main uw-center"><div class="uw-title">
-    <canvas data-scene="uw-title" class="uw-titlecv" aria-label="Paper figures gathered before a city hall"></canvas>
-    <h1 class="uw-logo">Unwritten</h1>
-    <p class="uw-kicker">Cartridge 03 · The Custom of the city</p>
-    <p>Every city judges by rules nobody has ever written down. Design cases, put them to juries of citizens, and work out the Custom from how they vote. Then write it down, rule on real disputes by it, and defend it against rival codifiers.</p>
-    <div class="uw-menu">
-      ${R && R.phase !== 'over' ? `<button class="btn primary" data-uw="continue">Continue · ${esc(R.city.name)}, session ${R.session}</button>` : ''}
-      <button class="btn ${R && R.phase !== 'over' ? '' : 'primary'}" data-uw="newrun">New commission</button>
-      <button class="btn" data-uw="howto">How it works</button>
-      <button class="btn" data-uw="archive">The Archive · ${M.laurels} laurel${M.laurels === 1 ? '' : 's'}</button>
-      <button class="btn" data-uw="past">Past cities · ${M.hist.length}</button>
-      <a class="btn" href="#arcade">Back to the arcade</a>
-    </div></div></main>`;
-}
-function uwHud() {
-  const R = UWS.run, T = UW_TIERS[R.tier], full = T.days + (R.perks.includes('clerk') ? 1 : 0);
-  return `<header class="uw-hud"><a class="ib" href="#arcade" aria-label="Back to the arcade">◂</a><button class="uw-brand" data-uw="totitle">Unwritten</button>
-    <span class="uw-pill"><b>${esc(R.city.name)}</b> · session ${R.session}/${UW_SESSIONS}</span>
-    <span class="uw-pill" title="Days of hearings left this session">${R.phase === 'work' ? `<span class="uw-days">${Array.from({ length: full }, (_, i) => `<i class="${i < R.days ? 'on' : ''}"></i>`).join('')}</span> ${R.days} day${R.days === 1 ? '' : 's'}` : 'the docket'}</span>
-    <span class="uw-pill ${R.standing <= 4 ? 'low' : ''}" title="Your standing with the Assembly">standing <b>${R.standing}</b></span></header>`;
-}
-function uwRunHTML() {
-  const R = UWS.run;
-  if (R.phase === 'docket') return uwHud() + `<main class="uw-main">${uwDocketHTML()}</main>`;
-  const tabs = [['hear', 'Hearings'], ['book', `Book · ${R.hearings.length}`], ['code', 'Code'], ['rivals', 'Rivals']];
-  return `${uwHud()}<nav class="uw-tabs" role="tablist">${tabs.map(t => `<button role="tab" data-uw="tab" data-id="${t[0]}" aria-selected="${UWU.tab === t[0]}">${t[1]}</button>`).join('')}</nav>
-    <main class="uw-main">${UWU.tab === 'hear' ? uwHearHTML() : UWU.tab === 'book' ? uwBookHTML() : UWU.tab === 'code' ? uwCodeHTML() : uwRivalsHTML()}
-      <div class="uw-close"><button class="btn ${R.days ? '' : 'primary big'}" data-uw="close">${R.days ? `Close the session early (${R.days} day${R.days === 1 ? '' : 's'} unused)` : 'Go to the docket'} ▸</button></div></main>`;
-}
-
-/* ---------- the case builder ---------- */
-function uwSeg(key, opts, cur, dis) { return `<div class="uw-seg" role="group">${opts.map(([v, l]) => `<button data-uw="set" data-id="${key}" data-v="${v}" aria-pressed="${String(cur) === String(v)}"${dis ? ' disabled' : ''}>${l}</button>`).join('')}</div>`; }
-function uwStep(key, v, lo, hi) { return `<div class="uw-step"><button data-uw="step" data-id="${key}" data-v="-1"${v <= lo ? ' disabled' : ''} aria-label="fewer">−</button><b>${v}</b><button data-uw="step" data-id="${key}" data-v="1"${v >= hi ? ' disabled' : ''} aria-label="more">+</button></div>`; }
-function uwBuilderHTML(b) {
-  const row = (t, inner) => `<div class="uw-row"><span>${t}</span>${inner}</div>`;
-  return `<div class="uw-rows">
-    ${row('Each harmed person', uwSeg('sev', [['loss', 'loses all they own'], ['injury', 'is badly hurt'], ['grave', 'is gravely harmed']], b.sev))}
-    ${row('People harmed', uwStep('h', b.h, 1, 5))}
-    ${row('People spared', uwStep('s', b.s, 0, 9))}
-    ${row('The agent', uwSeg('act', [['do', 'causes it'], ['allow', 'lets it happen']], b.act))}
-    ${row('The harm is', uwSeg('path', [['means', 'the means'], ['side', 'a side effect'], ['accident', 'unforeseeable']], b.path))}
-    ${row('Done', uwSeg('force', [['hands', 'with own hands'], ['distance', 'from a distance']], b.force, b.act !== 'do'))}
-    ${row('Those harmed', uwSeg('consent', [['false', 'did not agree'], ['true', 'agreed beforehand']], b.consent))}
-    ${row('They are', uwSeg('kin', [['false', 'strangers'], ['true', 'the agent\'s family']], b.kin))}
-    ${row('The agent', uwSeg('gain', [['false', 'gains nothing'], ['true', 'profits']], b.gain))}
-    ${row('A promise', uwSeg('promise', [['false', 'is not involved'], ['true', 'is broken']], b.promise))}
-  </div>`;
-}
-function uwJurySVG(f, n) {
-  const cols = n <= 7 ? 7 : n <= 15 ? 8 : 11, rows = Math.ceil(n / cols), W = cols * 22 + 8, H = rows * 30 + 6; let s = '';
-  for (let i = 0; i < n; i++) { const x = 15 + (i % cols) * 22, y = 26 + Math.floor(i / cols) * 30, fb = i < f;
-    s += `<g class="jr ${fb ? 'fb' : 'pm'}" style="animation-delay:${(i * 0.035).toFixed(2)}s" transform="translate(${x} ${y})"><circle cx="0" cy="-15" r="5.5"/><path d="M-8 5 Q-8 -8 0 -8 Q8 -8 8 5 Z"/></g>`; }
-  return `<svg class="uw-jury" viewBox="0 0 ${W} ${H}" role="img" aria-label="${f} of ${n} jurors forbade it">${s}</svg>`;
-}
-function uwMargin(f, n) { const p = f / n; return 1.96 * Math.sqrt(Math.max(p * (1 - p), 0.25 / n) / n); }
-function uwHearHTML() {
-  const R = UWS.run, b = UWU.b, decided = uwDecided(R); const exp = decided ? uwPredict(R.code, R.city, b) : null;
-  const L = UWU.last && R.hearings.find(h => h.id === UWU.last);
-  return `${L ? uwResultHTML(L) : ''}
-    <section class="uw-card"><h2 class="uw-h2">A case to put to the city</h2>
-      <p class="uw-story">${esc(uwStory(b))}</p><button class="uw-link" data-uw="reroll">Another setting (same facts)</button>
-      ${uwBuilderHTML(b)}
-      <div class="uw-row"><span>Jury</span><div class="uw-seg">${UW_JURY.map(j => { const d = uwJuryDays(R, j); return `<button data-uw="jury" data-v="${j.n}" aria-pressed="${UWU.jury === j.n}"${d > R.days ? ' disabled' : ''}>${j.n} jurors · ${d} day${d === 1 ? '' : 's'}</button>`; }).join('')}</div></div>
-      ${exp !== null ? `<p class="uw-small">Your Code expects about ${uwPct(exp)} of a crowd to forbid this.</p>` : ''}
-      ${R.hearings.some(h => uwKey(h.c) === uwKey(b)) ? '<p class="uw-small">You have heard this exact case before. A new jury may vote a little differently.</p>' : ''}
-      <button class="btn primary big block" data-uw="hold"${R.days >= uwJuryDays(R, UW_JURY.find(j => j.n === UWU.jury)) ? '' : ' disabled'}>Hold the hearing</button>
-    </section>`;
-}
-function uwResultHTML(h) {
-  const R = UWS.run, share = h.f / h.n, forbid = share > 0.5, tie = share === 0.5; const exp = uwDecided(R) ? uwPredict(R.code, R.city, h.c) : null;
-  return `<section class="uw-card result"><h2 class="uw-h2">Hearing #${h.id}: ${h.f} of ${h.n} jurors forbade it</h2>
-    ${uwJurySVG(h.f, h.n)}
-    <p class="uw-verdict">${tie ? '<b>A tie</b>: the jury could not decide.' : `The jury finds it ${uwVerd(forbid)}${share >= 0.8 || share <= 0.2 ? ', clearly' : ', narrowly'}.`}${R.perks.includes('stat') ? ` <span class="uw-small">(${uwPct(share)} ± ${uwPct(uwMargin(h.f, h.n))})</span>` : ''}</p>
-    ${exp !== null ? `<p class="uw-small">${(exp > 0.5) === forbid || tie ? '✓ Your Code expected that' : '✗ Your Code expected the opposite'} (${uwPct(exp)} forbidding).</p>` : ''}
-    <p class="uw-small">The case is still in the builder below: change one detail and hear it again to see what that detail is worth.</p></section>`;
-}
-
-/* ---------- the book of hearings ---------- */
-function uwBookHTML() {
-  const R = UWS.run; const H = R.hearings.slice().reverse(); const decided = uwDecided(R);
-  if (!H.length) return '<p class="uw-p">No hearings yet. Build a case on the Hearings tab and put it to a jury.</p>';
-  let cmp = '';
-  if (UWU.cmp.length === 2) {
-    const [a, b] = UWU.cmp.map(id => R.hearings.find(h => h.id === id)); const ta = uwTags(a.c), tb = uwTags(b.c);
-    const diff = uwDiff(a.c, b.c); const da = a.f / a.n, db = b.f / b.n; const z = Math.abs(da - db) / Math.sqrt(Math.max(0.0001, da * (1 - da) / a.n + db * (1 - db) / b.n + 0.25 / Math.min(a.n, b.n) / 10));
-    cmp = `<section class="uw-card cmp"><h2 class="uw-h2">#${a.id} against #${b.id}</h2>
-      <p>${diff.length ? `They differ in ${diff.length === 1 ? 'one detail' : `${diff.length} details`}: ${diff.map(d => `<b>${esc(d)}</b>`).join(', ')}.` : 'They are the same case.'}</p>
-      <div class="uw-pair"><div><b>#${a.id}</b> ${uwBar(a.f, a.n)}<span>${a.f}/${a.n} forbade</span></div><div><b>#${b.id}</b> ${uwBar(b.f, b.n)}<span>${b.f}/${b.n} forbade</span></div></div>
-      <p class="uw-small">${diff.length > 1 ? 'More than one detail changed, so you cannot tell which one moved the jury.' : diff.length === 1 ? `Changing that detail moved the vote from ${uwPct(da)} to ${uwPct(db)} forbidding.` : ''}${R.perks.includes('stat') && diff.length ? ` The tally-keeper says: ${z >= 2 ? 'that difference is real.' : 'that difference could be chance.'}` : ''}</p>
-      <button class="uw-link" data-uw="cmpclear">Clear the comparison</button></section>`;
-    void ta; void tb;
+const TN_WHY = {
+  ph: () => 'They had too few points near the top of the curve.',
+  k: () => 'They read their rates over too long a time, so the low-substrate wells ran short of substrate.',
+  coop: E => (E.n > 1 ? 'They fitted a plain curve to too few points.' : 'They read noise as an S-shape.'),
+  inh: () => 'They tested compound B at only one substrate level.',
+  sub: E => (E.ss ? 'They ran their gel without reducing agent, so sulfur bridges held the chains together.' : 'They measured the wrong band: a contaminating protein.'),
+  kcat: (E, how) => (how === 'ss' ? 'They took the chain size from a non-reducing gel, so they counted half the active sites.' : 'They treated their impure preparation as pure enzyme, so they overcounted the active sites.'),
+};
+function tnRivalClaim(R, s) {
+  const q = tnQ(s.q), E = R.E; if (R.claims.some(c => c.q === q.id && c.by === s.rv)) return null;
+  const t = q.val(E); let v, e, how = '';
+  if (q.kind === 'num') {
+    e = tnBar(q, t) * (0.45 + s.u * 0.45);
+    if (s.ok) v = t + tnG(tnLive) * e * 0.5;
+    else if (q.id === 'ph') v = t + (s.u < 0.5 ? -1 : 1) * (0.45 + s.u * 0.4);
+    else if (q.id === 'k') v = t * (1.45 + s.u * 0.5);
+    else { how = E.ss && s.u < 0.5 ? 'ss' : 'pur'; v = how === 'ss' ? t * 2 : t * E.purs[0]; }
+    if (q.rel) e = Math.abs(v) * (e / Math.abs(t));
+  } else {
+    let wrong = q.opts.filter(o => o !== t);
+    if (q.id === 'sub' && E.ss) wrong = [String(E.subs / 2)];
+    v = s.ok ? t : wrong[Math.floor(s.u * wrong.length)];
   }
-  return `${cmp}<p class="uw-small">Tap two hearings to compare them. The best comparisons change exactly one detail.</p>
-    <div class="uw-book">${H.map(h => { const share = h.f / h.n, exp = decided ? uwPredict(R.code, R.city, h.c) : null; const ok = exp === null || share === 0.5 || (exp > 0.5) === (share > 0.5);
-      return `<article class="uw-entry ${UWU.cmp.includes(h.id) ? 'sel' : ''}" data-uw="cmp" data-id="${h.id}">
-        <header><b>${h.src === 'docket' ? 'Docket' : h.src === 'rebut' ? 'Rival\'s hearing' : h.old ? 'Old record' : 'Hearing'} #${h.id}</b><span>${h.src === 'docket' ? 'the whole city' : `${h.n} jurors`}${h.session ? ` · session ${h.session}` : ''}</span></header>
-        <div class="uw-tags">${uwTags(h.c).map(t => `<i>${esc(t)}</i>`).join('')}</div>
-        <div class="uw-entryfoot">${uwBar(h.f, h.n)}<span>${h.src === 'docket' ? `${uwPct(share)} forbid` : `${h.f}/${h.n} forbade`}${R.perks.includes('stat') && h.src !== 'docket' ? ` ±${uwPct(uwMargin(h.f, h.n))}` : ''}</span>${exp !== null ? `<em class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'} Code ${uwPct(exp)}</em>` : ''}<button class="uw-link" data-uw="load" data-id="${h.id}">to builder</button></div>
-      </article>`; }).join('')}</div>`;
+  const c = { id: 'c' + R.nid++, q: q.id, by: s.rv, v, e, at: R.week, resolveAt: R.week + 6 + Math.floor(s.u * 5), how };
+  R.claims.push(c); tnLog(R, `${tnRivalName(s.rv)} publishes on “${q.n}”: ${tnFmt(q, v, e)}.`, 'rival');
+  return c;
 }
-const uwBar = (f, n) => `<span class="uw-bar" aria-hidden="true"><i style="width:${(f / n * 100).toFixed(1)}%"></i></span>`;
-function uwDiff(a, b) {
-  const out = []; const N = { sev: 'what befalls them', h: 'people harmed', s: 'people spared', act: 'causing or allowing', path: 'means, side effect or accident', force: 'hands or distance', consent: 'consent', kin: 'family', gain: 'profit', promise: 'a promise' };
-  Object.keys(N).forEach(k => { if (k === 'force' && (a.act !== 'do' || b.act !== 'do')) { if (a.act === 'do' && b.act === 'do' && a.force !== b.force) out.push(N[k]); return; } if (String(a[k]) !== String(b[k])) out.push(N[k]); });
+/* a number holds up if the truth is within two of its ± bars */
+function tnCorrect(R, c) { const q = tnQ(c.q), t = q.val(R.E); return q.kind === 'num' ? Math.abs(c.v - t) <= 2 * c.e : c.v === t; }
+function tnResolve(R, c) {
+  const q = tnQ(c.q), ok = tnCorrect(R, c), ev = []; c.fate = ok ? 'confirmed' : 'refuted';
+  const t = q.val(R.E), truthTxt = q.kind === 'num' ? tnFmt(q, t) : t;
+  if (c.by === 'you') {
+    if (ok) {
+      const first = !R.claims.some(o => o !== c && o.q === c.q && o.at < c.at && tnCorrect(R, o));
+      const prec = q.kind === 'num' ? tnClamp(tnBar(q, c.v) / Math.max(c.e, 1e-9), 1, 2.5) : 1.6;
+      let gain = Math.round((first ? 100 : 30) * (0.6 + 0.4 * prec));
+      const beaten = R.claims.filter(o => o.by !== 'you' && o.q === c.q && o.at <= c.at && !tnCorrect(R, o));
+      if (beaten.length) gain += 40 * beaten.length;
+      R.prestige += gain; R.yearPrestige += gain; R.cred = Math.min(100, R.cred + (first ? 6 : 3));
+      const t2 = `Replicated: your “${q.n}” holds up. ${first ? 'Priority is yours.' : 'Someone got there first.'}${beaten.length ? ` You also overturned ${beaten.map(o => tnRivalName(o.by)).join(' and ')}.` : ''} +${gain} prestige.`;
+      tnLog(R, t2, 'good'); ev.push({ k: 'good', t: t2 });
+    } else {
+      R.prestige -= 40; R.cred -= 15;
+      const t2 = `Refuted: your “${q.n}” failed replication. The true answer is ${truthTxt}. Credibility −15.`;
+      tnLog(R, t2, 'bad'); ev.push({ k: 'bad', t: t2 });
+      if (R.cred <= 0) R.over = { k: 'closed', t: 'The Society withdraws its recognition, and the university closes the lab.' };
+    }
+  } else {
+    tnLog(R, `${tnRivalName(c.by)}'s “${q.n}” was ${ok ? 'confirmed' : 'refuted'} by replication.${ok ? '' : ' ' + TN_WHY[q.id](R.E, c.how)}`, ok ? '' : 'rival');
+  }
+  return ev;
+}
+function tnYearEnd(R) {
+  const y = Math.round(R.week / TN_WK) - 1, ev = [];   // the year just finished, counting from 0
+  /* the Society's annual review settles every open claim on this enzyme */
+  R.claims.forEach(c => { if (!c.fate) ev.push(...tnResolve(R, c)); });
+  if (R.over) return ev;
+  const grant = Math.round(900 + 10 * Math.max(0, R.cred) + Math.max(0, R.yearPrestige));
+  R.past.push({ y, E: R.E, claims: R.claims.map(c => Object.assign({}, c)), prestige: R.yearPrestige, grant, runs: R.runs.length });
+  R.money += grant; R.yearPrestige = 0;
+  const t = `Year ${y + 1} closes. The annual review is in, and the grant committee awards $${grant}.`; tnLog(R, t, 'year');
+  ev.push({ k: 'year', t, grant, y });
+  if (R.week >= R.years * TN_WK) R.over = { k: 'end', t: `Your ${R.years} years are up.` };
+  else { tnNewEnzyme(R); ev.push({ k: 'enzyme', t: `A new enzyme arrives: ${R.E.name}, from ${R.E.org}.` }); }
+  return ev;
+}
+/* ---------- benches ---------- */
+function tnPay(R, cost) { if (R.money < cost) return false; R.money -= cost; R.stats.spent += cost; return true; }
+function tnRateLaw(E, S, I, V) {
+  const a = 1 + I / E.Ki; let K = E.K;
+  if (E.inh === 'comp') K *= a; else if (E.inh === 'non') V /= a; else { V /= a; K /= a; }
+  const sn = Math.pow(Math.max(S, 0), E.n); return V * sn / (Math.pow(K, E.n) + sn);
+}
+/* the average rate over the reading window; substrate runs down while you watch */
+function tnObserved(E, prep, S0, I, T) {
+  const V = tnVmax(E, prep), f = S => tnRateLaw(E, S, I, V) / 1000; let S = S0; const n = 60, h = T / n;
+  for (let i = 0; i < n; i++) { const k1 = f(S), k2 = f(S - h * k1 / 2), k3 = f(S - h * k2 / 2), k4 = f(S - h * k3); S = Math.max(0, S - h * (k1 + 2 * k2 + 2 * k3 + k4) / 6); }
+  return (S0 - S) * 1000 / T;
+}
+function tnRunKin(R, S, I, win, reps) {
+  S = TN_S.filter(x => S.includes(x)); if (S.length < 3) return 'Pick at least three substrate levels.';
+  if (!TN_I.includes(I) || !TN_WIN[win] || ![1, 2, 3].includes(reps)) return 'Bad setup.';
+  if (S.length * reps > TN_STRIP) return `A strip holds ${TN_STRIP} wells: levels × repeats must be ${TN_STRIP} or fewer.`;
+  if (R.over) return 'The lab is closed.';
+  const cost = S.length * reps * TN_COST.well; if (!tnPay(R, cost)) return `That costs $${cost}. Not enough money.`;
+  const E = R.E, prep = tnPrep(R), V = tnVmax(E, prep), W = TN_WIN[win];
+  const pts = S.map(s0 => { const v = tnObserved(E, prep, s0, I, W.T); const sd = Math.hypot(TN_NOISE[R.parts.spec] * V * W.f, 0.02 * v) / Math.sqrt(reps);
+    return { x: s0, y: v + tnG(tnLive) * sd, s: sd }; });
+  const run = { id: R.nid++, b: 'kin', week: R.week, prep: prep.id, I, win, reps, pts, on: true, cost };
+  R.runs.push(run); R.stats.runs++;
+  tnLog(R, `Rates: ${S.length} substrate levels${I ? `, ${I} µM compound B` : ''}, ${TN_WIN[win].n.toLowerCase()} reads, prep ${prep.id} ($${cost}).`);
+  return { run, ev: tnSpend(R, 1) };
+}
+function tnRunPh(R, list, reps) {
+  list = TN_PH.filter(x => list.includes(x)); if (list.length < 3) return 'Pick at least three pH values.';
+  reps = [1, 2, 3].includes(reps) ? reps : 1; if (R.over) return 'The lab is closed.';
+  if (list.length * reps > TN_STRIP) return `A strip holds ${TN_STRIP} wells: values × repeats must be ${TN_STRIP} or fewer.`;
+  const cost = list.length * reps * TN_COST.ph; if (!tnPay(R, cost)) return `That costs $${cost}. Not enough money.`;
+  const E = R.E, prep = tnPrep(R), V = tnVmax(E, prep), Ssat = 20 * E.K, top = Math.pow(20, E.n) / (1 + Math.pow(20, E.n));
+  const pts = list.map(ph => { const v = V * top / (1 + Math.pow(10, E.pK1 - ph) + Math.pow(10, ph - E.pK2)); const sd = Math.hypot(TN_NOISE[R.parts.spec] * V * 2.4, 0.03 * v) / Math.sqrt(reps); return { x: ph, y: v + tnG(tnLive) * sd, s: sd }; });
+  const run = { id: R.nid++, b: 'ph', week: R.week, prep: prep.id, pts, on: true, reps, cost, Ssat };
+  R.runs.push(run); R.stats.runs++;
+  tnLog(R, `pH series: ${list.length} values, prep ${prep.id} ($${cost}).`);
+  return { run, ev: tnSpend(R, 1) };
+}
+/* gels: position from log mass, with a little smear; the ladder is exact */
+const TN_LAD = { sds: [250, 150, 100, 75, 50, 37, 25, 20, 15, 10], native: [1048, 720, 480, 242, 146, 66, 20] };
+const tnGelY = (type, m) => { const [hi, lo] = type === 'sds' ? [250, 10] : [1048, 20]; return 0.06 + 0.88 * (Math.log10(hi) - Math.log10(m)) / (Math.log10(hi) - Math.log10(lo)); };
+const tnGelM = (type, y) => { const [hi, lo] = type === 'sds' ? [250, 10] : [1048, 20]; return Math.pow(10, Math.log10(hi) - (y - 0.06) / 0.88 * (Math.log10(hi) - Math.log10(lo))); };
+function tnRunGel(R, type, red, stain) {
+  if (!['sds', 'native'].includes(type)) return 'Bad setup.'; if (R.over) return 'The lab is closed.';
+  const cost = TN_COST[type] + (type === 'native' && stain ? TN_COST.stain : 0); if (!tnPay(R, cost)) return `That costs $${cost}. Not enough money.`;
+  const E = R.E, prep = tnPrep(R), bands = [];
+  const add = (m, f, enz) => { if (m < (type === 'sds' ? 8 : 15) || m > (type === 'sds' ? 300 : 1300)) return; bands.push({ y: tnGelY(type, m) + tnG(tnLive) * (type === 'sds' ? 0.004 : 0.006), f, enz }); };
+  if (type === 'sds') { add(red || !E.ss ? E.mass : E.mass * 2, prep.pur, 'chain'); E.cont.forEach(c => add(c.m, c.w * (1 - prep.pur), null)); }
+  else { add(E.mass * E.subs * E.shape, prep.pur, 'whole'); if (!stain) E.cont.forEach(c => add(c.nm, c.w * (1 - prep.pur), null)); }
+  const tot = bands.reduce((a, b) => a + b.f, 0); bands.forEach(b => { b.f /= tot; b.fo = tnClamp(b.f + tnG(tnLive) * 0.035, 0.01, 1); });
+  bands.sort((a, b) => a.y - b.y);
+  const run = { id: R.nid++, b: 'gel', week: R.week, prep: prep.id, type, red: type === 'sds' ? !!red : null, stain: type === 'native' ? !!stain : null, bands, cost };
+  R.runs.push(run); R.stats.runs++;
+  tnLog(R, `${type === 'sds' ? `Denaturing gel, ${red ? 'with' : 'without'} reducing agent` : `Native gel${stain ? ' with activity stain' : ''}`}, prep ${prep.id} ($${cost}).`);
+  return { run, ev: tnSpend(R, 1) };
+}
+/* reading a band: its size from the ladder, and its share of the stain (purity) */
+function tnBandRead(run, i) {
+  const b = run.bands[i]; if (!b) return null; const m = tnGelM(run.type, b.y);
+  return { m, em: m * (run.type === 'sds' ? 0.04 : 0.12), f: run.stain ? null : b.fo, ef: 0.05 };
+}
+function tnMark(R, runId, i, kind) {
+  const run = R.runs.find(x => x.id === runId); if (!run || run.b !== 'gel' || !run.bands[i]) return 'No such band.';
+  R.reads = R.reads.filter(x => !(x.run === runId && x.i === i));
+  if (kind === 'none') return null;
+  if (!['chain', 'whole'].includes(kind)) return 'Bad mark.';
+  const rd = tnBandRead(run, i);
+  R.reads = R.reads.filter(x => !(x.run === runId && x.kind === kind));
+  R.reads.push(Object.assign({ run: runId, i, kind, prep: run.prep, type: run.type, red: run.red, week: R.week }, rd));
+  return null;
+}
+function tnBuild(R, part) {
+  const P = TN_PARTS[part]; if (!P) return 'No such part.'; const g = R.parts[part] + 1;
+  if (g >= P.grades.length) return 'Already the best.'; if (R.builds.some(b => b.part === part)) return 'Already on order.';
+  if (!tnPay(R, P.cost[g])) return 'Not enough money.';
+  R.builds.push({ part, grade: g, left: P.weeks[g] }); tnLog(R, `Ordered: ${P.n}, ${P.grades[g]} ($${P.cost[g]}). Ready in ${P.weeks[g]} weeks.`); return null;
+}
+
+/* ---------- fitting: Levenberg-Marquardt with honest errors ---------- */
+function tnSolve(M, v) {
+  const n = v.length, A = M.map((r, i) => r.slice().concat([v[i]]));
+  for (let c = 0; c < n; c++) { let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r; if (Math.abs(A[p][c]) < 1e-300) return null; [A[c], A[p]] = [A[p], A[c]];
+    for (let r = 0; r < n; r++) if (r !== c) { const f = A[r][c] / A[c][c]; for (let k = c; k <= n; k++) A[r][k] -= f * A[c][k]; } }
+  return A.map((r, i) => r[n] / r[i]);
+}
+function tnInv(M) { const n = M.length, out = []; for (let j = 0; j < n; j++) { const e = M.map((_, i) => (i === j ? 1 : 0)); const c = tnSolve(M, e); if (!c) return null; out.push(c); } return M.map((_, i) => out.map(c => c[i])); }
+function tnLM(f, p0, pts) {
+  const np = p0.length; let p = p0.slice(), lam = 1e-3;
+  const chi = q => pts.reduce((a, o) => { const r = (o.y - f(o.x, q)) / o.s; return a + r * r; }, 0);
+  const jac = q => pts.map(o => { const y0 = f(o.x, q); return q.map((v, j) => { const h = 1e-6 * Math.max(1, Math.abs(v)); const qq = q.slice(); qq[j] += h; return (f(o.x, qq) - y0) / h / o.s; }); });
+  let c = chi(p); if (!isFinite(c)) return null;
+  for (let it = 0; it < 120; it++) {
+    const J = jac(p), r = pts.map(o => (o.y - f(o.x, p)) / o.s);
+    const A = Array.from({ length: np }, () => new Array(np).fill(0)), g = new Array(np).fill(0);
+    J.forEach((row, i) => { for (let a = 0; a < np; a++) { g[a] += row[a] * r[i]; for (let b = 0; b < np; b++) A[a][b] += row[a] * row[b]; } });
+    const d = tnSolve(A.map((row, a) => row.map((v, b) => v + (a === b ? lam * Math.max(v, 1e-12) : 0))), g);
+    if (!d || d.some(x => !isFinite(x))) { lam *= 10; if (lam > 1e10) break; continue; }
+    const q = p.map((v, j) => v + d[j]), cq = chi(q);
+    if (isFinite(cq) && cq < c) { const imp = c - cq; p = q; c = cq; lam = Math.max(lam / 5, 1e-9); if (imp < 1e-10 * (1 + c)) break; } else { lam *= 6; if (lam > 1e10) break; }
+  }
+  const J = jac(p), A = Array.from({ length: np }, () => new Array(np).fill(0));
+  J.forEach(row => { for (let a = 0; a < np; a++) for (let b = 0; b < np; b++) A[a][b] += row[a] * row[b]; });
+  const inv = tnInv(A); if (!inv) return null;
+  const dof = pts.length - np, scale = dof > 0 ? Math.max(1, c / dof) : 1;
+  return { p, cov: inv.map(row => row.map(v => v * scale)), chi2: c, dof };
+}
+const tnMM = (S, p) => Math.exp(p[0]) * S / (Math.exp(p[1]) + S);
+const tnHill = (S, p) => { const n = Math.exp(p[2]), sn = Math.pow(S, n); return Math.exp(p[0]) * sn / (Math.pow(Math.exp(p[1]), n) + sn); };
+const tnBell = (x, p) => Math.exp(p[0]) / (1 + Math.pow(10, p[1] - x) + Math.pow(10, x - p[2]));
+function tnGuessKV(pts) {
+  const V = Math.max(...pts.map(o => o.y)) * 1.05, srt = pts.slice().sort((a, b) => a.x - b.x);
+  let K = srt[Math.floor(srt.length / 2)].x; for (let i = 1; i < srt.length; i++) if (srt[i - 1].y < V / 2 && srt[i].y >= V / 2) { K = Math.sqrt(srt[i - 1].x * srt[i].x); break; }
+  return [Math.log(Math.max(V, 1e-9)), Math.log(K)];
+}
+const tnQuality = F => (F.dof <= 0 ? 'few' : F.chi2 / F.dof < 2.2 ? 'good' : 'poor');
+/* fit a set of rate points: plain curve (Michaelis-Menten) and S-curve (Hill) */
+function tnFitKin(pts) {
+  if (pts.length < 3) return null;
+  const g = tnGuessKV(pts), out = { n: pts.length, maxS: Math.max(...pts.map(o => o.x)), minS: Math.min(...pts.map(o => o.x)) };
+  const a = tnLM(tnMM, g, pts);
+  if (a) { const V = Math.exp(a.p[0]), K = Math.exp(a.p[1]); out.mm = { V, K, eV: V * Math.sqrt(a.cov[0][0]), eK: K * Math.sqrt(a.cov[1][1]), q: tnQuality(a), chi2: a.chi2, dof: a.dof, p: a.p }; }
+  if (pts.length >= 4) {
+    /* the S-curve contains the plain curve (n = 1), so start from the plain fit as well as from rough guesses */
+    const starts = (a ? [a.p.concat([0])] : []).concat([g.concat([0]), g.concat([0.5]), g.concat([-0.3])]);
+    let best = null; starts.forEach(p0 => { const b = tnLM(tnHill, p0, pts); if (b && (!best || b.chi2 < best.chi2)) best = b; });
+    if (best) { const V = Math.exp(best.p[0]), K = Math.exp(best.p[1]), n = Math.exp(best.p[2]);
+      if (n > 0.3 && n < 6) out.hill = { V, K, n, eV: V * Math.sqrt(best.cov[0][0]), eK: K * Math.sqrt(best.cov[1][1]), en: n * Math.sqrt(best.cov[2][2]), q: tnQuality(best), chi2: best.chi2, dof: best.dof, p: best.p }; }
+  }
+  /* the S-curve fits at least as well as the plain curve it contains */
+  if (out.hill && out.mm && out.mm.q === 'good') out.hill.q = 'good';
+  /* which model to believe: the S-curve only if n is clearly away from 1 */
+  out.best = out.hill && Math.abs(out.hill.n - 1) > 2 * out.hill.en && out.hill.en < 0.6 ? 'hill' : out.mm ? 'mm' : null;
   return out;
 }
-
-/* ---------- the Code ---------- */
-function uwCodeHTML() {
-  const R = UWS.run; const decided = uwDecided(R);
-  const H = R.hearings.filter(h => h.f / h.n !== 0.5); const agree = H.filter(h => (uwPredict(R.code, R.city, h.c) > 0.5) === (h.f / h.n > 0.5));
-  const miss = H.filter(h => !agree.includes(h));
-  return `<section class="uw-card"><h2 class="uw-h2">Your Code of ${esc(R.city.name)}</h2>
-      <p>${decided ? `It agrees with <b>${agree.length} of ${H.length}</b> verdicts in your Book.${miss.length ? ` It gets these wrong: ${miss.slice(0, 8).map(h => `#${h.id}`).join(', ')}${miss.length > 8 ? '…' : ''}.` : ''}` : 'Decide each principle below. Your Code then predicts every verdict, and you can check it against the Book.'}</p>
-      <p class="uw-small">Rivals read your Code too: from the second session on, if it gets the city wrong somewhere, one of them may prove it in public. Undecided principles count as the middle choice.</p></section>
-    ${UW_P.map(p => { const hidden = R.city.hidden.includes(p.id), v = R.code[p.id];
-      if (!hidden) return `<section class="uw-clause settled"><h3>${esc(p.t)}</h3><p>${esc(p.q)} <b>${esc(uwOptLabel(p.id, p.def))}</b>.</p><span class="uw-small">Everyone in ${esc(R.city.name)} agrees on this one.</span></section>`;
-      return `<section class="uw-clause ${v === undefined || v === null ? 'open' : ''}"><h3>${esc(p.t)}${v === undefined || v === null ? ' <em>undecided</em>' : ''}</h3><p>${esc(p.q)}…</p>
-        <div class="uw-seg wrap">${p.opts.map(o => `<button data-uw="clause" data-id="${p.id}" data-v="${o[0]}" aria-pressed="${v === o[0]}">${esc(o[1])}</button>`).join('')}</div></section>`; }).join('')}`;
+function tnFitPh(pts) {
+  if (pts.length < 4) return null;
+  const top = pts.reduce((m, o) => (o.y > m.y ? o : m), pts[0]);
+  let best = null; [0.9, 1.4, 1.9].forEach(h => { const F = tnLM(tnBell, [Math.log(Math.max(top.y, 1e-9) * 1.2), top.x - h, top.x + h], pts); if (F && (!best || F.chi2 < best.chi2)) best = F; });
+  if (!best) return null;
+  const c = best.cov, opt = (best.p[1] + best.p[2]) / 2, e = 0.5 * Math.sqrt(Math.max(0, c[1][1] + c[2][2] + 2 * c[1][2]));
+  return { opt, e, V: Math.exp(best.p[0]), p: best.p, q: tnQuality(best), n: pts.length };
 }
 
-/* ---------- rivals ---------- */
-function uwRivalsHTML() {
-  const R = UWS.run;
-  return `<section class="uw-card"><h2 class="uw-h2">The other codifiers</h2><p>They publish their Codes and rule on the same docket. If one of your hearings shows a rival's Code getting the city wrong, rebut them in public: a full or grand jury voting at least two to one against their Code. A rival whose standing falls to zero is dismissed and does not sit the final test.</p>
-    <table class="uw-tbl"><tr><th>Codifier</th><th>Standing</th></tr><tr class="me"><td>You</td><td>${R.standing}</td></tr>${R.rivals.map(rv => `<tr><td>${esc(rv.n)}</td><td>${rv.standing}</td></tr>`).join('')}</table></section>
-    ${R.rivals.map(rv => `<section class="uw-card rival"><h2 class="uw-h2">${esc(rv.n)}</h2><p class="uw-small">A codifier ${esc(rv.e)}. Their published Code:</p>
-      <ul class="uw-rcode">${R.city.hidden.map(id => `<li><span>${esc(uwP(id).t)}</span><b>${esc(uwOptLabel(id, rv.code[id]))}</b></li>`).join('')}</ul>
-      <button class="btn" data-uw="rebut" data-id="${rv.id}"${rv.standing <= 0 ? ' disabled' : ''}>${rv.standing <= 0 ? 'Dismissed by the Assembly' : `Rebut with a hearing…${uwRebutReady(R, rv) ? ` (${uwRebutReady(R, rv)} ready)` : ''}`}</button></section>`).join('')}`;
+/* ---------- what your data say ---------- */
+const tnPts = (R, filt) => R.runs.filter(x => x.on && filt(x)).flatMap(x => x.pts);
+function tnPrepsWith(R, b, extra) { return R.preps.filter(p => R.runs.some(x => x.b === b && x.on && x.prep === p.id && (!extra || extra(x)))); }
+/* the prep with the most inhibitor-free rate points */
+function tnMainPrep(R) {
+  let best = null, n = 0; R.preps.forEach(p => { const k = tnPts(R, x => x.b === 'kin' && x.prep === p.id && x.I === 0).length; if (k > n || (k === n && k > 0)) { n = k; best = p.id; } }); return best;
 }
-function uwRebutStatus(R, rv, h) {
-  if (rv.used.includes(h.id)) return 'used';
-  const pr = uwPredict(rv.code, R.city, h.c) > 0.5, share = h.f / h.n, jury = share > 0.5;
-  if (pr === jury) return 'agree';
-  return h.n >= 15 && (share >= 2 / 3 || share <= 1 / 3) ? 'ready' : 'weak';
+function tnKinFor(R, prep, I) { return tnFitKin(tnPts(R, x => x.b === 'kin' && x.prep === prep && x.I === I)); }
+function tnEvidence(R, qid) {
+  const E = R.E, out = { ready: false };
+  if (qid === 'ph') {
+    let best = null; R.preps.forEach(p => { const F = tnFitPh(tnPts(R, x => x.b === 'ph' && x.prep === p.id)); if (F && (!best || F.e < best.e)) best = F; });
+    if (best) { out.v = best.opt; out.e = best.e; out.fit = best; }
+  } else if (qid === 'k' || qid === 'coop') {
+    const pr = tnMainPrep(R); const F = pr && tnKinFor(R, pr, 0);
+    if (F) { out.fit = F; out.prep = pr;
+      if (qid === 'k') { const m = F[F.best]; if (m) { out.v = m.K; out.e = m.eK; out.model = F.best; } }
+      else if (F.hill) { out.n = F.hill.n; out.en = F.hill.en; }
+      out.long = R.runs.some(x => x.on && x.b === 'kin' && x.prep === pr && x.I === 0 && x.win === 'long'); }
+  } else if (qid === 'inh') {
+    const pr = tnMainPrep(R); const F0 = pr && tnKinFor(R, pr, 0);
+    const Is = TN_I.filter(I => I > 0 && pr && tnPts(R, x => x.b === 'kin' && x.prep === pr && x.I === I).length >= 3);
+    if (F0 && F0.mm && Is.length) { const I = Is[Is.length - 1], F1 = tnKinFor(R, pr, I);
+      if (F1 && F1.mm) { const a = F0.mm, b = F1.mm; out.I = I; out.rK = b.K / a.K; out.erK = out.rK * Math.hypot(a.eK / a.K, b.eK / b.K); out.rV = b.V / a.V; out.erV = out.rV * Math.hypot(a.eV / a.V, b.eV / b.V); } }
+  } else if (qid === 'sub') {
+    const ch = R.reads.filter(x => x.kind === 'chain').slice(-1)[0], wh = R.reads.filter(x => x.kind === 'whole').slice(-1)[0];
+    out.chain = ch; out.whole = wh;
+    if (ch && wh) { out.r = wh.m / ch.m; out.er = out.r * Math.hypot(ch.em / ch.m, wh.em / wh.m); }
+  } else if (qid === 'kcat') {
+    /* kcat = top speed ÷ active sites; active sites (µM) = protein (µg/mL) × purity ÷ chain size (kDa) */
+    const ch = R.reads.filter(x => x.kind === 'chain').slice(-1)[0]; out.chain = ch;
+    const preps = R.preps.filter(p => R.reads.some(x => x.kind === 'chain' && x.prep === p.id && x.f !== null) && tnKinFor(R, p.id, 0));
+    const pr = preps.length ? preps[preps.length - 1] : null;
+    out.missing = !tnMainPrep(R) ? 'rates' : !ch ? 'chain' : !pr ? 'purity' : null;
+    if (pr && ch) {
+      const F = tnKinFor(R, pr.id, 0), m = F[F.best]; const pu = R.reads.filter(x => x.kind === 'chain' && x.prep === pr.id && x.f !== null).slice(-1)[0];
+      if (m) { const sites = E.P * pu.f / ch.m; out.V = m.V; out.eV = m.eV; out.pur = pu.f; out.epur = pu.ef; out.prep = pr.id; out.sites = sites;
+        out.v = m.V / sites; out.e = out.v * Math.hypot(m.eV / m.V, pu.ef / pu.f, ch.em / ch.m); out.model = F.best; }
+    }
+  }
+  const q = tnQ(qid); if (q.kind === 'num' && out.v !== undefined && isFinite(out.e)) out.ready = out.e <= tnBar(q, out.v);
+  return out;
 }
-function uwRebutReady(R, rv) { return R.hearings.filter(h => uwRebutStatus(R, rv, h) === 'ready').length; }
-function uwRebutModal(rid) {
-  const R = UWS.run, rv = R.rivals.find(x => x.id === rid); if (!rv) return;
-  const order = { ready: 0, weak: 1, agree: 2, used: 3 };
-  const H = R.hearings.map(h => ({ h, st: uwRebutStatus(R, rv, h) })).sort((a, b) => order[a.st] - order[b.st] || b.h.id - a.h.id);
-  const note = { ready: 'Their Code gets this wrong.', weak: 'Their Code disagrees, but this jury is too small or too split to count.', agree: 'Their Code agrees with this jury.', used: 'Already used against them.' };
-  const n = H.filter(x => x.st === 'ready').length;
-  uwModal(`<h2>Rebut ${esc(rv.n)}</h2><p class="uw-small">Cite a hearing where their Code gets the jury wrong: a full or grand jury (or the city's own verdict) that voted at least two to one. ${n ? `You have ${n} that ${n === 1 ? 'qualifies' : 'qualify'}.` : 'None of your hearings qualifies yet. Find a case their Code gets wrong and put it to a full jury.'}</p>
-    <div class="uw-book">${H.length ? H.map(({ h, st }) => { const pr = uwPredict(rv.code, R.city, h.c);
-      return `<article class="uw-entry rb-${st}"><header><b>#${h.id}</b><span>${h.src === 'docket' ? 'the whole city' : h.n + ' jurors'}</span></header><div class="uw-tags">${uwTags(h.c).map(t => `<i>${esc(t)}</i>`).join('')}</div>
-        <div class="uw-entryfoot">${uwBar(h.f, h.n)}<span>${h.src === 'docket' ? uwPct(h.f / h.n) + ' forbid' : `${h.f}/${h.n} forbade`}</span><em>their Code: ${pr > 0.5 ? 'Forbidden' : 'Permitted'}</em>${st === 'ready' ? `<button class="btn primary" data-uw="dorebut" data-id="${rv.id}" data-v="${h.id}">Cite it</button>` : ''}</div>
-        <p class="uw-small rb-note">${note[st]}</p></article>`; }).join('') : '<p>No hearings yet.</p>'}</div>
-    <div class="row"><button class="btn" data-uw="close-modal">Not now</button></div>`);
+/* one plain sentence on what to do next for each question */
+function tnAdvice(R, qid) {
+  const ev = tnEvidence(R, qid), q = tnQ(qid), fx = (x, d = 2) => Number(x.toPrecision(d));
+  if (qid === 'ph') {
+    if (!R.runs.some(x => x.b === 'ph')) return 'Run the pH bench across a wide range (4 to 10) to find roughly where the peak is.';
+    if (ev.v === undefined) return 'Measure at least four pH values so a curve can be fitted.';
+    if (!ev.ready) return `±${ev.e.toFixed(2)} is too wide (need ±${q.bar.toFixed(2)}). Add or repeat points close to pH ${ev.v.toFixed(1)}, on both sides of the peak.`;
+    return 'Precise enough to publish.';
+  }
+  if (qid === 'k') {
+    if (!R.runs.some(x => x.b === 'kin' && x.I === 0)) return 'Run the rate bench with no compound B, across a wide spread of substrate levels.';
+    if (ev.v === undefined) return 'Not enough points for a curve yet. Use at least four substrate levels.';
+    const F = ev.fit; if (F.maxS < ev.v * 2) return `Your highest substrate level is below where the curve flattens. Add levels above ${fx(ev.v * 3)} mM.`;
+    if (F.minS > ev.v / 2) return `Your lowest substrate level is above the half-speed point. Add levels below ${fx(ev.v / 3)} mM.`;
+    if (ev.long) return 'Careful: long reads let low-substrate wells run short of substrate, which drags the curve. Check with quick or standard reads.';
+    if (!ev.ready) return `±${Math.round(100 * ev.e / ev.v)}% is too wide (need ±15%). Add replicates, or more levels near ${fx(ev.v)} mM.`;
+    return `Precise enough to publish (${ev.model === 'hill' ? 'S-curve' : 'plain curve'} fit).`;
+  }
+  if (qid === 'coop') {
+    const sub = R.reads.some(x => x.kind === 'whole') && R.reads.some(x => x.kind === 'chain') ? tnEvidence(R, 'sub') : null;
+    const one = sub && sub.r !== undefined && sub.r < 1.4 ? ' Your gels suggest a single chain: one chain has one site, and one site cannot show teamwork.' : '';
+    if (ev.n === undefined) return 'Fit an S-curve: run the rate bench with no compound B at five or more substrate levels.' + one;
+    return `S-curve steepness n = ${ev.n.toFixed(2)} ± ${ev.en.toFixed(2)}. n = 1 means no teamwork; clearly above 1 means teamwork.` + one;
+  }
+  if (qid === 'inh') {
+    if (ev.rK === undefined) return 'Run the rate bench twice, once without compound B and once with it, at the same spread of substrate levels.';
+    if (ev.rV < 0.2) return `${ev.I} µM of B almost stops it, so the curve with B is too faint to read. Try a lower dose.`;
+    return `With ${ev.I} µM B, the half-speed point changed ×${ev.rK.toFixed(2)} (±${ev.erK.toFixed(2)}) and top speed ×${ev.rV.toFixed(2)} (±${ev.erV.toFixed(2)}). Competing: half-speed up, top speed the same. Elsewhere: half-speed the same, top speed down. Busy enzyme only: both down.`;
+  }
+  if (qid === 'sub') {
+    if (!ev.chain && !ev.whole) return 'Run a denaturing gel (it pulls chains apart) and a native gel (it keeps the enzyme whole). Tap the enzyme\'s band on each.';
+    if (!ev.chain) return 'Now a denaturing (SDS) gel, to measure one chain. Tap its band and mark it.';
+    if (!ev.whole) return 'Now a native gel, to measure the whole enzyme. Tap its band and mark it.';
+    return `Whole ${Math.round(ev.whole.m)} kDa ÷ chain ${Math.round(ev.chain.m)} kDa = ${ev.r.toFixed(2)} (±${ev.er.toFixed(2)}).`;
+  }
+  if (qid === 'kcat') {
+    if (ev.missing === 'rates') return 'Needs a top speed: fit rates with no compound B first.';
+    if (ev.missing === 'chain') return 'Needs the size of one chain: mark the enzyme\'s band on a denaturing gel.';
+    if (ev.missing === 'purity') return 'Needs the purity of the same prep you measured rates with: run a denaturing gel of that prep and mark the enzyme\'s band.';
+    if (ev.v === undefined) return 'The rate fit is not good enough yet.';
+    if (!ev.ready) return `±${Math.round(100 * ev.e / ev.v)}% is too wide (need ±15%). Tighten the top speed with more high-substrate points, or purify further so the purity reading matters less.`;
+    return 'Precise enough to publish.';
+  }
+  return '';
+}
+function tnPublish(R, qid, v, e) {
+  const q = tnQ(qid); if (!q || R.over) return 'Cannot publish now.';
+  if (R.claims.some(c => c.by === 'you' && c.q === qid)) return 'You get one claim per question on each enzyme.';
+  if (q.kind === 'num') { if (!isFinite(v) || !isFinite(e) || e <= 0) return 'No result to publish.'; if (e > tnBar(q, v) * 1.0001) return 'Not precise enough for the Society.'; }
+  else if (!q.opts.includes(v)) return 'Pick an answer.';
+  const c = { id: 'c' + R.nid++, q: qid, by: 'you', v, e: q.kind === 'num' ? e : undefined, at: R.week, resolveAt: R.week + 6 + Math.floor(tnLive() * 4) };
+  R.claims.push(c); tnLog(R, `You publish on “${q.n}”: ${tnFmt(q, v, c.e)}. Replication in about ${c.resolveAt - R.week} weeks.`, 'you');
+  return null;
+}
+function tnAllClaims(R) { const last = R.past[R.past.length - 1]; return R.past.flatMap(p => p.claims).concat(last && last.E.seed === R.E.seed ? [] : R.claims); }
+function tnLaurels(R) { const mine = tnAllClaims(R).filter(c => c.by === 'you' && c.fate === 'confirmed').length; return Math.max(0, Math.floor(Math.max(0, R.prestige) / 250) + Math.floor(mine / 3)); }
+
+/* ===================== TURNOVER: screens ===================== */
+let TNS = tnLoad();
+const TNU = { screen: 'title', tab: 'q', bench: 'ph', view: 'log', prepV: null, pubModel: null,
+  set: { kin: { S: [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 100], I: 0, win: 'std', reps: 1 }, ph: { pH: [4, 5, 6, 7, 8, 9, 10], reps: 1 }, gel: { type: 'sds', red: true, stain: false } } };
+function tnNewSave() { return { v: 1, meta: { laurels: 0, unlocks: [], hist: [], runs: 0, best: 0 }, run: null }; }
+function tnLoad() { try { const o = JSON.parse(localStorage.getItem(TN_KEY) || 'null'); if (o && o.v === 1) { const s = tnNewSave(); s.meta = Object.assign(s.meta, o.meta || {}); s.run = o.run && o.run.v === 2 ? o.run : null; return s; } } catch (e) {} return tnNewSave(); }
+function tnSave() { try { localStorage.setItem(TN_KEY, JSON.stringify(TNS)); } catch (e) {} }
+const TN_ICOL = { 0: '#1f4e8c', 5: '#2b8a6e', 20: '#c9821b', 80: '#c8402f' };
+const tnMoney = x => '$' + Math.round(x).toLocaleString('en-US');
+const tnN = (x, d = 3) => (x === undefined || x === null || !isFinite(x) ? '–' : Math.abs(x) >= 1000 ? Math.round(x).toLocaleString('en-US') : Number(x.toPrecision(d)).toString());
+const tnPrepName = p => `prep ${p.id} (${TN_PARTS.pur.grades[p.grade].toLowerCase()})`;
+
+function openTn() { UI.view = 'tn'; closeModal(); TNU.screen = TNS.run && !TNS.run.over ? 'run' : 'title'; tnRender(); }
+function tnRender(keep) {
+  if (UI.view !== 'tn') return;
+  const prev = document.querySelector('.tn-main'); const top = keep && prev ? prev.scrollTop : 0;
+  const R = TNS.run;
+  $('#app').innerHTML = `<div class="tn">${TNU.screen === 'title' || !R ? tnTitleHTML() : R.over ? tnEndHTML(R) : tnRunHTML(R)}</div>`;
+  const m = document.querySelector('.tn-main'); if (m) m.scrollTop = top;
+}
+function tnModal(html) { modal(html); const sh = document.querySelector('#modal .sheet'); if (sh) sh.classList.add('tn-sheet'); }
+
+/* ---------- title ---------- */
+function tnTitleHTML() {
+  const M = TNS.meta, R = TNS.run;
+  return `<div class="tn-main tn-title">
+    <a class="tn-back" href="#">◀ Arcade</a>
+    <canvas data-scene="tn-title" width="640" height="360" aria-label="A lab notebook page: a rate curve, a gel and a pipette"></canvas>
+    <h1>TURNOVER</h1>
+    <p class="tn-lede">Run a small enzyme lab. Each year a new enzyme arrives with six open questions. Measure it, fit your data, publish before the rival labs, and be right.</p>
+    <div class="tn-menu">
+      ${R && !R.over ? `<button class="btn primary" data-tn="continue">Continue · year ${tnYear(R)}, ${esc(R.E.name)}</button>` : ''}
+      <button class="btn ${R && !R.over ? '' : 'primary'}" data-tn="newrun">New lab</button>
+      <button class="btn" data-tn="howto">How it works</button>
+      <button class="btn" data-tn="archive">Lab archive · ${M.laurels} laurel${M.laurels === 1 ? '' : 's'}</button>
+    </div>
+    ${M.hist.length ? `<section class="tn-card"><h3>Past labs</h3>${M.hist.slice(0, 5).map(h => `<p class="tn-small">${esc(h.when)} · ${h.conf} answers confirmed · ${h.prestige} prestige · ${esc(h.end)}</p>`).join('')}</section>` : ''}
+  </div>`;
 }
 
-/* ---------- the docket ---------- */
-function uwDocketHTML() {
-  const R = UWS.run, D = R.docket[R.dockI]; if (!D) return '';
-  const exp = uwPredict(R.code, R.city, D.c), done = D.ruled !== null;
-  return `<section class="uw-card docket"><p class="uw-kicker">The docket · case ${R.dockI + 1} of ${R.docket.length}</p><h2 class="uw-h2">${esc(D.title)}</h2>
-    <p class="uw-story">${esc(uwStory(D.c))}</p><div class="uw-tags">${uwTags(D.c).map(t => `<i>${esc(t)}</i>`).join('')}</div>
-    <p class="uw-small">A real dispute: the Assembly will not let you rehearse it before a jury. ${uwDecided(R) ? `Your Code says about ${uwPct(exp)} of the city would forbid it.` : 'Your Code has nothing decided yet.'}</p>
-    ${done ? `<div class="uw-reveal ${D.right ? 'ok' : 'no'}"><p>You ruled ${uwVerd(D.ruled)}. The city: <b>${uwPct(D.f)}</b> forbid it, so it is ${uwVerd(D.truth)}.</p><p><b>${D.right ? 'The Assembly nods. Standing +1.' : 'Uproar in the Assembly. Standing −3.'}</b></p>
-      <ul class="uw-rcode">${D.rivals.map(x => `<li><span>${esc(x.n)}</span><b>${x.forbid ? 'Forbidden' : 'Permitted'} ${x.ok ? '✓' : '✗'}</b></li>`).join('')}</ul></div>
-      <button class="btn primary big block" data-uw="docknext">${R.dockI + 1 < R.docket.length ? 'Next case ▸' : R.session >= UW_SESSIONS ? 'To the final test ▸' : 'End the session ▸'}</button>`
-      : `<div class="uw-rule"><button class="btn fb big" data-uw="rule" data-v="1">Forbidden</button><button class="btn pm big" data-uw="rule" data-v="0">Permitted</button></div>`}
+/* ---------- the run ---------- */
+function tnHud(R) {
+  return `<header class="tn-hud">
+    <button class="tn-icon" data-tn="totitle" aria-label="Menu">☰</button>
+    <div class="tn-when"><b>Year ${tnYear(R)} of ${R.years}</b><span>Week ${tnWeekOfYear(R)} of ${TN_WK}</span></div>
+    <div class="tn-stats"><span title="Money">${tnMoney(R.money)}</span><span title="Credibility" class="${R.cred < 25 ? 'low' : ''}">Cred ${R.cred}</span><span title="Prestige">★ ${R.prestige}</span></div>
+  </header>
+  <div class="tn-enz"><b>${esc(R.E.name)}</b> · from ${esc(R.E.org)} · using ${esc(tnPrepName(tnPrep(R)))}${R.builds.length ? ` · <i>${R.builds.map(b => `${esc(TN_PARTS[b.part].grades[b.grade])} in ${b.left} wk`).join(', ')}</i>` : ''}</div>
+  <nav class="tn-tabs">${[['q', 'Questions'], ['bench', 'Bench'], ['journal', 'Journal'], ['lab', 'Lab']].map(([k, t]) => `<button data-tn="tab" data-v="${k}" aria-pressed="${TNU.tab === k}">${t}${k === 'journal' && R.claims.some(c => !c.fate) ? ` <small>${R.claims.filter(c => !c.fate).length}</small>` : ''}</button>`).join('')}</nav>`;
+}
+function tnRunHTML(R) {
+  const body = TNU.tab === 'bench' ? tnBenchHTML(R) : TNU.tab === 'journal' ? tnJournalHTML(R) : TNU.tab === 'lab' ? tnLabHTML(R) : tnQuestionsHTML(R);
+  return `${tnHud(R)}<div class="tn-main">${body}</div>`;
+}
+
+/* ---------- questions ---------- */
+function tnStatus(R, q) {
+  const mine = R.claims.find(c => c.by === 'you' && c.q === q.id);
+  if (!mine) return { k: 'open', t: 'Open' };
+  if (!mine.fate) return { k: 'review', t: `Under review · ${Math.max(1, Math.min(mine.resolveAt, (Math.floor(R.week / TN_WK) + 1) * TN_WK) - R.week)} wk`, c: mine };
+  return mine.fate === 'confirmed' ? { k: 'ok', t: 'Confirmed ✓', c: mine } : { k: 'bad', t: 'Refuted ✗', c: mine };
+}
+function tnQuestionsHTML(R) {
+  const done = TN_Q.filter(q => R.claims.some(c => c.by === 'you' && c.q === q.id)).length;
+  return `<p class="tn-small tn-intro">${done ? `You have claims on ${done} of 6 questions.` : 'Start with <b>Best pH</b>: it teaches the whole loop.'} Each experiment takes a week. Publish when your ± is inside the Society's limit.</p>
+    ${TN_Q.map((q, i) => tnQCard(R, q, i)).join('')}`;
+}
+function tnQCard(R, q, i) {
+  const st = tnStatus(R, q), ev = tnEvidence(R, q.id), rivals = R.claims.filter(c => c.by !== 'you' && c.q === q.id);
+  let res = '';
+  if (q.kind === 'num' && ev.v !== undefined && isFinite(ev.e)) {
+    const need = tnBar(q, ev.v), frac = tnClamp(need / Math.max(ev.e, 1e-12), 0, 1);
+    res = `<div class="tn-res"><span>Your result</span><b>${esc(tnFmt(q, ev.v, ev.e))}</b></div>
+      <div class="tn-meter ${ev.ready ? 'ok' : ''}" title="Precision"><i style="width:${Math.round(frac * 100)}%"></i></div>
+      <p class="tn-small">Society's limit: ± ${esc(tnFmt(q, need))}${q.rel ? ` (${Math.round(q.bar * 100)}%)` : ''}. ${ev.ready ? '<b class="tn-okc">Inside the limit.</b>' : 'Not yet.'}</p>`;
+  }
+  const bench = { ph: 'pH bench', kin: 'rate bench', gel: 'gel bench', calc: 'rate and gel benches' }[q.bench];
+  const canPub = st.k === 'open' && (q.kind === 'cat' ? true : ev.ready);
+  return `<section class="tn-card tn-q ${st.k}">
+    <header><span class="tn-num">${i + 1}</span><h3>${esc(q.n)}</h3><span class="tn-chip ${st.k}">${esc(st.t)}</span></header>
+    <p>${esc(q.d)}</p>
+    ${st.c ? `<p class="tn-claim">Your claim: <b>${esc(tnFmt(q, st.c.v, st.c.e))}</b>${st.k === 'bad' ? ` · true answer ${esc(q.kind === 'num' ? tnFmt(q, q.val(R.E)) : q.val(R.E))}` : ''}</p>` : res}
+    ${st.k === 'open' ? `<p class="tn-advice">${esc(tnAdvice(R, q.id))}</p>` : ''}
+    ${rivals.length ? `<ul class="tn-rivals">${rivals.map(c => `<li><b>${esc(tnRivalName(c.by))}</b>: ${esc(tnFmt(q, c.v, c.e))} <i>${c.fate ? (c.fate === 'confirmed' ? '✓ confirmed' : '✗ refuted') : 'under review'}</i></li>`).join('')}</ul>` : ''}
+    <div class="tn-row">${q.bench !== 'calc' ? `<button class="btn" data-tn="gobench" data-v="${q.bench}">Go to the ${bench}</button>` : `<button class="btn" data-tn="gobench" data-v="kin">Rates</button><button class="btn" data-tn="gobench" data-v="gel">Gels</button>`}
+      ${st.k === 'open' ? `<button class="btn ${canPub ? 'primary' : ''}" data-tn="pub" data-v="${q.id}" ${q.kind === 'num' && !ev.ready ? 'disabled' : ''}>Publish…</button>` : ''}</div>
   </section>`;
 }
-function uwAfterDocket() {
-  const R = UWS.run; const s0 = R.session; const ev = uwEndSession(R);
-  ev.forEach(e => { R.hearings.push({ id: R.nid++, c: e.c, n: e.n, f: e.k, session: s0, src: 'rebut' }); });
-  if (R.phase === 'exam') uwExam(R);
-  if (R.phase === 'over') uwFinish();
-  uwSave(); UWU.tab = 'hear'; UWU.last = null; uwRender();
-  if (ev.length) { SFX.bad(); uwModal(`<h2>A public rebuttal</h2>${ev.map(e => `<p><b>${esc(e.rv)}</b> put this case to a grand jury: ${e.k} of ${e.n} forbade it. Your Code expected ${uwPct(e.p)} to forbid. Standing −2.</p><p class="uw-story">${esc(uwStory(e.c))}</p>`).join('')}<p class="uw-small">The case is now in your Book. Somewhere in your Code a principle is wrong.</p><div class="row"><button class="btn primary" data-uw="close-modal">${R.phase === 'over' ? 'See the outcome' : `Begin session ${R.session}`}</button></div>`); }
-  else if (R.phase === 'work') { SFX.level(); toast(`Session ${R.session} begins.`); }
-}
 
-/* ---------- endings, archive, notebook, help ---------- */
-function uwFinish() {
-  const R = UWS.run; if (R.endDone) return; R.endDone = true; const l = uwLaurels(R); R.laurels = l; UWS.meta.laurels += l; UWS.meta.runs++;
-  if (R.over.k === 'adopted') UWS.meta.tierMax = Math.max(UWS.meta.tierMax, Math.min(UW_TIERS.length - 1, R.tier + 1));
-  UWS.meta.hist.unshift({ city: R.city.name, tier: R.tier, k: R.over.k, mine: R.exam ? R.exam.mine : null, right: R.city.hidden.filter(id => R.code[id] === R.city.P[id]).length, of: R.city.hidden.length, l, date: new Date().toISOString().slice(0, 10) });
-  UWS.meta.hist = UWS.meta.hist.slice(0, 30); SFX.level();
+/* ---------- benches ---------- */
+function tnBenchHTML(R) {
+  const b = TNU.bench;
+  return `<div class="tn-seg" role="tablist">${[['ph', 'pH'], ['kin', 'Rates'], ['gel', 'Gels']].map(([k, t]) => `<button data-tn="bench" data-v="${k}" aria-pressed="${b === k}">${t}</button>`).join('')}</div>
+    ${b === 'ph' ? tnPhBench(R) : b === 'kin' ? tnKinBench(R) : tnGelBench(R)}`;
 }
-function uwEndHTML() {
-  const R = UWS.run, ex = R.exam, C = R.city;
-  const rows = UW_P.map(p => { const hid = C.hidden.includes(p.id), mine = R.code[p.id], ok = !hid || mine === C.P[p.id];
-    return `<tr class="${hid ? (ok ? 'ok' : 'no') : 'dim'}"><td>${esc(p.t)}</td><td>${esc(uwOptLabel(p.id, C.P[p.id]))}${C.fac && C.fac.pid === p.id ? `<br><small>a faction of ${uwPct(C.fac.share)} held: ${esc(uwOptLabel(p.id, C.fac.val))}</small>` : ''}</td><td>${hid ? (mine === undefined || mine === null ? '<i>undecided</i>' : esc(uwOptLabel(p.id, mine))) + (ok ? ' ✓' : ' ✗') : '<small>settled</small>'}</td></tr>`; }).join('');
-  const wrong = C.hidden.filter(id => R.code[id] !== C.P[id]);
-  return `<main class="uw-main"><div class="uw-end">
-    <h1 class="uw-logo sm">${R.over.k === 'adopted' ? 'Adopted' : R.over.k === 'dismissed' ? 'Dismissed' : R.over.k === 'quit' ? 'Abandoned' : 'Not adopted'}</h1>
-    <p class="uw-kicker">${esc(C.name)} · ${esc(UW_TIERS[R.tier].n)}</p><p class="uw-big">${esc(R.over.t)}</p>
-    ${ex ? `<section class="uw-card"><h2 class="uw-h2">The final test: twelve sealed cases</h2><table class="uw-tbl"><tr><th>Code</th><th>Right</th></tr><tr class="me"><td>Yours</td><td>${ex.mine}/12</td></tr>${ex.rivals.map(x => `<tr><td>${esc(x.n)}</td><td>${x.score}/12</td></tr>`).join('')}${R.rivals.filter(rv => !ex.rivals.some(x => x.n === rv.n)).map(rv => `<tr class="dim"><td>${esc(rv.n)}</td><td><small>dismissed</small></td></tr>`).join('')}</table>${ex.rivals.length ? '' : '<p class="uw-small">Every rival was dismissed before the test, so the Assembly only asked that your Code get two thirds right.</p>'}
-      ${ex.details ? `<details class="uw-exam"><summary>The twelve cases</summary>${ex.details.map((d, i) => `<div class="uw-xc ${d.mine === d.truth ? 'ok' : 'no'}"><b>${i + 1}.</b><div class="uw-tags">${uwTags(d.c).map(t => `<i>${esc(t)}</i>`).join('')}</div><span>City: ${uwPct(d.f)} forbid · ${uwVerd(d.truth)}. Your Code: ${uwVerd(d.mine)} ${d.mine === d.truth ? '✓' : '✗'}</span></div>`).join('')}</details>` : ''}</section>` : ''}
-    <section class="uw-card"><h2 class="uw-h2">The Custom of ${esc(C.name)}, as it really was</h2><table class="uw-tbl truth"><tr><th>Principle</th><th>The truth</th><th>Your Code</th></tr>${rows}</table></section>
-    <section class="uw-card"><h2 class="uw-h2">What to take to the next city</h2>
-      ${wrong.length ? wrong.map(id => `<p class="uw-note">${esc(uwP(id).t)}: ${uwLesson(id)}</p>`).join('') : '<p class="uw-note">You found every principle. The next city will be harder.</p>'}
-      <p class="uw-small">Docket: ${R.stats.dockRight} right, ${R.stats.dockWrong} wrong. Rebutted ${R.stats.rebutted} time${R.stats.rebutted === 1 ? '' : 's'}; you rebutted others ${R.stats.rebuts} time${R.stats.rebuts === 1 ? '' : 's'}. +${R.laurels || 0} laurel${R.laurels === 1 ? '' : 's'}${R.laurels ? '' : ' (laurels come only from test marks above six, adoption and high standing)'}.</p></section>
-    <div class="uw-menu"><button class="btn primary" data-uw="newrun">New commission</button><button class="btn" data-uw="archive">The Archive · ${UWS.meta.laurels}</button><button class="btn" data-uw="totitle">Title</button></div>
-  </div></main>`;
+function tnStripMeter(n) { return `<div class="tn-strip" aria-label="${n} of ${TN_STRIP} wells">${Array.from({ length: TN_STRIP }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')}<span>${n}/${TN_STRIP} wells</span></div>`; }
+function tnReps(k, reps) { return `<div class="tn-field"><span>Repeats of each</span><div class="tn-seg sm">${[1, 2, 3].map(n => `<button data-tn="reps" data-b="${k}" data-v="${n}" aria-pressed="${reps === n}">×${n}</button>`).join('')}</div></div>`; }
+function tnPrepPick(R, b) {
+  const ps = tnPrepsWith(R, b); if (ps.length < 2) return '';
+  const cur = TNU.prepV && ps.some(p => p.id === TNU.prepV) ? TNU.prepV : (b === 'kin' ? tnMainPrep(R) : ps[ps.length - 1].id);
+  return `<div class="tn-field"><span>Show data from</span><div class="tn-seg sm">${ps.map(p => `<button data-tn="prepv" data-v="${p.id}" aria-pressed="${cur === p.id}">Prep ${p.id}</button>`).join('')}</div></div>`;
 }
-function uwLesson(id) {
-  return {
-    rate: 'find it by holding everything else fixed and changing only the number spared, until the jury flips.',
-    allow: 'hear the same case twice, once caused and once allowed, with nothing else changed.',
-    means: 'compare "the means" with "a side effect" in otherwise identical cases. If the means is never allowed, no number spared will save it.',
-    hands: 'compare "with own hands" and "from a distance" in a case the jury finds close.',
-    acc: 'compare a foreseen side effect with an unforeseeable accident.',
-    consent: 'add consent to a case the jury forbids and see whether it turns.',
-    kin: 'switch strangers for family in a close case, in both directions.',
-    gain: 'add profit to a case the jury permits, and see whether it turns.',
-    promise: 'add a broken promise to a case the jury permits, and see whether it turns.',
-  }[id];
+function tnShownPrep(R, b) { const ps = tnPrepsWith(R, b); if (!ps.length) return null; if (TNU.prepV && ps.some(p => p.id === TNU.prepV)) return TNU.prepV; return b === 'kin' ? (tnMainPrep(R) || ps[ps.length - 1].id) : ps[ps.length - 1].id; }
+function tnRunList(R, b, prep) {
+  const runs = R.runs.filter(x => x.b === b && (!prep || x.prep === prep)).slice().reverse(); if (!runs.length) return '';
+  const desc = x => b === 'kin' ? `${x.pts.length} levels ×${x.reps} · ${x.I ? x.I + ' µM B' : 'no B'} · ${TN_WIN[x.win].n.split(' ')[0].toLowerCase()} reads` : `${x.pts.length} pH values ×${x.reps}`;
+  return `<details class="tn-runs" ${runs.length <= 3 ? 'open' : ''}><summary>Your runs (${runs.length}) · untick a run to leave it out of the fit</summary>${runs.map(x => `<label class="tn-runrow ${x.on ? '' : 'off'}"><input type="checkbox" data-tn="toggle" data-id="${x.id}" ${x.on ? 'checked' : ''}><span>Week ${x.week % TN_WK + 1} · prep ${x.prep} · ${esc(desc(x))}</span>${b === 'kin' ? `<i class="dot" style="background:${TN_ICOL[x.I]}"></i>` : ''}</label>`).join('')}</details>`;
 }
-function uwModal(html) { modal(html); const sh = document.querySelector('#modal .sheet'); if (sh) sh.classList.add('uw-sheet'); }
-function uwArchive() {
-  const M = UWS.meta;
-  uwModal(`<h2>The Archive</h2><p>Laurels from past commissions buy help for future ones. You have <b>${M.laurels}</b>.</p><p class="uw-small">You earn one laurel for each mark above six in the final test, 3 more (plus 2 per city size) if your Code is adopted, and 1 for finishing with standing 10 or more.</p>
-    <div class="uw-list">${UW_UNLOCKS.map(u => `<div class="uw-item"><div><b>${esc(u.n)}</b><small>${esc(u.d)}</small></div>${M.unlocks.includes(u.id) ? '<span class="uw-tag">Yours</span>' : `<button class="btn" data-uw="unlock" data-id="${u.id}"${M.laurels < u.cost ? ' disabled' : ''}>${u.cost}</button>`}</div>`).join('')}</div>
-    <p class="uw-small">Harder cities open when your Code is adopted in an easier one.</p><div class="row"><button class="btn primary" data-uw="close-modal">Done</button></div>`);
+function tnPhBench(R) {
+  const s = TNU.set.ph, n = s.pH.length * s.reps, cost = n * TN_COST.ph, prep = tnShownPrep(R, 'ph');
+  const pts = prep ? tnPts(R, x => x.b === 'ph' && x.prep === prep) : [], F = tnFitPh(pts);
+  return `<section class="tn-card"><h3>pH bench</h3><p class="tn-small">Measure the rate at plenty of substrate in buffers of different pH. The curve is a bell; its top is the best pH.</p>
+    <div class="tn-field"><span>pH values</span><div class="tn-chips">${TN_PH.map(v => `<button data-tn="chip" data-b="ph" data-v="${v}" aria-pressed="${s.pH.includes(v)}">${v}</button>`).join('')}</div></div>
+    ${tnReps('ph', s.reps)}${tnStripMeter(n)}
+    <button class="btn primary block" data-tn="runph" ${R.money < cost || s.pH.length < 3 ? 'disabled' : ''}>Run · 1 week · ${tnMoney(cost)}</button></section>
+  <section class="tn-card"><h3>Results${prep ? ` · prep ${prep}` : ''}</h3>${tnPrepPick(R, 'ph')}
+    ${pts.length ? tnPlot({ xmin: 3.8, xmax: 10.2, xl: 'pH', yl: 'rate (µM/s)', series: [{ pts, c: TN_ICOL[0] }], curves: F ? [{ f: x => tnBell(x, F.p), c: '#c8402f' }] : [], vline: F ? { x: F.opt, e: F.e } : null }) : '<p class="tn-empty">No data yet.</p>'}
+    ${F ? `<p class="tn-fit">Best pH <b>${F.opt.toFixed(2)} ± ${F.e.toFixed(2)}</b> · fit ${tnQual(F.q)}</p>` : pts.length ? '<p class="tn-small">Needs at least four points for a fit.</p>' : ''}
+    ${tnRunList(R, 'ph', prep)}</section>`;
 }
-function uwPast() {
-  const H = UWS.meta.hist;
-  uwModal(`<h2>Past cities</h2>${H.length ? `<table class="uw-tbl"><tr><th>City</th><th>Outcome</th><th>Principles</th></tr>${H.map(h => `<tr><td>${esc(h.city)}<br><small>${esc(UW_TIERS[h.tier].n)} · ${h.date}</small></td><td>${h.k === 'adopted' ? '<b>Adopted</b>' : h.k === 'dismissed' ? 'Dismissed' : h.k === 'quit' ? 'Left' : 'Not adopted'}${h.mine !== null ? `<br><small>${h.mine}/12 on the test</small>` : ''}</td><td>${h.right}/${h.of}</td></tr>`).join('')}</table>` : '<p>None yet.</p>'}<div class="row"><button class="btn primary" data-uw="close-modal">Close</button></div>`);
-}
-function uwHowto() {
-  uwModal(`<h2>How it works</h2>
-    <p><b>The Custom.</b> Each city judges by a handful of principles nobody has written down: how many must be spared to outweigh one harmed, whether letting harm happen is as bad as causing it, whether using someone as a means is worse than harming them as a side effect, and so on. Each city's Custom is different.</p>
-    <p><b>Hearings.</b> Build a case from its facts and put it to a jury. Citizens feel the Custom a little differently, so close cases split the vote; bigger juries cost more days but wobble less. Change one detail at a time and compare: that is how you learn what each principle is worth.</p>
-    <p><b>Your Code.</b> Decide each principle. Your Code then predicts every verdict, and the Book shows where it agrees with the juries.</p>
-    <p><b>The docket.</b> At the end of each session you rule on real disputes you may not rehearse. Right: standing +1. Wrong: standing −3. At zero standing you are dismissed.</p>
-    <p><b>Rivals.</b> One to three other codifiers publish their Codes and rule too. From the second session, if one of them catches your Code getting the city wrong, you lose 2 standing. If your hearings catch theirs (a full or grand jury voting at least two to one against their Code), rebut them: they lose 2 and you gain 1.</p>
-    <p><b>The end.</b> After ${UW_SESSIONS} sessions the Assembly tests every Code on twelve sealed cases and adopts the best. Then the true Custom is revealed.</p>
-    <div class="row"><button class="btn primary" data-uw="close-modal">Understood</button></div>`);
-}
-function uwNewRunModal() {
-  const M = UWS.meta;
-  uwModal(`<h2>A new commission</h2><div class="uw-list">${UW_TIERS.map((t, i) => `<div class="uw-item${i > M.tierMax ? ' locked' : ''}"><div><b>${esc(t.n)}</b><small>${esc(t.d)}</small></div>${i > M.tierMax ? '<span class="uw-tag">Locked</span>' : `<button class="btn primary" data-uw="start" data-v="${i}">Go</button>`}</div>`).join('')}</div>
-    <p class="uw-small">Win the Assembly's adoption to open the next kind of city.</p><div class="row"><button class="btn" data-uw="close-modal">Cancel</button></div>`);
-}
-function uwStart(tier) {
-  UWS.run = uwNewRun(UWS.meta, tier); Object.assign(UWU, { screen: 'run', tab: 'hear', b: uwDefaultCase(), jury: 15, cmp: [], last: null }); closeModal(); uwSave(); uwRender();
-  if (!UWS.meta.runs) setTimeout(() => { if (UI.view === 'uw' && !document.querySelector('#modal')) uwHowto(); }, 60);
-  else toast(`${UWS.run.city.name}: ${UWS.run.city.hidden.length} principles to find.`);
-}
-
-/* ---------- events ---------- */
-document.addEventListener('click', e => {
-  if (UI.view !== 'uw') return; const b = e.target.closest('[data-uw]'); if (!b || b.disabled) return;
-  const act = b.dataset.uw, id = b.dataset.id, v = b.dataset.v, R = UWS.run;
-  const re = () => uwRender(true);
-  switch (act) {
-    case 'close-modal': closeModal(); if (R && R.phase === 'over') uwRender(); break;
-    case 'continue': UWU.screen = 'run'; SFX.tap(); uwRender(); break;
-    case 'totitle': UWU.screen = 'title'; uwRender(); break;
-    case 'newrun': if (R && R.phase !== 'over') uwModal(`<h2>Leave ${esc(R.city.name)}?</h2><p>Your commission ends now. An abandoned commission earns no laurels.</p><div class="row"><button class="btn" data-uw="close-modal">Stay</button><button class="btn danger" data-uw="quit">Leave</button></div>`); else uwNewRunModal(); break;
-    case 'quit': closeModal(); R.over = { k: 'quit', t: `You leave ${R.city.name} with the Custom still unwritten.` }; R.phase = 'over'; uwFinish(); uwSave(); UWU.screen = 'run'; uwRender(); break;
-    case 'start': uwStart(+v); break;
-    case 'howto': uwHowto(); break;
-    case 'archive': uwArchive(); break;
-    case 'past': uwPast(); break;
-    case 'unlock': { const u = UW_UNLOCKS.find(x => x.id === id); if (u && UWS.meta.laurels >= u.cost && !UWS.meta.unlocks.includes(id)) { UWS.meta.laurels -= u.cost; UWS.meta.unlocks.push(id); uwSave(); SFX.good(); uwArchive(); } break; }
-    case 'tab': UWU.tab = id; SFX.tap(); uwRender(); break;
-    case 'set': { const bv = v === 'true' ? true : v === 'false' ? false : v; UWU.b[id] = bv; SFX.tap(); re(); break; }
-    case 'step': { const lim = { h: [1, 5], s: [0, 9] }[id]; UWU.b[id] = Math.max(lim[0], Math.min(lim[1], UWU.b[id] + +v)); SFX.tap(); re(); break; }
-    case 'reroll': UWU.b.ag = Math.floor(Math.random() * UW_AGENTS.length); UWU.b.dz = Math.floor(Math.random() * UW_DANGERS.length); re(); break;
-    case 'jury': UWU.jury = +v; SFX.tap(); re(); break;
-    case 'hold': {
-      const h = uwHold(R, UWU.b, UWU.jury); if (typeof h === 'string') { toast(h); break; }
-      UWU.last = h.id; uwLog(R, `Hearing #${h.id}: ${h.f} of ${h.n} forbade.`); uwSave(); SFX.tool();
-      uwRender(); const m = document.querySelector('.uw-main'); if (m) m.scrollTop = 0; break;
+const tnQual = q => (q === 'good' ? '<span class="tn-okc">matches the points</span>' : q === 'poor' ? '<span class="tn-badc">misses the points</span>' : 'needs more points to judge');
+function tnKinBench(R) {
+  const s = TNU.set.kin, n = s.S.length * s.reps, cost = n * TN_COST.well, prep = tnShownPrep(R, 'kin');
+  const groups = TN_I.map(I => ({ I, pts: prep ? tnPts(R, x => x.b === 'kin' && x.prep === prep && x.I === I) : [], long: R.runs.some(x => x.on && x.b === 'kin' && x.prep === prep && x.I === I && x.win === 'long') })).filter(g => g.pts.length);
+  groups.forEach(g => { g.F = tnFitKin(g.pts); });
+  const curves = [], series = R.runs.filter(x => x.on && x.b === 'kin' && x.prep === prep).map(x => ({ pts: x.pts, c: TN_ICOL[x.I], hollow: x.win === 'long' }));
+  groups.forEach(g => { const F = g.F; if (!F) return; const m = g.I === 0 ? F[F.best] : F.mm; if (!m) return;
+    const f = g.I === 0 && F.best === 'hill' ? x => tnHill(x, F.hill.p) : x => tnMM(x, F.mm.p); curves.push({ f, c: TN_ICOL[g.I] }); });
+  let plot = '<p class="tn-empty">No data yet.</p>';
+  if (groups.length) {
+    const all = groups.flatMap(g => g.pts), ymax = Math.max(...all.map(o => o.y + o.s)) * 1.08;
+    if (TNU.view === 'dr') {
+      const ok = p => p.y > 0 && p.y > 2 * p.s; const dser = series.map(z => ({ pts: z.pts.filter(ok).map(o => ({ x: 1 / o.x, y: 1 / o.y, s: o.s / (o.y * o.y) })), c: z.c, hollow: z.hollow })).filter(z => z.pts.length);
+      const dall = dser.flatMap(z => z.pts); const xmax = Math.max(...dall.map(o => o.x)) * 1.05, ymaxd = Math.min(Math.max(...dall.map(o => o.y)) * 1.1, 1e9);
+      plot = tnPlot({ xmin: 0, xmax, ymin: 0, ymax: ymaxd, xl: '1 / substrate (per mM)', yl: '1 / rate', series: dser, curves: groups.filter(g => g.F && g.F.mm).map(g => ({ f: x => (g.F.mm.K / g.F.mm.V) * x + 1 / g.F.mm.V, c: TN_ICOL[g.I] })), noerr: true });
+    } else {
+      const lg = TNU.view === 'log', xs = all.map(o => o.x);
+      plot = tnPlot({ xlog: lg, xmin: lg ? Math.min(...xs) / 1.6 : 0, xmax: Math.max(...xs) * (lg ? 1.6 : 1.04), ymax, xl: 'substrate (mM)', yl: 'rate (µM/s)', series, curves });
     }
-    case 'cmp': { if (e.target.closest('[data-uw="load"]')) break; const hid = +id; const i = UWU.cmp.indexOf(hid); if (i >= 0) UWU.cmp.splice(i, 1); else { UWU.cmp.push(hid); if (UWU.cmp.length > 2) UWU.cmp.shift(); } SFX.tap(); re(); if (UWU.cmp.length === 2) { const m = document.querySelector('.uw-main'); if (m) m.scrollTop = 0; } break; }
-    case 'cmpclear': UWU.cmp = []; re(); break;
-    case 'load': { const h = R.hearings.find(x => x.id === +id); if (h) { UWU.b = JSON.parse(JSON.stringify(h.c)); UWU.tab = 'hear'; UWU.last = null; SFX.tap(); uwRender(); toast(`Hearing #${h.id} is in the builder.`); } break; }
-    case 'clause': { const nv = +v; R.code[id] = R.code[id] === nv ? null : nv; uwSave(); SFX.tap(); re(); break; }
-    case 'rebut': uwRebutModal(id); break;
-    case 'dorebut': { const rv = R.rivals.find(x => x.id === id), h = R.hearings.find(x => x.id === +v); if (!rv || !h) break; const res = uwRebut(R, rv, h); uwSave(); (res.k === 'win' ? SFX.good : SFX.bad)();
-      uwModal(`<h2>${res.k === 'win' ? 'Rebutted' : 'It falls flat'}</h2><p>${esc(res.t)}</p><div class="row"><button class="btn primary" data-uw="close-modal">Back</button></div>`);
-      if (R.standing <= 0) { R.over = { k: 'dismissed', t: 'The Assembly has lost faith in you. Your commission is withdrawn.' }; R.phase = 'over'; uwFinish(); uwSave(); }
-      uwRender(true); break; }
-    case 'close': if (R.days > 0) { uwModal(`<h2>Close the session early?</h2><p>${R.days} day${R.days === 1 ? '' : 's'} of hearings will go unused.</p><div class="row"><button class="btn" data-uw="close-modal">Keep working</button><button class="btn primary" data-uw="todocket">To the docket</button></div>`); break; }
-      uwOpenDocket(R); uwSave(); uwRender(); break;
-    case 'todocket': closeModal(); uwOpenDocket(R); uwSave(); uwRender(); break;
-    case 'rule': { const D = uwRule(R, v === '1'); if (!D) break; (D.right ? SFX.good : SFX.bad)();
-      R.hearings.push({ id: R.nid++, c: D.c, n: 100, f: Math.round(D.f * 100), session: R.session, src: 'docket' });
-      if (R.standing <= 0) { R.over = { k: 'dismissed', t: 'The Assembly has lost faith in you. Your commission is withdrawn.' }; }
-      uwSave(); uwRender(); break; }
-    case 'docknext': if (R.over && R.over.k === 'dismissed') { R.phase = 'over'; uwFinish(); uwSave(); uwRender(); break; }
-      if (R.dockI + 1 < R.docket.length) { R.dockI++; uwSave(); uwRender(); } else uwAfterDocket(); break;
+  }
+  const fitRows = groups.map(g => { const F = g.F; if (!F) return `<li style="--c:${TN_ICOL[g.I]}"><b>${g.I ? g.I + ' µM B' : 'No B'}</b>: needs three or more points</li>`;
+    const mm = F.mm ? `plain curve: Km <b>${tnN(F.mm.K)} ± ${tnN(F.mm.eK, 2)} mM</b>, top speed ${tnN(F.mm.V)} ± ${tnN(F.mm.eV, 2)} µM/s (${tnQual(F.mm.q)})` : '';
+    const hl = g.I === 0 && F.hill ? `<br>S-curve: K½ <b>${tnN(F.hill.K)} ± ${tnN(F.hill.eK, 2)} mM</b>, n = <b>${F.hill.n.toFixed(2)} ± ${F.hill.en.toFixed(2)}</b> (${tnQual(F.hill.q)})` : '';
+    return `<li style="--c:${TN_ICOL[g.I]}"><b>${g.I ? g.I + ' µM B' : 'No B'}</b>${g.long ? ' <i>(long reads)</i>' : ''}: ${mm}${hl}</li>`; }).join('');
+  return `<section class="tn-card"><h3>Rate bench</h3><p class="tn-small">Each well mixes the enzyme (${tnN(R.E.P, 2)} µg/mL protein) with one level of ${esc(R.E.sub)}, and the machine reads how fast product appears.</p>
+    <div class="tn-field"><span>Substrate levels (mM)</span><div class="tn-chips">${TN_S.map(v => `<button data-tn="chip" data-b="kin" data-v="${v}" aria-pressed="${s.S.includes(v)}">${v}</button>`).join('')}</div></div>
+    <div class="tn-field"><span>Compound B</span><div class="tn-seg sm">${TN_I.map(v => `<button data-tn="inhb" data-v="${v}" aria-pressed="${s.I === v}">${v ? v + ' µM' : 'None'}</button>`).join('')}</div></div>
+    <div class="tn-field"><span>Read time</span><div class="tn-seg sm">${Object.entries(TN_WIN).map(([k, w]) => `<button data-tn="win" data-v="${k}" aria-pressed="${s.win === k}">${w.n.split(' ')[0]}</button>`).join('')}</div>
+      <p class="tn-small">${{ quick: 'Quick reads catch the true starting rate but are noisy.', std: 'One minute: the usual compromise.', long: 'Long reads are smooth, but in low-substrate wells the substrate runs down while you watch, so those rates read low.' }[s.win]}</p></div>
+    ${tnReps('kin', s.reps)}${tnStripMeter(n)}
+    <button class="btn primary block" data-tn="runkin" ${R.money < cost || s.S.length < 3 ? 'disabled' : ''}>Run · 1 week · ${tnMoney(cost)}</button></section>
+  <section class="tn-card"><h3>Results${prep ? ` · prep ${prep}` : ''}</h3>${tnPrepPick(R, 'kin')}
+    <div class="tn-seg sm tn-views">${[['log', 'Log scale'], ['lin', 'Linear'], ['dr', 'Double reciprocal']].map(([k, t]) => `<button data-tn="view" data-v="${k}" aria-pressed="${TNU.view === k}">${t}</button>`).join('')}</div>
+    ${plot}
+    ${groups.length ? `<ul class="tn-fits">${fitRows}</ul><p class="tn-small">Colours: blue no B, green 5, orange 20, red 80 µM B. Hollow points are long reads. On the double-reciprocal view, lines meeting on the vertical axis mean B competes; meeting on the horizontal axis means it binds elsewhere; parallel lines mean it binds only the busy enzyme.</p>` : ''}
+    ${tnRunList(R, 'kin', prep)}</section>`;
+}
+function tnGelBench(R) {
+  const s = TNU.set.gel, cost = TN_COST[s.type] + (s.type === 'native' && s.stain ? TN_COST.stain : 0);
+  const gels = R.runs.filter(x => x.b === 'gel').slice().reverse();
+  const ch = R.reads.filter(x => x.kind === 'chain').slice(-1)[0], wh = R.reads.filter(x => x.kind === 'whole').slice(-1)[0];
+  return `<section class="tn-card"><h3>Gel bench</h3><p class="tn-small">Proteins run through a gel; small ones travel further. A ladder of known sizes runs alongside, so you can read sizes off it.</p>
+    <div class="tn-field"><span>Gel</span><div class="tn-seg sm"><button data-tn="geltype" data-v="sds" aria-pressed="${s.type === 'sds'}">Denaturing (SDS)</button><button data-tn="geltype" data-v="native" aria-pressed="${s.type === 'native'}">Native</button></div>
+      <p class="tn-small">${s.type === 'sds' ? 'Unfolds everything, so the enzyme falls apart into its chains. Shows each protein\'s chain size and how much of the prep it makes up.' : 'Keeps proteins folded and whole, so the enzyme runs as one complex. Shape throws sizes off by about 10%.'}</p></div>
+    ${s.type === 'sds' ? `<label class="tn-check"><input type="checkbox" data-tn="red" ${s.red ? 'checked' : ''}> Reducing agent <span class="tn-small">breaks sulfur bridges between chains</span></label>` : `<label class="tn-check"><input type="checkbox" data-tn="stain" ${s.stain ? 'checked' : ''}> Activity stain (+${tnMoney(TN_COST.stain)}) <span class="tn-small">only the working enzyme lights up</span></label>`}
+    <button class="btn primary block" data-tn="rungel" ${R.money < cost ? 'disabled' : ''}>Run · 1 week · ${tnMoney(cost)}</button></section>
+  <section class="tn-card"><h3>Your gels</h3>
+    <p class="tn-small">Tap a band to measure it and mark what it is.</p>
+    <div class="tn-marks"><span>One chain: ${ch ? `<b>${Math.round(ch.m)} ± ${Math.round(ch.em)} kDa</b> (${ch.type === 'sds' ? (ch.red ? 'reducing' : 'non-reducing') + ' SDS' : 'native'}, prep ${ch.prep}${ch.f !== null ? `, ${Math.round(ch.f * 100)}% of the stain` : ''})` : '<i>not marked</i>'}</span><span>Whole enzyme: ${wh ? `<b>${Math.round(wh.m)} ± ${Math.round(wh.em)} kDa</b> (${wh.type === 'sds' ? 'SDS' : 'native'}, prep ${wh.prep})` : '<i>not marked</i>'}</span></div>
+    ${gels.length ? `<div class="tn-gels">${gels.map(g => tnGelSVG(R, g)).join('')}</div>` : '<p class="tn-empty">No gels yet.</p>'}</section>`;
+}
+function tnGelSVG(R, g) {
+  const W = 150, H = 260, top = 18, bot = 250, Y = y => top + y * (bot - top), lad = TN_LAD[g.type], mx = Math.max(...g.bands.map(b => b.f));
+  const fill = g.type === 'native' && g.stain ? '#5b2a6e' : '#1d3f91';
+  const marks = R.reads.filter(x => x.run === g.id);
+  return `<figure class="tn-gel"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gel ${g.id}">
+    <rect x="34" y="10" width="${W - 40}" height="${H - 14}" rx="4" fill="${g.type === 'sds' ? '#e3ecf6' : '#e9e6f3'}" stroke="#9fb2cc"/>
+    ${lad.map(m => { const y = Y(tnGelY(g.type, m)); return `<rect x="42" y="${y - 2}" width="30" height="4" rx="2" fill="#4a5a78" opacity=".75"/><text x="30" y="${y + 3.5}" text-anchor="end" font-size="9" fill="#5b6680">${m}</text>`; }).join('')}
+    ${g.bands.map((b, i) => { const y = Y(b.y), op = (0.25 + 0.75 * Math.sqrt(b.f / mx)).toFixed(2), mk = marks.find(x => x.i === i);
+      return `<rect x="84" y="${y - 3.5}" width="44" height="7" rx="3.5" fill="${fill}" opacity="${op}"/>${mk ? `<text x="${W - 4}" y="${y - 6}" text-anchor="end" font-size="9" font-weight="800" fill="#c8402f">${mk.kind === 'chain' ? 'chain' : 'whole'}</text>` : ''}
+        <rect class="tn-hit" data-tn="band" data-id="${g.id}" data-i="${i}" x="78" y="${y - 10}" width="${W - 80}" height="20" fill="transparent"/>`; }).join('')}
+    <text x="57" y="${H - 1}" text-anchor="middle" font-size="8" fill="#5b6680">ladder</text><text x="106" y="${H - 1}" text-anchor="middle" font-size="8" fill="#5b6680">prep ${g.prep}</text>
+  </svg><figcaption>${g.type === 'sds' ? `SDS, ${g.red ? 'reducing' : 'no reducing agent'}` : `Native${g.stain ? ', activity stain' : ''}`} · wk ${g.week % TN_WK + 1}</figcaption></figure>`;
+}
+
+/* ---------- plotting ---------- */
+function tnPlot(o) {
+  const W = 340, H = 220, L = 44, Rr = 10, T = 10, B = 38, pw = W - L - Rr, ph = H - T - B;
+  const allY = (o.series || []).flatMap(s => s.pts.map(p => p.y + (o.noerr ? 0 : p.s)));
+  const ymax = o.ymax !== undefined ? o.ymax : Math.max(1e-9, ...allY) * 1.08;
+  /* noise can push a slow well below zero; show it rather than hide it */
+  const low = Math.min(0, ...(o.series || []).flatMap(s => s.pts.map(p => p.y - (o.noerr ? 0 : p.s))));
+  const ymin = o.ymin !== undefined ? o.ymin : low < 0 ? low - 0.04 * (ymax - low) : 0;
+  const lx = x => Math.log10(x), xmin = o.xmin, xmax = o.xmax;
+  const X = x => L + (o.xlog ? (lx(x) - lx(xmin)) / (lx(xmax) - lx(xmin)) : (x - xmin) / (xmax - xmin)) * pw;
+  const Yp = y => T + ph - (y - ymin) / (ymax - ymin) * ph;
+  const nice = (a, b, n) => { const st = Math.pow(10, Math.floor(Math.log10((b - a) / n))); const m = [1, 2, 5, 10].find(k => (b - a) / (st * k) <= n) * st; const out = []; for (let v = Math.ceil(a / m) * m; v <= b + 1e-12; v += m) out.push(Number(v.toPrecision(6))); return out; };
+  const xt = o.xlog ? [0.001, 0.01, 0.1, 1, 10, 100, 1000].filter(v => v >= xmin && v <= xmax) : nice(xmin, xmax, 5), yt = nice(ymin, ymax, 4);
+  let svg = `<svg class="tn-plot" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.yl)} against ${esc(o.xl)}">`;
+  svg += xt.map(v => `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" class="g"/><text x="${X(v)}" y="${T + ph + 13}" text-anchor="middle">${tnN(v, 3)}</text>`).join('');
+  svg += yt.map(v => `<line x1="${L}" x2="${L + pw}" y1="${Yp(v)}" y2="${Yp(v)}" class="g"/><text x="${L - 5}" y="${Yp(v) + 3.5}" text-anchor="end">${tnN(v, 3)}</text>`).join('');
+  svg += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" class="a"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" class="a"/>`;
+  svg += `<text x="${L + pw / 2}" y="${H - 4}" text-anchor="middle" class="l">${esc(o.xl)}</text><text transform="translate(11 ${T + ph / 2}) rotate(-90)" text-anchor="middle" class="l">${esc(o.yl)}</text>`;
+  if (o.vline) { const x0 = X(tnClamp(o.vline.x - 2 * o.vline.e, xmin, xmax)), x1 = X(tnClamp(o.vline.x + 2 * o.vline.e, xmin, xmax)); svg += `<rect x="${x0}" y="${T}" width="${Math.max(1, x1 - x0)}" height="${ph}" fill="#ffe27a" opacity=".45"/><line x1="${X(o.vline.x)}" x2="${X(o.vline.x)}" y1="${T}" y2="${T + ph}" stroke="#c8402f" stroke-dasharray="3 3"/>`; }
+  svg += `<g clip-path="url(#tnclip)"><clipPath id="tnclip"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath>`;
+  (o.curves || []).forEach(cv => { const n = 90; let d = ''; for (let i = 0; i <= n; i++) { const x = o.xlog ? Math.pow(10, lx(xmin) + (lx(xmax) - lx(xmin)) * i / n) : xmin + (xmax - xmin) * i / n; const y = cv.f(x); if (!isFinite(y)) continue; d += (d ? 'L' : 'M') + X(x).toFixed(1) + ' ' + Yp(tnClamp(y, ymin - ymax, ymax * 3)).toFixed(1); } svg += `<path d="${d}" fill="none" stroke="${cv.c}" stroke-width="2" opacity=".85"/>`; });
+  (o.series || []).forEach(s => s.pts.forEach(p => { if (p.x < xmin || p.x > xmax) return; const cx = X(p.x), cy = Yp(p.y);
+    if (!o.noerr) svg += `<line x1="${cx}" x2="${cx}" y1="${Yp(p.y - p.s)}" y2="${Yp(p.y + p.s)}" stroke="${s.c}" stroke-width="1.2" opacity=".7"/>`;
+    svg += `<circle cx="${cx}" cy="${cy}" r="3.6" fill="${s.hollow ? '#fffdf6' : s.c}" stroke="${s.c}" stroke-width="1.6"/>`; }));
+  return svg + '</g></svg>';
+}
+
+/* ---------- journal and lab ---------- */
+function tnJournalHTML(R) {
+  const pend = R.claims.filter(c => !c.fate), yEnd = (Math.floor(R.week / TN_WK) + 1) * TN_WK;
+  return `<section class="tn-card"><h3>Under review</h3>${pend.length ? `<ul class="tn-list">${pend.map(c => `<li><b>${esc(tnRivalName(c.by))}</b> · ${esc(tnQ(c.q).n)}: ${esc(tnFmt(tnQ(c.q), c.v, c.e))} <i>verdict in ${Math.max(1, Math.min(c.resolveAt, yEnd) - R.week)} wk</i></li>`).join('')}</ul>` : '<p class="tn-small">Nothing pending.</p>'}
+    <p class="tn-small">Replication takes 6 to 10 weeks. At the end of each year, the annual review settles anything still pending.</p>
+    <div class="tn-row"><button class="btn" data-tn="wait" data-v="1">Wait a week</button><button class="btn" data-tn="skipyear">Skip to the annual review (${yEnd - R.week} wk)</button></div></section>
+  <section class="tn-card"><h3>Rival labs</h3>${TN_RIVALS.map(rv => `<p><b>${esc(rv.n)}</b><br><span class="tn-small">${R.dossier ? esc(rv.d) : 'Unknown habits. (Buy rival dossiers in the lab archive.)'}</span></p>`).join('')}</section>
+  <section class="tn-card"><h3>Notebook</h3><ul class="tn-log">${R.log.slice().reverse().slice(0, 60).map(l => `<li class="${l.k}"><span>Y${Math.floor(l.w / TN_WK) + 1} W${l.w % TN_WK + 1}</span>${esc(l.t)}</li>`).join('')}</ul></section>`;
+}
+function tnLabHTML(R) {
+  return `${Object.entries(TN_PARTS).map(([k, P]) => { const g = R.parts[k], nx = g + 1, building = R.builds.find(b => b.part === k);
+    return `<section class="tn-card"><h3>${esc(P.n)}</h3><p>Now: <b>${esc(P.grades[g])}</b></p><p class="tn-small">${esc(P.d)}</p>
+      ${building ? `<p class="tn-small">On order: ${esc(P.grades[building.grade])}, ready in ${building.left} wk.</p>` : nx < P.grades.length ? `<button class="btn" data-tn="build" data-v="${k}" ${R.money < P.cost[nx] ? 'disabled' : ''}>Upgrade to ${esc(P.grades[nx])} · ${tnMoney(P.cost[nx])} · ${P.weeks[nx]} wk</button>` : '<p class="tn-small">The best there is.</p>'}</section>`; }).join('')}
+  <section class="tn-card"><h3>Preparations of ${esc(R.E.name)}</h3>${R.preps.map(p => `<p>Prep ${p.id}: ${esc(TN_PARTS.pur.grades[p.grade])}${p === tnPrep(R) ? ' · <b>in use</b>' : ''}</p>`).join('')}<p class="tn-small">Every well holds ${tnN(R.E.P, 2)} µg/mL of protein. In a crude prep, much of that protein is not the enzyme. A denaturing gel tells you what share is.</p></section>
+  <section class="tn-card"><h3>Money</h3><p class="tn-small">Rate wells cost ${tnMoney(TN_COST.well)}, pH wells ${tnMoney(TN_COST.ph)}, an SDS gel ${tnMoney(TN_COST.sds)}, a native gel ${tnMoney(TN_COST.native)}. Each year ends with a grant: $900, plus $10 per point of credibility, plus a dollar per point of prestige earned that year.</p>
+    <div class="tn-row"><button class="btn" data-tn="howto">How it works</button><button class="btn danger" data-tn="quit">Close the lab</button></div></section>`;
+}
+
+/* ---------- modals ---------- */
+function tnPubModal(qid) {
+  const R = TNS.run, q = tnQ(qid), ev = tnEvidence(R, qid);
+  const risk = '<p class="tn-small">Replication will check it. Right: prestige and credibility, more if you are first and precise. Wrong: −40 prestige and −15 credibility. You get one claim per question.</p>';
+  if (q.kind === 'num') {
+    let v = ev.v, e = ev.e, pick = '';
+    if (qid === 'k' && ev.fit) { const F = ev.fit, m = TNU.pubModel && F[TNU.pubModel] ? TNU.pubModel : F.best;
+      const opt = (k, t) => F[k] ? `<button data-tn="pubmodel" data-v="${k}" aria-pressed="${m === k}">${t}: ${tnN(F[k].K)} ± ${tnN(F[k].eK, 2)} mM</button>` : '';
+      pick = `<div class="tn-field"><span>Which fit?</span><div class="tn-seg sm col">${opt('mm', 'Plain curve')}${opt('hill', 'S-curve')}</div></div>`; v = F[m].K; e = F[m].eK; }
+    if (qid === 'kcat' && ev.v !== undefined) pick = `<p class="tn-small">Top speed ${tnN(ev.V)} µM/s ÷ active sites (${tnN(R.E.P, 2)} µg/mL × ${Math.round(ev.pur * 100)}% pure ÷ ${Math.round(ev.chain.m)} kDa per chain = ${tnN(ev.sites)} µM) = ${tnN(ev.v)} per second. Prep ${ev.prep}.</p>`;
+    const ok = isFinite(e) && e <= tnBar(q, v);
+    tnModal(`<h2>Publish: ${esc(q.n)}</h2>${pick}<p class="tn-big">${esc(tnFmt(q, v, e))}</p>${ok ? '' : `<p class="tn-badc">That ± is outside the Society's limit (± ${esc(tnFmt(q, tnBar(q, v)))}).</p>`}${risk}
+      <div class="tn-row"><button class="btn" data-tn="close">Not yet</button><button class="btn primary" data-tn="dopub" data-q="${qid}" data-v="${v}" data-e="${e}" ${ok ? '' : 'disabled'}>Publish</button></div>`);
+  } else {
+    tnModal(`<h2>Publish: ${esc(q.n)}</h2><p>${esc(q.d)}</p><p class="tn-advice">${esc(tnAdvice(R, qid))}</p>${risk}
+      <div class="tn-opts">${q.opts.map(o => `<button class="btn" data-tn="dopub" data-q="${qid}" data-v="${esc(o)}">${esc(qid === 'sub' ? `${o} chain${o === '1' ? '' : 's'}` : o)}</button>`).join('')}</div>
+      <div class="tn-row"><button class="btn" data-tn="close">Not yet</button></div>`);
+  }
+}
+function tnBandModal(runId, i) {
+  const R = TNS.run, g = R.runs.find(x => x.id === runId); if (!g) return; const rd = tnBandRead(g, i), cur = R.reads.find(x => x.run === runId && x.i === i);
+  tnModal(`<h2>Band at ${Math.round(rd.m)} kDa</h2><p>Size from the ladder: <b>${Math.round(rd.m)} ± ${Math.round(rd.em)} kDa</b>${rd.f !== null ? ` · <b>${Math.round(rd.f * 100)}%</b> of all the stain in the lane (± ${Math.round(rd.ef * 100)})` : ''}.</p>
+    <p class="tn-small">${g.type === 'sds' ? `A denaturing gel${g.red ? ' with reducing agent' : ' without reducing agent'}, prep ${g.prep}.` : `A native gel${g.stain ? ' with activity stain' : ''}, prep ${g.prep}.`}${cur ? ` Marked now as: ${cur.kind === 'chain' ? 'one chain' : 'the whole enzyme'}.` : ''}</p>
+    <div class="tn-opts"><button class="btn ${g.type === 'sds' ? 'primary' : ''}" data-tn="mark" data-id="${runId}" data-i="${i}" data-v="chain">This is one enzyme chain</button><button class="btn ${g.type === 'native' ? 'primary' : ''}" data-tn="mark" data-id="${runId}" data-i="${i}" data-v="whole">This is the whole enzyme</button>${cur ? `<button class="btn" data-tn="mark" data-id="${runId}" data-i="${i}" data-v="none">Unmark</button>` : ''}</div>
+    <div class="tn-row"><button class="btn" data-tn="close">Close</button></div>`);
+}
+function tnHowto() {
+  tnModal(`<h2>How TURNOVER works</h2>
+    <p><b>The goal.</b> Each year the Society sends your lab a new enzyme and posts six questions about it. Answer them before the rival labs, and be right.</p>
+    <p><b>The loop.</b> Set up an experiment and run it: each run takes a week and costs money. The game fits a curve to your data and shows your answer with a ± (how unsure it is). When the ± fits inside the Society's limit, publish. Replication checks every claim within about 6 to 10 weeks.</p>
+    <p><b>Three benches.</b> <i>pH:</i> rate at different pH; the top of the bell is the best pH. <i>Rates:</i> rate at different substrate levels, with or without compound B. The fit gives the half-speed point (Km), the top speed, and how S-shaped the curve is (n). <i>Gels:</i> sizes of proteins against a ladder, and how much of your prep is the enzyme.</p>
+    <p><b>Where people go wrong</b> (these are real lab mistakes):</p>
+    <ul class="tn-ul"><li>Rates are only true at the very start. Long reads let low-substrate wells run out, so the curve comes out wrong.</li>
+    <li>Some enzymes' chains are joined by sulfur bridges. Without reducing agent, a denaturing gel shows two chains stuck together.</li>
+    <li>A crude prep is mostly other proteins. To count active sites for the turnover number, use the purity of the same prep you measured rates with.</li>
+    <li>Native gels misjudge size by about 10%, and a crude prep has other bands. An activity stain shows which band is the enzyme.</li>
+    <li>One chain means one active site, and one site can't show teamwork.</li></ul>
+    <p><b>Scoring.</b> Right and first earns the most prestige, and a smaller ± earns more. Overturning a rival's wrong claim earns a bonus. A refuted claim costs 40 prestige and 15 credibility, and at zero credibility the lab closes. Each year's grant grows with your credibility and that year's prestige.</p>
+    <p class="tn-small">Words: <b>Km / K½</b> substrate level for half the top speed · <b>top speed (Vmax)</b> the rate when the enzyme is saturated · <b>kcat</b> substrate molecules per active site per second · <b>n</b> how S-shaped the curve is (1 = plain) · <b>prep</b> one batch of purified enzyme.</p>
+    <div class="tn-row"><button class="btn primary" data-tn="close">Got it</button></div>`);
+}
+function tnArchive() {
+  const M = TNS.meta;
+  tnModal(`<h2>Lab archive</h2><p>Laurels from past labs buy a better start. You have <b>${M.laurels}</b>.</p><p class="tn-small">A lab earns one laurel per 250 prestige, plus one for every three confirmed answers.</p>
+    ${TN_UNLOCKS.map(u => { const got = M.unlocks.includes(u.id); return `<div class="tn-unlock ${got ? 'got' : ''}"><div><b>${esc(u.n)}</b><br><span class="tn-small">${esc(u.d)}</span></div>${got ? '<span class="tn-chip ok">Owned</span>' : `<button class="btn" data-tn="unlock" data-v="${u.id}" ${M.laurels < u.cost ? 'disabled' : ''}>${u.cost} laurel${u.cost === 1 ? '' : 's'}</button>`}</div>`; }).join('')}
+    <div class="tn-row"><button class="btn primary" data-tn="close">Close</button></div>`);
+}
+function tnLessons(E) {
+  const L = [];
+  if (E.ss) L.push('Its chains were joined by sulfur bridges: only a gel with reducing agent showed the true chain size.');
+  if (E.n > 1) L.push(`Its ${E.subs} chains worked as a team (n = ${E.n.toFixed(1)}), so the rate curve was S-shaped.`);
+  else if (E.subs > 1) L.push(`It had ${E.subs} chains but no teamwork: a plain curve.`);
+  else L.push('A single chain: one active site, so no teamwork was possible.');
+  L.push(`Compound B ${({ comp: 'competed with the substrate (Km went up, top speed stayed)', non: 'bound elsewhere (top speed fell, Km stayed)', unc: 'bound only the busy enzyme (both Km and top speed fell)' })[E.inh]}.`);
+  return L;
+}
+function tnYearModal(P, events) {
+  const E = P.E, mine = q => P.claims.find(c => c.by === 'you' && c.q === q.id);
+  const rows = TN_Q.map(q => { const c = mine(q), t = q.val(E), first = c && c.fate === 'confirmed' && !P.claims.some(o => o !== c && o.q === c.q && o.at < c.at && o.fate === 'confirmed');
+    return `<tr><td>${esc(q.n)}</td><td>${esc(q.kind === 'num' ? tnFmt(q, t) : t)}</td><td>${c ? `${esc(tnFmt(q, c.v, c.e))} ${c.fate === 'confirmed' ? '✓' : '✗'}${first ? ' ★' : ''}` : '<i>no claim</i>'}</td></tr>`; }).join('');
+  const news = (events || []).filter(e => e.k === 'good' || e.k === 'bad');
+  tnModal(`<h2>Year ${P.y + 1} review: ${esc(E.name)}</h2>
+    ${news.length ? `<ul class="tn-list">${news.map(e => `<li class="${e.k}">${esc(e.t)}</li>`).join('')}</ul>` : ''}
+    <table class="tn-tbl"><tr><th>Question</th><th>Truth</th><th>You</th></tr>${rows}</table><p class="tn-small">★ first to a confirmed answer.</p>
+    <ul class="tn-ul">${tnLessons(E).map(l => `<li>${esc(l)}</li>`).join('')}</ul>
+    <p>Grant: <b>${tnMoney(P.grant)}</b>. Prestige this year: <b>${P.prestige}</b>.</p>
+    <div class="tn-row"><button class="btn primary" data-tn="close">${TNS.run && TNS.run.over ? 'See the final report' : `On to ${esc(TNS.run.E.name)}`}</button></div>`);
+}
+function tnEndHTML(R) {
+  const all = tnAllClaims(R), you = all.filter(c => c.by === 'you'), conf = you.filter(c => c.fate === 'confirmed').length;
+  return `<div class="tn-main tn-end"><h1>${R.over.k === 'closed' ? 'Lab closed' : R.over.k === 'quit' ? 'Lab closed early' : 'Final report'}</h1><p class="tn-lede">${esc(R.over.t)}</p>
+    <section class="tn-card"><p><b>${conf}</b> confirmed answers, <b>${you.length - conf}</b> refuted, over ${R.past.length} enzyme${R.past.length === 1 ? '' : 's'}. Prestige <b>${R.prestige}</b>. Laurels earned: <b>${R.laurels || 0}</b>.</p>
+      ${R.past.map(P => `<p class="tn-small">Year ${P.y + 1}: ${esc(P.E.name)} · ${P.claims.filter(c => c.by === 'you' && c.fate === 'confirmed').length}/6 confirmed · ${P.prestige} prestige</p>`).join('')}</section>
+    <div class="tn-menu"><button class="btn primary" data-tn="newrun">New lab</button><button class="btn" data-tn="archive">Lab archive</button><button class="btn" data-tn="totitle">Title</button></div></div>`;
+}
+
+/* ---------- actions ---------- */
+function tnFinish(R) {
+  if (R.finished) return; R.finished = true; const M = TNS.meta;
+  R.laurels = R.over.k === 'quit' && R.past.length === 0 ? 0 : tnLaurels(R); M.laurels += R.laurels; M.runs++;
+  const conf = tnAllClaims(R).filter(c => c.by === 'you' && c.fate === 'confirmed').length; M.best = Math.max(M.best, R.prestige);
+  M.hist.unshift({ when: new Date().toLocaleDateString(), conf, prestige: R.prestige, end: R.over.k === 'end' ? `${R.years} years` : R.over.k === 'closed' ? 'closed' : 'closed early' }); M.hist = M.hist.slice(0, 12);
+}
+function tnAfter(R, ev) {
+  ev = ev || [];
+  const year = ev.filter(e => e.k === 'year').slice(-1)[0];
+  if (R.over) tnFinish(R);
+  tnSave(); tnRender(true);
+  if (year) { const P = R.past.find(p => p.y === year.y) || R.past[R.past.length - 1]; if (P) { SFX.level(); tnYearModal(P, ev); } return; }
+  const news = ev.filter(e => e.k === 'good' || e.k === 'bad');
+  if (news.length) { (news.some(e => e.k === 'bad') ? SFX.bad : SFX.good)(); tnModal(`<h2>Replication news</h2><ul class="tn-list">${news.map(e => `<li class="${e.k}">${esc(e.t)}</li>`).join('')}</ul><div class="tn-row"><button class="btn primary" data-tn="close">OK</button></div>`); }
+  else { const o = ev.filter(e => e.k === 'rival' || e.k === 'build'); if (o.length) toast(o[0].t + (o.length > 1 ? ` (+${o.length - 1} more in the journal)` : '')); }
+}
+function tnDo(res) { const R = TNS.run; if (typeof res === 'string') { toast(res); SFX.bad(); return; } SFX.tool(); tnAfter(R, res.ev); }
+document.addEventListener('click', e => {
+  if (UI.view !== 'tn') return; const b = e.target.closest('[data-tn]'); if (!b || b.disabled) return;
+  const a = b.dataset.tn, v = b.dataset.v, R = TNS.run;
+  if (['toggle', 'red', 'stain'].includes(a)) return;   // checkboxes are handled on change
+  switch (a) {
+    case 'close': closeModal(); if (R && R.over) tnRender(); break;
+    case 'continue': TNU.screen = 'run'; tnRender(); break;
+    case 'totitle': TNU.screen = 'title'; closeModal(); tnRender(); break;
+    case 'howto': tnHowto(); break;
+    case 'archive': tnArchive(); break;
+    case 'unlock': { const u = TN_UNLOCKS.find(x => x.id === v), M = TNS.meta; if (u && !M.unlocks.includes(u.id) && M.laurels >= u.cost) { M.laurels -= u.cost; M.unlocks.push(u.id); tnSave(); SFX.good(); tnArchive(); tnRender(); } break; }
+    case 'newrun': {
+      if (R && !R.over && !b.dataset.sure) { tnModal(`<h2>Start a new lab?</h2><p>Your current lab (year ${tnYear(R)}) will close without laurels.</p><div class="tn-row"><button class="btn" data-tn="close">Keep it</button><button class="btn danger" data-tn="newrun" data-sure="1">Start over</button></div>`); break; }
+      closeModal(); TNS.run = tnNewRun(TNS.meta); TNU.screen = 'run'; TNU.tab = 'q'; TNU.bench = 'ph'; TNU.prepV = null; tnSave(); tnRender(); if (!TNS.meta.runs) setTimeout(() => { if (UI.view === 'tn' && !document.querySelector('#modal')) tnHowto(); }, 60); break; }
+    case 'quit': tnModal(`<h2>Close the lab?</h2><p>This ends the run now. Laurels count only finished years.</p><div class="tn-row"><button class="btn" data-tn="close">Keep going</button><button class="btn danger" data-tn="doquit">Close it</button></div>`); break;
+    case 'doquit': closeModal(); R.over = { k: 'quit', t: 'You hand back the keys.' }; tnFinish(R); tnSave(); tnRender(); break;
+    case 'tab': TNU.tab = v; tnRender(); break;
+    case 'gobench': TNU.tab = 'bench'; TNU.bench = v; TNU.prepV = null; tnRender(); break;
+    case 'bench': TNU.bench = v; TNU.prepV = null; tnRender(); break;
+    case 'prepv': TNU.prepV = v; tnRender(true); break;
+    case 'view': TNU.view = v; tnRender(true); break;
+    case 'chip': { const s = TNU.set[b.dataset.b], key = b.dataset.b === 'kin' ? 'S' : 'pH', x = Number(v), list = s[key];
+      if (list.includes(x)) s[key] = list.filter(y => y !== x); else { if ((list.length + 1) * s.reps > TN_STRIP) { toast(`A strip holds ${TN_STRIP} wells. Remove one, or use fewer repeats.`); break; } s[key] = list.concat([x]).sort((p, q) => p - q); }
+      SFX.tap(); tnRender(true); break; }
+    case 'reps': { const s = TNU.set[b.dataset.b], key = b.dataset.b === 'kin' ? 'S' : 'pH', n = Number(v); if (s[key].length * n > TN_STRIP) { toast(`${s[key].length} levels × ${n} would need ${s[key].length * n} wells; a strip holds ${TN_STRIP}.`); break; } s.reps = n; SFX.tap(); tnRender(true); break; }
+    case 'inhb': TNU.set.kin.I = Number(v); SFX.tap(); tnRender(true); break;
+    case 'win': TNU.set.kin.win = v; SFX.tap(); tnRender(true); break;
+    case 'geltype': TNU.set.gel.type = v; SFX.tap(); tnRender(true); break;
+    case 'runph': tnDo(tnRunPh(R, TNU.set.ph.pH, TNU.set.ph.reps)); break;
+    case 'runkin': { const s = TNU.set.kin; tnDo(tnRunKin(R, s.S, s.I, s.win, s.reps)); break; }
+    case 'rungel': { const s = TNU.set.gel; tnDo(tnRunGel(R, s.type, s.red, s.stain)); break; }
+    case 'band': tnBandModal(Number(b.dataset.id), Number(b.dataset.i)); break;
+    case 'mark': { const err = tnMark(R, Number(b.dataset.id), Number(b.dataset.i), v); if (err) { toast(err); break; } closeModal(); SFX.paper(); tnSave(); tnRender(true); break; }
+    case 'pub': TNU.pubModel = null; tnPubModal(v); break;
+    case 'pubmodel': TNU.pubModel = v; tnPubModal('k'); break;
+    case 'dopub': { const q = tnQ(b.dataset.q); const err = q.kind === 'num' ? tnPublish(R, q.id, Number(v), Number(b.dataset.e)) : tnPublish(R, q.id, v); if (err) { toast(err); break; } closeModal(); SFX.ok(); tnSave(); tnRender(true); toast('Published. Replication will take a few weeks.'); break; }
+    case 'wait': tnAfter(R, tnSpend(R, Number(v) || 1)); break;
+    case 'skipyear': { const left = (Math.floor(R.week / TN_WK) + 1) * TN_WK - R.week; tnAfter(R, tnSpend(R, left)); break; }
+    case 'build': { const err = tnBuild(R, v); if (err) { toast(err); break; } SFX.tool(); tnSave(); tnRender(true); break; }
   }
 });
+document.addEventListener('change', e => {
+  if (UI.view !== 'tn') return; const b = e.target.closest('[data-tn]'); if (!b) return; const R = TNS.run;
+  if (b.dataset.tn === 'toggle') { const run = R && R.runs.find(x => x.id === Number(b.dataset.id)); if (run) { run.on = b.checked; tnSave(); tnRender(true); } }
+  if (b.dataset.tn === 'red') { TNU.set.gel.red = b.checked; tnRender(true); }
+  if (b.dataset.tn === 'stain') { TNU.set.gel.stain = b.checked; tnRender(true); }
+});
 
-/* ---------- papercut pictures ---------- */
-function uwScene(cv, ts) {
-  const dpr = Math.min(3, window.devicePixelRatio || 1), w = cv.clientWidth || cv.width, h = cv.clientHeight || cv.height; if (!w || !h) return;
-  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
-  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); const t = ts / 1000;
-  const paper = (fill, draw, sh = 4) => { ctx.save(); ctx.fillStyle = 'rgba(31,42,68,.22)'; ctx.translate(sh * 0.6, sh * 0.8); ctx.beginPath(); draw(); ctx.fill(); ctx.restore(); ctx.fillStyle = fill; ctx.beginPath(); draw(); ctx.fill(); };
-  ctx.fillStyle = '#f2c46d'; ctx.fillRect(0, 0, w, h);
-  paper('#e58f7a', () => ctx.arc(w * 0.78, h * 0.26, Math.min(w, h) * 0.13, 0, 7));
-  paper('#8fae8b', () => { ctx.moveTo(0, h * 0.62); ctx.quadraticCurveTo(w * 0.25, h * 0.45, w * 0.52, h * 0.6); ctx.quadraticCurveTo(w * 0.78, h * 0.72, w, h * 0.55); ctx.lineTo(w, h); ctx.lineTo(0, h); });
-  // the hall
-  const hx = w * 0.18, hw = w * 0.42, hy = h * 0.3, hh = h * 0.42;
-  paper('#1f2a44', () => { ctx.moveTo(hx - 8, hy + 14); ctx.lineTo(hx + hw / 2, hy - h * 0.1); ctx.lineTo(hx + hw + 8, hy + 14); });
-  paper('#f4ecdc', () => ctx.rect(hx, hy + 14, hw, hh), 5);
-  ctx.fillStyle = '#c8553d'; for (let i = 0; i < 5; i++) ctx.fillRect(hx + hw * (0.08 + i * 0.2), hy + 24, hw * 0.06, hh - 20);
-  paper('#1f2a44', () => { const ax = hx + hw / 2, aw = hw * 0.22; ctx.moveTo(ax - aw / 2, hy + 14 + hh); ctx.lineTo(ax - aw / 2, hy + hh * 0.62); ctx.arc(ax, hy + hh * 0.62, aw / 2, Math.PI, 0); ctx.lineTo(ax + aw / 2, hy + 14 + hh); }, 2);
-  // the crowd
-  paper('#2a7f7a', () => { ctx.moveTo(0, h * 0.86); ctx.quadraticCurveTo(w * 0.5, h * 0.74, w, h * 0.86); ctx.lineTo(w, h); ctx.lineTo(0, h); }, 3);
-  const n = Math.max(7, Math.round(w / 30)), s = Math.min(w, h) / 230;
-  for (let i = 0; i < n; i++) { const x = (i + 0.5) * w / n, bob = Math.sin(t * 1.6 + i * 1.3) * 2 * s, y = h * 0.86 - bob, col = i % 3 === 0 ? '#c8553d' : i % 3 === 1 ? '#1f2a44' : '#e3a43b';
-    paper(col, () => { ctx.arc(x, y - 22 * s, 7 * s, 0, 7); }, 2); paper(col, () => { ctx.moveTo(x - 11 * s, y + 8 * s); ctx.quadraticCurveTo(x - 11 * s, y - 12 * s, x, y - 12 * s); ctx.quadraticCurveTo(x + 11 * s, y - 12 * s, x + 11 * s, y + 8 * s); }, 2);
-    if (i % 4 === 1) { const up = Math.sin(t * 0.9 + i) > 0.3; if (up) paper('#f4ecdc', () => ctx.rect(x + 9 * s, y - 34 * s, 7 * s, 12 * s), 1); } }
+/* ---------- art: a notebook page ---------- */
+function tnScene(cv, ts) {
+  const c = cv.getContext('2d'), W = cv.width, H = cv.height, t = ts / 1000;
+  c.fillStyle = '#fbf7ec'; c.fillRect(0, 0, W, H);
+  c.strokeStyle = 'rgba(70,110,170,.16)'; c.lineWidth = 1; for (let x = 0; x < W; x += 16) { c.beginPath(); c.moveTo(x + .5, 0); c.lineTo(x + .5, H); c.stroke(); } for (let y = 0; y < H; y += 16) { c.beginPath(); c.moveTo(0, y + .5); c.lineTo(W, y + .5); c.stroke(); }
+  c.strokeStyle = 'rgba(200,64,47,.45)'; c.beginPath(); c.moveTo(W * 0.06, 0); c.lineTo(W * 0.06, H); c.stroke();
+  /* axes and a rate curve being drawn */
+  const ox = W * 0.12, oy = H * 0.84, aw = W * 0.5, ah = H * 0.62;
+  c.strokeStyle = '#1c2b4a'; c.lineWidth = 2.2; c.lineCap = 'round'; c.beginPath(); c.moveTo(ox, oy - ah); c.lineTo(ox, oy); c.lineTo(ox + aw, oy); c.stroke();
+  const K = 0.22, prog = Math.min(1, (t % 7) / 4.5);
+  c.strokeStyle = '#c8402f'; c.lineWidth = 2.6; c.beginPath();
+  for (let i = 0; i <= 80 * prog; i++) { const s = i / 80, v = s / (K + s) * (1 + K); const x = ox + s * aw, y = oy - v * ah * 0.92; i ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke();
+  const P = [0.04, 0.1, 0.2, 0.32, 0.5, 0.72, 0.95], jit = [0.03, -0.04, 0.02, 0.03, -0.02, 0.015, -0.01];
+  P.forEach((s, i) => { if (s > prog + 0.05) return; const v = s / (K + s) * (1 + K) + jit[i], x = ox + s * aw, y = oy - v * ah * 0.92; c.strokeStyle = '#1f4e8c'; c.lineWidth = 1.5; c.beginPath(); c.moveTo(x, y - 9); c.lineTo(x, y + 9); c.stroke(); c.fillStyle = '#1f4e8c'; c.beginPath(); c.arc(x, y, 4.5, 0, 7); c.fill(); });
+  c.fillStyle = '#1c2b4a'; c.font = `${Math.round(H * 0.06)}px Caveat, 'Comic Sans MS', cursive`; c.fillText('rate', ox - W * 0.055, oy - ah - 6); c.fillText('substrate', ox + aw - W * 0.12, oy + H * 0.08);
+  /* gel slab */
+  const gx = W * 0.7, gy = H * 0.14, gw = W * 0.2, gh = H * 0.7;
+  c.fillStyle = '#e3ecf6'; c.strokeStyle = '#9fb2cc'; c.lineWidth = 2; c.beginPath(); c.roundRect ? c.roundRect(gx, gy, gw, gh, 6) : c.rect(gx, gy, gw, gh); c.fill(); c.stroke();
+  [[0.12, 0.6], [0.3, 0.9], [0.42, 0.5], [0.6, 1], [0.78, 0.4]].forEach(([y, o], i) => { c.fillStyle = `rgba(29,63,145,${0.25 + 0.6 * o})`; c.fillRect(gx + gw * 0.55, gy + gh * y, gw * 0.35, 6); c.fillStyle = 'rgba(74,90,120,.7)'; c.fillRect(gx + gw * 0.1, gy + gh * (0.1 + i * 0.17), gw * 0.3, 4); });
+  /* pipette and a drop */
+  const px = W * 0.93, py = H * 0.06, ph = (t % 2.4) / 2.4;
+  c.fillStyle = '#d8d0bd'; c.fillRect(px - 5, py, 10, H * 0.18); c.fillStyle = '#c8402f'; c.fillRect(px - 7, py - 6, 14, 10);
+  c.beginPath(); c.moveTo(px - 5, py + H * 0.18); c.lineTo(px, py + H * 0.25); c.lineTo(px + 5, py + H * 0.18); c.fillStyle = '#d8d0bd'; c.fill();
+  if (ph > 0.4) { const dy = (ph - 0.4) / 0.6; c.fillStyle = 'rgba(31,78,140,.8)'; c.beginPath(); c.arc(px, py + H * 0.26 + dy * H * 0.5, 4, 0, 7); c.fill(); }
 }
 
 </script>
