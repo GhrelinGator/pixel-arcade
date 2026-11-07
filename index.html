@@ -106,7 +106,7 @@ h1, h2, h3 { text-wrap: balance; }
 .hud { flex: none; display: flex; align-items: center; gap: 10px; padding: 6px 10px; background: var(--bg2); border-bottom: 3px solid var(--bg); }
 .hud .ib { width: 38px; height: 38px; color: var(--ink); text-decoration: none; display: grid; place-items: center; background: var(--panel2); font-family: var(--font-d); font-size: 12px; flex: none; }
 .hud .rank { display: grid; gap: 4px; min-width: 0; flex: 1; }
-.hud .rank b { font-family: var(--font-d); font-size: 9px; color: var(--warn); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hud .rank b { font-family: var(--font-d); font-size: 9px; line-height: 1.35; color: var(--warn); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .hud .bar { height: 8px; background: var(--bg); position: relative; }
 .hud .bar i { position: absolute; inset: 0 auto 0 0; background: var(--good); }
 .hud .bar small { display: none; }
@@ -610,6 +610,10 @@ textarea.code { width: 100%; height: 84px; font: inherit; font-size: 16px; backg
 .examopts .btn.no { border-color: var(--bad); color: var(--bad); opacity: 1; }
 .teach.bad { border-color: var(--bad); }
 .card.daily { border-color: var(--warn); }
+
+.clinicmenu .card { margin: 10px 0; }
+.clinicmenu .row { margin-top: 10px; }
+.clinicmenu a.btn { text-decoration: none; }
 
 </style>
 </head>
@@ -2080,7 +2084,7 @@ function nameOf(id) { if (id === 'rest') return 'Rest & home care'; return DRUGS
 /* ---------- progression ---------- */
 function newSave() {
   return { v: 1, diff: 0, lvl: 1, atRank: [], total: 0, day: 1, dayDone: 0, dayLen: 0, clock: 0, dayScores: [], best: 0, majors: 0, history: [], recent: [], cur: null, seen: {}, muted: false, started: false,
-    spec: null, certDue: 0, probation: 0, renewFails: 0, examPending: null, examRetakeAt: 0, exam: null, exams: [], returns: [], daily: {} };
+    spec: null, certDue: 0, probation: 0, renewFails: 0, examPending: null, examRetakeAt: 0, exam: null, exams: [], returns: [], daily: {}, parked: null };
 }
 const rankName = (lvl, spec) => (lvl >= 6 && spec && SPECS[spec] ? SPECS[spec].titles[lvl - 6] : RANKS[lvl - 1].t);
 function rankProgress(s) {
@@ -3998,6 +4002,7 @@ function openGame() {
       <a class="ib" href="#arcade" aria-label="Back to the arcade">◀</a>
       <div class="rank" id="hud-rank"></div>
       <div class="meta" id="hud-meta"></div>
+      <button class="ib" data-act="pmenu" aria-label="Clinic menu: daily case, difficulty, save">☰</button>
       <button class="ib" data-act="mute" id="mute" aria-label="Toggle sound"></button>
     </header>
     <div class="stage">
@@ -4018,8 +4023,8 @@ function renderHud() {
   const pr = rankProgress(S);
   const pct = pr.max ? 100 : Math.round(100 * pr.n / pr.need);
   const dfl = (P ? P.diff : S.diff) || 0;
-  $('#hud-rank').innerHTML = `<b>${P && P.daily ? 'DAILY CASE' : `LV${S.lvl} ${esc(rankName(S.lvl, S.spec).toUpperCase())}`}${S.probation > 0 ? ' <span class="dtag d2">PROBATION</span>' : ''}</b>
-    <div class="barrow"><div class="bar" title="Promotion progress"><i style="width:${pct}%"></i></div>${dfl ? `<span class="dtag d${dfl}">${esc(DIFFS[dfl].t.toUpperCase())}</span>` : ''}</div>`;
+  $('#hud-rank').innerHTML = `<b>${P && P.daily ? 'DAILY CASE' : `LV${S.lvl} ${esc(rankName(S.lvl, S.spec).toUpperCase())}`}</b>
+    <div class="barrow"><div class="bar" title="Promotion progress"><i style="width:${pct}%"></i></div>${S.probation > 0 && !(P && P.daily) ? '<span class="dtag d2">PROBATION</span>' : ''}${dfl ? `<span class="dtag d${dfl}">${esc(DIFFS[dfl].t.toUpperCase())}</span>` : ''}</div>`;
   const clock = 480 + S.clock + (CS ? CS.time : 0);
   $('#hud-meta').innerHTML = `<b>${fmtClock(clock)}</b>DAY ${S.day} · ${Math.min(S.dayDone + (P ? 1 : 0), dayLen())}/${dayLen()}`;
   $('#mute').textContent = S.muted ? '×' : '♪';
@@ -4345,7 +4350,7 @@ function report(r, p, prevLvl, leveled) {
 function gradeLine(l) { return { S: 'Flawless! Textbook medicine.', A: 'Excellent care.', B: 'Good job, a few slips.', C: 'Patient survived. Review the notes.', D: 'Risky visit. Learn from the mistakes.', F: 'That went badly. Check every mistake below.' }[l]; }
 function afterReport() {
   const a = UI.after || {}; UI.after = null;
-  if (a.daily) { closeModal(); sayIdle(); renderAll(); return; }
+  if (a.daily) { closeModal(); resumeParked(); return; }
   if (a.leveled === 6 && !S.spec) { specChooser(a.dayOver, 'promo'); return; }
   if (a.leveled) { levelUp(a.leveled, a.dayOver); return; }
   if (S.examPending) { startExam(a.dayOver); return; }
@@ -4407,11 +4412,40 @@ function followUp(then) {
 }
 /* ---------- daily case ---------- */
 function startDaily() {
-  if (P) { toast('Finish the patient in the room first.'); return; }
+  if (P && P.daily) { closeModal(); return; }
   const info = dailyInfo(); if (S.daily[info.key]) { shareDaily(); return; }
+  closeModal();
+  if (P) { S.parked = { p: P, st: CS }; toast(`${P.name.split(' ')[0]} will wait in the room until you're done.`); }
   P = genDaily(info); CS = newCaseState(); UI.tab = 'talk'; UI.filter = 'All'; UI.anim = { phase: 'in', t0: performance.now() };
   persist(); renderAll(); say('', '…', 'sys', false); SFX.tap();
   setTimeout(() => { if (P) { say(speaker(), P.complaint); UI.talkUntil = performance.now() + 1800; persist(); } }, 1400);
+}
+/* the patient who waited while you did the daily case comes back */
+function resumeParked() {
+  if (!S.parked) { sayIdle(); renderAll(); return; }
+  P = S.parked.p; CS = S.parked.st; S.parked = null; persist();
+  UI.tab = 'talk'; UI.anim = { phase: 'in', t0: performance.now() }; renderAll();
+  say('NURSE PIKA', `${P.name} is back in the room. Carry on where you left off.`, 'sys', false);
+  setTimeout(() => { if (P) say(speaker(), CS.lastSay || P.complaint, 'pt', false); }, 1400);
+}
+/* ---------- clinic menu: open at any time ---------- */
+function clinicMenu() {
+  const dl = dailyInfo(), dd = S.daily[dl.key], inDaily = P && P.daily, canDaily = S.started && S.lvl >= 3;
+  const fresh = P && !P.daily && P.gen && CS && CS.time === 0 && !CS.asked.length && !CS.exams.length && !CS.docs.length && !CS.rx.length && !CS.dx;
+  const who = !P ? 'No patient in the room.' : P.daily ? `Today's daily case: ${P.name}.` : `${P.name} is in the room${S.parked ? '' : ''}.`;
+  modal(`<div class="clinicmenu"><button class="x" data-act="close">CLOSE</button><h2>CLINIC MENU</h2>
+    <p class="hint">${esc(rankName(S.lvl, S.spec))}${S.spec ? ' · ' + esc(SPECS[S.spec].n) : ''} · Day ${S.day} · ${esc(who)}${S.parked ? ` ${esc(S.parked.p.name)} is waiting for you to finish the daily case.` : ''}</p>
+    <button class="btn primary big block" data-act="close">${P ? 'BACK TO THE PATIENT' : 'BACK TO THE CLINIC'}</button>
+    <div class="card daily"><span class="k">DAILY CASE · ${esc(dl.key)}</span>
+      ${!canDaily ? '<span>Unlocks at Resident (LV3).</span>'
+        : inDaily ? '<span>You\'re playing it now. Finish it to get back to your clinic.</span>'
+        : dd ? `<span>Done today: <b style="font-weight:normal;color:var(--warn)">${dd.letter} · ${dd.score}/100</b>. A new case tomorrow.</span><div class="row" style="margin-top:6px"><button class="btn" data-act="sharedaily">SHARE RESULT</button></div>`
+        : `<span>The same patient for everyone today, on Hard. It doesn't affect your career.${P ? ` ${esc(P.name.split(' ')[0])} waits in the room and comes back when you're done.` : ''}</span><div class="row" style="margin-top:6px"><button class="btn primary" data-act="daily">PLAY TODAY'S CASE</button></div>`}</div>
+    ${diffPickHTML('DIFFICULTY')}
+    ${P && !P.daily && (P.diff || 0) !== (S.diff || 0) ? `<div class="card"><span class="k">THIS VISIT</span><span>${esc(firstName(P))}'s visit is on ${esc(DIFFS[P.diff || 0].t)}. A new difficulty starts with the next patient.</span>${fresh ? `<div class="row" style="margin-top:6px"><button class="btn" data-act="redovisit">START THIS VISIT ON ${esc(DIFFS[S.diff || 0].t.toUpperCase())}</button></div>` : ''}</div>` : ''}
+    <div class="row"><button class="btn" data-act="career">CAREER &amp; SAVE CODE</button><button class="btn" data-act="howto">HOW TO PLAY</button></div>
+    <div class="card"><span class="k">YOUR SAVE</span><span>Progress saves automatically in this browser. To move it to another device, copy your save code from Career.</span><div class="row" style="margin-top:6px"><button class="btn danger" data-act="reset">START A NEW CAREER</button></div></div>
+    <div class="row"><a class="btn" href="#arcade">BACK TO THE ARCADE</a></div></div>`);
 }
 function shareDaily() {
   const info = dailyInfo(), r = S.daily[info.key]; if (!r) return;
@@ -4544,6 +4578,12 @@ document.addEventListener('click', e => {
     case 'afterExam': { const a = UI.after || {}; UI.after = null; if (a.leveled) levelUp(a.leveled, a.dayOver); else if (a.dayOver) daySummary(); else { closeModal(); nextPatient(); } break; }
     case 'afterNote': { const f = UI.afterNote; UI.afterNote = null; closeModal(); if (f) f(); break; }
     case 'daily': startDaily(); break;
+    case 'pmenu': SFX.tap(); clinicMenu(); break;
+    case 'redovisit': {
+      if (!P || P.daily || !P.gen) break; const g = Object.assign({}, P.gen, { diff: S.diff || 0 }), ret = P.ret;
+      const old = P; P = ret ? genReturn({ gen: g, prev: ret }) : genPatient(g.lvl, g.seed, [], g.forceId, g.diff, g.spec, g.force2);
+      P.name = old.name; P.look = Object.assign({}, old.look, { fx: P.look.fx }); /* same person; only the difficulty's clues change */
+      CS = newCaseState(); UI.tab = 'talk'; persist(); closeModal(); renderAll(); say(speaker(), P.complaint, 'pt', false); toast(`Visit restarted on ${DIFFS[P.diff].t}.`); break; }
     case 'sharedaily': shareDaily(); break;
     case 'sign': confirmSign(); break;
     case 'finish': closeModal(); finish(); break;
@@ -4554,6 +4594,7 @@ document.addEventListener('click', e => {
     case 'start': startOrNext(); break;
     case 'diff': {
       S.diff = Math.max(0, Math.min(DIFFS.length - 1, +id || 0)); SFX.tap(); persist();
+      if (document.querySelector('#modal .clinicmenu')) { clinicMenu(); renderHud(); break; }
       document.querySelectorAll('.diffpick').forEach(el => { const k = el.querySelector('.k').textContent; el.outerHTML = diffPickHTML(k); });
       renderHud(); break;
     }
