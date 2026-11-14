@@ -1,0 +1,20 @@
+const { chromium, devices } = require('playwright');
+const http = require('http'), fs = require('fs'), path = require('path');
+const root = '/home/claude/station/site';
+const server = http.createServer((req, res) => { const p = path.join(root, req.url.split('?')[0].replace(/\/$/, '/index.html')); fs.readFile(p, (e, d) => { if (e) { res.writeHead(404); return res.end(); } res.writeHead(200, { 'Content-Type': p.endsWith('.html') ? 'text/html' : 'application/octet-stream' }); res.end(d); }); }).listen(0);
+(async () => {
+  const url = `http://localhost:${server.address().port}/`;
+  const b = await chromium.launch();
+  const ctx = await b.newContext({ ...devices['iPhone 13'], deviceScaleFactor: 2, colorScheme: 'dark' });
+  const page = await ctx.newPage(); const errors = []; page.on('pageerror', e => errors.push(e.message));
+  await page.goto(url); await page.waitForTimeout(300);
+  for (const u of ['b-cell', 'c-atoms']) await page.check(`[data-unit="${u}"]`);
+  await page.click('[data-act="begin"]'); await page.waitForTimeout(200);
+  await page.evaluate(() => { const t = today(); for (const id of ITEMS.filter(i => i.unit === 'b-cell' || i.unit === 'c-atoms').slice(0, 20).map(i => i.id)) { const c = newCard(id); c.state = 'review'; c.s = 5 + Math.random() * 40; c.d = 5; c.last = Date.now() - Math.random() * 10 * DAY; c.due = t + 3; saveCard(c); } });
+  await page.goto(url + '#/'); await page.waitForTimeout(300);
+  await page.screenshot({ path: 'shots/dark-station.png' });
+  await page.evaluate(() => kvSet('sess:intake', newSession('intake', today(), [{ id: 'c-atoms.radius', kind: 'new' }])));
+  await page.goto(url + '#/intake'); await page.waitForTimeout(3200); await page.click('[data-act="reveal"]'); await page.click('.opt[data-o="2"]'); await page.click('.conf [data-c="2"]'); await page.waitForTimeout(150);
+  await page.screenshot({ path: 'shots/dark-feedback.png' });
+  console.log(errors.length ? errors.join('\n') : 'no errors'); await b.close(); server.close();
+})();

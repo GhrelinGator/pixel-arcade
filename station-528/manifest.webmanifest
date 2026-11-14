@@ -1,0 +1,23 @@
+{
+ "name": "Station 528",
+ "short_name": "Station 528",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#101315",
+ "theme_color": "#101315",
+ "description": "MCAT study: spaced retrieval with confidence bets.",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+[
+ {
+  "id": "b-energy.atp-yield",
+  "verdict": "pass-noted",
+  "key": "30–32",
+  "A": {
+   "ok": true,
+   "got": "30–32",
+   "note": ""
+  },
+  "B": {
+   "ok": true,
+   "got": "30–32",
+   "note": "Options C (36-38) and D (30-32) both cited in textbooks; D is the current estimate."
+  }
+ },
+ {
+  "id": "p-energy.g-work",
+  "verdict": "pass-noted",
+  "key": {
+   "value": 0,
+   "tol": 0.5,
+   "unit": "J"
+  },
+  "A": {
+   "ok": true,
+   "got": 0,
+   "note": "Stem says 90° but supplies cos 60° = 0.5; the hint is irrelevant and suggests the angle was meant to be 60° (answer 10 J)."
+  },
+  "B": {
+   "ok": true,
+   "got": "0",
+   "note": "Cos 60° given but angle is 90°; work is 0. Hint is misleading."
+  }
+ },
+ {
+  "id": "p-mom.g-torque",
+  "verdict": "pass-noted",
+  "key": {
+   "value": 0,
+   "tol": 0.05,
+   "unit": "N·m"
+  },
+  "A": {
+   "ok": true,
+   "got": 0,
+   "note": "Force at 0° to lever arm gives zero torque, yet stem supplies sin 30° = 0.5; suggests angle was meant to be 30° (answer 1)."
+  },
+  "B": {
+   "ok": true,
+   "got": "0",
+   "note": "At 0° to the lever arm torque is zero; sin 30° hint is irrelevant and misleading."
+  }
+ }
+]

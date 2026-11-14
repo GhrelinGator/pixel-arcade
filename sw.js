@@ -16,6 +16,7 @@ self.addEventListener('fetch', e => {
     return;
   }
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.includes('/station-528/')) return; /* Station 528 has its own service worker */
   if (req.mode === 'navigate') {
     /* network first, so updates show up right away; cached copy when offline */
     e.respondWith(fetch(req).then(res => { const copy = res.clone(); caches.open('core-' + VERSION).then(c => c.put('index.html', copy)); return res; })

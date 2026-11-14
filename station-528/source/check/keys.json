@@ -1,0 +1,1881 @@
+{
+ "c-atoms.element-id": {
+  "type": "typed",
+  "accepted": [
+   "the element",
+   "element",
+   "which element it is",
+   "atomic number",
+   "element identity",
+   "identity of the element"
+  ]
+ },
+ "c-atoms.isotope": {
+  "type": "typed",
+  "accepted": [
+   "neutrons",
+   "neutron"
+  ]
+ },
+ "c-atoms.radius": {
+  "type": "choice",
+  "key": "Cs"
+ },
+ "c-atoms.ie-max": {
+  "type": "choice",
+  "key": "Ne"
+ },
+ "c-atoms.ie-n-o": {
+  "type": "choice",
+  "key": "Oxygen's fourth 2p electron is paired, and the pairing repulsion makes it easier to remove"
+ },
+ "c-atoms.cr-config": {
+  "type": "choice",
+  "key": "[Ar] 4s¹ 3d⁵"
+ },
+ "c-atoms.fe-ion": {
+  "type": "choice",
+  "key": "The two 4s electrons"
+ },
+ "c-atoms.d-max": {
+  "type": "num",
+  "num": {
+   "value": 10,
+   "tol": 0
+  }
+ },
+ "c-atoms.l-shape": {
+  "type": "typed",
+  "accepted": [
+   "l",
+   "azimuthal",
+   "azimuthal quantum number",
+   "angular momentum",
+   "angular momentum quantum number",
+   "orbital angular momentum",
+   "secondary quantum number"
+  ]
+ },
+ "c-atoms.qn-bad": {
+  "type": "choice",
+  "key": "(2, 2, 0, +½)"
+ },
+ "c-atoms.hund": {
+  "type": "typed",
+  "accepted": [
+   "hund",
+   "hunds rule",
+   "hund rule",
+   "hunds",
+   "rule of maximum multiplicity"
+  ]
+ },
+ "c-atoms.pauli": {
+  "type": "typed",
+  "accepted": [
+   "pauli exclusion principle",
+   "pauli",
+   "pauli exclusion",
+   "pauli principle",
+   "exclusion principle"
+  ]
+ },
+ "c-atoms.en": {
+  "type": "choice",
+  "key": "F"
+ },
+ "c-atoms.isoelectronic": {
+  "type": "choice",
+  "key": "O²⁻"
+ },
+ "c-atoms.h-transition": {
+  "type": "choice",
+  "key": "n = 2 → n = 1"
+ },
+ "c-atoms.emit": {
+  "type": "typed",
+  "accepted": [
+   "emits",
+   "emit",
+   "releases",
+   "gives off",
+   "emission"
+  ]
+ },
+ "c-atoms.g-photon": {
+  "type": "num",
+  "num": {
+   "value": 10,
+   "tolPct": 3,
+   "unit": "eV"
+  }
+ },
+ "c-atoms.g-avgmass": {
+  "type": "num",
+  "num": {
+   "value": 35.5,
+   "tol": 0.05,
+   "unit": "amu"
+  }
+ },
+ "c-bond.nh3-shape": {
+  "type": "choice",
+  "key": "Trigonal pyramidal"
+ },
+ "c-bond.h2o-angle": {
+  "type": "choice",
+  "key": "104.5°"
+ },
+ "c-bond.co2-hyb": {
+  "type": "typed",
+  "accepted": [
+   "sp"
+  ]
+ },
+ "c-bond.ch4-hyb": {
+  "type": "typed",
+  "accepted": [
+   "sp3"
+  ]
+ },
+ "c-bond.c2h4-hyb": {
+  "type": "typed",
+  "accepted": [
+   "sp2"
+  ]
+ },
+ "c-bond.sf6": {
+  "type": "choice",
+  "key": "Octahedral"
+ },
+ "c-bond.xef4": {
+  "type": "choice",
+  "key": "Square planar"
+ },
+ "c-bond.nonpolar": {
+  "type": "choice",
+  "key": "CO₂"
+ },
+ "c-bond.fc-nh4": {
+  "type": "choice",
+  "key": "+1"
+ },
+ "c-bond.nacl": {
+  "type": "choice",
+  "key": "Ionic"
+ },
+ "c-bond.polar-bond": {
+  "type": "choice",
+  "key": "H–F"
+ },
+ "c-bond.triple-pi": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tol": 0
+  }
+ },
+ "c-bond.cc-strong": {
+  "type": "choice",
+  "key": "C≡C"
+ },
+ "c-bond.resonance": {
+  "type": "choice",
+  "key": "The real ion is a single hybrid in which all three C–O bonds are identical"
+ },
+ "c-bond.coordinate": {
+  "type": "choice",
+  "key": "Both come from nitrogen"
+ },
+ "c-bond.expanded": {
+  "type": "choice",
+  "key": "P"
+ },
+ "c-bond.radical": {
+  "type": "typed",
+  "accepted": [
+   "radical",
+   "free radical",
+   "radicals",
+   "free radicals"
+  ]
+ },
+ "c-imf.water-imf": {
+  "type": "choice",
+  "key": "Hydrogen bonding"
+ },
+ "c-imf.bp-water": {
+  "type": "choice",
+  "key": "H₂O"
+ },
+ "c-imf.pentane": {
+  "type": "choice",
+  "key": "n-Pentane's long shape gives more surface contact, so stronger London dispersion forces"
+ },
+ "c-imf.hbond-self": {
+  "type": "choice",
+  "key": "CH₃OH"
+ },
+ "c-imf.london": {
+  "type": "typed",
+  "accepted": [
+   "london dispersion",
+   "london dispersion forces",
+   "dispersion",
+   "dispersion forces",
+   "london forces",
+   "london",
+   "van der waals forces",
+   "van der waals"
+  ]
+ },
+ "c-imf.sublimation": {
+  "type": "choice",
+  "key": "Sublimation"
+ },
+ "c-imf.triple": {
+  "type": "typed",
+  "accepted": [
+   "triple point",
+   "the triple point"
+  ]
+ },
+ "c-imf.water-slope": {
+  "type": "choice",
+  "key": "Ice is less dense than liquid water, so raising pressure favors melting"
+ },
+ "c-imf.melting-heat": {
+  "type": "choice",
+  "key": "Overcomes intermolecular attractions, so the temperature stays constant"
+ },
+ "c-imf.boil": {
+  "type": "choice",
+  "key": "Its vapor pressure equals the external pressure"
+ },
+ "c-imf.vp-raise": {
+  "type": "choice",
+  "key": "Raising the temperature"
+ },
+ "c-stoich.avogadro": {
+  "type": "num",
+  "num": {
+   "value": 6.022e+23,
+   "tolPct": 1
+  }
+ },
+ "c-stoich.limiting": {
+  "type": "typed",
+  "accepted": [
+   "limiting reagent",
+   "limiting reactant",
+   "limiting agent",
+   "limiting"
+  ]
+ },
+ "c-stoich.empirical": {
+  "type": "choice",
+  "key": "CH₂O"
+ },
+ "c-stoich.molarity": {
+  "type": "typed",
+  "accepted": [
+   "liter of solution",
+   "litre of solution",
+   "liters of solution",
+   "l of solution",
+   "liter solution",
+   "liter",
+   "litre",
+   "l"
+  ]
+ },
+ "c-stoich.molality": {
+  "type": "choice",
+  "key": "Kilogram of solvent"
+ },
+ "c-stoich.g-moles": {
+  "type": "num",
+  "num": {
+   "value": 0.24957264957264957,
+   "tolPct": 2,
+   "unit": "mol"
+  }
+ },
+ "c-stoich.g-dilution": {
+  "type": "num",
+  "num": {
+   "value": 0.2,
+   "tolPct": 2,
+   "unit": "M"
+  }
+ },
+ "c-stoich.g-molarity": {
+  "type": "num",
+  "num": {
+   "value": 0.5,
+   "tolPct": 2,
+   "unit": "M"
+  }
+ },
+ "c-stoich.g-limiting": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tol": 0.01,
+   "unit": "mol"
+  }
+ },
+ "c-stoich.g-pct": {
+  "type": "num",
+  "num": {
+   "value": 27.272727272727273,
+   "tolPct": 2,
+   "unit": "%"
+  }
+ },
+ "c-gas.ideal": {
+  "type": "typed",
+  "accepted": [
+   "pv=nrt",
+   "pv = nrt",
+   "p v = n r t"
+  ]
+ },
+ "c-gas.stp-vol": {
+  "type": "num",
+  "num": {
+   "value": 22.4,
+   "tolPct": 1
+  }
+ },
+ "c-gas.charles": {
+  "type": "choice",
+  "key": "Absolute (kelvin) temperature"
+ },
+ "c-gas.boyle": {
+  "type": "choice",
+  "key": "Boyle's law"
+ },
+ "c-gas.real-dev": {
+  "type": "choice",
+  "key": "High pressure and low temperature"
+ },
+ "c-gas.real-vol": {
+  "type": "choice",
+  "key": "The molecules themselves occupy space that cannot be compressed"
+ },
+ "c-gas.kmt-ke": {
+  "type": "choice",
+  "key": "Absolute temperature"
+ },
+ "c-gas.rms": {
+  "type": "choice",
+  "key": "4 times O₂'s"
+ },
+ "c-gas.g-ideal": {
+  "type": "num",
+  "num": {
+   "value": 22.413300000000003,
+   "tolPct": 2,
+   "unit": "L"
+  }
+ },
+ "c-gas.g-combined": {
+  "type": "num",
+  "num": {
+   "value": 0.5,
+   "tolPct": 2,
+   "unit": "L"
+  }
+ },
+ "c-gas.g-dalton": {
+  "type": "num",
+  "num": {
+   "value": 3,
+   "tolPct": 2,
+   "unit": "atm"
+  }
+ },
+ "c-gas.g-graham": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tolPct": 2,
+   "unit": "×"
+  }
+ },
+ "c-thermo.exo-sign": {
+  "type": "choice",
+  "key": "Negative"
+ },
+ "c-thermo.gibbs-pp": {
+  "type": "choice",
+  "key": "Only at high temperature"
+ },
+ "c-thermo.gibbs-nn": {
+  "type": "choice",
+  "key": "Only at low temperature"
+ },
+ "c-thermo.gibbs-np": {
+  "type": "choice",
+  "key": "At all temperatures"
+ },
+ "c-thermo.state-fn": {
+  "type": "choice",
+  "key": "Work"
+ },
+ "c-thermo.hess": {
+  "type": "typed",
+  "accepted": [
+   "hess",
+   "hesss law",
+   "hess law",
+   "hess’s law"
+  ]
+ },
+ "c-thermo.hf-element": {
+  "type": "choice",
+  "key": "Zero"
+ },
+ "c-thermo.bond-enth": {
+  "type": "choice",
+  "key": "Σ(bonds broken) − Σ(bonds formed)"
+ },
+ "c-thermo.ds-pos": {
+  "type": "choice",
+  "key": "Liquid water evaporating"
+ },
+ "c-thermo.spont-rate": {
+  "type": "choice",
+  "key": "Nothing: spontaneity is thermodynamics, rate is kinetics"
+ },
+ "c-thermo.cp": {
+  "type": "typed",
+  "accepted": [
+   "specific heat",
+   "specific heat capacity",
+   "specific heat capacity c"
+  ]
+ },
+ "c-thermo.g-q": {
+  "type": "num",
+  "num": {
+   "value": 1045,
+   "tolPct": 2,
+   "unit": "J"
+  }
+ },
+ "c-thermo.g-dg": {
+  "type": "num",
+  "num": {
+   "value": 0,
+   "tol": 0.5,
+   "unit": "kJ/mol"
+  }
+ },
+ "c-thermo.g-crossover": {
+  "type": "num",
+  "num": {
+   "value": 300,
+   "tolPct": 2,
+   "unit": "K"
+  }
+ },
+ "c-kin.catalyst": {
+  "type": "choice",
+  "key": "The activation energy (and so the rate), not ΔG or K"
+ },
+ "c-kin.rds": {
+  "type": "typed",
+  "accepted": [
+   "rate-determining step",
+   "rate determining step",
+   "rate-limiting step",
+   "rate limiting step",
+   "slow step"
+  ]
+ },
+ "c-kin.order2": {
+  "type": "choice",
+  "key": "2"
+ },
+ "c-kin.zero-order": {
+  "type": "choice",
+  "key": "Does not depend on reactant concentration"
+ },
+ "c-kin.first-half": {
+  "type": "choice",
+  "key": "It does not depend on the starting concentration"
+ },
+ "c-kin.k-units": {
+  "type": "choice",
+  "key": "s⁻¹"
+ },
+ "c-kin.arrhenius": {
+  "type": "choice",
+  "key": "A larger fraction of collisions have energy above the activation energy"
+ },
+ "c-kin.intermediate": {
+  "type": "choice",
+  "key": "An intermediate sits in an energy dip and can in principle be detected; a transition state is an energy peak"
+ },
+ "c-kin.g-order": {
+  "type": "num",
+  "num": {
+   "value": 0,
+   "tol": 0,
+   "unit": ""
+  }
+ },
+ "c-kin.g-half": {
+  "type": "num",
+  "num": {
+   "value": 100,
+   "tolPct": 1,
+   "unit": "g"
+  }
+ },
+ "c-eq.add-prod": {
+  "type": "choice",
+  "key": "The reaction shifts toward reactants until Q again equals K"
+ },
+ "c-eq.heat-exo": {
+  "type": "choice",
+  "key": "Shifts it toward reactants and decreases K"
+ },
+ "c-eq.inert": {
+  "type": "choice",
+  "key": "No shift: the partial pressures of the reacting gases are unchanged"
+ },
+ "c-eq.compress": {
+  "type": "choice",
+  "key": "Toward NH₃"
+ },
+ "c-eq.q-k": {
+  "type": "choice",
+  "key": "Proceed forward, making more products"
+ },
+ "c-eq.k-change": {
+  "type": "choice",
+  "key": "Changing the temperature"
+ },
+ "c-eq.solids": {
+  "type": "choice",
+  "key": "They are left out (their activity is 1)"
+ },
+ "c-eq.dg-k": {
+  "type": "choice",
+  "key": "Negative"
+ },
+ "c-eq.g-kc": {
+  "type": "num",
+  "num": {
+   "value": 99.99999999999999,
+   "tolPct": 2,
+   "unit": ""
+  }
+ },
+ "c-acid.kw": {
+  "type": "num",
+  "num": {
+   "value": 1e-14,
+   "tolPct": 1
+  }
+ },
+ "c-acid.bronsted": {
+  "type": "choice",
+  "key": "Proton (H⁺) donor"
+ },
+ "c-acid.conj-base": {
+  "type": "choice",
+  "key": "HPO₄²⁻"
+ },
+ "c-acid.stronger": {
+  "type": "choice",
+  "key": "A larger Ka, a smaller pKa and a weaker conjugate base"
+ },
+ "c-acid.strong-acid": {
+  "type": "choice",
+  "key": "HCl"
+ },
+ "c-acid.half-eq": {
+  "type": "choice",
+  "key": "pH = pKa"
+ },
+ "c-acid.eq-weak": {
+  "type": "choice",
+  "key": "Above 7"
+ },
+ "c-acid.buffer-pick": {
+  "type": "choice",
+  "key": "Acetic acid / acetate (pKa 4.76)"
+ },
+ "c-acid.amphoteric": {
+  "type": "typed",
+  "accepted": [
+   "amphoteric",
+   "amphiprotic"
+  ]
+ },
+ "c-acid.g-ph-strong": {
+  "type": "num",
+  "num": {
+   "value": 1,
+   "tol": 0.05,
+   "unit": ""
+  }
+ },
+ "c-acid.g-hh": {
+  "type": "num",
+  "num": {
+   "value": 4.8,
+   "tol": 0.05,
+   "unit": ""
+  }
+ },
+ "c-acid.g-ph-log": {
+  "type": "num",
+  "num": {
+   "value": 1.6989700043360187,
+   "tol": 0.05,
+   "unit": ""
+  }
+ },
+ "c-sol.common-ion": {
+  "type": "choice",
+  "key": "Lowers it (common-ion effect)"
+ },
+ "c-sol.colligative": {
+  "type": "choice",
+  "key": "The number of dissolved particles, not their identity"
+ },
+ "c-sol.lowest-fp": {
+  "type": "choice",
+  "key": "0.10 m CaCl₂"
+ },
+ "c-sol.vant-hoff": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tol": 0
+  }
+ },
+ "c-sol.hexane": {
+  "type": "choice",
+  "key": "I₂"
+ },
+ "c-sol.g-ksp": {
+  "type": "num",
+  "num": {
+   "value": 0.001,
+   "tolPct": 3,
+   "unit": "M"
+  }
+ },
+ "c-sol.g-fpd": {
+  "type": "num",
+  "num": {
+   "value": 1.86,
+   "tolPct": 2,
+   "unit": "°C"
+  }
+ },
+ "c-redox.oxidation": {
+  "type": "typed",
+  "accepted": [
+   "loss",
+   "losing",
+   "loss of electrons"
+  ]
+ },
+ "c-redox.anode": {
+  "type": "choice",
+  "key": "Anode"
+ },
+ "c-redox.e-flow": {
+  "type": "choice",
+  "key": "From anode to cathode"
+ },
+ "c-redox.galvanic": {
+  "type": "choice",
+  "key": "E°cell > 0 and ΔG < 0"
+ },
+ "c-redox.electrolytic-anode": {
+  "type": "choice",
+  "key": "Positive"
+ },
+ "c-redox.kmno4": {
+  "type": "choice",
+  "key": "+7"
+ },
+ "c-redox.ox-agent": {
+  "type": "choice",
+  "key": "Gets reduced (gains electrons)"
+ },
+ "c-redox.salt-bridge": {
+  "type": "choice",
+  "key": "Lets ions flow to keep each half-cell electrically neutral"
+ },
+ "c-redox.faraday": {
+  "type": "num",
+  "num": {
+   "value": 96485,
+   "tolPct": 1.5
+  }
+ },
+ "c-redox.g-ecell": {
+  "type": "num",
+  "num": {
+   "value": 1.1,
+   "tol": 0.02,
+   "unit": "V"
+  }
+ },
+ "c-nuc.alpha": {
+  "type": "choice",
+  "key": "A − 4, Z − 2"
+ },
+ "c-nuc.beta": {
+  "type": "choice",
+  "key": "A neutron becomes a proton and an electron is emitted; Z rises by 1, A is unchanged"
+ },
+ "c-nuc.positron": {
+  "type": "choice",
+  "key": "Z falls by 1; A is unchanged"
+ },
+ "c-nuc.gamma": {
+  "type": "choice",
+  "key": "Only its energy: Z and A stay the same"
+ },
+ "c-nuc.mass-defect": {
+  "type": "choice",
+  "key": "Was released as binding energy, E = mc²"
+ },
+ "c-nuc.g-decay": {
+  "type": "num",
+  "num": {
+   "value": 50,
+   "tolPct": 2,
+   "unit": "%"
+  }
+ },
+ "b-mol.aa-monomer": {
+  "type": "typed",
+  "accepted": [
+   "amino acids",
+   "amino acid",
+   "aminoacids"
+  ]
+ },
+ "b-mol.peptide": {
+  "type": "typed",
+  "accepted": [
+   "peptide bond",
+   "peptide",
+   "amide bond",
+   "amide",
+   "peptide bonds"
+  ]
+ },
+ "b-mol.peptide-planar": {
+  "type": "choice",
+  "key": "Planar and rigid, with partial double-bond character"
+ },
+ "b-mol.secondary": {
+  "type": "choice",
+  "key": "Hydrogen bonds between backbone C=O and N–H groups"
+ },
+ "b-mol.disulfide": {
+  "type": "choice",
+  "key": "Cysteine"
+ },
+ "b-mol.quaternary": {
+  "type": "choice",
+  "key": "Quaternary"
+ },
+ "b-mol.glycine": {
+  "type": "choice",
+  "key": "Glycine"
+ },
+ "b-mol.lys-charge": {
+  "type": "choice",
+  "key": "Lysine"
+ },
+ "b-mol.asp-charge": {
+  "type": "choice",
+  "key": "Glutamate"
+ },
+ "b-mol.sucrose": {
+  "type": "choice",
+  "key": "Glucose and fructose"
+ },
+ "b-mol.cellulose": {
+  "type": "choice",
+  "key": "Cellulose uses β(1→4) glycosidic bonds; starch uses α(1→4)"
+ },
+ "b-mol.saturated": {
+  "type": "choice",
+  "key": "Have no C=C double bonds, pack tightly and melt at higher temperatures"
+ },
+ "b-mol.amphipathic": {
+  "type": "typed",
+  "accepted": [
+   "amphipathic",
+   "amphiphilic"
+  ]
+ },
+ "b-mol.nucleotide": {
+  "type": "choice",
+  "key": "A phosphate group, a five-carbon sugar and a nitrogenous base"
+ },
+ "b-mol.denature": {
+  "type": "choice",
+  "key": "Secondary, tertiary and quaternary structure, but not peptide bonds"
+ },
+ "b-mol.dehydration": {
+  "type": "typed",
+  "accepted": [
+   "dehydration",
+   "condensation",
+   "dehydration synthesis",
+   "condensation reactions",
+   "dehydration reactions",
+   "dehydration synthesis reactions"
+  ]
+ },
+ "b-mol.steroid": {
+  "type": "choice",
+  "key": "Cholesterol"
+ },
+ "b-cell.mito": {
+  "type": "typed",
+  "accepted": [
+   "mitochondria",
+   "mitochondrion",
+   "the mitochondria",
+   "inner mitochondrial membrane",
+   "mitochondrial inner membrane"
+  ]
+ },
+ "b-cell.ser": {
+  "type": "typed",
+  "accepted": [
+   "smooth er",
+   "smooth endoplasmic reticulum",
+   "ser",
+   "smooth reticulum"
+  ]
+ },
+ "b-cell.rer": {
+  "type": "typed",
+  "accepted": [
+   "rough er",
+   "rough endoplasmic reticulum",
+   "rer",
+   "rough reticulum",
+   "the rough er"
+  ]
+ },
+ "b-cell.golgi": {
+  "type": "choice",
+  "key": "Modifies, sorts and packages proteins and lipids for their destinations"
+ },
+ "b-cell.lysosome": {
+  "type": "choice",
+  "key": "Membrane sacs of hydrolytic enzymes that work best at acidic pH"
+ },
+ "b-cell.peroxisome": {
+  "type": "choice",
+  "key": "Peroxisome"
+ },
+ "b-cell.prok-lack": {
+  "type": "choice",
+  "key": "A membrane-bound nucleus"
+ },
+ "b-cell.ribosome-size": {
+  "type": "choice",
+  "key": "80S, made of 60S and 40S subunits"
+ },
+ "b-cell.microtubule": {
+  "type": "choice",
+  "key": "Tubulin; the mitotic spindle, cilia and flagella"
+ },
+ "b-cell.microfilament": {
+  "type": "choice",
+  "key": "Actin microfilaments"
+ },
+ "b-cell.intermediate-fil": {
+  "type": "choice",
+  "key": "Intermediate filaments"
+ },
+ "b-cell.tight": {
+  "type": "choice",
+  "key": "Tight junctions"
+ },
+ "b-cell.gap": {
+  "type": "choice",
+  "key": "Gap junctions"
+ },
+ "b-cell.desmosome": {
+  "type": "choice",
+  "key": "Desmosomes"
+ },
+ "b-cell.nucleolus": {
+  "type": "typed",
+  "accepted": [
+   "nucleolus",
+   "the nucleolus",
+   "nucleoli"
+  ]
+ },
+ "b-cell.endosym": {
+  "type": "choice",
+  "key": "They have their own circular DNA and bacteria-like ribosomes"
+ },
+ "b-mem.cholesterol": {
+  "type": "choice",
+  "key": "Buffers it: less fluid at high temperature, prevents stiffening at low temperature"
+ },
+ "b-mem.simple": {
+  "type": "choice",
+  "key": "O₂"
+ },
+ "b-mem.facilitated": {
+  "type": "choice",
+  "key": "Moves solutes down their gradient through a protein, without ATP"
+ },
+ "b-mem.primary": {
+  "type": "choice",
+  "key": "The Na⁺/K⁺-ATPase"
+ },
+ "b-mem.secondary": {
+  "type": "choice",
+  "key": "The Na⁺ gradient built by the Na⁺/K⁺ pump"
+ },
+ "b-mem.nak": {
+  "type": "choice",
+  "key": "3 Na⁺ out and 2 K⁺ in per ATP"
+ },
+ "b-mem.hypotonic": {
+  "type": "choice",
+  "key": "Water enters; the cell swells and may burst"
+ },
+ "b-mem.hypertonic": {
+  "type": "choice",
+  "key": "Lose water and shrink (crenate)"
+ },
+ "b-mem.osmosis": {
+  "type": "typed",
+  "accepted": [
+   "higher",
+   "high",
+   "greater",
+   "more",
+   "higher solute concentration",
+   "the higher"
+  ]
+ },
+ "b-mem.clathrin": {
+  "type": "choice",
+  "key": "Clathrin-coated pits"
+ },
+ "b-mem.integral": {
+  "type": "choice",
+  "key": "Spans or is embedded in the bilayer and needs detergent to remove"
+ },
+ "b-energy.enzyme": {
+  "type": "choice",
+  "key": "By lowering the activation energy"
+ },
+ "b-energy.comp-inh": {
+  "type": "choice",
+  "key": "Apparent Km rises; Vmax is unchanged"
+ },
+ "b-energy.noncomp-inh": {
+  "type": "choice",
+  "key": "Lowers Vmax without changing Km"
+ },
+ "b-energy.uncomp-inh": {
+  "type": "choice",
+  "key": "Both decrease"
+ },
+ "b-energy.km": {
+  "type": "typed",
+  "accepted": [
+   "half",
+   "1/2",
+   "one half",
+   "one-half",
+   "50%",
+   "50",
+   "0.5",
+   "half of"
+  ]
+ },
+ "b-energy.glyc-loc": {
+  "type": "choice",
+  "key": "Cytosol"
+ },
+ "b-energy.tca-loc": {
+  "type": "choice",
+  "key": "Mitochondrial matrix"
+ },
+ "b-energy.etc-loc": {
+  "type": "choice",
+  "key": "Inner mitochondrial membrane"
+ },
+ "b-energy.final-acc": {
+  "type": "choice",
+  "key": "O₂"
+ },
+ "b-energy.glyc-net": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tol": 0
+  }
+ },
+ "b-energy.pyruvate": {
+  "type": "typed",
+  "accepted": [
+   "pyruvate",
+   "pyruvic acid"
+  ]
+ },
+ "b-energy.ferment": {
+  "type": "choice",
+  "key": "To regenerate NAD⁺ so glycolysis can keep making ATP"
+ },
+ "b-energy.atp-synthase": {
+  "type": "choice",
+  "key": "Protons flowing down their gradient back into the matrix"
+ },
+ "b-energy.pdh": {
+  "type": "choice",
+  "key": "Acetyl-CoA, CO₂ and NADH"
+ },
+ "b-energy.pfk": {
+  "type": "typed",
+  "accepted": [
+   "phosphofructokinase",
+   "phosphofructokinase-1",
+   "phosphofructokinase 1",
+   "pfk",
+   "pfk-1",
+   "pfk1"
+  ]
+ },
+ "b-energy.atp-yield": {
+  "type": "choice",
+  "key": "30–32"
+ },
+ "b-energy.uncoupler": {
+  "type": "choice",
+  "key": "O₂ use continues or rises, ATP synthesis falls, and heat is released"
+ },
+ "b-energy.cyanide": {
+  "type": "choice",
+  "key": "Both stop"
+ },
+ "b-div.crossover": {
+  "type": "choice",
+  "key": "Prophase I of meiosis"
+ },
+ "b-div.homologs-sep": {
+  "type": "choice",
+  "key": "Anaphase I"
+ },
+ "b-div.sisters-sep": {
+  "type": "choice",
+  "key": "Anaphase II and mitotic anaphase"
+ },
+ "b-div.meiosis-out": {
+  "type": "choice",
+  "key": "Four haploid, genetically distinct cells"
+ },
+ "b-div.s-phase": {
+  "type": "choice",
+  "key": "S phase"
+ },
+ "b-div.metaphase": {
+  "type": "typed",
+  "accepted": [
+   "metaphase"
+  ]
+ },
+ "b-div.nondis-1": {
+  "type": "choice",
+  "key": "All abnormal: two with an extra chromosome, two missing one"
+ },
+ "b-div.nondis-2": {
+  "type": "choice",
+  "key": "Two normal gametes, one with an extra chromosome and one missing one"
+ },
+ "b-div.cohesin": {
+  "type": "typed",
+  "accepted": [
+   "cohesin",
+   "cohesins"
+  ]
+ },
+ "b-div.cyclin": {
+  "type": "choice",
+  "key": "Cyclin levels rise and fall; CDK levels stay fairly constant"
+ },
+ "b-div.p53": {
+  "type": "choice",
+  "key": "Halts the cell cycle (at G₁/S) for repair or triggers apoptosis"
+ },
+ "b-div.indep": {
+  "type": "choice",
+  "key": "The random orientation of homolog pairs at metaphase I"
+ },
+ "b-gen.segregation": {
+  "type": "choice",
+  "key": "The two alleles of a gene separate into different gametes"
+ },
+ "b-gen.codominance": {
+  "type": "choice",
+  "key": "Codominance"
+ },
+ "b-gen.incomplete": {
+  "type": "choice",
+  "key": "Incomplete dominance"
+ },
+ "b-gen.xlinked": {
+  "type": "choice",
+  "key": "All daughters are carriers; no sons are affected"
+ },
+ "b-gen.hw-cond": {
+  "type": "choice",
+  "key": "A very large population"
+ },
+ "b-gen.testcross": {
+  "type": "typed",
+  "accepted": [
+   "homozygous recessive",
+   "recessive",
+   "homozygous recessive individual",
+   "aa"
+  ]
+ },
+ "b-gen.linkage": {
+  "type": "choice",
+  "key": "They are linked, about 10 map units apart"
+ },
+ "b-gen.epistasis": {
+  "type": "choice",
+  "key": "Epistasis"
+ },
+ "b-gen.penetrance": {
+  "type": "choice",
+  "key": "Incomplete penetrance"
+ },
+ "b-gen.g-mono": {
+  "type": "num",
+  "num": {
+   "value": 0.25,
+   "tol": 0.01,
+   "unit": ""
+  }
+ },
+ "b-gen.g-dihybrid": {
+  "type": "num",
+  "num": {
+   "value": 0.0625,
+   "tol": 0.005,
+   "unit": ""
+  }
+ },
+ "b-gen.g-hw": {
+  "type": "num",
+  "num": {
+   "value": 0.18000000000000002,
+   "tolPct": 2,
+   "unit": ""
+  }
+ },
+ "b-gen.g-map": {
+  "type": "num",
+  "num": {
+   "value": 5,
+   "tolPct": 2,
+   "unit": "cM"
+  }
+ },
+ "b-dna.dnapol": {
+  "type": "choice",
+  "key": "5′ → 3′, and only by extending an existing primer"
+ },
+ "b-dna.lagging": {
+  "type": "choice",
+  "key": "Polymerase can only build 5′→3′, so on that strand it must work away from the fork in short pieces"
+ },
+ "b-dna.helicase": {
+  "type": "typed",
+  "accepted": [
+   "helicase",
+   "dna helicase"
+  ]
+ },
+ "b-dna.ligase": {
+  "type": "typed",
+  "accepted": [
+   "ligase",
+   "dna ligase"
+  ]
+ },
+ "b-dna.topo": {
+  "type": "typed",
+  "accepted": [
+   "topoisomerase",
+   "topoisomerases",
+   "gyrase",
+   "dna gyrase",
+   "topoisomerase ii",
+   "topoisomerase i"
+  ]
+ },
+ "b-dna.primase": {
+  "type": "typed",
+  "accepted": [
+   "rna"
+  ]
+ },
+ "b-dna.rnapol": {
+  "type": "choice",
+  "key": "Reads the template strand 3′→5′ and builds RNA 5′→3′ without a primer"
+ },
+ "b-dna.processing": {
+  "type": "choice",
+  "key": "A 5′ cap, a 3′ poly-A tail and splicing out of introns"
+ },
+ "b-dna.codons": {
+  "type": "choice",
+  "key": "64 codons; 61 code for amino acids and 3 are stops"
+ },
+ "b-dna.start": {
+  "type": "typed",
+  "accepted": [
+   "aug"
+  ]
+ },
+ "b-dna.silent": {
+  "type": "choice",
+  "key": "Silent mutation"
+ },
+ "b-dna.nonsense": {
+  "type": "choice",
+  "key": "Nonsense mutation"
+ },
+ "b-dna.frameshift": {
+  "type": "choice",
+  "key": "Deleting one nucleotide from a coding sequence"
+ },
+ "b-dna.missense": {
+  "type": "choice",
+  "key": "Missense mutation"
+ },
+ "b-dna.lac": {
+  "type": "choice",
+  "key": "When lactose is present and glucose is low"
+ },
+ "b-dna.purines": {
+  "type": "choice",
+  "key": "Adenine and guanine"
+ },
+ "b-dna.gc-hbonds": {
+  "type": "num",
+  "num": {
+   "value": 3,
+   "tol": 0
+  }
+ },
+ "b-dna.rna-dna": {
+  "type": "choice",
+  "key": "RNA has ribose (with a 2′-OH) and uracil instead of thymine"
+ },
+ "b-dna.meselson": {
+  "type": "choice",
+  "key": "Conservative replication"
+ },
+ "b-prok.gram-pos": {
+  "type": "choice",
+  "key": "A thick peptidoglycan wall and no outer membrane; they stain purple"
+ },
+ "b-prok.gram-neg": {
+  "type": "choice",
+  "key": "An outer membrane containing lipopolysaccharide (endotoxin)"
+ },
+ "b-prok.transformation": {
+  "type": "choice",
+  "key": "Transformation"
+ },
+ "b-prok.transduction": {
+  "type": "choice",
+  "key": "Transduction"
+ },
+ "b-prok.conjugation": {
+  "type": "choice",
+  "key": "Conjugation"
+ },
+ "b-prok.retro": {
+  "type": "choice",
+  "key": "Reverse transcriptase (then integrase)"
+ },
+ "b-prok.lysogenic": {
+  "type": "choice",
+  "key": "Integrates its genome into the host chromosome as a prophage"
+ },
+ "b-prok.growth": {
+  "type": "choice",
+  "key": "Lag, exponential (log), stationary, death"
+ },
+ "b-prok.plasmid": {
+  "type": "choice",
+  "key": "Small circular DNA molecules separate from the chromosome, often carrying antibiotic resistance"
+ },
+ "b-sys.rmp": {
+  "type": "choice",
+  "key": "K⁺ leaking out through open K⁺ channels"
+ },
+ "b-sys.depol": {
+  "type": "choice",
+  "key": "Voltage-gated Na⁺ channels open and Na⁺ flows in"
+ },
+ "b-sys.repol": {
+  "type": "choice",
+  "key": "Na⁺ channels inactivate and voltage-gated K⁺ channels let K⁺ flow out"
+ },
+ "b-sys.refractory": {
+  "type": "choice",
+  "key": "Voltage-gated Na⁺ channels are inactivated and cannot reopen yet"
+ },
+ "b-sys.myelin": {
+  "type": "choice",
+  "key": "Action potentials jump between nodes of Ranvier (saltatory conduction)"
+ },
+ "b-sys.hormone-class": {
+  "type": "choice",
+  "key": "Steroids cross the membrane and bind intracellular receptors that alter transcription"
+ },
+ "b-sys.insulin": {
+  "type": "choice",
+  "key": "Lowers blood glucose by promoting uptake into cells and glycogen synthesis"
+ },
+ "b-sys.bohr": {
+  "type": "choice",
+  "key": "A rise in CO₂ and H⁺ (lower pH)"
+ },
+ "b-sys.alveoli": {
+  "type": "choice",
+  "key": "Alveoli"
+ },
+ "b-sys.co2-transport": {
+  "type": "choice",
+  "key": "As bicarbonate (HCO₃⁻) in plasma"
+ },
+ "b-sys.pct": {
+  "type": "choice",
+  "key": "Proximal convoluted tubule"
+ },
+ "b-sys.adh": {
+  "type": "choice",
+  "key": "Inserts aquaporins in the collecting duct, increasing water reabsorption"
+ },
+ "b-sys.aldosterone": {
+  "type": "choice",
+  "key": "Increase Na⁺ reabsorption and K⁺ secretion"
+ },
+ "b-sys.desc-loop": {
+  "type": "choice",
+  "key": "Permeable to water but not to salt"
+ },
+ "b-sys.pepsin": {
+  "type": "choice",
+  "key": "Digests protein in the stomach and is activated from pepsinogen by acid"
+ },
+ "b-sys.pulm": {
+  "type": "choice",
+  "key": "The pulmonary artery, then the lungs"
+ },
+ "b-sys.cardiac": {
+  "type": "choice",
+  "key": "Striated, involuntary and linked by intercalated discs with gap junctions"
+ },
+ "p-kin.apex": {
+  "type": "choice",
+  "key": "Vertical velocity is zero, but acceleration is still g downward"
+ },
+ "p-kin.horiz-v": {
+  "type": "choice",
+  "key": "Stays constant"
+ },
+ "p-kin.drop-vs-throw": {
+  "type": "choice",
+  "key": "They land at the same time"
+ },
+ "p-kin.vt-slope": {
+  "type": "choice",
+  "key": "Acceleration"
+ },
+ "p-kin.vt-area": {
+  "type": "choice",
+  "key": "Displacement"
+ },
+ "p-kin.xt-slope": {
+  "type": "choice",
+  "key": "Velocity"
+ },
+ "p-kin.speed-vel": {
+  "type": "choice",
+  "key": "0 m/s"
+ },
+ "p-kin.g-fall": {
+  "type": "num",
+  "num": {
+   "value": 1,
+   "tolPct": 2,
+   "unit": "s"
+  }
+ },
+ "p-kin.g-vf": {
+  "type": "num",
+  "num": {
+   "value": 20,
+   "tolPct": 1,
+   "unit": "m/s"
+  }
+ },
+ "p-kin.g-vsq": {
+  "type": "num",
+  "num": {
+   "value": 25,
+   "tolPct": 2,
+   "unit": "m"
+  }
+ },
+ "p-kin.g-proj": {
+  "type": "num",
+  "num": {
+   "value": 3,
+   "tolPct": 2,
+   "unit": "m"
+  }
+ },
+ "p-force.third-law": {
+  "type": "choice",
+  "key": "The book's gravitational pull on Earth"
+ },
+ "p-force.const-v": {
+  "type": "choice",
+  "key": "Zero"
+ },
+ "p-force.friction": {
+  "type": "choice",
+  "key": "μs > μk"
+ },
+ "p-force.mass-weight": {
+  "type": "choice",
+  "key": "Mass is unchanged; weight decreases"
+ },
+ "p-force.centripetal": {
+  "type": "choice",
+  "key": "Toward the center"
+ },
+ "p-force.elevator": {
+  "type": "choice",
+  "key": "More than your weight"
+ },
+ "p-force.newton-unit": {
+  "type": "typed",
+  "accepted": [
+   "newton",
+   "newtons",
+   "n"
+  ]
+ },
+ "p-force.g-fma": {
+  "type": "num",
+  "num": {
+   "value": 8,
+   "tolPct": 2,
+   "unit": "m/s²"
+  }
+ },
+ "p-force.g-incline": {
+  "type": "num",
+  "num": {
+   "value": 5,
+   "tolPct": 2,
+   "unit": "m/s²"
+  }
+ },
+ "p-force.g-circ": {
+  "type": "num",
+  "num": {
+   "value": 4,
+   "tolPct": 2,
+   "unit": "m/s²"
+  }
+ },
+ "p-energy.normal-work": {
+  "type": "choice",
+  "key": "Zero"
+ },
+ "p-energy.conservative": {
+  "type": "choice",
+  "key": "Gravity"
+ },
+ "p-energy.wet": {
+  "type": "choice",
+  "key": "Its change in kinetic energy"
+ },
+ "p-energy.watt": {
+  "type": "typed",
+  "accepted": [
+   "watt",
+   "watts",
+   "w",
+   "j/s",
+   "joules per second",
+   "joule per second"
+  ]
+ },
+ "p-energy.ramp": {
+  "type": "choice",
+  "key": "Takes less force but the same work"
+ },
+ "p-energy.g-ke": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tolPct": 1,
+   "unit": "J"
+  }
+ },
+ "p-energy.g-drop-v": {
+  "type": "num",
+  "num": {
+   "value": 10,
+   "tolPct": 2,
+   "unit": "m/s"
+  }
+ },
+ "p-energy.g-work": {
+  "type": "num",
+  "num": {
+   "value": 0,
+   "tol": 0.5,
+   "unit": "J"
+  }
+ },
+ "p-energy.g-power": {
+  "type": "num",
+  "num": {
+   "value": 150,
+   "tolPct": 2,
+   "unit": "W"
+  }
+ },
+ "p-mom.conserve": {
+  "type": "choice",
+  "key": "The net external force on the system is zero"
+ },
+ "p-mom.elastic": {
+  "type": "choice",
+  "key": "Both momentum and kinetic energy are conserved"
+ },
+ "p-mom.inelastic": {
+  "type": "choice",
+  "key": "The objects stick together and the most kinetic energy is lost"
+ },
+ "p-mom.equilibrium": {
+  "type": "choice",
+  "key": "Net force is zero and net torque is zero"
+ },
+ "p-mom.g-inelastic": {
+  "type": "num",
+  "num": {
+   "value": 0.5714285714285714,
+   "tolPct": 2,
+   "unit": "m/s"
+  }
+ },
+ "p-mom.g-impulse": {
+  "type": "num",
+  "num": {
+   "value": 10,
+   "tolPct": 2,
+   "unit": "N"
+  }
+ },
+ "p-mom.g-seesaw": {
+  "type": "num",
+  "num": {
+   "value": 0.3333333333333333,
+   "tolPct": 2,
+   "unit": "m"
+  }
+ },
+ "p-mom.g-torque": {
+  "type": "num",
+  "num": {
+   "value": 0,
+   "tol": 0.05,
+   "unit": "N·m"
+  }
+ },
+ "p-fluid.depth": {
+  "type": "choice",
+  "key": "The same in all three"
+ },
+ "p-fluid.archimedes": {
+  "type": "choice",
+  "key": "The weight of the fluid it displaces"
+ },
+ "p-fluid.float": {
+  "type": "choice",
+  "key": "600 kg/m³"
+ },
+ "p-fluid.continuity": {
+  "type": "choice",
+  "key": "Increases"
+ },
+ "p-fluid.bernoulli": {
+  "type": "choice",
+  "key": "Lower"
+ },
+ "p-fluid.poiseuille": {
+  "type": "choice",
+  "key": "1/16"
+ },
+ "p-fluid.gauge": {
+  "type": "choice",
+  "key": "Absolute = gauge + atmospheric"
+ },
+ "p-fluid.g-hydro": {
+  "type": "num",
+  "num": {
+   "value": 110000,
+   "tolPct": 2,
+   "unit": "Pa"
+  }
+ },
+ "p-fluid.g-buoy": {
+  "type": "num",
+  "num": {
+   "value": 10,
+   "tolPct": 2,
+   "unit": "N"
+  }
+ },
+ "p-fluid.g-cont": {
+  "type": "num",
+  "num": {
+   "value": 12,
+   "tolPct": 2,
+   "unit": "m/s"
+  }
+ },
+ "p-elec.coulomb": {
+  "type": "choice",
+  "key": "¼ as large"
+ },
+ "p-elec.series": {
+  "type": "choice",
+  "key": "Current"
+ },
+ "p-elec.parallel": {
+  "type": "choice",
+  "key": "Voltage"
+ },
+ "p-elec.add-parallel": {
+  "type": "choice",
+  "key": "Decrease"
+ },
+ "p-elec.cap-parallel": {
+  "type": "choice",
+  "key": "Their capacitances add"
+ },
+ "p-elec.dielectric": {
+  "type": "choice",
+  "key": "Capacitance rises and voltage falls (charge is fixed)"
+ },
+ "p-elec.field-dir": {
+  "type": "choice",
+  "key": "Away from positive charges and toward negative charges"
+ },
+ "p-elec.pe-field": {
+  "type": "choice",
+  "key": "Decreases"
+ },
+ "p-elec.wire-r": {
+  "type": "choice",
+  "key": "Halves"
+ },
+ "p-elec.meters": {
+  "type": "choice",
+  "key": "Ammeter in series (very low resistance); voltmeter in parallel (very high resistance)"
+ },
+ "p-elec.g-ohm": {
+  "type": "num",
+  "num": {
+   "value": 3,
+   "tolPct": 2,
+   "unit": "A"
+  }
+ },
+ "p-elec.g-req": {
+  "type": "num",
+  "num": {
+   "value": 19,
+   "tolPct": 2,
+   "unit": "Ω"
+  }
+ },
+ "p-elec.g-power": {
+  "type": "num",
+  "num": {
+   "value": 50,
+   "tolPct": 2,
+   "unit": "W"
+  }
+ },
+ "p-elec.g-coulomb": {
+  "type": "num",
+  "num": {
+   "value": 18,
+   "tolPct": 2,
+   "unit": "N"
+  }
+ },
+ "p-wave.sound-medium": {
+  "type": "choice",
+  "key": "Steel"
+ },
+ "p-wave.pitch": {
+  "type": "choice",
+  "key": "Frequency and amplitude"
+ },
+ "p-wave.doppler": {
+  "type": "choice",
+  "key": "A higher frequency"
+ },
+ "p-wave.medium-change": {
+  "type": "choice",
+  "key": "Frequency"
+ },
+ "p-wave.closed-pipe": {
+  "type": "choice",
+  "key": "Only odd harmonics"
+ },
+ "p-wave.longitudinal": {
+  "type": "choice",
+  "key": "Longitudinal"
+ },
+ "p-wave.g-vfl": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tolPct": 2,
+   "unit": "m"
+  }
+ },
+ "p-wave.g-db": {
+  "type": "num",
+  "num": {
+   "value": 50,
+   "tol": 0.5,
+   "unit": "dB"
+  }
+ },
+ "p-wave.g-string": {
+  "type": "num",
+  "num": {
+   "value": 300,
+   "tolPct": 2,
+   "unit": "Hz"
+  }
+ },
+ "p-wave.g-pipe": {
+  "type": "num",
+  "num": {
+   "value": 340,
+   "tolPct": 2,
+   "unit": "Hz"
+  }
+ },
+ "p-light.conv-real": {
+  "type": "choice",
+  "key": "Inverted"
+ },
+ "p-light.diverging": {
+  "type": "choice",
+  "key": "Virtual, upright and smaller"
+ },
+ "p-light.convex-mirror": {
+  "type": "choice",
+  "key": "Virtual, upright and smaller"
+ },
+ "p-light.magnifier": {
+  "type": "choice",
+  "key": "Virtual, upright and magnified"
+ },
+ "p-light.refract": {
+  "type": "choice",
+  "key": "Toward the normal"
+ },
+ "p-light.tir": {
+  "type": "choice",
+  "key": "Light going from higher n to lower n at more than the critical angle"
+ },
+ "p-light.violet": {
+  "type": "choice",
+  "key": "Shortest wavelength and highest photon energy"
+ },
+ "p-light.myopia": {
+  "type": "choice",
+  "key": "A diverging lens"
+ },
+ "p-light.polar": {
+  "type": "choice",
+  "key": "Transverse waves, such as light"
+ },
+ "p-light.double-slit": {
+  "type": "choice",
+  "key": "A whole number of wavelengths (mλ)"
+ },
+ "p-light.g-lens": {
+  "type": "num",
+  "num": {
+   "value": 29.999999999999993,
+   "tolPct": 2,
+   "unit": "cm"
+  }
+ },
+ "p-light.g-snell": {
+  "type": "num",
+  "num": {
+   "value": 30,
+   "tol": 1,
+   "unit": "°"
+  }
+ },
+ "p-light.g-critical": {
+  "type": "num",
+  "num": {
+   "value": 30,
+   "tol": 1,
+   "unit": "°"
+  }
+ },
+ "p-light.g-diopter": {
+  "type": "num",
+  "num": {
+   "value": 2,
+   "tolPct": 2,
+   "unit": "D"
+  }
+ }
+}

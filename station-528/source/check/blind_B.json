@@ -1,0 +1,3242 @@
+[
+ {
+  "id": "Q001",
+  "format": "short answer",
+  "question": "Which law says the ΔH of an overall reaction equals the sum of the ΔH values of its steps?"
+ },
+ {
+  "id": "Q002",
+  "format": "choice",
+  "question": "A ball is thrown upward at an angle. At the top of its path (no air resistance):",
+  "options": {
+   "A": "Acceleration is zero and velocity is horizontal",
+   "B": "Vertical velocity is zero, but acceleration is still g downward",
+   "C": "Horizontal velocity is zero",
+   "D": "Velocity and acceleration are both zero"
+  }
+ },
+ {
+  "id": "Q003",
+  "format": "choice",
+  "question": "Which lipid is built from four fused carbon rings?",
+  "options": {
+   "A": "A triglyceride",
+   "B": "Cholesterol",
+   "C": "A phospholipid",
+   "D": "A wax"
+  }
+ },
+ {
+  "id": "Q004",
+  "format": "choice",
+  "question": "Which solution has the lowest freezing point?",
+  "options": {
+   "A": "0.10 m NaCl",
+   "B": "0.10 m glucose",
+   "C": "0.15 m glucose",
+   "D": "0.10 m CaCl₂"
+  }
+ },
+ {
+  "id": "Q005",
+  "format": "short answer",
+  "question": "A species that can act as either an acid or a base, like water, is called ___."
+ },
+ {
+  "id": "Q006",
+  "format": "choice",
+  "question": "Which junction lets ions and small molecules pass directly between neighboring cells?",
+  "options": {
+   "A": "Tight junctions",
+   "B": "Adherens junctions",
+   "C": "Desmosomes",
+   "D": "Gap junctions"
+  }
+ },
+ {
+  "id": "Q007",
+  "format": "choice",
+  "question": "Which organelle breaks down very-long-chain fatty acids and hydrogen peroxide?",
+  "options": {
+   "A": "Nucleolus",
+   "B": "Peroxisome",
+   "C": "Golgi apparatus",
+   "D": "Lysosome"
+  }
+ },
+ {
+  "id": "Q008",
+  "format": "choice",
+  "question": "Red snapdragons crossed with white ones give pink offspring. This is:",
+  "options": {
+   "A": "Incomplete dominance",
+   "B": "Epistasis",
+   "C": "Sex linkage",
+   "D": "Codominance"
+  }
+ },
+ {
+  "id": "Q009",
+  "format": "choice",
+  "question": "Pyruvate dehydrogenase converts pyruvate into:",
+  "options": {
+   "A": "Oxaloacetate",
+   "B": "Acetyl-CoA, CO₂ and NADH",
+   "C": "Lactate",
+   "D": "Glucose"
+  }
+ },
+ {
+  "id": "Q010",
+  "format": "choice",
+  "question": "Which standard amino acid is not chiral?",
+  "options": {
+   "A": "Glycine",
+   "B": "Cysteine",
+   "C": "Proline",
+   "D": "Alanine"
+  }
+ },
+ {
+  "id": "Q011",
+  "format": "choice",
+  "question": "These ions all have 10 electrons. Which is largest?",
+  "options": {
+   "A": "Na⁺",
+   "B": "O²⁻",
+   "C": "Mg²⁺",
+   "D": "F⁻"
+  }
+ },
+ {
+  "id": "Q012",
+  "format": "number",
+  "question": "A galvanic cell uses Cu²⁺/Cu (E° = +0.34 V) and Zn²⁺/Zn (E° = -0.76 V). What is E°cell, in volts?"
+ },
+ {
+  "id": "Q013",
+  "format": "choice",
+  "question": "For N₂ + 3 H₂ ⇌ 2 NH₃, halving the container volume shifts the equilibrium:",
+  "options": {
+   "A": "Not at all",
+   "B": "Toward N₂ and H₂",
+   "C": "Toward whichever side is exothermic",
+   "D": "Toward NH₃"
+  }
+ },
+ {
+  "id": "Q014",
+  "format": "number",
+  "question": "Two charges attract with 36 N. One charge is multiplied by 2 and the distance is multiplied by 2. What is the new force (N)?"
+ },
+ {
+  "id": "Q015",
+  "format": "choice",
+  "question": "Which junction seals neighboring epithelial cells so fluid cannot leak between them?",
+  "options": {
+   "A": "Desmosomes",
+   "B": "Tight junctions",
+   "C": "Hemidesmosomes",
+   "D": "Gap junctions"
+  }
+ },
+ {
+  "id": "Q016",
+  "format": "number",
+  "question": "A gas at 1 atm, 2 L and 400 K is changed to 4 atm and 400 K. What is the new volume, in L?"
+ },
+ {
+  "id": "Q017",
+  "format": "number",
+  "question": "How many moles are in 14.6 g of NaCl? (Molar mass 58.5 g/mol.)"
+ },
+ {
+  "id": "Q018",
+  "format": "choice",
+  "question": "In a perfectly inelastic collision:",
+  "options": {
+   "A": "Momentum is lost",
+   "B": "The objects bounce apart at their original speeds",
+   "C": "The objects stick together and the most kinetic energy is lost",
+   "D": "Kinetic energy is conserved"
+  }
+ },
+ {
+  "id": "Q019",
+  "format": "choice",
+  "question": "What is the molecular geometry of SF₆?",
+  "options": {
+   "A": "Octahedral",
+   "B": "Hexagonal planar",
+   "C": "Square planar",
+   "D": "Trigonal bipyramidal"
+  }
+ },
+ {
+  "id": "Q020",
+  "format": "number",
+  "question": "What is the net ATP yield of glycolysis per glucose?"
+ },
+ {
+  "id": "Q021",
+  "format": "choice",
+  "question": "Positron emission changes the nucleus how?",
+  "options": {
+   "A": "Nothing changes",
+   "B": "Z falls by 2; A falls by 4",
+   "C": "Z falls by 1; A is unchanged",
+   "D": "Z rises by 1; A is unchanged"
+  }
+ },
+ {
+  "id": "Q022",
+  "format": "number",
+  "question": "What is the maximum number of electrons a d subshell can hold?"
+ },
+ {
+  "id": "Q023",
+  "format": "number",
+  "question": "A ball rolls off a 5 m high cliff at 3 m/s horizontally. How far from the base of the cliff (m) does it land? (g = 10 m/s²)"
+ },
+ {
+  "id": "Q024",
+  "format": "number",
+  "question": "A 10 N force pulls a sled 2 m. The force makes a 90° angle with the motion. How much work (J) does it do? (cos 60° = 0.5)"
+ },
+ {
+  "id": "Q025",
+  "format": "choice",
+  "question": "Microtubules are made of ___ and form ___.",
+  "options": {
+   "A": "Actin; the cleavage furrow",
+   "B": "Tubulin; the mitotic spindle, cilia and flagella",
+   "C": "Myosin; thick filaments",
+   "D": "Keratin; anchoring junctions"
+  }
+ },
+ {
+  "id": "Q026",
+  "format": "choice",
+  "question": "While ice melts at 0 °C, the heat you add mainly:",
+  "options": {
+   "A": "Raises the molecules' average kinetic energy",
+   "B": "Breaks covalent O–H bonds",
+   "C": "Is released back to the surroundings",
+   "D": "Overcomes intermolecular attractions, so the temperature stays constant"
+  }
+ },
+ {
+  "id": "Q027",
+  "format": "choice",
+  "question": "How many codons are there, and how many specify amino acids?",
+  "options": {
+   "A": "64 codons; 61 code for amino acids and 3 are stops",
+   "B": "20 codons; all code for amino acids",
+   "C": "64 codons; all code for amino acids",
+   "D": "61 codons; 3 are starts"
+  }
+ },
+ {
+  "id": "Q028",
+  "format": "choice",
+  "question": "What is the conjugate base of H₂PO₄⁻?",
+  "options": {
+   "A": "HPO₄²⁻",
+   "B": "H₃PO₄",
+   "C": "PO₄³⁻",
+   "D": "OH⁻"
+  }
+ },
+ {
+  "id": "Q029",
+  "format": "choice",
+  "question": "At very high pressure, a real gas takes up more volume than the ideal gas law predicts. Why?",
+  "options": {
+   "A": "The gas cools as it is compressed",
+   "B": "Intermolecular attractions push molecules apart",
+   "C": "The molecules themselves occupy space that cannot be compressed",
+   "D": "Collisions become perfectly elastic"
+  }
+ },
+ {
+  "id": "Q030",
+  "format": "choice",
+  "question": "In the lysogenic cycle, a phage:",
+  "options": {
+   "A": "Copies itself outside the cell",
+   "B": "Immediately makes new viruses and bursts the cell",
+   "C": "Kills the host by releasing toxins",
+   "D": "Integrates its genome into the host chromosome as a prophage"
+  }
+ },
+ {
+  "id": "Q031",
+  "format": "choice",
+  "question": "Compared with unsaturated fatty acids, saturated fatty acids:",
+  "options": {
+   "A": "Make membranes more fluid",
+   "B": "Are liquid at room temperature",
+   "C": "Have no C=C double bonds, pack tightly and melt at higher temperatures",
+   "D": "Have cis double bonds that kink the chain"
+  }
+ },
+ {
+  "id": "Q032",
+  "format": "choice",
+  "question": "An X-linked recessive trait appears in a father; the mother is homozygous normal. What about their children?",
+  "options": {
+   "A": "All daughters are carriers; no sons are affected",
+   "B": "All sons are affected",
+   "C": "All children are unaffected and non-carriers",
+   "D": "Half the daughters are affected"
+  }
+ },
+ {
+  "id": "Q033",
+  "format": "choice",
+  "question": "Light passes from air into glass at an angle. It bends:",
+  "options": {
+   "A": "Away from the normal",
+   "B": "Parallel to the surface",
+   "C": "Toward the normal",
+   "D": "Not at all"
+  }
+ },
+ {
+  "id": "Q034",
+  "format": "choice",
+  "question": "Which central atom can have more than eight electrons around it?",
+  "options": {
+   "A": "N",
+   "B": "C",
+   "C": "O",
+   "D": "P"
+  }
+ },
+ {
+  "id": "Q035",
+  "format": "number",
+  "question": "What is the power, in diopters, of a lens with focal length 0.5 m?"
+ },
+ {
+  "id": "Q036",
+  "format": "choice",
+  "question": "A reaction has ΔH < 0 and ΔS > 0. When is it spontaneous?",
+  "options": {
+   "A": "Only at high temperature",
+   "B": "Only at low temperature",
+   "C": "At all temperatures",
+   "D": "Never"
+  }
+ },
+ {
+  "id": "Q037",
+  "format": "choice",
+  "question": "Sucrose is made of which two monosaccharides?",
+  "options": {
+   "A": "Glucose and fructose",
+   "B": "Glucose and galactose",
+   "C": "Fructose and galactose",
+   "D": "Glucose and glucose"
+  }
+ },
+ {
+  "id": "Q038",
+  "format": "choice",
+  "question": "Where in the nephron is most filtered water and Na⁺ reabsorbed?",
+  "options": {
+   "A": "Proximal convoluted tubule",
+   "B": "Distal convoluted tubule",
+   "C": "Collecting duct",
+   "D": "Loop of Henle"
+  }
+ },
+ {
+  "id": "Q039",
+  "format": "choice",
+  "question": "n-Pentane boils at 36 °C; neopentane, with the same formula, boils at 10 °C. Why?",
+  "options": {
+   "A": "n-Pentane has a higher molar mass",
+   "B": "n-Pentane's long shape gives more surface contact, so stronger London dispersion forces",
+   "C": "n-Pentane has more polar bonds",
+   "D": "n-Pentane can hydrogen-bond"
+  }
+ },
+ {
+  "id": "Q040",
+  "format": "choice",
+  "question": "What enzyme lets a retrovirus such as HIV insert its genome into host DNA?",
+  "options": {
+   "A": "Helicase",
+   "B": "Reverse transcriptase (then integrase)",
+   "C": "RNA polymerase",
+   "D": "DNA ligase only"
+  }
+ },
+ {
+  "id": "Q041",
+  "format": "choice",
+  "question": "Which process has ΔS > 0?",
+  "options": {
+   "A": "N₂(g) + 3 H₂(g) → 2 NH₃(g)",
+   "B": "Liquid water evaporating",
+   "C": "2 SO₂(g) + O₂(g) → 2 SO₃(g)",
+   "D": "Liquid water freezing"
+  }
+ },
+ {
+  "id": "Q042",
+  "format": "number",
+  "question": "A buffer has a weak acid with pKa 3.8. The ratio [A⁻]:[HA] is 10:1. What is the pH?"
+ },
+ {
+  "id": "Q043",
+  "format": "short answer",
+  "question": "Which quantum number describes the shape of an orbital (s, p, d, f)?"
+ },
+ {
+  "id": "Q044",
+  "format": "choice",
+  "question": "What is the oxidation state of Mn in KMnO₄?",
+  "options": {
+   "A": "+5",
+   "B": "+3",
+   "C": "+7",
+   "D": "−1"
+  }
+ },
+ {
+  "id": "Q045",
+  "format": "choice",
+  "question": "What does gamma emission change about the nucleus?",
+  "options": {
+   "A": "A falls by 4",
+   "B": "Z falls by 1",
+   "C": "Only its energy: Z and A stay the same",
+   "D": "Z rises by 1"
+  }
+ },
+ {
+  "id": "Q046",
+  "format": "number",
+  "question": "What is the pH of 1 × 10^-1 M HCl at 25 °C?"
+ },
+ {
+  "id": "Q047",
+  "format": "choice",
+  "question": "In a zero-order reaction, the rate:",
+  "options": {
+   "A": "Has a constant half-life",
+   "B": "Is zero",
+   "C": "Does not depend on reactant concentration",
+   "D": "Doubles when concentration doubles"
+  }
+ },
+ {
+  "id": "Q048",
+  "format": "short answer",
+  "question": "To tell whether a dominant-phenotype organism is homozygous or heterozygous, you cross it with a ___ individual."
+ },
+ {
+  "id": "Q049",
+  "format": "choice",
+  "question": "At the half-equivalence point of a weak acid titrated with strong base:",
+  "options": {
+   "A": "All the acid has been neutralized",
+   "B": "pH = pKa",
+   "C": "pH = 14 − pKa",
+   "D": "pH = 7"
+  }
+ },
+ {
+  "id": "Q050",
+  "format": "choice",
+  "question": "At constant pressure and amount of gas, volume is directly proportional to:",
+  "options": {
+   "A": "Absolute (kelvin) temperature",
+   "B": "1 / pressure",
+   "C": "Celsius temperature",
+   "D": "Molar mass"
+  }
+ },
+ {
+  "id": "Q051",
+  "format": "number",
+  "question": "An object is 15 cm from a converging lens with f = 10 cm. Where is the image (cm from the lens)? Give a negative answer for a virtual image."
+ },
+ {
+  "id": "Q052",
+  "format": "choice",
+  "question": "How does myelin speed up nerve conduction?",
+  "options": {
+   "A": "It makes axons narrower",
+   "B": "It adds more Na⁺ channels under the myelin",
+   "C": "It releases neurotransmitter along the axon",
+   "D": "Action potentials jump between nodes of Ranvier (saltatory conduction)"
+  }
+ },
+ {
+  "id": "Q053",
+  "format": "choice",
+  "question": "A reaction has ΔH < 0 and ΔS < 0. When is it spontaneous?",
+  "options": {
+   "A": "Never",
+   "B": "Only at high temperature",
+   "C": "Only at low temperature",
+   "D": "At all temperatures"
+  }
+ },
+ {
+  "id": "Q054",
+  "format": "choice",
+  "question": "A reaction has ΔH > 0 and ΔS > 0. When is it spontaneous?",
+  "options": {
+   "A": "Only at low temperature",
+   "B": "Only at high temperature",
+   "C": "Never",
+   "D": "At all temperatures"
+  }
+ },
+ {
+  "id": "Q055",
+  "format": "number",
+  "question": "Water flows at 3 m/s in a pipe of radius 2 cm, which narrows to a radius of 1 cm. What is the speed in the narrow section (m/s)?"
+ },
+ {
+  "id": "Q056",
+  "format": "number",
+  "question": "A 20 kg child sits 1 m from a seesaw's pivot. How far (m) on the other side must a 60 kg child sit to balance it?"
+ },
+ {
+  "id": "Q057",
+  "format": "choice",
+  "question": "What does meiosis produce from one diploid cell?",
+  "options": {
+   "A": "Four diploid cells",
+   "B": "Two haploid, identical cells",
+   "C": "Two diploid, identical cells",
+   "D": "Four haploid, genetically distinct cells"
+  }
+ },
+ {
+  "id": "Q058",
+  "format": "choice",
+  "question": "Bacteria grown in ¹⁵N medium are moved to ¹⁴N. After one round of replication, all the DNA forms a single band of intermediate density. Which model does this rule out?",
+  "options": {
+   "A": "Conservative replication",
+   "B": "Dispersive replication",
+   "C": "None of them",
+   "D": "Semiconservative replication"
+  }
+ },
+ {
+  "id": "Q059",
+  "format": "choice",
+  "question": "Which bases are purines?",
+  "options": {
+   "A": "Adenine and thymine",
+   "B": "Adenine and guanine",
+   "C": "Cytosine and uracil",
+   "D": "Cytosine and thymine"
+  }
+ },
+ {
+  "id": "Q060",
+  "format": "number",
+  "question": "[H⁺] = 2 × 10^-2 M. What is the pH? (log 2 ≈ 0.30, log 3 ≈ 0.48, log 5 ≈ 0.70)"
+ },
+ {
+  "id": "Q061",
+  "format": "short answer",
+  "question": "Polymers such as proteins and starch are built by ___ reactions, which release water."
+ },
+ {
+  "id": "Q062",
+  "format": "choice",
+  "question": "A pipe closed at one end supports:",
+  "options": {
+   "A": "All harmonics",
+   "B": "Only odd harmonics",
+   "C": "No standing waves",
+   "D": "Only even harmonics"
+  }
+ },
+ {
+  "id": "Q063",
+  "format": "choice",
+  "question": "Which describes the peptide bond?",
+  "options": {
+   "A": "Formed by hydrolysis",
+   "B": "Planar and rigid, with partial double-bond character",
+   "C": "An ionic bond between charged groups",
+   "D": "Free to rotate like any single bond"
+  }
+ },
+ {
+  "id": "Q064",
+  "format": "choice",
+  "question": "Which do prokaryotic cells lack?",
+  "options": {
+   "A": "A membrane-bound nucleus",
+   "B": "Ribosomes",
+   "C": "DNA",
+   "D": "A plasma membrane"
+  }
+ },
+ {
+  "id": "Q065",
+  "format": "choice",
+  "question": "What is the formal charge on nitrogen in NH₄⁺?",
+  "options": {
+   "A": "0",
+   "B": "+4",
+   "C": "−1",
+   "D": "+1"
+  }
+ },
+ {
+  "id": "Q066",
+  "format": "number",
+  "question": "A 0.1 kg ball moving at 10 m/s is caught and stopped in 0.1 s. What is the average force (N) on it?"
+ },
+ {
+  "id": "Q067",
+  "format": "number",
+  "question": "What volume does 1 mol of an ideal gas occupy at STP (0 °C, 1 atm), in liters?"
+ },
+ {
+  "id": "Q068",
+  "format": "choice",
+  "question": "Nondisjunction in meiosis I produces gametes that are:",
+  "options": {
+   "A": "All normal",
+   "B": "All triploid",
+   "C": "All abnormal: two with an extra chromosome, two missing one",
+   "D": "Half normal, half abnormal"
+  }
+ },
+ {
+  "id": "Q069",
+  "format": "number",
+  "question": "A salt MX dissolves as MX ⇌ M⁺ + X⁻ with Ksp = 1 × 10^-6. What is its molar solubility (M)?"
+ },
+ {
+  "id": "Q070",
+  "format": "choice",
+  "question": "Which of these is a strong acid?",
+  "options": {
+   "A": "H₂CO₃",
+   "B": "CH₃COOH",
+   "C": "HCl",
+   "D": "HF"
+  }
+ },
+ {
+  "id": "Q071",
+  "format": "choice",
+  "question": "The intestinal Na⁺-glucose cotransporter moves glucose into cells against its gradient. Its energy comes from:",
+  "options": {
+   "A": "The glucose gradient itself",
+   "B": "Direct ATP hydrolysis by the cotransporter",
+   "C": "The Na⁺ gradient built by the Na⁺/K⁺ pump",
+   "D": "The membrane's cholesterol"
+  }
+ },
+ {
+  "id": "Q072",
+  "format": "choice",
+  "question": "A bacterium takes up naked DNA from its surroundings. This is:",
+  "options": {
+   "A": "Binary fission",
+   "B": "Transformation",
+   "C": "Conjugation",
+   "D": "Transduction"
+  }
+ },
+ {
+  "id": "Q073",
+  "format": "choice",
+  "question": "How are absolute pressure and gauge pressure related?",
+  "options": {
+   "A": "Gauge = absolute + atmospheric",
+   "B": "Absolute = gauge × atmospheric",
+   "C": "They are equal",
+   "D": "Absolute = gauge + atmospheric"
+  }
+ },
+ {
+  "id": "Q074",
+  "format": "number",
+  "question": "You dilute 10 mL of 2 M HCl with water to a final volume of 100 mL. What is the new concentration, in M?"
+ },
+ {
+  "id": "Q075",
+  "format": "choice",
+  "question": "Where does gas exchange between air and blood happen in the lungs?",
+  "options": {
+   "A": "Alveoli",
+   "B": "Trachea",
+   "C": "Bronchi",
+   "D": "Pleural space"
+  }
+ },
+ {
+  "id": "Q076",
+  "format": "short answer",
+  "question": "In osmosis, water moves toward the side with ___ solute concentration."
+ },
+ {
+  "id": "Q077",
+  "format": "number",
+  "question": "What is the kinetic energy (J) of a 1 kg object moving at 2 m/s?"
+ },
+ {
+  "id": "Q078",
+  "format": "short answer",
+  "question": "What is the main rate-limiting enzyme of glycolysis?"
+ },
+ {
+  "id": "Q079",
+  "format": "choice",
+  "question": "Which crosses a lipid bilayer by simple diffusion?",
+  "options": {
+   "A": "Na⁺",
+   "B": "Insulin",
+   "C": "Glucose",
+   "D": "O₂"
+  }
+ },
+ {
+  "id": "Q080",
+  "format": "number",
+  "question": "A block slides down a frictionless 30° incline. What is its acceleration (m/s²)? (g = 10 m/s²; sin 30° = 0.5, sin 45° ≈ 0.71, sin 60° ≈ 0.87)"
+ },
+ {
+  "id": "Q081",
+  "format": "choice",
+  "question": "A liquid boils when:",
+  "options": {
+   "A": "Its vapor pressure equals the external pressure",
+   "B": "Its vapor pressure drops to zero",
+   "C": "Its vapor pressure reaches 1 atm, whatever the surroundings",
+   "D": "It reaches its critical point"
+  }
+ },
+ {
+  "id": "Q082",
+  "format": "choice",
+  "question": "You add argon to a fixed-volume vessel containing N₂ + 3 H₂ ⇌ 2 NH₃ at equilibrium. What happens?",
+  "options": {
+   "A": "No shift: the partial pressures of the reacting gases are unchanged",
+   "B": "Shift toward N₂ and H₂",
+   "C": "K increases",
+   "D": "Shift toward NH₃ (fewer moles of gas)"
+  }
+ },
+ {
+  "id": "Q083",
+  "format": "number",
+  "question": "How much heat (in J) warms 50 g of water by 5 °C? (c = 4.18 J/(g·°C))"
+ },
+ {
+  "id": "Q084",
+  "format": "number",
+  "question": "A recessive condition affects 1% of a population in Hardy–Weinberg equilibrium. What fraction of the population are carriers (heterozygotes)?"
+ },
+ {
+  "id": "Q085",
+  "format": "choice",
+  "question": "Eukaryotic cytoplasmic ribosomes are:",
+  "options": {
+   "A": "100S",
+   "B": "80S, made of 50S and 30S subunits",
+   "C": "70S, made of 50S and 30S subunits",
+   "D": "80S, made of 60S and 40S subunits"
+  }
+ },
+ {
+  "id": "Q086",
+  "format": "number",
+  "question": "A car moving at 10 m/s brakes at a constant 2 m/s². How far (m) does it travel before stopping?"
+ },
+ {
+  "id": "Q087",
+  "format": "choice",
+  "question": "DNA polymerase synthesizes new DNA:",
+  "options": {
+   "A": "5′ → 3′, starting from nothing",
+   "B": "In both directions equally",
+   "C": "5′ → 3′, and only by extending an existing primer",
+   "D": "3′ → 5′, starting from nothing"
+  }
+ },
+ {
+  "id": "Q088",
+  "format": "short answer",
+  "question": "Write the ideal gas law."
+ },
+ {
+  "id": "Q089",
+  "format": "choice",
+  "question": "At physiological pH (about 7.4), which side chain carries a positive charge?",
+  "options": {
+   "A": "Lysine",
+   "B": "Leucine",
+   "C": "Serine",
+   "D": "Aspartate"
+  }
+ },
+ {
+  "id": "Q090",
+  "format": "choice",
+  "question": "The net work done on an object equals:",
+  "options": {
+   "A": "Its change in potential energy",
+   "B": "Its momentum",
+   "C": "Its power",
+   "D": "Its change in kinetic energy"
+  }
+ },
+ {
+  "id": "Q091",
+  "format": "choice",
+  "question": "Which feature belongs to gram-negative bacteria?",
+  "options": {
+   "A": "Retaining crystal violet stain",
+   "B": "An outer membrane containing lipopolysaccharide (endotoxin)",
+   "C": "Teichoic acids in the wall",
+   "D": "A thick peptidoglycan layer"
+  }
+ },
+ {
+  "id": "Q092",
+  "format": "choice",
+  "question": "An F⁺ bacterium transfers a plasmid to an F⁻ bacterium through a sex pilus. This is:",
+  "options": {
+   "A": "Lysogeny",
+   "B": "Transformation",
+   "C": "Transduction",
+   "D": "Conjugation"
+  }
+ },
+ {
+  "id": "Q093",
+  "format": "number",
+  "question": "What is Kw, the ion-product constant of water, at 25 °C?"
+ },
+ {
+  "id": "Q094",
+  "format": "choice",
+  "question": "Nearsightedness (myopia) is corrected with:",
+  "options": {
+   "A": "A diverging lens",
+   "B": "A converging lens",
+   "C": "A cylindrical lens",
+   "D": "A prism"
+  }
+ },
+ {
+  "id": "Q095",
+  "format": "choice",
+  "question": "Which amino acid has a negatively charged side chain at physiological pH?",
+  "options": {
+   "A": "Glutamate",
+   "B": "Glutamine",
+   "C": "Threonine",
+   "D": "Lysine"
+  }
+ },
+ {
+  "id": "Q096",
+  "format": "choice",
+  "question": "Each cycle of the Na⁺/K⁺-ATPase moves:",
+  "options": {
+   "A": "3 Na⁺ in and 2 K⁺ out per ATP",
+   "B": "2 Na⁺ out and 3 K⁺ in per ATP",
+   "C": "3 Na⁺ out and 2 K⁺ in per ATP",
+   "D": "1 Na⁺ out and 1 K⁺ in per ATP"
+  }
+ },
+ {
+  "id": "Q097",
+  "format": "choice",
+  "question": "Which change shifts the oxygen–hemoglobin dissociation curve to the right?",
+  "options": {
+   "A": "A rise in CO₂ and H⁺ (lower pH)",
+   "B": "A fall in temperature",
+   "C": "A higher pH",
+   "D": "Lower 2,3-BPG"
+  }
+ },
+ {
+  "id": "Q098",
+  "format": "choice",
+  "question": "What is the molecular geometry of NH₃?",
+  "options": {
+   "A": "Tetrahedral",
+   "B": "Bent",
+   "C": "Trigonal pyramidal",
+   "D": "Trigonal planar"
+  }
+ },
+ {
+  "id": "Q099",
+  "format": "choice",
+  "question": "Through the cell cycle, which statement about cyclins and CDKs is true?",
+  "options": {
+   "A": "Both are made only in S phase",
+   "B": "Cyclin levels rise and fall; CDK levels stay fairly constant",
+   "C": "CDK levels rise and fall; cyclins stay constant",
+   "D": "Both stay constant"
+  }
+ },
+ {
+  "id": "Q100",
+  "format": "choice",
+  "question": "Which has the highest first ionization energy?",
+  "options": {
+   "A": "O",
+   "B": "Li",
+   "C": "F",
+   "D": "Ne"
+  }
+ },
+ {
+  "id": "Q101",
+  "format": "short answer",
+  "question": "Oxidation is the ___ of electrons."
+ },
+ {
+  "id": "Q102",
+  "format": "choice",
+  "question": "How do capacitors combine in parallel?",
+  "options": {
+   "A": "Their reciprocals add",
+   "B": "The total equals the largest one",
+   "C": "The total equals the smallest one",
+   "D": "Their capacitances add"
+  }
+ },
+ {
+  "id": "Q103",
+  "format": "choice",
+  "question": "Which level of protein structure exists only in proteins made of more than one polypeptide chain?",
+  "options": {
+   "A": "Secondary",
+   "B": "Tertiary",
+   "C": "Primary",
+   "D": "Quaternary"
+  }
+ },
+ {
+  "id": "Q104",
+  "format": "choice",
+  "question": "The average kinetic energy of gas molecules depends only on:",
+  "options": {
+   "A": "Molar mass",
+   "B": "Absolute temperature",
+   "C": "Pressure",
+   "D": "Volume"
+  }
+ },
+ {
+  "id": "Q105",
+  "format": "choice",
+  "question": "Which set of quantum numbers (n, l, mₗ, mₛ) is NOT allowed?",
+  "options": {
+   "A": "(1, 0, 0, −½)",
+   "B": "(2, 2, 0, +½)",
+   "C": "(2, 1, −1, +½)",
+   "D": "(3, 2, −2, −½)"
+  }
+ },
+ {
+  "id": "Q106",
+  "format": "number",
+  "question": "4 g of NaOH (40 g/mol) is dissolved to make 200 mL of solution. What is the molarity?"
+ },
+ {
+  "id": "Q107",
+  "format": "short answer",
+  "question": "What is the start codon?"
+ },
+ {
+  "id": "Q108",
+  "format": "choice",
+  "question": "The law of independent assortment follows from:",
+  "options": {
+   "A": "Crossing over in prophase I",
+   "B": "The random orientation of homolog pairs at metaphase I",
+   "C": "DNA replication in S phase",
+   "D": "Sister chromatid separation in anaphase II"
+  }
+ },
+ {
+  "id": "Q109",
+  "format": "choice",
+  "question": "What is the main point of fermentation?",
+  "options": {
+   "A": "To feed the citric acid cycle",
+   "B": "To make additional ATP from pyruvate",
+   "C": "To regenerate NAD⁺ so glycolysis can keep making ATP",
+   "D": "To produce oxygen"
+  }
+ },
+ {
+  "id": "Q110",
+  "format": "choice",
+  "question": "Colligative properties depend on:",
+  "options": {
+   "A": "The identity of the solute",
+   "B": "The solute's molar mass only",
+   "C": "The number of dissolved particles, not their identity",
+   "D": "The solvent's color"
+  }
+ },
+ {
+  "id": "Q111",
+  "format": "number",
+  "question": "What is the ideal van't Hoff factor (i) for NaCl in water?"
+ },
+ {
+  "id": "Q112",
+  "format": "number",
+  "question": "A first-order reactant has a half-life of 2 min. Starting with 200 g, how many grams remain after 2 min?"
+ },
+ {
+  "id": "Q113",
+  "format": "choice",
+  "question": "How do pure solids and pure liquids appear in an equilibrium expression?",
+  "options": {
+   "A": "They are left out (their activity is 1)",
+   "B": "As their masses",
+   "C": "In the denominator only",
+   "D": "As their molar concentrations"
+  }
+ },
+ {
+  "id": "Q114",
+  "format": "choice",
+  "question": "Bacterial DNA carried into another bacterium by a bacteriophage is:",
+  "options": {
+   "A": "Transduction",
+   "B": "Conjugation",
+   "C": "Transposition",
+   "D": "Transformation"
+  }
+ },
+ {
+  "id": "Q115",
+  "format": "choice",
+  "question": "In hydrogen, which electron transition emits the highest-energy photon?",
+  "options": {
+   "A": "n = 6 → n = 5",
+   "B": "n = 4 → n = 3",
+   "C": "n = 2 → n = 1",
+   "D": "n = 3 → n = 2"
+  }
+ },
+ {
+  "id": "Q116",
+  "format": "choice",
+  "question": "When does crossing over occur?",
+  "options": {
+   "A": "Anaphase I of meiosis",
+   "B": "Metaphase II of meiosis",
+   "C": "Prophase of mitosis",
+   "D": "Prophase I of meiosis"
+  }
+ },
+ {
+  "id": "Q117",
+  "format": "number",
+  "question": "By how many °C does 0.5 m NaCl lower water's freezing point? (Kf = 1.86 °C·kg/mol; assume complete dissociation.)"
+ },
+ {
+  "id": "Q118",
+  "format": "choice",
+  "question": "Adding NaCl to a saturated AgCl solution does what to AgCl's solubility?",
+  "options": {
+   "A": "Raises its Ksp",
+   "B": "Leaves it unchanged",
+   "C": "Raises it",
+   "D": "Lowers it (common-ion effect)"
+  }
+ },
+ {
+  "id": "Q119",
+  "format": "choice",
+  "question": "Which observation supports the endosymbiotic origin of mitochondria?",
+  "options": {
+   "A": "They are made by the Golgi",
+   "B": "Their proteins are all encoded in the nucleus",
+   "C": "They lack membranes",
+   "D": "They have their own circular DNA and bacteria-like ribosomes"
+  }
+ },
+ {
+  "id": "Q120",
+  "format": "choice",
+  "question": "Blood leaving the right ventricle goes next to:",
+  "options": {
+   "A": "The aorta",
+   "B": "The vena cava",
+   "C": "The pulmonary artery, then the lungs",
+   "D": "The left atrium"
+  }
+ },
+ {
+  "id": "Q121",
+  "format": "choice",
+  "question": "Which substance dissolves best in hexane (nonpolar)?",
+  "options": {
+   "A": "KNO₃",
+   "B": "I₂",
+   "C": "Glucose",
+   "D": "NaCl"
+  }
+ },
+ {
+  "id": "Q122",
+  "format": "choice",
+  "question": "What does p53 do when DNA is damaged?",
+  "options": {
+   "A": "Repairs DNA directly as a polymerase",
+   "B": "Speeds the cell into S phase",
+   "C": "Separates sister chromatids",
+   "D": "Halts the cell cycle (at G₁/S) for repair or triggers apoptosis"
+  }
+ },
+ {
+  "id": "Q123",
+  "format": "choice",
+  "question": "A noncompetitive inhibitor:",
+  "options": {
+   "A": "Raises Km without changing Vmax",
+   "B": "Lowers Vmax without changing Km",
+   "C": "Lowers both Km and Vmax",
+   "D": "Can be overcome with more substrate"
+  }
+ },
+ {
+  "id": "Q124",
+  "format": "choice",
+  "question": "How do enzymes speed up reactions?",
+  "options": {
+   "A": "By lowering the activation energy",
+   "B": "By raising the temperature",
+   "C": "By shifting the equilibrium toward products",
+   "D": "By making ΔG more negative"
+  }
+ },
+ {
+  "id": "Q125",
+  "format": "choice",
+  "question": "Real gases deviate most from ideal behavior at:",
+  "options": {
+   "A": "Low pressure and low temperature",
+   "B": "High temperature only",
+   "C": "High pressure and low temperature",
+   "D": "Low pressure and high temperature"
+  }
+ },
+ {
+  "id": "Q126",
+  "format": "choice",
+  "question": "Three tanks of different shapes are filled with water to the same depth. The pressure at the bottom is:",
+  "options": {
+   "A": "Greatest in the widest tank",
+   "B": "Greatest in the narrowest tank",
+   "C": "Greatest in the tank with the most water",
+   "D": "The same in all three"
+  }
+ },
+ {
+  "id": "Q127",
+  "format": "choice",
+  "question": "Which cytoskeletal element pinches a dividing animal cell in two?",
+  "options": {
+   "A": "Centrioles",
+   "B": "Intermediate filaments",
+   "C": "Actin microfilaments",
+   "D": "Microtubules"
+  }
+ },
+ {
+  "id": "Q128",
+  "format": "choice",
+  "question": "You stand on a scale in an elevator accelerating upward. The scale reads:",
+  "options": {
+   "A": "Exactly your weight",
+   "B": "Zero",
+   "C": "More than your weight",
+   "D": "Less than your weight"
+  }
+ },
+ {
+  "id": "Q129",
+  "format": "choice",
+  "question": "In a double-slit experiment, bright fringes appear where the path difference is:",
+  "options": {
+   "A": "Equal to the slit spacing",
+   "B": "Zero only",
+   "C": "An odd number of half wavelengths",
+   "D": "A whole number of wavelengths (mλ)"
+  }
+ },
+ {
+  "id": "Q130",
+  "format": "choice",
+  "question": "Sister chromatids separate during:",
+  "options": {
+   "A": "Anaphase I only",
+   "B": "Metaphase I",
+   "C": "Anaphase II and mitotic anaphase",
+   "D": "Prophase I"
+  }
+ },
+ {
+  "id": "Q131",
+  "format": "choice",
+  "question": "DNA is replicated during which phase of the cell cycle?",
+  "options": {
+   "A": "M phase",
+   "B": "G₂",
+   "C": "S phase",
+   "D": "G₁"
+  }
+ },
+ {
+  "id": "Q132",
+  "format": "number",
+  "question": "An object is dropped from rest 5 m above the ground. How long (s) does it take to land? (g = 10 m/s², no air resistance)"
+ },
+ {
+  "id": "Q133",
+  "format": "choice",
+  "question": "A solid turning directly into a gas is called:",
+  "options": {
+   "A": "Fusion",
+   "B": "Evaporation",
+   "C": "Deposition",
+   "D": "Sublimation"
+  }
+ },
+ {
+  "id": "Q134",
+  "format": "short answer",
+  "question": "The slowest step of a reaction mechanism, which sets the overall rate, is the ___."
+ },
+ {
+  "id": "Q135",
+  "format": "choice",
+  "question": "The buoyant force on a submerged object equals:",
+  "options": {
+   "A": "The pressure at its depth",
+   "B": "The object's own weight",
+   "C": "The weight of the fluid it displaces",
+   "D": "The object's volume times its density"
+  }
+ },
+ {
+  "id": "Q136",
+  "format": "choice",
+  "question": "In a horizontal pipe, where the fluid flows faster its pressure is:",
+  "options": {
+   "A": "Zero",
+   "B": "Lower",
+   "C": "Higher",
+   "D": "Unchanged"
+  }
+ },
+ {
+  "id": "Q137",
+  "format": "choice",
+  "question": "Which atom has the largest atomic radius?",
+  "options": {
+   "A": "Na",
+   "B": "Cl",
+   "C": "F",
+   "D": "Cs"
+  }
+ },
+ {
+  "id": "Q138",
+  "format": "choice",
+  "question": "Keratin and nuclear lamins are examples of:",
+  "options": {
+   "A": "Microtubules",
+   "B": "Intermediate filaments",
+   "C": "Motor proteins",
+   "D": "Microfilaments"
+  }
+ },
+ {
+  "id": "Q139",
+  "format": "choice",
+  "question": "Homologous chromosomes separate during:",
+  "options": {
+   "A": "Anaphase of mitosis",
+   "B": "Anaphase I",
+   "C": "Anaphase II",
+   "D": "Telophase II"
+  }
+ },
+ {
+  "id": "Q140",
+  "format": "choice",
+  "question": "A Brønsted–Lowry acid is a:",
+  "options": {
+   "A": "Substance that releases OH⁻ in water",
+   "B": "Electron-pair acceptor",
+   "C": "Proton acceptor",
+   "D": "Proton (H⁺) donor"
+  }
+ },
+ {
+  "id": "Q141",
+  "format": "choice",
+  "question": "What makes cellulose indigestible to humans while starch is digestible?",
+  "options": {
+   "A": "Cellulose uses β(1→4) glycosidic bonds; starch uses α(1→4)",
+   "B": "Cellulose is a protein",
+   "C": "Starch is branched and cellulose is not",
+   "D": "Cellulose is made of fructose"
+  }
+ },
+ {
+  "id": "Q142",
+  "format": "choice",
+  "question": "Current estimates of the ATP made from one glucose by full aerobic respiration are about:",
+  "options": {
+   "A": "2",
+   "B": "100",
+   "C": "36–38",
+   "D": "30–32"
+  }
+ },
+ {
+  "id": "Q143",
+  "format": "short answer",
+  "question": "What is the hybridization of each carbon in ethene (C₂H₄)?"
+ },
+ {
+  "id": "Q144",
+  "format": "choice",
+  "question": "Which change raises a liquid's vapor pressure?",
+  "options": {
+   "A": "Stronger intermolecular forces",
+   "B": "Dissolving a nonvolatile solute in it",
+   "C": "Moving it to a bigger closed container",
+   "D": "Raising the temperature"
+  }
+ },
+ {
+  "id": "Q145",
+  "format": "choice",
+  "question": "In beta-minus decay:",
+  "options": {
+   "A": "Z falls by 2 and A by 4",
+   "B": "Only energy is released",
+   "C": "A proton becomes a neutron; Z falls by 1",
+   "D": "A neutron becomes a proton and an electron is emitted; Z rises by 1, A is unchanged"
+  }
+ },
+ {
+  "id": "Q146",
+  "format": "choice",
+  "question": "A point mutation changes a codon from GAA to GAG; both code for glutamate. This is a:",
+  "options": {
+   "A": "Missense mutation",
+   "B": "Nonsense mutation",
+   "C": "Silent mutation",
+   "D": "Frameshift mutation"
+  }
+ },
+ {
+  "id": "Q147",
+  "format": "choice",
+  "question": "An exothermic reaction has a ΔH that is:",
+  "options": {
+   "A": "Zero",
+   "B": "Equal to TΔS",
+   "C": "Positive",
+   "D": "Negative"
+  }
+ },
+ {
+  "id": "Q148",
+  "format": "choice",
+  "question": "Gram-positive bacteria have:",
+  "options": {
+   "A": "A cellulose wall",
+   "B": "A thin peptidoglycan wall and an outer membrane; they stain pink",
+   "C": "No cell wall",
+   "D": "A thick peptidoglycan wall and no outer membrane; they stain purple"
+  }
+ },
+ {
+  "id": "Q149",
+  "format": "number",
+  "question": "What is Avogadro's number (particles per mole)?"
+ },
+ {
+  "id": "Q150",
+  "format": "choice",
+  "question": "The resting membrane potential of a neuron (about −70 mV) is set mainly by:",
+  "options": {
+   "A": "Ca²⁺ entering the cell",
+   "B": "K⁺ leaking out through open K⁺ channels",
+   "C": "Na⁺ rushing in",
+   "D": "Cl⁻ being pumped in"
+  }
+ },
+ {
+  "id": "Q151",
+  "format": "choice",
+  "question": "What does the Golgi apparatus mainly do?",
+  "options": {
+   "A": "Replicates DNA",
+   "B": "Modifies, sorts and packages proteins and lipids for their destinations",
+   "C": "Digests worn-out organelles",
+   "D": "Makes ATP"
+  }
+ },
+ {
+  "id": "Q152",
+  "format": "choice",
+  "question": "Two charges are moved twice as far apart. The electric force between them becomes:",
+  "options": {
+   "A": "Twice as large",
+   "B": "Unchanged",
+   "C": "¼ as large",
+   "D": "½ as large"
+  }
+ },
+ {
+  "id": "Q153",
+  "format": "short answer",
+  "question": "Which principle says no two electrons in an atom can share all four quantum numbers?"
+ },
+ {
+  "id": "Q154",
+  "format": "choice",
+  "question": "When NH₃ bonds to BF₃, where do the two electrons of the new B–N bond come from?",
+  "options": {
+   "A": "None: the B–N bond is ionic",
+   "B": "Both come from nitrogen",
+   "C": "Both come from boron",
+   "D": "One from each atom"
+  }
+ },
+ {
+  "id": "Q155",
+  "format": "choice",
+  "question": "How does a reaction intermediate differ from a transition state?",
+  "options": {
+   "A": "An intermediate sits in an energy dip and can in principle be detected; a transition state is an energy peak",
+   "B": "An intermediate is an energy peak; a transition state is a dip",
+   "C": "An intermediate appears in the overall equation",
+   "D": "They are the same thing"
+  }
+ },
+ {
+  "id": "Q156",
+  "format": "short answer",
+  "question": "What is the point on a phase diagram where solid, liquid and gas coexist?"
+ },
+ {
+  "id": "Q157",
+  "format": "short answer",
+  "question": "A molecule with both a hydrophilic and a hydrophobic region, like a phospholipid, is called ___."
+ },
+ {
+  "id": "Q158",
+  "format": "short answer",
+  "question": "In which organelle does oxidative phosphorylation make most of a cell's ATP?"
+ },
+ {
+  "id": "Q159",
+  "format": "choice",
+  "question": "A red blood cell in a hypertonic solution will:",
+  "options": {
+   "A": "Gain water and swell",
+   "B": "Stay the same size",
+   "C": "Lose water and shrink (crenate)",
+   "D": "Burst"
+  }
+ },
+ {
+  "id": "Q160",
+  "format": "choice",
+  "question": "Electric field lines point:",
+  "options": {
+   "A": "In circles around charges",
+   "B": "Toward positive charges",
+   "C": "Away from positive charges and toward negative charges",
+   "D": "Perpendicular to the force on a positive charge"
+  }
+ },
+ {
+  "id": "Q161",
+  "format": "choice",
+  "question": "Sound travels fastest in:",
+  "options": {
+   "A": "A vacuum",
+   "B": "Steel",
+   "C": "Water",
+   "D": "Air"
+  }
+ },
+ {
+  "id": "Q162",
+  "format": "choice",
+  "question": "During the rising (depolarization) phase of an action potential:",
+  "options": {
+   "A": "The Na⁺/K⁺ pump reverses",
+   "B": "Cl⁻ channels open",
+   "C": "Voltage-gated Na⁺ channels open and Na⁺ flows in",
+   "D": "Voltage-gated K⁺ channels open and K⁺ flows out"
+  }
+ },
+ {
+  "id": "Q163",
+  "format": "number",
+  "question": "A 10 N force is applied 0.2 m from a hinge, at 0° to the lever arm. What is the torque (N·m)? (sin 30° = 0.5)"
+ },
+ {
+  "id": "Q164",
+  "format": "number",
+  "question": "An isotope has a half-life of 5730 years. What percent of a sample remains after 5730 years?"
+ },
+ {
+  "id": "Q165",
+  "format": "number",
+  "question": "ΔH = -100 kJ/mol and ΔS = -200 J/(mol·K). What is ΔG at 500 K, in kJ/mol?"
+ },
+ {
+  "id": "Q166",
+  "format": "number",
+  "question": "What is Faraday's constant, in coulombs per mole of electrons?"
+ },
+ {
+  "id": "Q167",
+  "format": "number",
+  "question": "A 1 kg cart moving at 4 m/s hits a stationary 6 kg cart, and they stick. What is their speed afterward (m/s)?"
+ },
+ {
+  "id": "Q168",
+  "format": "number",
+  "question": "A container holds 1 mol N₂ and 1 mol O₂ at a total pressure of 6 atm. What is the partial pressure of N₂, in atm?"
+ },
+ {
+  "id": "Q169",
+  "format": "choice",
+  "question": "H₂ (2 g/mol) and O₂ (32 g/mol) are at the same temperature. H₂'s average speed is:",
+  "options": {
+   "A": "¼ of O₂'s",
+   "B": "Equal to O₂'s",
+   "C": "16 times O₂'s",
+   "D": "4 times O₂'s"
+  }
+ },
+ {
+  "id": "Q170",
+  "format": "choice",
+  "question": "What does insulin do?",
+  "options": {
+   "A": "Increases water reabsorption in the kidney",
+   "B": "Raises blood glucose by stimulating glycogen breakdown",
+   "C": "Raises blood calcium",
+   "D": "Lowers blood glucose by promoting uptake into cells and glycogen synthesis"
+  }
+ },
+ {
+  "id": "Q171",
+  "format": "choice",
+  "question": "What causes repolarization after the peak of an action potential?",
+  "options": {
+   "A": "Ca²⁺ flowing in",
+   "B": "Na⁺ channels inactivate and voltage-gated K⁺ channels let K⁺ flow out",
+   "C": "Na⁺ channels open further",
+   "D": "The Na⁺/K⁺ pump alone"
+  }
+ },
+ {
+  "id": "Q172",
+  "format": "choice",
+  "question": "When is the lac operon transcribed at a high level?",
+  "options": {
+   "A": "When lactose is present and glucose is low",
+   "B": "When both are high",
+   "C": "When both are absent",
+   "D": "When glucose is high and lactose absent"
+  }
+ },
+ {
+  "id": "Q173",
+  "format": "choice",
+  "question": "A person with blood type AB expresses both A and B antigens. This is:",
+  "options": {
+   "A": "Epistasis",
+   "B": "Pleiotropy",
+   "C": "Codominance",
+   "D": "Incomplete dominance"
+  }
+ },
+ {
+  "id": "Q174",
+  "format": "short answer",
+  "question": "Proteins destined for secretion are made on ribosomes bound to which organelle?"
+ },
+ {
+  "id": "Q175",
+  "format": "number",
+  "question": "Aa × Aa. What fraction of offspring are aa? (Answer as a decimal or fraction.)"
+ },
+ {
+  "id": "Q176",
+  "format": "choice",
+  "question": "An astronaut goes from Earth to the Moon. What happens to her mass and weight?",
+  "options": {
+   "A": "Mass decreases; weight is unchanged",
+   "B": "Both are unchanged",
+   "C": "Both decrease",
+   "D": "Mass is unchanged; weight decreases"
+  }
+ },
+ {
+  "id": "Q177",
+  "format": "number",
+  "question": "A photon has a wavelength of 124 nm. What is its energy in eV? (Use hc ≈ 1240 eV·nm.)"
+ },
+ {
+  "id": "Q178",
+  "format": "choice",
+  "question": "Why does raising temperature speed up most reactions?",
+  "options": {
+   "A": "A larger fraction of collisions have energy above the activation energy",
+   "B": "It lowers the activation energy",
+   "C": "It makes ΔH more negative",
+   "D": "It only raises collision frequency"
+  }
+ },
+ {
+  "id": "Q179",
+  "format": "choice",
+  "question": "What does a catalyst change?",
+  "options": {
+   "A": "Which side the equilibrium favors",
+   "B": "The activation energy (and so the rate), not ΔG or K",
+   "C": "The equilibrium constant",
+   "D": "ΔH of the reaction"
+  }
+ },
+ {
+  "id": "Q180",
+  "format": "number",
+  "question": "2 H₂ + O₂ → 2 H₂O. You start with 2 mol H₂ and 1 mol O₂. How many moles of water can form?"
+ },
+ {
+  "id": "Q181",
+  "format": "short answer",
+  "question": "Where in the nucleus is ribosomal RNA made and ribosome subunit assembly begun?"
+ },
+ {
+  "id": "Q182",
+  "format": "short answer",
+  "question": "Which intermolecular force is present between all molecules, polar or not?"
+ },
+ {
+  "id": "Q183",
+  "format": "choice",
+  "question": "A box slides 5 m across a level floor. How much work does the normal force do?",
+  "options": {
+   "A": "Negative, equal to friction's work",
+   "B": "Positive, equal to the kinetic energy gained",
+   "C": "Zero",
+   "D": "Equal to the weight times 5 m"
+  }
+ },
+ {
+  "id": "Q184",
+  "format": "short answer",
+  "question": "When an electron drops from a higher to a lower energy level, the atom ___ a photon."
+ },
+ {
+  "id": "Q185",
+  "format": "choice",
+  "question": "What is the strongest intermolecular force between water molecules?",
+  "options": {
+   "A": "Dipole–induced dipole",
+   "B": "London dispersion",
+   "C": "Hydrogen bonding",
+   "D": "Ion–dipole"
+  }
+ },
+ {
+  "id": "Q186",
+  "format": "choice",
+  "question": "ATP synthase is driven directly by:",
+  "options": {
+   "A": "Protons flowing down their gradient back into the matrix",
+   "B": "Hydrolysis of GTP",
+   "C": "Electrons moving through the enzyme",
+   "D": "The oxidation of glucose in the matrix"
+  }
+ },
+ {
+  "id": "Q187",
+  "format": "choice",
+  "question": "Pushing a crate up a long, gentle frictionless ramp instead of lifting it straight up:",
+  "options": {
+   "A": "Takes less force but the same work",
+   "B": "Takes less force and less work",
+   "C": "Takes less work",
+   "D": "Takes more work"
+  }
+ },
+ {
+  "id": "Q188",
+  "format": "choice",
+  "question": "A nucleus weighs less than its separate protons and neutrons. The missing mass:",
+  "options": {
+   "A": "Was released as binding energy, E = mc²",
+   "B": "Is a measurement error",
+   "C": "Became neutrinos only",
+   "D": "Was lost as electrons"
+  }
+ },
+ {
+  "id": "Q189",
+  "format": "choice",
+  "question": "A point mutation changes one codon so that valine replaces glutamate. This is a:",
+  "options": {
+   "A": "Nonsense mutation",
+   "B": "Missense mutation",
+   "C": "Frameshift mutation",
+   "D": "Silent mutation"
+  }
+ },
+ {
+  "id": "Q190",
+  "format": "number",
+  "question": "A ball slides from rest down a frictionless track, dropping 5 m in height. What is its speed at the bottom (m/s)? (g = 10 m/s²)"
+ },
+ {
+  "id": "Q191",
+  "format": "choice",
+  "question": "In the external circuit of a galvanic cell, electrons flow:",
+  "options": {
+   "A": "From anode to cathode",
+   "B": "Through the salt bridge",
+   "C": "From cathode to anode",
+   "D": "Both ways equally"
+  }
+ },
+ {
+  "id": "Q192",
+  "format": "choice",
+  "question": "Where does the citric acid (Krebs) cycle take place in eukaryotes?",
+  "options": {
+   "A": "Mitochondrial matrix",
+   "B": "Cytosol",
+   "C": "Outer mitochondrial membrane",
+   "D": "Inner mitochondrial membrane"
+  }
+ },
+ {
+  "id": "Q193",
+  "format": "choice",
+  "question": "A galvanic (voltaic) cell has:",
+  "options": {
+   "A": "E°cell > 0 and ΔG < 0",
+   "B": "E°cell > 0 and ΔG > 0",
+   "C": "E°cell = 0",
+   "D": "E°cell < 0 and ΔG > 0"
+  }
+ },
+ {
+  "id": "Q194",
+  "format": "number",
+  "question": "Light in air (n = 1) hits a material with n = 1.41 at 45° from the normal. What is the refraction angle, in degrees? (sin 30° = 0.5, sin 45° ≈ 0.707, sin 60° ≈ 0.866)"
+ },
+ {
+  "id": "Q195",
+  "format": "choice",
+  "question": "Two genes show 10% recombinant offspring. What does this suggest?",
+  "options": {
+   "A": "They are on different chromosomes",
+   "B": "They are unlinked and 50 map units apart",
+   "C": "They are linked, about 10 map units apart",
+   "D": "They are the same gene"
+  }
+ },
+ {
+  "id": "Q196",
+  "format": "choice",
+  "question": "Heat denatures a protein. What does it disrupt?",
+  "options": {
+   "A": "The amino acid sequence",
+   "B": "Secondary, tertiary and quaternary structure, but not peptide bonds",
+   "C": "The peptide bonds",
+   "D": "The side chains' chemical identity"
+  }
+ },
+ {
+  "id": "Q197",
+  "format": "choice",
+  "question": "Disulfide bonds form between the side chains of which amino acid?",
+  "options": {
+   "A": "Methionine",
+   "B": "Serine",
+   "C": "Cysteine",
+   "D": "Tyrosine"
+  }
+ },
+ {
+  "id": "Q198",
+  "format": "choice",
+  "question": "Resistors connected in series all have the same:",
+  "options": {
+   "A": "Power",
+   "B": "Resistance",
+   "C": "Current",
+   "D": "Voltage"
+  }
+ },
+ {
+  "id": "Q199",
+  "format": "choice",
+  "question": "Nondisjunction in meiosis II (in one of the two cells) produces:",
+  "options": {
+   "A": "Two diploid gametes",
+   "B": "Four normal gametes",
+   "C": "Two normal gametes, one with an extra chromosome and one missing one",
+   "D": "Four abnormal gametes"
+  }
+ },
+ {
+  "id": "Q200",
+  "format": "choice",
+  "question": "The H–O–H bond angle in water is closest to:",
+  "options": {
+   "A": "120°",
+   "B": "109.5°",
+   "C": "180°",
+   "D": "104.5°"
+  }
+ },
+ {
+  "id": "Q201",
+  "format": "number",
+  "question": "How many times faster does He (4 g/mol) effuse than CH₄ (16 g/mol)?"
+ },
+ {
+  "id": "Q202",
+  "format": "choice",
+  "question": "A book rests on a table. By Newton's third law, the reaction to Earth's gravitational pull on the book is:",
+  "options": {
+   "A": "The book's weight",
+   "B": "The table's normal force on the book",
+   "C": "Friction from the table",
+   "D": "The book's gravitational pull on Earth"
+  }
+ },
+ {
+  "id": "Q203",
+  "format": "short answer",
+  "question": "Which enzyme unwinds the double helix at the replication fork?"
+ },
+ {
+  "id": "Q204",
+  "format": "choice",
+  "question": "In alpha decay, the nucleus's mass number and atomic number change by:",
+  "options": {
+   "A": "A unchanged, Z − 1",
+   "B": "A − 2, Z − 4",
+   "C": "A − 4, Z − 2",
+   "D": "A unchanged, Z + 1"
+  }
+ },
+ {
+  "id": "Q205",
+  "format": "choice",
+  "question": "Cyanide blocks complex IV. What happens to oxygen consumption and ATP synthesis?",
+  "options": {
+   "A": "Neither changes",
+   "B": "Both stop",
+   "C": "O₂ use rises, ATP falls",
+   "D": "O₂ use stops, ATP rises"
+  }
+ },
+ {
+  "id": "Q206",
+  "format": "choice",
+  "question": "Which modifications does a eukaryotic pre-mRNA receive before leaving the nucleus?",
+  "options": {
+   "A": "A 5′ cap, a 3′ poly-A tail and splicing out of introns",
+   "B": "Addition of a start codon",
+   "C": "A 3′ cap and a 5′ poly-A tail",
+   "D": "Removal of exons"
+  }
+ },
+ {
+  "id": "Q207",
+  "format": "choice",
+  "question": "Adding another resistor in parallel to a circuit makes the total resistance:",
+  "options": {
+   "A": "Increase",
+   "B": "Decrease",
+   "C": "Become infinite",
+   "D": "Stay the same"
+  }
+ },
+ {
+  "id": "Q208",
+  "format": "number",
+  "question": "For A + B ⇌ 2 C at equilibrium, [A] = 0.1 M, [B] = 0.1 M and [C] = 1 M. What is K?"
+ },
+ {
+  "id": "Q209",
+  "format": "choice",
+  "question": "What is special about the half-life of a first-order reaction?",
+  "options": {
+   "A": "It equals the rate constant",
+   "B": "It doubles as the reaction goes on",
+   "C": "It is shorter at higher concentration",
+   "D": "It does not depend on the starting concentration"
+  }
+ },
+ {
+  "id": "Q210",
+  "format": "choice",
+  "question": "A diverging lens always forms an image that is:",
+  "options": {
+   "A": "Virtual, upright and smaller",
+   "B": "Real, inverted and larger",
+   "C": "Real, upright and smaller",
+   "D": "Virtual, inverted and larger"
+  }
+ },
+ {
+  "id": "Q211",
+  "format": "number",
+  "question": "When [A] is multiplied by 2 (all else constant), the initial rate is multiplied by 1. What is the reaction order in A?"
+ },
+ {
+  "id": "Q212",
+  "format": "choice",
+  "question": "XeF₄ has four bonds and two lone pairs on xenon. What is its molecular geometry?",
+  "options": {
+   "A": "Octahedral",
+   "B": "Tetrahedral",
+   "C": "Square planar",
+   "D": "Seesaw"
+  }
+ },
+ {
+  "id": "Q213",
+  "format": "short answer",
+  "question": "Which enzyme joins Okazaki fragments into one continuous strand?"
+ },
+ {
+  "id": "Q214",
+  "format": "choice",
+  "question": "Ignoring air resistance, a projectile's horizontal velocity:",
+  "options": {
+   "A": "Increases steadily",
+   "B": "Is zero at the top",
+   "C": "Decreases steadily",
+   "D": "Stays constant"
+  }
+ },
+ {
+  "id": "Q215",
+  "format": "choice",
+  "question": "Compared with a weaker acid, a stronger acid has:",
+  "options": {
+   "A": "A larger pKa and a stronger conjugate base",
+   "B": "A larger Ka, a smaller pKa and a weaker conjugate base",
+   "C": "A smaller Ka and a larger pKa",
+   "D": "A larger Ka and a stronger conjugate base"
+  }
+ },
+ {
+  "id": "Q216",
+  "format": "short answer",
+  "question": "What are the monomers of proteins?"
+ },
+ {
+  "id": "Q217",
+  "format": "number",
+  "question": "A reaction has ΔH = +30 kJ/mol and ΔS = +100 J/(mol·K). Above what temperature (K) is it spontaneous?"
+ },
+ {
+  "id": "Q218",
+  "format": "number",
+  "question": "Light travels from a material with n = 2 toward air (n = 1). What is the critical angle, in degrees?"
+ },
+ {
+  "id": "Q219",
+  "format": "choice",
+  "question": "What kind of bond holds sodium and chloride together in table salt?",
+  "options": {
+   "A": "Polar covalent",
+   "B": "Metallic",
+   "C": "Nonpolar covalent",
+   "D": "Ionic"
+  }
+ },
+ {
+  "id": "Q220",
+  "format": "number",
+  "question": "A cart starts at 0 m/s and accelerates at 2 m/s² for 10 s. What is its final speed, in m/s?"
+ },
+ {
+  "id": "Q221",
+  "format": "choice",
+  "question": "Aldosterone acts on the distal nephron to:",
+  "options": {
+   "A": "Increase glucose reabsorption",
+   "B": "Increase Na⁺ reabsorption and K⁺ secretion",
+   "C": "Decrease Na⁺ reabsorption",
+   "D": "Insert aquaporins"
+  }
+ },
+ {
+  "id": "Q222",
+  "format": "short answer",
+  "question": "A species with an unpaired electron, like NO, is called a ___."
+ },
+ {
+  "id": "Q223",
+  "format": "choice",
+  "question": "How should an ammeter and a voltmeter be connected?",
+  "options": {
+   "A": "Ammeter in parallel; voltmeter in series",
+   "B": "Both in parallel",
+   "C": "Both in series",
+   "D": "Ammeter in series (very low resistance); voltmeter in parallel (very high resistance)"
+  }
+ },
+ {
+  "id": "Q224",
+  "format": "choice",
+  "question": "α-helices and β-sheets are held together mainly by:",
+  "options": {
+   "A": "Hydrogen bonds between backbone C=O and N–H groups",
+   "B": "Hydrophobic interactions between side chains",
+   "C": "Peptide bonds",
+   "D": "Disulfide bonds"
+  }
+ },
+ {
+  "id": "Q225",
+  "format": "short answer",
+  "question": "Which protein complex holds sister chromatids together until anaphase?"
+ },
+ {
+  "id": "Q226",
+  "format": "choice",
+  "question": "A real image formed by a single converging lens is always:",
+  "options": {
+   "A": "Inverted",
+   "B": "On the same side as the object",
+   "C": "Smaller than the object",
+   "D": "Upright"
+  }
+ },
+ {
+  "id": "Q227",
+  "format": "number",
+  "question": "A triple bond contains one σ bond and how many π bonds?"
+ },
+ {
+  "id": "Q228",
+  "format": "short answer",
+  "question": "What is the SI unit of power?"
+ },
+ {
+  "id": "Q229",
+  "format": "choice",
+  "question": "Which bond is the most polar?",
+  "options": {
+   "A": "N–H",
+   "B": "H–Cl",
+   "C": "C–H",
+   "D": "H–F"
+  }
+ },
+ {
+  "id": "Q230",
+  "format": "number",
+  "question": "Chlorine is 75% mass-35 and 25% mass-37 (treat isotope masses as whole numbers). What is the average atomic mass, in amu?"
+ },
+ {
+  "id": "Q231",
+  "format": "choice",
+  "question": "For an object moving in a circle at constant speed, the net force points:",
+  "options": {
+   "A": "Along the direction of motion",
+   "B": "Toward the center",
+   "C": "There is no net force",
+   "D": "Outward from the center"
+  }
+ },
+ {
+  "id": "Q232",
+  "format": "choice",
+  "question": "Which carbon–carbon bond is the strongest?",
+  "options": {
+   "A": "C–C",
+   "B": "C=C",
+   "C": "All three are equally strong",
+   "D": "C≡C"
+  }
+ },
+ {
+  "id": "Q233",
+  "format": "choice",
+  "question": "Which quantity is NOT a state function?",
+  "options": {
+   "A": "Internal energy",
+   "B": "Entropy",
+   "C": "Enthalpy",
+   "D": "Work"
+  }
+ },
+ {
+  "id": "Q234",
+  "format": "number",
+  "question": "AaBb × AaBb (genes on different chromosomes). What fraction of offspring are aabb?"
+ },
+ {
+  "id": "Q235",
+  "format": "choice",
+  "question": "What does ADH (vasopressin) do in the kidney?",
+  "options": {
+   "A": "Increases glomerular filtration",
+   "B": "Increases K⁺ reabsorption",
+   "C": "Increases Na⁺ reabsorption in the distal tubule",
+   "D": "Inserts aquaporins in the collecting duct, increasing water reabsorption"
+  }
+ },
+ {
+  "id": "Q236",
+  "format": "short answer",
+  "question": "Primase lays down short primers made of ___."
+ },
+ {
+  "id": "Q237",
+  "format": "short answer",
+  "question": "The reactant that runs out first, capping how much product can form, is the ___."
+ },
+ {
+  "id": "Q238",
+  "format": "choice",
+  "question": "Only 70% of people with a disease genotype show any symptoms. This describes:",
+  "options": {
+   "A": "Incomplete penetrance",
+   "B": "Variable expressivity",
+   "C": "Codominance",
+   "D": "Pleiotropy"
+  }
+ },
+ {
+  "id": "Q239",
+  "format": "short answer",
+  "question": "Which rule says electrons occupy degenerate orbitals singly, with parallel spins, before any pairing?"
+ },
+ {
+  "id": "Q240",
+  "format": "choice",
+  "question": "Receptor-mediated endocytosis, such as LDL uptake, uses:",
+  "options": {
+   "A": "Gap junctions",
+   "B": "Clathrin-coated pits",
+   "C": "Exocytic vesicles",
+   "D": "Ion channels"
+  }
+ },
+ {
+  "id": "Q241",
+  "format": "choice",
+  "question": "A competitive inhibitor changes enzyme kinetics how?",
+  "options": {
+   "A": "Both Km and Vmax rise",
+   "B": "Apparent Km rises; Vmax is unchanged",
+   "C": "Vmax falls; Km is unchanged",
+   "D": "Both Km and Vmax fall"
+  }
+ },
+ {
+  "id": "Q242",
+  "format": "choice",
+  "question": "An object is placed inside the focal length of a converging lens. The image is:",
+  "options": {
+   "A": "Real, inverted and reduced",
+   "B": "Virtual, upright and magnified",
+   "C": "Not formed",
+   "D": "Real, inverted and magnified"
+  }
+ },
+ {
+  "id": "Q243",
+  "format": "short answer",
+  "question": "The heat needed to raise 1 g of a substance by 1 °C is its ___."
+ },
+ {
+  "id": "Q244",
+  "format": "short answer",
+  "question": "Which enzyme relieves the supercoiling that builds up ahead of the replication fork?"
+ },
+ {
+  "id": "Q245",
+  "format": "choice",
+  "question": "Weak acid titrated with strong base: the pH at the equivalence point is:",
+  "options": {
+   "A": "Equal to pKa",
+   "B": "Below 7",
+   "C": "Exactly 7",
+   "D": "Above 7"
+  }
+ },
+ {
+  "id": "Q246",
+  "format": "choice",
+  "question": "An inhibitor binds only to the enzyme–substrate complex. What happens to Km and Vmax?",
+  "options": {
+   "A": "Vmax falls, Km unchanged",
+   "B": "Neither changes",
+   "C": "Both decrease",
+   "D": "Km rises, Vmax unchanged"
+  }
+ },
+ {
+  "id": "Q247",
+  "format": "choice",
+  "question": "What does cholesterol do to membrane fluidity?",
+  "options": {
+   "A": "Has no effect",
+   "B": "Always makes the membrane more fluid",
+   "C": "Always makes the membrane more rigid",
+   "D": "Buffers it: less fluid at high temperature, prevents stiffening at low temperature"
+  }
+ },
+ {
+  "id": "Q248",
+  "format": "short answer",
+  "question": "What bond links one amino acid to the next in a protein chain?"
+ },
+ {
+  "id": "Q249",
+  "format": "choice",
+  "question": "What does the salt bridge in a galvanic cell do?",
+  "options": {
+   "A": "Carries electrons between the half-cells",
+   "B": "Raises the cell voltage",
+   "C": "Supplies the reactants",
+   "D": "Lets ions flow to keep each half-cell electrically neutral"
+  }
+ },
+ {
+  "id": "Q250",
+  "format": "short answer",
+  "question": "In which phase of mitosis do chromosomes line up at the cell's equator?"
+ },
+ {
+  "id": "Q251",
+  "format": "choice",
+  "question": "Which junction anchors cells together via intermediate filaments to resist mechanical stress?",
+  "options": {
+   "A": "Gap junctions",
+   "B": "Tight junctions",
+   "C": "Plasmodesmata",
+   "D": "Desmosomes"
+  }
+ },
+ {
+  "id": "Q252",
+  "format": "number",
+  "question": "What is the fundamental frequency (Hz) of a 0.25 m pipe closed at one end? (v = 340 m/s)"
+ },
+ {
+  "id": "Q253",
+  "format": "short answer",
+  "question": "What three-carbon molecule does glycolysis end with?"
+ },
+ {
+  "id": "Q254",
+  "format": "choice",
+  "question": "The slope of a velocity–time graph gives:",
+  "options": {
+   "A": "Velocity",
+   "B": "Jerk",
+   "C": "Displacement",
+   "D": "Acceleration"
+  }
+ },
+ {
+  "id": "Q255",
+  "format": "choice",
+  "question": "What is the ground-state electron configuration of chromium (Z = 24)?",
+  "options": {
+   "A": "[Ar] 3d⁶",
+   "B": "[Ar] 4s² 3d⁵",
+   "C": "[Ar] 4s² 3d⁴",
+   "D": "[Ar] 4s¹ 3d⁵"
+  }
+ },
+ {
+  "id": "Q256",
+  "format": "choice",
+  "question": "Cardiac muscle is:",
+  "options": {
+   "A": "Striated, voluntary and multinucleated",
+   "B": "Striated, involuntary and linked by intercalated discs with gap junctions",
+   "C": "Unstriated and voluntary",
+   "D": "Smooth, involuntary and unbranched"
+  }
+ },
+ {
+  "id": "Q257",
+  "format": "choice",
+  "question": "A positive charge moves in the direction of an electric field. Its electric potential energy:",
+  "options": {
+   "A": "Becomes zero",
+   "B": "Increases",
+   "C": "Stays the same",
+   "D": "Decreases"
+  }
+ },
+ {
+  "id": "Q258",
+  "format": "number",
+  "question": "What volume (in L) does 0.5 mol of an ideal gas occupy at 273 K and 0.5 atm? (R = 0.0821 L·atm/(mol·K))"
+ },
+ {
+  "id": "Q259",
+  "format": "choice",
+  "question": "Mendel's law of segregation states that:",
+  "options": {
+   "A": "Traits blend in offspring",
+   "B": "Dominant alleles are always more common",
+   "C": "Genes on different chromosomes sort independently",
+   "D": "The two alleles of a gene separate into different gametes"
+  }
+ },
+ {
+  "id": "Q260",
+  "format": "choice",
+  "question": "For an exothermic reaction at equilibrium, raising the temperature:",
+  "options": {
+   "A": "Shifts it toward reactants and decreases K",
+   "B": "Shifts it but leaves K unchanged",
+   "C": "Shifts it toward products and increases K",
+   "D": "Has no effect"
+  }
+ },
+ {
+  "id": "Q261",
+  "format": "choice",
+  "question": "In an elastic collision:",
+  "options": {
+   "A": "Neither is conserved",
+   "B": "Only momentum is conserved",
+   "C": "Only kinetic energy is conserved",
+   "D": "Both momentum and kinetic energy are conserved"
+  }
+ },
+ {
+  "id": "Q262",
+  "format": "choice",
+  "question": "Which element is the most electronegative?",
+  "options": {
+   "A": "F",
+   "B": "O",
+   "C": "Cl",
+   "D": "N"
+  }
+ },
+ {
+  "id": "Q263",
+  "format": "choice",
+  "question": "Using bond enthalpies, ΔH of a reaction is estimated as:",
+  "options": {
+   "A": "Σ(products) − Σ(reactants) of bond enthalpies",
+   "B": "The sum of all bond enthalpies",
+   "C": "Σ(bonds formed) − Σ(bonds broken)",
+   "D": "Σ(bonds broken) − Σ(bonds formed)"
+  }
+ },
+ {
+  "id": "Q264",
+  "format": "number",
+  "question": "How many hydrogen bonds hold a G–C base pair together?"
+ },
+ {
+  "id": "Q265",
+  "format": "choice",
+  "question": "Total internal reflection requires:",
+  "options": {
+   "A": "Light going from lower n to higher n",
+   "B": "A mirror coating",
+   "C": "Light going from higher n to lower n at more than the critical angle",
+   "D": "Any angle at a glass surface"
+  }
+ },
+ {
+  "id": "Q266",
+  "format": "choice",
+  "question": "Which compound can form hydrogen bonds with other molecules of itself?",
+  "options": {
+   "A": "CH₃OCH₃",
+   "B": "CH₃F",
+   "C": "CH₃OH",
+   "D": "CH₄"
+  }
+ },
+ {
+  "id": "Q267",
+  "format": "choice",
+  "question": "How does RNA differ chemically from DNA?",
+  "options": {
+   "A": "RNA has no phosphate backbone",
+   "B": "RNA uses different purines",
+   "C": "RNA has ribose (with a 2′-OH) and uracil instead of thymine",
+   "D": "RNA has deoxyribose and thymine"
+  }
+ },
+ {
+  "id": "Q268",
+  "format": "choice",
+  "question": "Which is a condition for Hardy–Weinberg equilibrium?",
+  "options": {
+   "A": "A very large population",
+   "B": "Frequent migration",
+   "C": "Natural selection",
+   "D": "Assortative (non-random) mating"
+  }
+ },
+ {
+  "id": "Q269",
+  "format": "choice",
+  "question": "A nucleotide is made of:",
+  "options": {
+   "A": "A phosphate group, a five-carbon sugar and a nitrogenous base",
+   "B": "Glycerol and fatty acids",
+   "C": "An amino acid and a phosphate",
+   "D": "A sugar and a base only"
+  }
+ },
+ {
+  "id": "Q270",
+  "format": "choice",
+  "question": "Which has the highest boiling point?",
+  "options": {
+   "A": "H₂O",
+   "B": "Ne",
+   "C": "CH₄",
+   "D": "H₂S"
+  }
+ },
+ {
+  "id": "Q271",
+  "format": "short answer",
+  "question": "Km is the substrate concentration at which the reaction rate is ___ of Vmax."
+ },
+ {
+  "id": "Q272",
+  "format": "number",
+  "question": "A 6 V battery drives current through a 2 Ω resistor. What is the current (A)?"
+ },
+ {
+  "id": "Q273",
+  "format": "choice",
+  "question": "Why is the lagging strand made in Okazaki fragments?",
+  "options": {
+   "A": "Polymerase can only build 5′→3′, so on that strand it must work away from the fork in short pieces",
+   "B": "It is copied only after the leading strand is finished",
+   "C": "Helicase unwinds that strand more slowly",
+   "D": "It is made of RNA"
+  }
+ },
+ {
+  "id": "Q274",
+  "format": "choice",
+  "question": "Nitrogen's first ionization energy is higher than oxygen's. Why?",
+  "options": {
+   "A": "Nitrogen's 2p subshell is completely filled",
+   "B": "Oxygen atoms are larger than nitrogen atoms",
+   "C": "Oxygen's fourth 2p electron is paired, and the pairing repulsion makes it easier to remove",
+   "D": "Nitrogen has a larger nuclear charge"
+  }
+ },
+ {
+  "id": "Q275",
+  "format": "choice",
+  "question": "Resistors connected in parallel all have the same:",
+  "options": {
+   "A": "Resistance",
+   "B": "Current",
+   "C": "Voltage",
+   "D": "Charge"
+  }
+ },
+ {
+  "id": "Q276",
+  "format": "choice",
+  "question": "What is the final electron acceptor of the electron transport chain?",
+  "options": {
+   "A": "Pyruvate",
+   "B": "O₂",
+   "C": "NAD⁺",
+   "D": "CO₂"
+  }
+ },
+ {
+  "id": "Q277",
+  "format": "choice",
+  "question": "Why can't a second action potential fire during the absolute refractory period?",
+  "options": {
+   "A": "K⁺ channels are all closed",
+   "B": "Voltage-gated Na⁺ channels are inactivated and cannot reopen yet",
+   "C": "The neuron has run out of Na⁺",
+   "D": "The Na⁺/K⁺ pump has stopped"
+  }
+ },
+ {
+  "id": "Q278",
+  "format": "number",
+  "question": "A 1 L (0.001 m³) object is fully submerged in water. What is the buoyant force on it (N)? (ρ = 1000 kg/m³, g = 10 m/s²)"
+ },
+ {
+  "id": "Q279",
+  "format": "choice",
+  "question": "What are the units of a first-order rate constant?",
+  "options": {
+   "A": "M⁻¹·s⁻¹",
+   "B": "s⁻¹",
+   "C": "M·s⁻¹",
+   "D": "M"
+  }
+ },
+ {
+  "id": "Q280",
+  "format": "choice",
+  "question": "Water's solid–liquid line slopes to the left (negative slope). What does that mean?",
+  "options": {
+   "A": "Water has an unusually high heat capacity",
+   "B": "Ice is less dense than liquid water, so raising pressure favors melting",
+   "C": "Hydrogen bonds break under pressure",
+   "D": "Ice cannot exist above 1 atm"
+  }
+ },
+ {
+  "id": "Q281",
+  "format": "choice",
+  "question": "What is the empirical formula of glucose, C₆H₁₂O₆?",
+  "options": {
+   "A": "CHO",
+   "B": "C₆H₁₂O₆",
+   "C": "CH₂O",
+   "D": "C₂H₄O₂"
+  }
+ },
+ {
+  "id": "Q282",
+  "format": "choice",
+  "question": "The oxidizing agent in a redox reaction is the species that:",
+  "options": {
+   "A": "Loses electrons",
+   "B": "Gets reduced (gains electrons)",
+   "C": "Gets oxidized",
+   "D": "Is unchanged"
+  }
+ },
+ {
+  "id": "Q283",
+  "format": "choice",
+  "question": "During transcription, RNA polymerase:",
+  "options": {
+   "A": "Reads 5′→3′ and builds RNA 3′→5′",
+   "B": "Copies both DNA strands of a gene",
+   "C": "Reads the template strand 3′→5′ and builds RNA 5′→3′ without a primer",
+   "D": "Needs an RNA primer to start"
+  }
+ },
+ {
+  "id": "Q284",
+  "format": "short answer",
+  "question": "What does the number of protons in a nucleus determine?"
+ },
+ {
+  "id": "Q285",
+  "format": "choice",
+  "question": "Where is the electron transport chain located?",
+  "options": {
+   "A": "Outer mitochondrial membrane",
+   "B": "Inner mitochondrial membrane",
+   "C": "Cytosol",
+   "D": "Mitochondrial matrix"
+  }
+ },
+ {
+  "id": "Q286",
+  "format": "choice",
+  "question": "Where does glycolysis take place?",
+  "options": {
+   "A": "Inner mitochondrial membrane",
+   "B": "Cytosol",
+   "C": "Intermembrane space",
+   "D": "Mitochondrial matrix"
+  }
+ },
+ {
+  "id": "Q287",
+  "format": "choice",
+  "question": "An uncoupler such as DNP makes the inner mitochondrial membrane leaky to H⁺. What happens?",
+  "options": {
+   "A": "O₂ use stops and ATP synthesis stops",
+   "B": "O₂ use continues or rises, ATP synthesis falls, and heat is released",
+   "C": "ATP synthesis rises",
+   "D": "The ETC reverses"
+  }
+ },
+ {
+  "id": "Q288",
+  "format": "choice",
+  "question": "Which pair would make the best buffer at pH 4.7?",
+  "options": {
+   "A": "HCl / NaCl",
+   "B": "Acetic acid / acetate (pKa 4.76)",
+   "C": "NH₄⁺ / NH₃ (pKa 9.25)",
+   "D": "H₂PO₄⁻ / HPO₄²⁻ (pKa 7.2)"
+  }
+ },
+ {
+  "id": "Q289",
+  "format": "short answer",
+  "question": "What is the hybridization of the carbon atom in CH₄?"
+ },
+ {
+  "id": "Q290",
+  "format": "choice",
+  "question": "In Labrador retrievers, a dog with genotype ee is yellow no matter which alleles it has at the B (black/brown) gene. This is:",
+  "options": {
+   "A": "Codominance",
+   "B": "Incomplete dominance",
+   "C": "Linkage",
+   "D": "Epistasis"
+  }
+ },
+ {
+  "id": "Q291",
+  "format": "choice",
+  "question": "Which molecule has polar bonds but is nonpolar overall?",
+  "options": {
+   "A": "H₂O",
+   "B": "CO₂",
+   "C": "HCl",
+   "D": "NH₃"
+  }
+ },
+ {
+  "id": "Q292",
+  "format": "choice",
+  "question": "Which statement about the carbonate ion's resonance structures is true?",
+  "options": {
+   "A": "The structure with the most formal charge contributes most",
+   "B": "The ion flips rapidly between the three structures",
+   "C": "The real ion is a single hybrid in which all three C–O bonds are identical",
+   "D": "At any moment one C–O bond is double and two are single"
+  }
+ },
+ {
+  "id": "Q293",
+  "format": "choice",
+  "question": "A mutation turns a codon into UAG. This is a:",
+  "options": {
+   "A": "Nonsense mutation",
+   "B": "Frameshift mutation",
+   "C": "Silent mutation",
+   "D": "Missense mutation"
+  }
+ },
+ {
+  "id": "Q294",
+  "format": "number",
+  "question": "A wave travels at 340 m/s with frequency 170 Hz. What is its wavelength (m)?"
+ },
+ {
+  "id": "Q295",
+  "format": "choice",
+  "question": "Doubling [A] quadruples the reaction rate. What is the order in A?",
+  "options": {
+   "A": "2",
+   "B": "4",
+   "C": "1",
+   "D": "0"
+  }
+ },
+ {
+  "id": "Q296",
+  "format": "number",
+  "question": "A sound is 40 dB. If its intensity is multiplied by 10, what is the new sound level (dB)?"
+ },
+ {
+  "id": "Q297",
+  "format": "choice",
+  "question": "Which is a conservative force, whose work does not depend on the path?",
+  "options": {
+   "A": "Kinetic friction",
+   "B": "Gravity",
+   "C": "Air resistance",
+   "D": "A push from your hand"
+  }
+ },
+ {
+  "id": "Q298",
+  "format": "choice",
+  "question": "Which change alters the value of an equilibrium constant?",
+  "options": {
+   "A": "Changing the temperature",
+   "B": "Adding a reactant",
+   "C": "Compressing the container",
+   "D": "Adding a catalyst"
+  }
+ },
+ {
+  "id": "Q299",
+  "format": "choice",
+  "question": "An integral membrane protein:",
+  "options": {
+   "A": "Spans or is embedded in the bilayer and needs detergent to remove",
+   "B": "Sits loosely on the surface and washes off with salt",
+   "C": "Is made of lipid",
+   "D": "Is always on the cytoplasmic side only"
+  }
+ },
+ {
+  "id": "Q300",
+  "format": "choice",
+  "question": "By Poiseuille's law, halving a blood vessel's radius (pressure difference unchanged) changes the flow by a factor of:",
+  "options": {
+   "A": "1/16",
+   "B": "1/4",
+   "C": "1/8",
+   "D": "1/2"
+  }
+ },
+ {
+  "id": "Q301",
+  "format": "number",
+  "question": "A test cross gives 200 offspring, 10 of them recombinant. How many map units (cM) apart are the genes?"
+ },
+ {
+  "id": "Q302",
+  "format": "choice",
+  "question": "An object moves at constant velocity. The net force on it is:",
+  "options": {
+   "A": "Equal to its weight",
+   "B": "In the direction of motion",
+   "C": "Zero",
+   "D": "Opposite to the motion"
+  }
+ },
+ {
+  "id": "Q303",
+  "format": "choice",
+  "question": "How is most CO₂ carried in the blood?",
+  "options": {
+   "A": "Bound to the heme iron of hemoglobin",
+   "B": "As carbonic acid",
+   "C": "As bicarbonate (HCO₃⁻) in plasma",
+   "D": "Dissolved as CO₂ gas"
+  }
+ },
+ {
+  "id": "Q304",
+  "format": "number",
+  "question": "A 50 kg person climbs 3 m of stairs in 10 s. What average power (W) does she produce against gravity? (g = 10 m/s²)"
+ },
+ {
+  "id": "Q305",
+  "format": "choice",
+  "question": "The total momentum of a system is conserved when:",
+  "options": {
+   "A": "Kinetic energy is conserved",
+   "B": "The net external force on the system is zero",
+   "C": "The collision is elastic",
+   "D": "All objects have the same mass"
+  }
+ },
+ {
+  "id": "Q306",
+  "format": "choice",
+  "question": "Which kind of wave can be polarized?",
+  "options": {
+   "A": "Longitudinal waves, such as sound",
+   "B": "Transverse waves, such as light",
+   "C": "Both equally",
+   "D": "Neither"
+  }
+ },
+ {
+  "id": "Q307",
+  "format": "choice",
+  "question": "An object is in static equilibrium. Which must be true?",
+  "options": {
+   "A": "Net force is zero and net torque is zero",
+   "B": "All forces are equal",
+   "C": "Net torque is zero only",
+   "D": "Net force is zero only"
+  }
+ },
+ {
+  "id": "Q308",
+  "format": "choice",
+  "question": "Facilitated diffusion:",
+  "options": {
+   "A": "Needs no protein at all",
+   "B": "Moves solutes against their gradient using ATP",
+   "C": "Uses another ion's gradient to move a solute uphill",
+   "D": "Moves solutes down their gradient through a protein, without ATP"
+  }
+ },
+ {
+  "id": "Q309",
+  "format": "choice",
+  "question": "A wire is replaced by one of the same material that is twice as long with twice the diameter. Its resistance:",
+  "options": {
+   "A": "Doubles",
+   "B": "Stays the same",
+   "C": "Quadruples",
+   "D": "Halves"
+  }
+ },
+ {
+  "id": "Q310",
+  "format": "choice",
+  "question": "When iron forms Fe²⁺, which electrons leave first?",
+  "options": {
+   "A": "The two 4s electrons",
+   "B": "Two 3d electrons",
+   "C": "Two 4p electrons",
+   "D": "One 4s and one 3d electron"
+  }
+ },
+ {
+  "id": "Q311",
+  "format": "choice",
+  "question": "Which describes lysosomes?",
+  "options": {
+   "A": "Organelles that break down hydrogen peroxide",
+   "B": "Sites of protein synthesis",
+   "C": "Stores of calcium for muscle contraction",
+   "D": "Membrane sacs of hydrolytic enzymes that work best at acidic pH"
+  }
+ },
+ {
+  "id": "Q312",
+  "format": "choice",
+  "question": "Plasmids are:",
+  "options": {
+   "A": "The bacterial chromosome",
+   "B": "Ribosomes",
+   "C": "Small circular DNA molecules separate from the chromosome, often carrying antibiotic resistance",
+   "D": "Protein coats of viruses"
+  }
+ },
+ {
+  "id": "Q313",
+  "format": "choice",
+  "question": "Which is primary active transport?",
+  "options": {
+   "A": "The Na⁺-glucose cotransporter (SGLT)",
+   "B": "The Na⁺/K⁺-ATPase",
+   "C": "GLUT4",
+   "D": "Aquaporins"
+  }
+ },
+ {
+  "id": "Q314",
+  "format": "choice",
+  "question": "When a wave passes from one medium into another, what stays the same?",
+  "options": {
+   "A": "Frequency",
+   "B": "Speed",
+   "C": "Wavelength",
+   "D": "Direction"
+  }
+ },
+ {
+  "id": "Q315",
+  "format": "number",
+  "question": "A car rounds a curve of radius 1 m at 2 m/s. What is its centripetal acceleration (m/s²)?"
+ },
+ {
+  "id": "Q316",
+  "format": "number",
+  "question": "What is the equivalent resistance (Ω) of 2 Ω, 12 Ω and 5 Ω in series?"
+ },
+ {
+  "id": "Q317",
+  "format": "choice",
+  "question": "The area under a velocity–time graph gives:",
+  "options": {
+   "A": "Displacement",
+   "B": "Acceleration",
+   "C": "Average speed",
+   "D": "Force"
+  }
+ },
+ {
+  "id": "Q318",
+  "format": "choice",
+  "question": "One ball is dropped and another is thrown horizontally from the same height at the same moment. Which lands first?",
+  "options": {
+   "A": "The dropped ball",
+   "B": "The thrown ball",
+   "C": "They land at the same time",
+   "D": "It depends on their masses"
+  }
+ },
+ {
+  "id": "Q319",
+  "format": "choice",
+  "question": "Pitch and loudness of a sound correspond to:",
+  "options": {
+   "A": "Wavelength and speed",
+   "B": "Amplitude and frequency",
+   "C": "Speed and frequency",
+   "D": "Frequency and amplitude"
+  }
+ },
+ {
+  "id": "Q320",
+  "format": "choice",
+  "question": "An object floats with exactly 60% of its volume under water. What is its density?",
+  "options": {
+   "A": "1600 kg/m³",
+   "B": "60 kg/m³",
+   "C": "600 kg/m³",
+   "D": "400 kg/m³"
+  }
+ },
+ {
+  "id": "Q321",
+  "format": "choice",
+  "question": "Among visible colors, violet light has the:",
+  "options": {
+   "A": "Lowest frequency",
+   "B": "Shortest wavelength and highest photon energy",
+   "C": "Fastest speed in a vacuum",
+   "D": "Longest wavelength"
+  }
+ },
+ {
+  "id": "Q322",
+  "format": "choice",
+  "question": "Pepsin:",
+  "options": {
+   "A": "Digests fat in the small intestine",
+   "B": "Is made by the liver",
+   "C": "Digests protein in the stomach and is activated from pepsinogen by acid",
+   "D": "Digests starch in the mouth"
+  }
+ },
+ {
+  "id": "Q323",
+  "format": "short answer",
+  "question": "Which organelle makes lipids and detoxifies drugs in liver cells?"
+ },
+ {
+  "id": "Q324",
+  "format": "choice",
+  "question": "In what order do the phases of a bacterial growth curve occur?",
+  "options": {
+   "A": "Lag, exponential (log), stationary, death",
+   "B": "Stationary, lag, exponential, death",
+   "C": "Exponential, lag, stationary, death",
+   "D": "Lag, stationary, exponential, death"
+  }
+ },
+ {
+  "id": "Q325",
+  "format": "choice",
+  "question": "Which law says PV is constant for a fixed amount of gas at constant temperature?",
+  "options": {
+   "A": "Boyle's law",
+   "B": "Gay-Lussac's law",
+   "C": "Avogadro's law",
+   "D": "Charles's law"
+  }
+ },
+ {
+  "id": "Q326",
+  "format": "choice",
+  "question": "A red blood cell is placed in a hypotonic solution. What happens?",
+  "options": {
+   "A": "Water leaves; the cell shrinks",
+   "B": "Water enters; the cell swells and may burst",
+   "C": "Nothing: the solution is isotonic",
+   "D": "Solute enters and the cell shrinks"
+  }
+ },
+ {
+  "id": "Q327",
+  "format": "choice",
+  "question": "In a galvanic cell, oxidation takes place at the:",
+  "options": {
+   "A": "External wire",
+   "B": "Salt bridge",
+   "C": "Cathode",
+   "D": "Anode"
+  }
+ },
+ {
+  "id": "Q328",
+  "format": "choice",
+  "question": "A charged capacitor is disconnected from its battery, then a dielectric is slid in. What happens?",
+  "options": {
+   "A": "Capacitance rises and voltage falls (charge is fixed)",
+   "B": "Capacitance falls and voltage rises",
+   "C": "Nothing changes",
+   "D": "Capacitance rises and charge rises"
+  }
+ },
+ {
+  "id": "Q329",
+  "format": "short answer",
+  "question": "Molarity is moles of solute per ___."
+ },
+ {
+  "id": "Q330",
+  "format": "number",
+  "question": "A 2 Ω resistor sits across 10 V. How much power (W) does it dissipate?"
+ },
+ {
+  "id": "Q331",
+  "format": "number",
+  "question": "What is the mass percent of C in CO₂? (C = 12 g/mol; CO₂ = 44 g/mol.)"
+ },
+ {
+  "id": "Q332",
+  "format": "choice",
+  "question": "Molality is defined as moles of solute per:",
+  "options": {
+   "A": "Kilogram of solvent",
+   "B": "Liter of solvent",
+   "C": "Liter of solution",
+   "D": "Kilogram of solution"
+  }
+ },
+ {
+  "id": "Q333",
+  "format": "number",
+  "question": "A string 0.5 m long, fixed at both ends, carries waves at 100 m/s. What is the frequency (Hz) of harmonic n = 3?"
+ },
+ {
+  "id": "Q334",
+  "format": "choice",
+  "question": "Water flows from a wide pipe into a narrower one. Its speed:",
+  "options": {
+   "A": "Drops to zero",
+   "B": "Increases",
+   "C": "Decreases",
+   "D": "Stays the same"
+  }
+ },
+ {
+  "id": "Q335",
+  "format": "short answer",
+  "question": "Isotopes of the same element differ in their number of ___."
+ },
+ {
+  "id": "Q336",
+  "format": "choice",
+  "question": "A reaction is described as spontaneous. What does that tell you about its rate?",
+  "options": {
+   "A": "It needs no activation energy",
+   "B": "It must release heat",
+   "C": "Nothing: spontaneity is thermodynamics, rate is kinetics",
+   "D": "It must be fast"
+  }
+ },
+ {
+  "id": "Q337",
+  "format": "choice",
+  "question": "If Q < K, the reaction will:",
+  "options": {
+   "A": "Change K until it matches Q",
+   "B": "Stay put; it is at equilibrium",
+   "C": "Proceed forward, making more products",
+   "D": "Proceed in reverse"
+  }
+ },
+ {
+  "id": "Q338",
+  "format": "choice",
+  "question": "For two surfaces, how do the coefficients of static and kinetic friction usually compare?",
+  "options": {
+   "A": "μs > μk",
+   "B": "They are always equal",
+   "C": "μs is always zero",
+   "D": "μk > μs"
+  }
+ },
+ {
+  "id": "Q339",
+  "format": "choice",
+  "question": "The slope of a position–time graph gives:",
+  "options": {
+   "A": "Velocity",
+   "B": "Displacement",
+   "C": "Acceleration",
+   "D": "Distance traveled"
+  }
+ },
+ {
+  "id": "Q340",
+  "format": "number",
+  "question": "A 2 kg box is pushed horizontally with 20 N. The coefficient of kinetic friction is 0.2. What is its acceleration (m/s²)? (g = 10 m/s²)"
+ },
+ {
+  "id": "Q341",
+  "format": "choice",
+  "question": "What is the standard enthalpy of formation of O₂(g)?",
+  "options": {
+   "A": "It depends on the reaction",
+   "B": "Zero",
+   "C": "Negative",
+   "D": "Positive"
+  }
+ },
+ {
+  "id": "Q342",
+  "format": "choice",
+  "question": "If K > 1 for a reaction, then ΔG° is:",
+  "options": {
+   "A": "Negative",
+   "B": "Positive",
+   "C": "Zero",
+   "D": "Undefined"
+  }
+ },
+ {
+  "id": "Q343",
+  "format": "short answer",
+  "question": "What is the SI unit of force?"
+ },
+ {
+  "id": "Q344",
+  "format": "choice",
+  "question": "An ambulance siren approaches you. Compared with the emitted sound, you hear:",
+  "options": {
+   "A": "The same frequency, louder",
+   "B": "A lower frequency",
+   "C": "A higher frequency",
+   "D": "A faster speed of sound"
+  }
+ },
+ {
+  "id": "Q345",
+  "format": "choice",
+  "question": "How do steroid hormones differ from peptide hormones in signaling?",
+  "options": {
+   "A": "Steroids act within seconds",
+   "B": "Steroids bind surface receptors and use second messengers",
+   "C": "Steroids cross the membrane and bind intracellular receptors that alter transcription",
+   "D": "Steroids are stored in vesicles before release"
+  }
+ },
+ {
+  "id": "Q346",
+  "format": "choice",
+  "question": "A convex (diverging) mirror forms what kind of image?",
+  "options": {
+   "A": "Virtual, upright and larger",
+   "B": "Real, inverted and larger",
+   "C": "Real, inverted and smaller",
+   "D": "Virtual, upright and smaller"
+  }
+ },
+ {
+  "id": "Q347",
+  "format": "number",
+  "question": "What is the absolute pressure (Pa) 1 m below the surface of water? (ρ = 1000 kg/m³, g = 10 m/s², P_atm = 1 × 10^5 Pa)"
+ },
+ {
+  "id": "Q348",
+  "format": "choice",
+  "question": "The descending limb of the loop of Henle is:",
+  "options": {
+   "A": "Permeable to salt but not to water",
+   "B": "Impermeable to both",
+   "C": "Permeable to water but not to salt",
+   "D": "Where ADH acts"
+  }
+ },
+ {
+  "id": "Q349",
+  "format": "choice",
+  "question": "Sound waves in air are:",
+  "options": {
+   "A": "Longitudinal",
+   "B": "Electromagnetic",
+   "C": "Standing waves only",
+   "D": "Transverse"
+  }
+ },
+ {
+  "id": "Q350",
+  "format": "choice",
+  "question": "Which change causes a frameshift?",
+  "options": {
+   "A": "Deleting three nucleotides",
+   "B": "Swapping one base for another",
+   "C": "Changing a base in an intron",
+   "D": "Deleting one nucleotide from a coding sequence"
+  }
+ },
+ {
+  "id": "Q351",
+  "format": "short answer",
+  "question": "What is the hybridization of the carbon atom in CO₂?"
+ },
+ {
+  "id": "Q352",
+  "format": "choice",
+  "question": "In an electrolytic cell, the anode is:",
+  "options": {
+   "A": "Positive",
+   "B": "Where reduction happens",
+   "C": "Neutral",
+   "D": "Negative"
+  }
+ },
+ {
+  "id": "Q353",
+  "format": "choice",
+  "question": "A reaction is at equilibrium. You add more product. What happens?",
+  "options": {
+   "A": "K increases",
+   "B": "Nothing: the system was already at equilibrium",
+   "C": "The reaction shifts toward reactants until Q again equals K",
+   "D": "The reaction shifts toward more product"
+  }
+ },
+ {
+  "id": "Q354",
+  "format": "choice",
+  "question": "A runner completes one lap of a 400 m track in 80 s. Her average velocity is:",
+  "options": {
+   "A": "400 m/s",
+   "B": "80 m/s",
+   "C": "0 m/s",
+   "D": "5 m/s"
+  }
+ }
+]
