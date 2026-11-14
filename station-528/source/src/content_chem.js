@@ -39,7 +39,7 @@ C('c-atoms', 'isoelectronic', 'These ions all have 10 electrons. Which is larges
   ['F⁻ has one more proton than O²⁻ pulling on the same 10 electrons.', 'Na⁺ has 11 protons on 10 electrons, so it is contracted.', 'Mg²⁺ has the most protons (12) of the set, so it is smallest.'],
   'In an isoelectronic series, radius falls as nuclear charge rises. O²⁻ has the fewest protons (8).', { sk: 2, cs: ['cs-periodic'] });
 C('c-atoms', 'h-transition', 'In hydrogen, which electron transition emits the highest-energy photon?', ['n = 2 → n = 1', 'n = 3 → n = 2', 'n = 4 → n = 3', 'n = 6 → n = 5'],
-  ['About 1.9 eV: levels get closer together as n rises.', 'Smaller still, about 0.66 eV.', 'Smallest of the set, about 0.13 eV.'],
+  ['About 1.9 eV: levels get closer together as n rises.', 'Smaller still, about 0.66 eV.', 'Smallest of the set, about 0.17 eV.'],
   'Hydrogen levels follow Eₙ = −13.6 eV / n². The gap from n = 2 to n = 1 (10.2 eV) is bigger than any gap above it, so that drop emits the most energetic photon.', { sk: 2 });
 T('c-atoms', 'emit', 'When an electron drops from a higher to a lower energy level, the atom ___ a photon.', ['emits', 'emit', 'releases', 'gives off', 'emission'],
   'Dropping to a lower level releases the energy difference as a photon (emission). Absorbing a photon of exactly that energy moves the electron up.');
@@ -84,7 +84,7 @@ C('c-bond', 'fc-nh4', 'What is the formal charge on nitrogen in NH₄⁺?', ['+1
   ['0 is the formal charge of N in neutral NH₃ (three bonds, one lone pair).', '−1 would need N to own more electrons than its 5 valence electrons.', 'Formal charge is not the number of bonds.'],
   'Formal charge = valence electrons − nonbonding electrons − ½(bonding electrons) = 5 − 0 − ½(8) = +1.');
 C('c-bond', 'nacl', 'What kind of bond holds sodium and chloride together in table salt?', ['Ionic', 'Polar covalent', 'Nonpolar covalent', 'Metallic'],
-  ['The electronegativity difference (about 2.1) is large enough for a near-complete electron transfer.', 'Nonpolar covalent bonds join atoms of similar electronegativity.', 'Metallic bonding is a sea of shared electrons among metal atoms.'],
+  ['The electronegativity difference (about 2.2) is large enough for a near-complete electron transfer.', 'Nonpolar covalent bonds join atoms of similar electronegativity.', 'Metallic bonding is a sea of shared electrons among metal atoms.'],
   'A metal (Na) gives up an electron to a nonmetal (Cl), and the resulting ions attract electrostatically in a lattice.', { cs: ['cs-bond-type'] });
 C('c-bond', 'polar-bond', 'Which bond is the most polar?', ['H–F', 'H–Cl', 'N–H', 'C–H'],
   ['Cl is less electronegative than F (3.2 vs 4.0).', 'N–H (difference ≈ 0.9) is less polar than H–F (≈ 1.8).', 'C–H is nearly nonpolar (difference ≈ 0.4).'],
@@ -123,18 +123,18 @@ T('c-imf', 'london', 'Which intermolecular force is present between all molecule
   'London dispersion forces, from momentary electron imbalances. They are the only force between nonpolar molecules.', { cs: ['cs-imf'] });
 C('c-imf', 'sublimation', 'A solid turning directly into a gas is called:', ['Sublimation', 'Deposition', 'Evaporation', 'Fusion'],
   ['Deposition is the reverse: gas directly to solid.', 'Evaporation is liquid to gas.', 'Fusion is melting, solid to liquid.'],
-  'Sublimation (dry ice at room pressure is the classic example). It crosses the solid–gas line of a phase diagram.', { cs: ['cs-phase'] });
+  'Sublimation (dry ice at room pressure is the classic example). It crosses the solid–gas line of a phase diagram.', { cat: '5E', cs: ['cs-phase'] });
 T('c-imf', 'triple', 'What is the point on a phase diagram where solid, liquid and gas coexist?', ['triple point', 'the triple point'],
-  'The triple point: one temperature and pressure where all three phase boundaries meet.', { cs: ['cs-phase'] });
+  'The triple point: one temperature and pressure where all three phase boundaries meet.', { cat: '5E', cs: ['cs-phase'] });
 C('c-imf', 'water-slope', 'Water\'s solid–liquid line slopes to the left (negative slope). What does that mean?', ['Ice is less dense than liquid water, so raising pressure favors melting', 'Hydrogen bonds break under pressure', 'Water has an unusually high heat capacity', 'Ice cannot exist above 1 atm'],
   ['Pressure does not break hydrogen bonds; it favors whichever phase takes up less volume.', 'True of water, but it explains temperature changes, not this slope.', 'Ice exists at high pressure too, just with a slightly lower melting point.'],
-  'For most substances the solid is denser and the line slopes right. Water expands on freezing, so squeezing ice pushes it toward the denser liquid.', { sk: 2, cs: ['cs-phase'] });
+  'For most substances the solid is denser and the line slopes right. Water expands on freezing, so squeezing ice pushes it toward the denser liquid.', { cat: '5E', sk: 2, cs: ['cs-phase'] });
 C('c-imf', 'melting-heat', 'While ice melts at 0 °C, the heat you add mainly:', ['Overcomes intermolecular attractions, so the temperature stays constant', 'Raises the molecules\' average kinetic energy', 'Breaks covalent O–H bonds', 'Is released back to the surroundings'],
   ['Temperature (average kinetic energy) does not change during a phase change.', 'Melting leaves the molecules intact; only intermolecular forces change.', 'Melting absorbs heat (it is endothermic).'],
-  'During a phase change, added energy goes into potential energy (separating molecules), which is why heating curves have flat plateaus.', { cs: ['cs-phase'] });
+  'During a phase change, added energy goes into potential energy (separating molecules), which is why heating curves have flat plateaus.', { cat: '5E', cs: ['cs-phase'] });
 C('c-imf', 'boil', 'A liquid boils when:', ['Its vapor pressure equals the external pressure', 'Its vapor pressure reaches 1 atm, whatever the surroundings', 'It reaches its critical point', 'Its vapor pressure drops to zero'],
   ['1 atm is the normal boiling point only. At altitude the external pressure, and so the boiling point, is lower.', 'The critical point is where liquid and gas stop being distinguishable, far above boiling.', 'Vapor pressure rises with temperature.'],
-  'Bubbles of vapor can form inside the liquid only when its vapor pressure matches the pressure pushing on it.', { hy: true });
+  'Bubbles of vapor can form inside the liquid only when its vapor pressure matches the pressure pushing on it.', { cat: '5E', hy: true });
 C('c-imf', 'vp-raise', 'Which change raises a liquid\'s vapor pressure?', ['Raising the temperature', 'Dissolving a nonvolatile solute in it', 'Stronger intermolecular forces', 'Moving it to a bigger closed container'],
   ['A nonvolatile solute lowers vapor pressure (a colligative property).', 'Stronger attractions hold molecules in the liquid, lowering vapor pressure.', 'Vapor pressure depends on temperature and the substance, not the container size.'],
   'Higher temperature gives more molecules enough energy to escape the liquid.', { sk: 2, cs: ['cs-colligative'] });
@@ -148,10 +148,10 @@ C('c-stoich', 'empirical', 'What is the empirical formula of glucose, C₆H₁�
   ['That is the molecular formula; the empirical formula is the simplest whole-number ratio.', 'This ratio can still be divided by 2.', 'The H:C ratio is 2:1, not 1:1.'],
   'Divide every subscript by the greatest common factor, 6: CH₂O.');
 T('c-stoich', 'molarity', 'Molarity is moles of solute per ___.', ['liter of solution', 'litre of solution', 'liters of solution', 'l of solution', 'liter solution', 'liter', 'litre', 'l'],
-  'Molarity (M) = mol solute / L of solution, so it changes slightly with temperature as the solution expands.', { cs: ['cs-conc'] });
+  'Molarity (M) = mol solute / L of solution, so it changes slightly with temperature as the solution expands.', { cat: '5A', cs: ['cs-conc'] });
 C('c-stoich', 'molality', 'Molality is defined as moles of solute per:', ['Kilogram of solvent', 'Kilogram of solution', 'Liter of solvent', 'Liter of solution'],
   ['The divisor is the solvent alone, not the whole solution.', 'Molality uses mass, which does not change with temperature.', 'That is molarity.'],
-  'Molality (m) = mol solute / kg solvent. Because it uses mass, it is the unit used for boiling-point elevation and freezing-point depression.', { cs: ['cs-conc', 'cs-colligative'] });
+  'Molality (m) = mol solute / kg solvent. Because it uses mass, it is the unit used for boiling-point elevation and freezing-point depression.', { cat: '5A', cs: ['cs-conc', 'cs-colligative'] });
 G('c-stoich', 'g-moles', 'Grams to moles', rnd => {
   const c = pickR(rnd, [{ f: 'NaCl', M: 58.5 }, { f: 'H₂O', M: 18 }, { f: 'CO₂', M: 44 }, { f: 'C₆H₁₂O₆', M: 180 }, { f: 'NaOH', M: 40 }, { f: 'CaCO₃', M: 100 }]);
   const n = pickR(rnd, [0.25, 0.5, 1.5, 2, 3, 0.1]), g = +(n * c.M).toFixed(1);
@@ -163,13 +163,13 @@ G('c-stoich', 'g-dilution', 'Dilution', rnd => {
   const M2 = M1 * V1 / V2;
   return { prompt: `You dilute ${V1} mL of ${M1} M HCl with water to a final volume of ${V2} mL. What is the new concentration, in M?`, value: M2, tolPct: 2, unit: 'M',
     expl: `Moles of solute stay the same: M₁V₁ = M₂V₂, so M₂ = ${M1} × ${V1} / ${V2} = ${sig(M2)} M.`, hint: 'M₁V₁ = M₂V₂' };
-}, { hy: true, cs: ['cs-conc'] });
+}, { hy: true, cat: '5A', cs: ['cs-conc'] });
 G('c-stoich', 'g-molarity', 'Molarity from grams', rnd => {
   const c = pickR(rnd, [{ f: 'NaOH', M: 40 }, { f: 'NaCl', M: 58.5 }, { f: 'KCl', M: 74.5 }, { f: 'glucose', M: 180 }]);
   const mol = pickR(rnd, [0.1, 0.2, 0.5, 0.25]), V = pickR(rnd, [250, 500, 1000, 200]), g = +(mol * c.M).toFixed(2);
   return { prompt: `${g} g of ${c.f} (${c.M} g/mol) is dissolved to make ${V} mL of solution. What is the molarity?`, value: mol / (V / 1000), tolPct: 2, unit: 'M',
     expl: `${g} g ÷ ${c.M} g/mol = ${mol} mol; ${V} mL = ${V / 1000} L; M = ${mol} / ${V / 1000} = ${sig(mol / (V / 1000))} M.` };
-}, { cs: ['cs-conc'] });
+}, { cat: '5A', cs: ['cs-conc'] });
 G('c-stoich', 'g-limiting', 'Limiting reagent', rnd => {
   const h = pickR(rnd, [2, 3, 4, 5, 6]), o = pickR(rnd, [1, 2, 3]);
   const water = Math.min(h, 2 * o), lim = h < 2 * o ? 'H₂' : h > 2 * o ? 'O₂' : 'neither (exact ratio)';
@@ -197,7 +197,7 @@ C('c-gas', 'real-dev', 'Real gases deviate most from ideal behavior at:', ['High
   ['These are the conditions where gases behave most ideally.', 'Low pressure keeps molecules far apart, which helps ideality.', 'High temperature helps; it is high pressure that hurts.'],
   'At high pressure the molecules\' own volume matters; at low temperature their attractions matter. The ideal model ignores both.', { hy: true, sk: 2 });
 C('c-gas', 'real-vol', 'At very high pressure, a real gas takes up more volume than the ideal gas law predicts. Why?', ['The molecules themselves occupy space that cannot be compressed', 'Intermolecular attractions push molecules apart', 'Collisions become perfectly elastic', 'The gas cools as it is compressed'],
-  ['Attractions pull molecules together, which would make the volume smaller.', 'Ideal gases already assume elastic collisions.', 'Compression does not explain a larger-than-ideal volume.'],
+  ['Attractions pull molecules together, which would make the volume smaller.', 'Ideal gases already assume elastic collisions.', 'Compressing a gas tends to warm it, and temperature is already in PV = nRT; it cannot explain the extra volume.'],
   'The ideal model treats molecules as points. When they are packed tightly, their finite size makes the gas less compressible (the "b" term in van der Waals).', { sk: 2 });
 C('c-gas', 'kmt-ke', 'The average kinetic energy of gas molecules depends only on:', ['Absolute temperature', 'Molar mass', 'Pressure', 'Volume'],
   ['At a given temperature, heavy and light molecules have the same average kinetic energy; heavy ones just move slower.', 'Pressure can change without a change in average kinetic energy (compress at constant T).', 'Same reasoning as pressure.'],
@@ -398,8 +398,8 @@ G('c-acid', 'g-ph-log', 'pH from [H⁺]', rnd => {
 C('c-sol', 'common-ion', 'Adding NaCl to a saturated AgCl solution does what to AgCl\'s solubility?', ['Lowers it (common-ion effect)', 'Raises it', 'Leaves it unchanged', 'Raises its Ksp'],
   ['The extra Cl⁻ drives AgCl back toward the solid.', 'Ksp is fixed; extra Cl⁻ means less Ag⁺ can stay dissolved.', 'Ksp changes only with temperature.'],
   'Q = [Ag⁺][Cl⁻] rises above Ksp, so AgCl precipitates until the product falls back to Ksp.', { hy: true });
-C('c-sol', 'colligative', 'Colligative properties depend on:', ['The number of dissolved particles, not their identity', 'The identity of the solute', 'The solute\'s molar mass only', 'The solvent\'s color'],
-  ['A mole of glucose and a mole of urea lower the freezing point equally.', 'Molar mass matters only in converting grams to moles.', 'Only particle count matters.'],
+C('c-sol', 'colligative', 'Colligative properties depend on:', ['The number of dissolved particles, not their identity', 'The identity of the solute', 'The solute\'s molar mass only', 'How strongly the solute particles attract one another'],
+  ['A mole of glucose and a mole of urea lower the freezing point equally.', 'Molar mass matters only in converting grams to moles.', 'That would make them depend on what the solute is; ideal colligative properties count particles only.'],
   'Freezing-point depression, boiling-point elevation, vapor-pressure lowering and osmotic pressure all scale with particle concentration (times i).', { hy: true, cs: ['cs-colligative'] });
 C('c-sol', 'lowest-fp', 'Which solution has the lowest freezing point?', ['0.10 m CaCl₂', '0.10 m NaCl', '0.15 m glucose', '0.10 m glucose'],
   ['NaCl gives 2 particles: 0.20 m particles, less than CaCl₂\'s 0.30.', 'Glucose does not dissociate: 0.15 m particles.', 'Only 0.10 m particles.'],
@@ -407,7 +407,7 @@ C('c-sol', 'lowest-fp', 'Which solution has the lowest freezing point?', ['0.10 
 N('c-sol', 'vant-hoff', 'What is the ideal van\'t Hoff factor (i) for NaCl in water?', { value: 2, tol: 0 },
   'NaCl → Na⁺ + Cl⁻: two particles per formula unit. Real solutions come in slightly lower because of ion pairing.', { cs: ['cs-colligative'] });
 C('c-sol', 'hexane', 'Which substance dissolves best in hexane (nonpolar)?', ['I₂', 'NaCl', 'Glucose', 'KNO₃'],
-  ['An ionic solid needs a polar solvent to stabilize its ions.', 'Glucose has many OH groups and dissolves in water, not hexane.', 'Ionic.'],
+  ['An ionic solid needs a polar solvent to stabilize its ions.', 'Glucose has many OH groups and dissolves in water, not hexane.', 'KNO₃ is ionic too, so it needs a polar solvent.'],
   '"Like dissolves like": nonpolar I₂ mixes with nonpolar hexane through dispersion forces.');
 G('c-sol', 'g-ksp', 'Solubility from Ksp', rnd => {
   const s = pickR(rnd, [1e-3, 2e-4, 3e-5, 1e-5, 4e-4]), Ksp = s * s;

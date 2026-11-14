@@ -93,7 +93,7 @@ C('b-cell', 'desmosome', 'Which junction anchors cells together via intermediate
 T('b-cell', 'nucleolus', 'Where in the nucleus is ribosomal RNA made and ribosome subunit assembly begun?', ['nucleolus', 'the nucleolus', 'nucleoli'],
   'The nucleolus: a dense region where rRNA genes are transcribed and subunits are started before export.');
 C('b-cell', 'endosym', 'Which observation supports the endosymbiotic origin of mitochondria?', ['They have their own circular DNA and bacteria-like ribosomes', 'They are made by the Golgi', 'They lack membranes', 'Their proteins are all encoded in the nucleus'],
-  ['Mitochondria divide by fission; they are not built by the Golgi.', 'They have two membranes, consistent with engulfment.', 'Most mitochondrial proteins are now nuclear-encoded, but that fact points to gene transfer, not to endosymbiosis itself.'],
+  ['Mitochondria divide by fission; they are not built by the Golgi.', 'They have two membranes, consistent with engulfment.', 'Not true: mitochondrial DNA still encodes some proteins (13 in humans). Most are nuclear-encoded, but that reflects genes moving to the nucleus later.'],
   'Circular genomes, 70S-type ribosomes, double membranes and binary fission all resemble bacteria.', { sk: 2 });
 
 /* ---------- Membranes & transport (2A) ---------- */
@@ -341,7 +341,7 @@ C('b-prok', 'conjugation', 'An F⁺ bacterium transfers a plasmid to an F⁻ bac
   ['No virus is involved.', 'The DNA is not free in the environment.', 'Lysogeny is a viral life cycle.'],
   'Conjugation spreads plasmids, including antibiotic-resistance genes, between bacteria.', { cs: ['cs-gene-transfer'] });
 C('b-prok', 'retro', 'What enzyme lets a retrovirus such as HIV insert its genome into host DNA?', ['Reverse transcriptase (then integrase)', 'RNA polymerase', 'DNA ligase only', 'Helicase'],
-  ['Host RNA polymerase transcribes DNA into RNA; retroviruses need the reverse.', 'Integration uses viral integrase.', 'Not the key step.'],
+  ['Host RNA polymerase transcribes DNA into RNA; retroviruses need the reverse.', 'Integration uses viral integrase.', 'Helicase unwinds DNA; it neither copies RNA into DNA nor inserts it.'],
   'Reverse transcriptase makes DNA from the viral RNA genome; integrase splices it into a host chromosome.', { hy: true });
 C('b-prok', 'lysogenic', 'In the lysogenic cycle, a phage:', ['Integrates its genome into the host chromosome as a prophage', 'Immediately makes new viruses and bursts the cell', 'Kills the host by releasing toxins', 'Copies itself outside the cell'],
   ['That is the lytic cycle.', 'Phages do not kill by toxins in this way.', 'Viruses replicate only inside host cells.'],
@@ -358,7 +358,7 @@ C('b-sys', 'rmp', 'The resting membrane potential of a neuron (about −70 mV) i
   ['Na⁺ influx happens during an action potential.', 'Ca²⁺ entry triggers neurotransmitter release.', 'Cl⁻ contributes a little but is not the main factor.'],
   'At rest the membrane is most permeable to K⁺, so the potential sits near K⁺\'s equilibrium potential (about −90 mV), pulled up slightly by Na⁺ leak.', { cat: '3A', hy: true, cs: ['cs-ap'] });
 C('b-sys', 'depol', 'During the rising (depolarization) phase of an action potential:', ['Voltage-gated Na⁺ channels open and Na⁺ flows in', 'Voltage-gated K⁺ channels open and K⁺ flows out', 'The Na⁺/K⁺ pump reverses', 'Cl⁻ channels open'],
-  ['That is repolarization.', 'The pump keeps working normally; it is not what makes the spike.', 'Not the main event.'],
+  ['That is repolarization.', 'The pump keeps working normally; it is not what makes the spike.', 'Cl⁻ entering would hyperpolarize the cell (an inhibitory effect), not make the spike.'],
   'Positive feedback: depolarization opens more Na⁺ channels, driving the potential toward Na⁺\'s equilibrium potential.', { cat: '3A', hy: true, cs: ['cs-ap'] });
 C('b-sys', 'repol', 'What causes repolarization after the peak of an action potential?', ['Na⁺ channels inactivate and voltage-gated K⁺ channels let K⁺ flow out', 'Na⁺ channels open further', 'The Na⁺/K⁺ pump alone', 'Ca²⁺ flowing in'],
   ['Na⁺ channels inactivate at the peak.', 'The pump is too slow to account for repolarization; it maintains gradients over time.', 'Ca²⁺ entry does not repolarize a neuron.'],
@@ -388,7 +388,7 @@ C('b-sys', 'pct', 'Where in the nephron is most filtered water and Na⁺ reabsor
   ['The loop builds the concentration gradient; it reabsorbs less overall.', 'The DCT fine-tunes a small fraction.', 'The collecting duct makes the final, hormone-controlled adjustments.'],
   'The PCT reclaims about two-thirds of filtered water and Na⁺, plus nearly all glucose and amino acids.', { cat: '3B', hy: true, cs: ['cs-nephron'] });
 C('b-sys', 'adh', 'What does ADH (vasopressin) do in the kidney?', ['Inserts aquaporins in the collecting duct, increasing water reabsorption', 'Increases Na⁺ reabsorption in the distal tubule', 'Increases glomerular filtration', 'Increases K⁺ reabsorption'],
-  ['That is aldosterone.', 'Not its main renal effect.', 'Not ADH.'],
+  ['That is aldosterone.', 'ADH works on water permeability, not on filtration rate.', 'K⁺ handling is aldosterone\'s job, and it increases K⁺ secretion.'],
   'More ADH → more concentrated urine and more water retained. Alcohol inhibits ADH release.', { cat: '3B', hy: true, cs: ['cs-nephron'] });
 C('b-sys', 'aldosterone', 'Aldosterone acts on the distal nephron to:', ['Increase Na⁺ reabsorption and K⁺ secretion', 'Insert aquaporins', 'Decrease Na⁺ reabsorption', 'Increase glucose reabsorption'],
   ['That is ADH.', 'The opposite.', 'Glucose is reabsorbed in the PCT, not regulated by aldosterone.'],

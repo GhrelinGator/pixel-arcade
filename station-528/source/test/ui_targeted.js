@@ -52,7 +52,30 @@ const server = http.createServer((req, res) => {
       await shot('keyboard-feedback');
       await page.keyboard.press('Enter'); await page.waitForTimeout(100);
     }
-    out[dev] = { locked, calc, miss, appeal, kb };
+    /* 4. exam date moved earlier pulls reviews inside T-2; helper keys type symbols */
+    let examMove = null, keys = null, choiceFix = null;
+    if (dev === 'phone') {
+      await ev(() => { const c = MEM.cards['b-cell.ser']; c.due = today() + 600; c.echoes = [today() + 590]; saveCard(c); });
+      await page.goto(url + '#/settings'); await page.waitForTimeout(200);
+      const newDate = await ev(() => dateOfDay(today() + 100));
+      await page.fill('#exam', newDate); await page.dispatchEvent('#exam', 'change'); await page.waitForTimeout(150);
+      examMove = await ev(() => { const c = MEM.cards['b-cell.ser'], T = examDay(); return { dueOk: c.due <= T - 2, echoesOk: c.echoes.every(e => e <= T - 2), T: dateOfDay(T) }; });
+      await ev(() => kvSet('sess:intake', newSession('intake', today(), [{ id: 'p-kin.g-vf', kind: 'new' }, { id: 'c-atoms.radius', kind: 'new' }])));
+      await page.goto(url + '#/intake'); await page.waitForTimeout(200);
+      await page.click('[data-ins="-"]'); await page.click('[data-ins="x10^"]'); await page.click('[data-ins="/"]');
+      keys = await ev(() => document.querySelector('#ans').value);
+      await shot('numeric-keys');
+      const v = await ev(() => RUN.inst.value); await page.fill('#ans', String(Number(v).toPrecision(2))); await page.click('.conf [data-c="2"]'); await page.waitForTimeout(80);
+      const twoSF = await ev(() => RUN.result.ok);
+      await page.click('#next'); await page.waitForTimeout(3200);
+      await page.click('[data-act="reveal"]'); await page.click('.opt[data-o="2"]'); await page.click('.conf [data-c="3"]'); await page.waitForTimeout(80);
+      await shot('choice-surprise');
+      const showsAnswer = await ev(() => document.body.innerText.includes('The answer is'));
+      await page.click('.opt[data-fix="0"]'); await page.waitForTimeout(80);
+      choiceFix = { showsAnswer, fixed: await ev(() => RUN.result.fixed), twoSF };
+      await shot('choice-surprise-fixed');
+    }
+    out[dev] = { locked, calc, miss, appeal, kb, examMove, keys, choiceFix };
     await ctx.close();
   }
   console.log(JSON.stringify(out, null, 1));

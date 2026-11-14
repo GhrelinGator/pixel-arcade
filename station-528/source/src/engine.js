@@ -259,6 +259,8 @@ function textMatch1(given, accepted) {
 /* Accepts 3e8, 3x10^8, 3×10^8, 3*10^8, 3 x 10^-8, 1,500, 0.5, .5, −2 (unicode minus), with units after. */
 function parseNum(s) {
   let t = String(s).trim().replace(/[−–]/g, '-').replace(/,(?=\d{3}\b)/g, '').replace(/\s+/g, '');
+  const p10 = t.match(/^10\^([+-]?\d+)/); /* "10^-14" */
+  if (p10) return Math.pow(10, parseInt(p10[1], 10));
   const fr = t.match(/^([+-]?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)/);
   if (fr) { const v = parseFloat(fr[1]) / parseFloat(fr[2]); return isFinite(v) ? v : null; }
   const m =t.match(/^([+-]?(?:\d+\.?\d*|\.\d+))(?:(?:[x×*]10\^?|e|E)([+-]?\d+))?/);
@@ -272,7 +274,9 @@ function numMatches(given, spec) {
   if (spec.tol != null) return Math.abs(v - spec.value) <= spec.tol + 1e-12;
   const pct = spec.tolPct != null ? spec.tolPct : 3;
   if (spec.value === 0) return Math.abs(v) < 1e-9;
-  return Math.abs(v - spec.value) <= Math.abs(spec.value) * pct / 100 + 1e-12;
+  /* within the percent tolerance, or a correct rounding to 2 significant figures (12.5 -> 12 or 13) */
+  const twoSF = 0.5 * Math.pow(10, Math.floor(Math.log10(Math.abs(spec.value))) - 1);
+  return Math.abs(v - spec.value) <= Math.max(Math.abs(spec.value) * pct / 100, twoSF) + 1e-9 * Math.abs(spec.value);
 }
 
 /* ---------- random ---------- */

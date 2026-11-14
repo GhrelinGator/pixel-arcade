@@ -131,7 +131,7 @@ C('p-mom', 'elastic', 'In an elastic collision:', ['Both momentum and kinetic en
   ['That is an inelastic collision.', 'Momentum is always conserved in an isolated collision.', 'Momentum is conserved in every isolated collision.'],
   'Elastic collisions keep kinetic energy; inelastic ones turn some into heat, sound or deformation.', { hy: true, cs: ['cs-collisions'] });
 C('p-mom', 'inelastic', 'In a perfectly inelastic collision:', ['The objects stick together and the most kinetic energy is lost', 'Kinetic energy is conserved', 'Momentum is lost', 'The objects bounce apart at their original speeds'],
-  ['That is elastic.', 'Momentum is still conserved.', 'That is an elastic head-on collision of equal masses (in some frame).'],
+  ['That is elastic.', 'Momentum is still conserved.', 'That describes a perfectly elastic bounce (seen from the center-of-mass frame), the opposite extreme.'],
   'Sticking together loses the maximum kinetic energy allowed while still conserving momentum.', { cs: ['cs-collisions'] });
 C('p-mom', 'equilibrium', 'An object is in static equilibrium. Which must be true?', ['Net force is zero and net torque is zero', 'Net force is zero only', 'Net torque is zero only', 'All forces are equal'],
   ['A seesaw with balanced forces can still rotate if torques are unbalanced.', 'An object can be balanced in rotation yet still slide.', 'Forces can differ as long as they cancel.'],
@@ -176,7 +176,7 @@ C('p-fluid', 'continuity', 'Water flows from a wide pipe into a narrower one. It
   'Continuity: A₁v₁ = A₂v₂ for an incompressible fluid.', { hy: true, cs: ['cs-bernoulli'] });
 C('p-fluid', 'bernoulli', 'In a horizontal pipe, where the fluid flows faster its pressure is:', ['Lower', 'Higher', 'Unchanged', 'Zero'],
   ['Bernoulli: faster flow means lower pressure.', 'Kinetic energy rises at the expense of pressure energy.', 'Not zero; just lower.'],
-  'P + ½ρv² + ρgh is constant along a streamline. This is why a narrowed artery can partly collapse.', { hy: true, sk: 2, cs: ['cs-bernoulli'] });
+  'P + ½ρv² + ρgh is constant along a streamline. This is the Venturi effect: the narrow, fast-flowing part of a pipe (or a narrowed artery) has lower pressure.', { hy: true, sk: 2, cs: ['cs-bernoulli'] });
 C('p-fluid', 'poiseuille', 'By Poiseuille\'s law, halving a blood vessel\'s radius (pressure difference unchanged) changes the flow by a factor of:', ['1/16', '1/2', '1/4', '1/8'],
   ['Flow goes as r⁴, not r.', 'That would be r².', 'That would be r³.'],
   'Q ∝ r⁴: (½)⁴ = 1/16. Small changes in vessel radius control blood flow powerfully.', { sk: 2 });
@@ -209,13 +209,13 @@ C('p-elec', 'series', 'Resistors connected in series all have the same:', ['Curr
   ['Voltage divides among series resistors in proportion to resistance.', 'They can have any resistances.', 'Power differs unless resistances are equal.'],
   'There is only one path, so the same current passes through each.', { hy: true, cs: ['cs-series-parallel'] });
 C('p-elec', 'parallel', 'Resistors connected in parallel all have the same:', ['Voltage', 'Current', 'Resistance', 'Charge'],
-  ['Current splits among the branches, most through the smallest resistance.', 'They can differ.', 'Not a circuit property here.'],
+  ['Current splits among the branches, most through the smallest resistance.', 'They can differ.', 'What branches share is the potential difference, not charge.'],
   'Each branch connects across the same two nodes, so each sees the same potential difference. Household outlets are wired in parallel.', { hy: true, cs: ['cs-series-parallel'] });
 C('p-elec', 'add-parallel', 'Adding another resistor in parallel to a circuit makes the total resistance:', ['Decrease', 'Increase', 'Stay the same', 'Become infinite'],
   ['Adding in series increases it; in parallel you add another path.', 'A new path always carries some current.', 'More paths, less resistance.'],
   '1/R_total = Σ 1/Rᵢ; a new term makes 1/R larger, so R smaller (and the battery supplies more current).', { sk: 2, cs: ['cs-series-parallel'] });
 C('p-elec', 'cap-parallel', 'How do capacitors combine in parallel?', ['Their capacitances add', 'Their reciprocals add', 'The total equals the smallest one', 'The total equals the largest one'],
-  ['That is capacitors in series (the opposite of resistors).', 'No combination rule works like that.', 'No.'],
+  ['That is capacitors in series (the opposite of resistors).', 'In series the total is even smaller than the smallest; in parallel it is larger than any one.', 'Parallel capacitance is larger than any single capacitor, because the plate areas add.'],
   'Capacitors combine opposite to resistors: parallel adds directly (more plate area), series adds reciprocals.', { sk: 2, cs: ['cs-series-parallel'] });
 C('p-elec', 'dielectric', 'A charged capacitor is disconnected from its battery, then a dielectric is slid in. What happens?', ['Capacitance rises and voltage falls (charge is fixed)', 'Capacitance rises and charge rises', 'Capacitance falls and voltage rises', 'Nothing changes'],
   ['Charge cannot change once disconnected.', 'A dielectric always increases C.', 'The dielectric does change C.'],

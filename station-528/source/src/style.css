@@ -92,6 +92,8 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 18px 0; }
 .ans input { flex: 1; min-width: 0; height: 52px; border-radius: 11px; border: 1.5px solid var(--rule); background: var(--panel); padding: 0 14px; font-size: 18px; }
 .ans input:focus { outline: none; border-color: var(--accent); }
 .ans .u { font-family: var(--mono); color: var(--mute); font-size: 15px; }
+.keys { display: flex; gap: 6px; margin-top: 8px; }
+.key { min-width: 52px; height: 40px; border-radius: 9px; border: 1px solid var(--rule); background: var(--panel2); font-family: var(--mono); font-size: 15px; }
 .reveal { width: 100%; position: relative; overflow: hidden; }
 .reveal .fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--accent-soft); z-index: 0; }
 .reveal span { position: relative; z-index: 1; }

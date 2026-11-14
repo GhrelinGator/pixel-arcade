@@ -108,5 +108,7 @@ ok(E.numMatches('1,500 J', { value: 1500 }) && E.numMatches('.5', { value: 0.5 }
 ok(E.numMatches('3/16', { value: 3 / 16, tol: 0.005 }) && E.numMatches('25%', { value: 0.25, tol: 0.01, unit: '' }) && E.numMatches('25%', { value: 25, tolPct: 2, unit: '%' }), 'fractions and percents');
 ok(E.textMatches('phosphofructokinase-1 (PFK-1)', ['phosphofructokinase-1', 'pfk-1']) && E.textMatches('Azimuthal (angular momentum) quantum number, l', ['l', 'azimuthal quantum number']), 'parenthetical alternates and listed parts');
 ok(!E.textMatches('sp2, sp3', ['sp2']) && !E.textMatches('mitochondria or nucleus', ['mitochondria']), 'hedged lists are not accepted');
+ok(E.numMatches('13', { value: 12.5, tolPct: 1 }) && E.numMatches('12', { value: 12.5, tolPct: 1 }) && E.numMatches('1.3', { value: 4 / 3, tolPct: 2 }) && !E.numMatches('1.2', { value: 4 / 3, tolPct: 2 }), '2-significant-figure answers accepted, wrong ones not');
+ok(E.numMatches('10^-14', { value: 1e-14, tolPct: 1 }) && E.numMatches('1×10^-14', { value: 1e-14, tolPct: 1 }), 'bare powers of ten');
 console.log(fails ? fails + ' failure(s)' : 'engine: all checks pass');
 process.exit(fails ? 1 : 0);

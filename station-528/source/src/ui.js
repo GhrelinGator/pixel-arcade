@@ -29,7 +29,7 @@ const activeCards = () => Object.values(MEM.cards).filter(isActive);
 const flags = () => kvGet('flags', {});
 const dayKey = d => 'day:' + dateOfDay(d);
 const dayStats = d => kvGet(dayKey(d), { reviews: 0, newCards: 0, cbm: 0, gain: 0, calib: {} });
-const medianFor = kind => median(kvGet('times', {})[kind] || []);
+const medianFor = kind => { const xs = kvGet('times', {})[kind] || []; return xs.length >= 10 ? median(xs) : null; }; /* no 'slow' rule until there are 10 timings */
 function wingOf(it) { return it.fc; }
 
 function initItems() {
@@ -195,6 +195,7 @@ function startRun(kind) {
   nextCard(kind, sess);
 }
 function nextCard(kind, sess) {
+  if (sess.day !== today()) return startRun(kind); /* the study day rolled over mid-session */
   if (!sess.queue.length) { sess.done = true; kvSet('sess:' + kind, sess); markCleared(kind); return go('#/debrief/' + kind); }
   const q = sess.queue[0], it = ITEM[q.id];
   if (!it || it.status === 'quarantined' || (cardOf(q.id) && cardOf(q.id).suspended)) { sess.queue.shift(); kvSet('sess:' + kind, sess); return nextCard(kind, sess); }
@@ -239,8 +240,9 @@ function choiceHTML() {
 function typedHTML() {
   const R = RUN, it = R.it, num = it.type !== 'typed', unit = R.inst ? R.inst.unit : (it.num && it.num.unit) || '';
   const hint = (R.inst && R.inst.hint) || it.hint;
-  return `<div class="ans"><input id="ans" ${num ? 'inputmode="decimal"' : ''} autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="${num ? 'Number' + (it.type === 'gen' && R.inst.fraction ? ' or fraction' : '') : 'Your answer'}" aria-label="Your answer" value="${esc(R.typed || '')}">${unit ? `<span class="u">${esc(unit)}</span>` : ''}</div>
-    ${num ? `<p class="small muted" style="margin:6px 2px 0">e.g. 0.25, 3/16, 4.5e-3 or 4.5×10^-3</p>` : ''}
+  return `<div class="ans"><input id="ans" ${num ? 'inputmode="text" enterkeyhint="done"' : ''} autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="${num ? 'Number' + (it.type === 'gen' && R.inst.fraction ? ' or fraction' : '') : 'Your answer'}" aria-label="Your answer" value="${esc(R.typed || '')}">${unit ? `<span class="u">${esc(unit)}</span>` : ''}</div>
+    ${num ? `<div class="keys" aria-label="Insert a symbol">${['−', '×10^', '/', '.'].map(k => `<button type="button" class="key" data-ins="${k === '−' ? '-' : k === '×10^' ? 'x10^' : k}">${k}</button>`).join('')}</div>
+      <p class="small muted" style="margin:6px 2px 0">e.g. 0.25, 3/16, 4.5e-3 or 4.5×10^-3</p>` : ''}
     ${hint && !R.hint ? `<div class="row" style="margin-top:8px"><button class="btn ghost" data-act="hint">Show the formula (scores as Unsure)</button></div>` : ''}
     ${R.hint ? `<p class="small" style="margin:8px 2px">Formula: <b>${fmt(hint)}</b></p>` : ''}
     ${confHTML(!!(R.typed && R.typed.trim()))}`;
@@ -331,8 +333,8 @@ function feedbackHTML() {
   const needFix = x.surprise && !x.fixed;
   let mid = '';
   if (it.type === 'choice') {
-    mid = `<div class="opts">${R.order.map((k, i) => {
-      const cls = needFix ? (R.fixPick === k ? 'sel' : '') : k === 0 ? 'right' : (k === R.picked ? 'wrong' : 'dim');
+    mid = (needFix ? `<div class="yours">The answer is <b>${fmt(it.options[0])}</b>.</div>` : '') + `<div class="opts">${R.order.map((k, i) => {
+      const cls = needFix ? (k === R.picked ? 'wrong' : R.fixPick === k ? 'sel' : '') : k === 0 ? 'right' : (k === R.picked ? 'wrong' : 'dim');
       return `<button class="opt ${cls}" ${needFix ? `data-fix="${k}"` : 'tabindex="-1"'}><span class="k">${'ABCD'[i]}</span><span>${fmt(it.options[k])}</span></button>`;
     }).join('')}</div>`;
   } else {
@@ -340,7 +342,7 @@ function feedbackHTML() {
     if (needFix) mid += `<div class="ans" style="margin-top:8px"><input id="fix" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type the correct answer" aria-label="Type the correct answer"></div>`;
   }
   const sur = x.surprise ? (needFix
-    ? `<div class="surprise"><b>High-confidence miss.</b> These are the errors that get corrected best — if you fix them now. ${it.type === 'choice' ? 'Find and tap the correct option to continue.' : 'Type the correct answer to continue.'}</div>`
+    ? `<div class="surprise"><b>High-confidence miss.</b> These are the errors that get corrected best — if you fix them now. ${it.type === 'choice' ? 'Tap it in the list to continue.' : 'Type the correct answer to continue.'}</div>`
     : `<div class="surprise"><b>Corrected.</b> This card comes back tomorrow and again in a week, to make sure the fix sticks.</div>`) : '';
   if (needFix) return v + sur + mid;
   const lures = it.type === 'choice' ? (() => {
@@ -402,8 +404,8 @@ function calChart(cal) {
     const bx = x0 + gap / 2 + i * (bw + gap);
     g += `<rect class="band" x="${bx - 6}" y="${y(L.hi)}" width="${bw + 12}" height="${y(L.lo) - y(L.hi)}" rx="3"><title>Target for ${['Unsure', 'Fairly sure', 'Sure'][i]}: ${Math.round(L.lo * 100)}–${Math.round(L.hi * 100)}%</title></rect>`;
     if (L.acc != null) {
-      const top = y(L.acc), bh = Math.max(2, y(0) - top);
-      g += `<path class="bar" d="M${bx} ${y(0)} V${top + 4} q0 -4 4 -4 H${bx + bw - 4} q4 0 4 4 V${y(0)} Z"><title>${['Unsure', 'Fairly sure', 'Sure'][i]}: ${pct(L.acc)} correct of ${L.n}</title></path>`;
+      const top = Math.min(y(L.acc), y(0) - 2);
+      g += (y(0) - top < 6 ? `<rect class="bar" x="${bx}" y="${top}" width="${bw}" height="${y(0) - top}">` : `<path class="bar" d="M${bx} ${y(0)} V${top + 4} q0 -4 4 -4 H${bx + bw - 4} q4 0 4 4 V${y(0)} Z">`) + `<title>${['Unsure', 'Fairly sure', 'Sure'][i]}: ${pct(L.acc)} correct of ${L.n}</title>` + (y(0) - top < 6 ? '</rect>' : '</path>');
       g += `<text class="val" x="${bx + bw / 2}" y="${top - 6}" text-anchor="middle">${pct(L.acc)}</text>`;
     }
     g += `<text x="${bx + bw / 2}" y="${y(0) + 17}" text-anchor="middle">${['Unsure', 'Fairly', 'Sure'][i]}</text><text x="${bx + bw / 2}" y="${y(0) + 32}" text-anchor="middle">n=${L.n}</text>`;
@@ -469,7 +471,20 @@ function viewSettings() {
   if (navigator.storage && navigator.storage.persisted) navigator.storage.persisted().then(p => { const e = $('#persist'); if (e) e.innerHTML = p ? 'Storage is marked persistent.' : 'The browser may clear storage under pressure — <a href="#" data-act="persist">ask it to keep it</a>, and add this page to your home screen.'; });
 }
 function bindSettings() {
-  $('#exam').addEventListener('change', e => { if (e.target.value) { S.examDate = e.target.value; S.sweepDone = false; saveSettings(); viewSettings(); toast('Exam date saved. Future intervals respect it.'); } });
+  $('#exam').addEventListener('change', e => {
+    if (!e.target.value) return;
+    S.examDate = e.target.value; S.sweepDone = false; saveSettings();
+    const T = examDay(), t = today(), moved = [];
+    for (const c of Object.values(MEM.cards)) {
+      if (c.state !== 'review') continue;
+      const due0 = c.due, ech0 = c.echoes.join();
+      if (c.due > T - 2) c.due = Math.max(t + 1, T - 2);
+      c.echoes = c.echoes.filter(x => x <= T - 2);
+      if (c.due !== due0 || c.echoes.join() !== ech0) moved.push(c);
+    }
+    if (moved.length) saveCards(moved);
+    viewSettings(); toast(moved.length ? `Exam date saved; ${moved.length} review${moved.length === 1 ? '' : 's'} moved inside the new date.` : 'Exam date saved. Intervals will respect it.');
+  });
   $('#phase').addEventListener('change', e => { S.phase = e.target.value; saveSettings(); viewSettings(); });
   $('#cap').addEventListener('change', e => { const v = Math.max(20, Math.min(500, parseInt(e.target.value, 10) || 150)); S.reviewCap = v; saveSettings(); });
   $('#npd').addEventListener('change', e => { S.newPerDay = e.target.value ? +e.target.value : null; saveSettings(); });
@@ -566,8 +581,15 @@ function flagSheet() {
 
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix]'); if (!t) return;
+  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix],[data-ins]'); if (!t) return;
   const R = RUN;
+  if (t.dataset.ins != null) { /* helper keys for numbers on phones */
+    const inp = $('#ans'); if (!inp) return;
+    const a = inp.selectionStart ?? inp.value.length, b = inp.selectionEnd ?? inp.value.length;
+    inp.value = inp.value.slice(0, a) + t.dataset.ins + inp.value.slice(b);
+    inp.focus(); const p = a + t.dataset.ins.length; try { inp.setSelectionRange(p, p); } catch (err) { /* some inputs refuse */ }
+    inp.dispatchEvent(new Event('input', { bubbles: true })); return;
+  }
   if (t.dataset.o != null && R && R.phase === 'answer') { R.picked = +t.dataset.o; drawRun(); return; }
   if (t.dataset.fix != null && R) { R.fixPick = +t.dataset.fix; if (fixCheck()) { R.result.fixed = true; } drawRun(); return; }
   if (t.dataset.c != null && R) { submit(+t.dataset.c); return; }
