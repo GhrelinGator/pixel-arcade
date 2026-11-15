@@ -55,6 +55,7 @@ node test/ui_flow.js          # end-to-end on a phone viewport, incl. backup rou
 node test/ui_targeted.js      # calculation card, hint lock, appeal, keyboard flow
 node test/ui_habit.js         # delta v2: re-entry, pace, plans, weeks, seasons, sleep, blocks, post-mortems, tutor pack
 node test/tutor_test.js       # tutor pack contents: appeals, labels, ranking, generated questions, privacy
+node test/ui_review.js        # fresh install, 4 am rollover into a new week, re-entry, seasons, old-backup import, layout checks
 ```
 
 ## Licenses

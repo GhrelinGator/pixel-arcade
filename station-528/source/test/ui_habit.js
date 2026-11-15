@@ -20,7 +20,7 @@ let fails = 0; const ok = (c, m) => { if (!c) { fails++; console.log('FAIL', m);
   const ev = (f, a) => page.evaluate(f, a);
   const shot = async name => { await page.waitForTimeout(150); await page.screenshot({ path: `shots/h${process.env.DARK ? 'd' : ''}-${name}.png`, fullPage: true }); };
   const text = () => ev(() => document.querySelector('#app').innerText);
-  const reload = async (hash = '') => { await page.goto(url + hash); await page.reload(); await page.waitForTimeout(350); };
+  const reload = async (hash = '') => { await page.goto(url + hash); await page.reload(); await page.waitForSelector('#app .top'); await page.waitForTimeout(150); };
 
   /* 1. setup with a custom plan cue */
   await page.goto(url); await page.waitForTimeout(350);

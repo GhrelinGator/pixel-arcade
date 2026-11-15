@@ -3004,6 +3004,7 @@ function render() {
   if (!S.setupDone) return viewSetup();
   const h = location.hash.replace(/^#\/?/, '');
   const [r, arg] = h.split('/');
+  if (r !== 'plans') PLAN_DRAFT = null; /* leaving Plans without saving discards the draft */
   if (!r || r === 'rounds' || r === 'intake') { dailyCheck(); const ci = kvGet('checkin'); if (ci && ci.day === today() && !ci.done) return viewCheckin(); }
   if (r === 'checkin') return viewCheckin();
   if (r === 'plans') return viewPlans();
@@ -3065,11 +3066,11 @@ function viewStation() {
     : `<div class="task"><div class="grow"><a href="#/rounds" style="text-decoration:none;color:inherit"><b>Daily Rounds</b><span class="small muted">Reviews the scheduler says are due</span></a>${r.backlog ? `<span class="small muted sub2">Catching up: ${backlogText(r.backlog)}${pace} · <a href="#" data-act="pace">change pace</a></span>` : ''}</div><div class="n">${r.n}</div><a class="btn primary" href="#/rounds">${r.built ? 'Resume' : 'Start'}</a></div>`;
   const win = curWindow(), nowIn = inWindow(win, localMin());
   const winText = win ? (nowIn ? ' · your Intake window is now' : ` · best ${clock(win[0])}–${clock(win[1])}`) : '';
-  const sleepNote = ik.q.sleep === 'short' && ik.q.thr > 0 ? ` · halved after a short night (<a href="#" data-act="sleep-change">change</a>)` : '';
+  const sleepNote = ik.q.sleep === 'short' && ik.q.thr > 0 ? ` · Halved after a short night · <a href="#" data-act="sleep-change">change</a>` : '';
   let intakeTask;
   if (ik.inQueue) intakeTask = `<a class="task${nowIn ? ' now' : ''}" href="#/intake" style="text-decoration:none;color:inherit"><div class="grow"><b>Intake</b><span class="small muted">New cards, each until you recall it 3 times${winText}</span></div><div class="n">${ik.inQueue}</div><span class="btn">Resume</span></a>`;
   else if (ik.noUnits) intakeTask = `<a class="task" href="#/settings" style="text-decoration:none;color:inherit"><div class="grow"><b>Intake</b><span class="small muted">Choose the units your classes have covered.</span></div><span class="btn">Choose</span></a>`;
-  else if (ik.newLeft) intakeTask = `<div class="task${nowIn ? ' now' : ''}"><a href="#/intake" class="grow" style="text-decoration:none;color:inherit"><b>Intake</b><span class="small muted">New cards from your open units (${ik.introduced}/${ik.quota} today)${winText}${sleepNote}</span></a><div class="n">${ik.newLeft}</div><a class="btn" href="#/intake">Start</a></div>`;
+  else if (ik.newLeft) intakeTask = `<div class="task${nowIn ? ' now' : ''}"><div class="grow"><a href="#/intake" style="text-decoration:none;color:inherit"><b>Intake</b><span class="small muted">New cards from your open units (${ik.introduced}/${ik.quota} today)${winText}</span></a>${sleepNote ? `<span class="small muted sub2">${sleepNote.replace(/^ · /, '')}</span>` : ''}</div><div class="n">${ik.newLeft}</div><a class="btn" href="#/intake">Start</a></div>`;
   else {
     const why = ik.quota > 0 ? (ik.introduced ? 'Done for today.' : 'No new cards left in your open units. Open more in Settings.')
       : ik.q.stopped ? 'New cards have stopped for the final three weeks.'
@@ -3150,6 +3151,14 @@ function seasonRecap(season, t) {
   for (let d = season.start; d < t; d++) { const x = kvGet(dayKey(d)); if (x && x.reviews) { days++; learned += x.newCards || 0; gain += x.gain || 0; } }
   return { id: season.id, days, learned, gain };
 }
+/* only what actually happened: no "0 cards learned" */
+function seasonLine(p) {
+  if (!p || !p.days) return '';
+  const bits = [`${p.days} active day${p.days === 1 ? '' : 's'}`];
+  if (p.learned) bits.push(`${p.learned} new card${p.learned === 1 ? '' : 's'} learned`);
+  if (p.gain >= 0.1) bits.push(`+${p.gain.toFixed(1)} exam-day items`);
+  return ` Last season: ${bits.length > 2 ? bits.slice(0, -1).join(', ') + ' and ' + bits[bits.length - 1] : bits.join(' and ')}.`;
+}
 const SEASON_TITLE = { month: 'A new month', semester: 'A new semester', lapse: 'A fresh start', start: 'Season one' };
 function viewCheckin() {
   const t = today(), ci = kvGet('checkin');
@@ -3161,7 +3170,7 @@ function viewCheckin() {
       <p class="small muted">Your reviews are already sorted so the cards you're closest to forgetting come first. Your first answer today lights a comeback beacon on the Station.</p>
       ${b ? `<p class="small">At this pace you'll be <b>${backlogText(b)}</b>. Pick a pace for catching up:</p>${paceButtons()}` : ''}</div>` : '';
   const p = ci.prev, season = ci.season ? `<div class="card stack"><div class="lbl">Season ${ci.season.id}</div><h2>${SEASON_TITLE[ci.season.trigger]}</h2>
-      <p>${ci.season.trigger === 'lapse' ? 'A new season starts today, with a clean slate.' : 'A new season starts today.'}${p && p.days ? ` Last season: ${p.learned} new card${p.learned === 1 ? '' : 's'} learned and +${p.gain.toFixed(1)} exam-day items, over ${p.days} active day${p.days === 1 ? '' : 's'}.` : ''}</p>
+      <p>${ci.season.trigger === 'lapse' ? 'A new season starts today, with a clean slate.' : 'A new season starts today.'}${seasonLine(p)}</p>
       <p class="small muted">New seasons are a good moment to check that your plan still fits how your days run.</p></div>` : '';
   app().innerHTML = `<div class="top"><div class="grow"><h1>STATION 528</h1><div class="sub">${esc(fmtDay(t))}</div></div></div>
     ${welcome}${season}${planRehearsalHTML(plans, true)}
@@ -3363,6 +3372,7 @@ function viewPrimer() {
 const TUTOR = { range: '7', instr: true, text: '', name: '' };
 const TUTOR_RANGES = [['today', 'Today'], ['7', '7 days'], ['30', '30 days'], ['all', 'All']];
 async function viewTutor(arg) {
+  const tok = viewTutor.tok = (viewTutor.tok || 0) + 1;
   if (arg && TUTOR_RANGES.some(([k]) => k === arg)) TUTOR.range = arg;
   const t = today();
   const start = { today: t, '7': t - 6, '30': t - 29, all: null }[TUTOR.range];
@@ -3373,12 +3383,11 @@ async function viewTutor(arg) {
     <label class="chk"><input type="checkbox" id="tinstr" ${TUTOR.instr ? 'checked' : ''}><span class="grow">Include instructions for the tutor<span class="small muted" style="display:block">Leave on unless you'd rather write your own.</span></span></label>`;
   app().innerHTML = head + `<p class="small muted">Building…</p>`;
   const logs = await allLogs();
-  if (!location.hash.startsWith('#/tutor')) return;
+  if (!location.hash.startsWith('#/tutor') || tok !== viewTutor.tok) return;
   const pack = tutorPack({ logs, cards: MEM.cards, items: ITEM, units: UNIT, courses: Object.fromEntries(COURSES.map(c => [c.id, c])), flags: flags(),
     today: t, examDay: examDay(), phase: phase(), openUnits: S.openUnits, rangeStart: start, rangeLabel: label, instructions: TUTOR.instr, now: now() });
   TUTOR.text = pack.text; TUTOR.name = `station528-tutor-${dateOfDay(t)}.md`;
-  let canFile = false;
-  try { canFile = !!(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'x.md', { type: 'text/markdown' })] })); } catch (e) { canFile = false; }
+  const canFile = !!shareFile('x');
   app().innerHTML = head + (pack.answers ? `<div class="card small">This pack: <b>${pack.missed}</b> missed card${pack.missed === 1 ? '' : 's'}${pack.units ? ` · ${pack.units} unit${pack.units === 1 ? '' : 's'} compared` : ''} · from ${pack.answers} answer${pack.answers === 1 ? '' : 's'}.</div>`
       : `<div class="card small">No answers in this period yet${TUTOR.range === 'all' ? '' : '. Try a longer period'}.</div>`) +
     `<div class="row">${canFile ? `<button class="btn primary" data-act="tutor-share">Share file</button>` : ''}<button class="btn ${canFile ? '' : 'primary'}" data-act="tutor-copy">Copy text</button><button class="btn" data-act="tutor-dl">Download</button></div>
@@ -3392,8 +3401,17 @@ function tutorDownload() {
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
   toast('Saved. Attach it in your AI chat.');
 }
+/* A shareable File for the pack: Markdown where the browser allows it, plain text otherwise. */
+function shareFile(text) {
+  if (!navigator.canShare || typeof File === 'undefined') return null;
+  for (const [ext, type] of [['md', 'text/markdown'], ['txt', 'text/plain']]) {
+    try { const f = new File([text], TUTOR.name.replace(/\.md$/, '.' + ext) || 'tutor.' + ext, { type }); if (navigator.canShare({ files: [f] })) return f; } catch (e) { /* try the next type */ }
+  }
+  return null;
+}
 async function tutorShare() {
-  const file = new File([TUTOR.text], TUTOR.name, { type: 'text/markdown' });
+  const file = shareFile(TUTOR.text);
+  if (!file) return tutorDownload();
   try { await navigator.share({ files: [file], title: 'Station 528 tutor pack' }); }
   catch (e) { if (e && e.name !== 'AbortError') tutorDownload(); }
 }
