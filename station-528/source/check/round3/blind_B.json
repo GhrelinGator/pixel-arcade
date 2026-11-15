@@ -1,0 +1,1815 @@
+[
+ {
+  "id": "Q001",
+  "format": "short answer",
+  "question": "Remembering 1-9-4-5-2-0-0-1 as two years, 1945 and 2001, is called ___."
+ },
+ {
+  "id": "Q002",
+  "format": "short answer",
+  "question": "The rule that the just-noticeable difference is a constant fraction of the original stimulus is called ___."
+ },
+ {
+  "id": "Q003",
+  "format": "choice",
+  "question": "Teachers told that certain students (actually picked at random) would bloom academically saw those students' scores rise. This is:",
+  "options": {
+   "A": "The just-world hypothesis",
+   "B": "A self-fulfilling prophecy",
+   "C": "Stereotype threat",
+   "D": "The halo effect"
+  }
+ },
+ {
+  "id": "Q004",
+  "format": "choice",
+  "question": "A university's manifest function is to educate. Which is a latent function?",
+  "options": {
+   "A": "Its faculty conduct research",
+   "B": "It awards degrees to graduates",
+   "C": "Students meet future spouses there",
+   "D": "It teaches courses to its students"
+  }
+ },
+ {
+  "id": "Q005",
+  "format": "choice",
+  "question": "The main products of the pentose phosphate pathway are:",
+  "options": {
+   "A": "Lactate and NAD⁺",
+   "B": "Acetyl-CoA and CO₂",
+   "C": "NADPH and ribose-5-phosphate",
+   "D": "ATP and pyruvate"
+  }
+ },
+ {
+  "id": "Q006",
+  "format": "choice",
+  "question": "Eating because hunger is an unpleasant internal state you want to relieve fits:",
+  "options": {
+   "A": "Instinct theory",
+   "B": "Drive-reduction theory",
+   "C": "Arousal theory",
+   "D": "Incentive theory"
+  }
+ },
+ {
+  "id": "Q007",
+  "format": "choice",
+  "question": "Repeated intrusive thoughts and urges to perform rituals, such as checking the stove many times, describe:",
+  "options": {
+   "A": "Specific phobia",
+   "B": "Obsessive–compulsive disorder",
+   "C": "Panic disorder",
+   "D": "Generalized anxiety disorder"
+  }
+ },
+ {
+  "id": "Q008",
+  "format": "choice",
+  "question": "In Freud's model, which part of the personality follows the pleasure principle and wants immediate gratification?",
+  "options": {
+   "A": "The superego",
+   "B": "The id",
+   "C": "The ego",
+   "D": "The persona"
+  }
+ },
+ {
+  "id": "Q009",
+  "format": "choice",
+  "question": "Proteins that help other proteins fold correctly, without being part of the final structure, are:",
+  "options": {
+   "A": "Chaperones",
+   "B": "Proteasomes",
+   "C": "Ribosomes",
+   "D": "Kinases"
+  }
+ },
+ {
+  "id": "Q010",
+  "format": "choice",
+  "question": "In Pavlov's experiment, once the bell alone makes the dog salivate, the bell is the:",
+  "options": {
+   "A": "Unconditioned stimulus",
+   "B": "Unconditioned response",
+   "C": "Conditioned stimulus",
+   "D": "Neutral stimulus"
+  }
+ },
+ {
+  "id": "Q011",
+  "format": "choice",
+  "question": "The dopamine hypothesis links too much dopamine activity to which disorder's positive symptoms?",
+  "options": {
+   "A": "Schizophrenia",
+   "B": "Parkinson's disease",
+   "C": "Generalized anxiety disorder",
+   "D": "Major depressive disorder"
+  }
+ },
+ {
+  "id": "Q012",
+  "format": "choice",
+  "question": "In Mead's theory, the spontaneous, acting part of the self, as opposed to the socialized part that sees itself as others do, is the:",
+  "options": {
+   "A": "\"Me\"",
+   "B": "\"I\"",
+   "C": "Generalized other",
+   "D": "Looking-glass self"
+  }
+ },
+ {
+  "id": "Q013",
+  "format": "choice",
+  "question": "In Maslow's hierarchy of needs, which level comes directly above safety?",
+  "options": {
+   "A": "Physiological needs",
+   "B": "Self-actualization",
+   "C": "Esteem",
+   "D": "Love and belonging"
+  }
+ },
+ {
+  "id": "Q014",
+  "format": "choice",
+  "question": "Parkinson's disease involves the loss of neurons that make which neurotransmitter?",
+  "options": {
+   "A": "GABA",
+   "B": "Acetylcholine",
+   "C": "Serotonin",
+   "D": "Dopamine"
+  }
+ },
+ {
+  "id": "Q015",
+  "format": "choice",
+  "question": "A stranger trips on the stairs and you assume they're clumsy, without considering that the steps were slippery. This is:",
+  "options": {
+   "A": "The actor–observer bias",
+   "B": "The fundamental attribution error",
+   "C": "The self-serving bias",
+   "D": "The halo effect"
+  }
+ },
+ {
+  "id": "Q016",
+  "format": "choice",
+  "question": "A nucleophile is a species that:",
+  "options": {
+   "A": "Donates a proton",
+   "B": "Donates an electron pair to form a new bond",
+   "C": "Accepts an electron pair to form a new bond",
+   "D": "Always carries a positive charge"
+  }
+ },
+ {
+  "id": "Q017",
+  "format": "choice",
+  "question": "An SN2 reaction at a chiral carbon gives:",
+  "options": {
+   "A": "Retention of configuration",
+   "B": "No reaction at chiral carbons",
+   "C": "A racemic mixture",
+   "D": "Inversion of configuration"
+  }
+ },
+ {
+  "id": "Q018",
+  "format": "choice",
+  "question": "Phineas Gage survived an iron rod through his frontal lobe but became impulsive and socially inappropriate. This shows the frontal lobe's role in:",
+  "options": {
+   "A": "Vision",
+   "B": "Hearing and understanding language",
+   "C": "Planning, impulse control and personality",
+   "D": "Touch and body position"
+  }
+ },
+ {
+  "id": "Q019",
+  "format": "choice",
+  "question": "A lifeguard decides to respond to any splash that might be a swimmer in trouble. In signal detection terms, the lifeguard has adopted:",
+  "options": {
+   "A": "A lower absolute threshold",
+   "B": "A conservative criterion",
+   "C": "A liberal criterion",
+   "D": "Greater sensitivity (d′)"
+  }
+ },
+ {
+  "id": "Q020",
+  "format": "choice",
+  "question": "Treating something once seen as a normal part of life, such as aging or shyness, as a medical condition is:",
+  "options": {
+   "A": "The sick role",
+   "B": "Medicalization",
+   "C": "Cultural lag",
+   "D": "Secularization"
+  }
+ },
+ {
+  "id": "Q021",
+  "format": "choice",
+  "question": "A child of farm laborers becomes a surgeon. This is:",
+  "options": {
+   "A": "Upward intergenerational mobility",
+   "B": "Downward mobility",
+   "C": "Upward intragenerational mobility",
+   "D": "Horizontal mobility"
+  }
+ },
+ {
+  "id": "Q022",
+  "format": "choice",
+  "question": "Tönnies used \"Gemeinschaft\" to describe:",
+  "options": {
+   "A": "Community bound by personal ties and shared values, as in a small village",
+   "B": "A formal organization with written rules",
+   "C": "Society based on impersonal, goal-driven ties, as in a big city",
+   "D": "A loose social network"
+  }
+ },
+ {
+  "id": "Q023",
+  "format": "choice",
+  "question": "In Erikson's theory, the central conflict of adolescence is:",
+  "options": {
+   "A": "Intimacy vs. isolation",
+   "B": "Generativity vs. stagnation",
+   "C": "Industry vs. inferiority",
+   "D": "Identity vs. role confusion"
+  }
+ },
+ {
+  "id": "Q024",
+  "format": "choice",
+  "question": "Goffman compared social life to theater, with a \"front stage\" where we manage the impression we make. This is the:",
+  "options": {
+   "A": "Looking-glass self",
+   "B": "Dramaturgical approach",
+   "C": "Social exchange theory",
+   "D": "Labeling theory"
+  }
+ },
+ {
+  "id": "Q025",
+  "format": "choice",
+  "question": "Which of these is discrimination rather than prejudice or a stereotype?",
+  "options": {
+   "A": "Refusing to rent an apartment to someone because of their ethnicity",
+   "B": "Feeling uneasy around people of another religion",
+   "C": "Believing all members of a group are lazy",
+   "D": "Disliking a group without knowing any of its members"
+  }
+ },
+ {
+  "id": "Q026",
+  "format": "choice",
+  "question": "Most addictive drugs raise dopamine in which pathway?",
+  "options": {
+   "A": "The mesolimbic pathway, from the ventral tegmental area to the nucleus accumbens",
+   "B": "The corticospinal tract, from the motor cortex to the spinal cord",
+   "C": "The optic tract, from the eyes toward the thalamus",
+   "D": "The nigrostriatal pathway, from the substantia nigra to the striatum"
+  }
+ },
+ {
+  "id": "Q027",
+  "format": "choice",
+  "question": "Sudden attacks of sleep during the day, sometimes with sudden loss of muscle tone, describe:",
+  "options": {
+   "A": "Somnambulism",
+   "B": "Sleep apnea",
+   "C": "Narcolepsy",
+   "D": "Insomnia"
+  }
+ },
+ {
+  "id": "Q028",
+  "format": "choice",
+  "question": "Someone who believes their grades depend mostly on luck and the teacher has:",
+  "options": {
+   "A": "High self-efficacy",
+   "B": "An internal locus of control",
+   "C": "An external locus of control",
+   "D": "A strong reference group"
+  }
+ },
+ {
+  "id": "Q029",
+  "format": "choice",
+  "question": "The lasting strengthening of a synapse after repeated stimulation, thought to underlie learning, is:",
+  "options": {
+   "A": "Long-term potentiation",
+   "B": "Synaptic pruning",
+   "C": "Habituation",
+   "D": "Neurogenesis"
+  }
+ },
+ {
+  "id": "Q030",
+  "format": "choice",
+  "question": "Children who already enjoyed drawing were promised a reward for it, and afterward they drew less on their own than children who got no reward. This is:",
+  "options": {
+   "A": "The overjustification effect",
+   "B": "Cognitive dissonance",
+   "C": "Learned helplessness",
+   "D": "Drive reduction"
+  }
+ },
+ {
+  "id": "Q031",
+  "format": "choice",
+  "question": "Which sleep stage has rapid eye movements, vivid dreams, and near-paralysis of skeletal muscles?",
+  "options": {
+   "A": "REM sleep",
+   "B": "Stage N1",
+   "C": "Stage N3",
+   "D": "Stage N2"
+  }
+ },
+ {
+  "id": "Q032",
+  "format": "choice",
+  "question": "In a water-soluble globular protein, which amino acids are most likely buried in the core?",
+  "options": {
+   "A": "Nonpolar ones such as leucine, valine and phenylalanine",
+   "B": "Charged ones such as lysine, arginine and glutamate",
+   "C": "All kinds, spread evenly through the protein",
+   "D": "Polar ones such as serine, threonine and asparagine"
+  }
+ },
+ {
+  "id": "Q033",
+  "format": "choice",
+  "question": "In the demographic transition model, stage 2 is marked by:",
+  "options": {
+   "A": "Falling death rates while birth rates stay high, so the population grows fast",
+   "B": "Low birth and death rates, so the population is fairly stable",
+   "C": "Falling birth rates as death rates level off, so growth slows",
+   "D": "High birth rates and high death rates, so growth stays slow"
+  }
+ },
+ {
+  "id": "Q034",
+  "format": "choice",
+  "question": "Two stereoisomers that are not mirror images of each other are:",
+  "options": {
+   "A": "Enantiomers",
+   "B": "Constitutional isomers",
+   "C": "Identical",
+   "D": "Diastereomers"
+  }
+ },
+ {
+  "id": "Q035",
+  "format": "choice",
+  "question": "Which perspective, rooted in Marx, sees society as shaped by groups competing for power and scarce resources?",
+  "options": {
+   "A": "Functionalism",
+   "B": "Social exchange theory",
+   "C": "Conflict theory",
+   "D": "Symbolic interactionism"
+  }
+ },
+ {
+  "id": "Q036",
+  "format": "choice",
+  "question": "In the same experiment, salivating when the bell rings is the:",
+  "options": {
+   "A": "Conditioned stimulus",
+   "B": "Unconditioned response",
+   "C": "Unconditioned stimulus",
+   "D": "Conditioned response"
+  }
+ },
+ {
+  "id": "Q037",
+  "format": "choice",
+  "question": "After an A, a student credits her intelligence; after a C, she blames an unfair test. This is:",
+  "options": {
+   "A": "The fundamental attribution error",
+   "B": "The self-serving bias",
+   "C": "Stereotype threat",
+   "D": "The actor–observer bias"
+  }
+ },
+ {
+  "id": "Q038",
+  "format": "choice",
+  "question": "Which is part of a society's nonmaterial (symbolic) culture?",
+  "options": {
+   "A": "Its tools",
+   "B": "Its clothing",
+   "C": "Its values and language",
+   "D": "Its buildings"
+  }
+ },
+ {
+  "id": "Q039",
+  "format": "choice",
+  "question": "In the Cori cycle, lactate made by working muscle is:",
+  "options": {
+   "A": "Stored as glycogen in the muscle",
+   "B": "Burned by the muscle in the citric acid cycle",
+   "C": "Carried to the liver and converted back to glucose",
+   "D": "Excreted by the kidneys"
+  }
+ },
+ {
+  "id": "Q040",
+  "format": "choice",
+  "question": "An alert, awake person concentrating on a problem shows mostly which brain waves?",
+  "options": {
+   "A": "Beta",
+   "B": "Theta",
+   "C": "Delta",
+   "D": "Alpha"
+  }
+ },
+ {
+  "id": "Q041",
+  "format": "choice",
+  "question": "Which hormone stimulates the liver to make new glucose during fasting?",
+  "options": {
+   "A": "Insulin",
+   "B": "Glucagon",
+   "C": "Calcitonin",
+   "D": "Oxytocin"
+  }
+ },
+ {
+  "id": "Q042",
+  "format": "choice",
+  "question": "Someone organized, dependable and self-disciplined scores high in which Big Five trait?",
+  "options": {
+   "A": "Agreeableness",
+   "B": "Openness to experience",
+   "C": "Conscientiousness",
+   "D": "Extraversion"
+  }
+ },
+ {
+  "id": "Q043",
+  "format": "choice",
+  "question": "A sociologist studies how a handshake, a uniform or a nickname takes on shared meaning between people. Which perspective?",
+  "options": {
+   "A": "Conflict theory",
+   "B": "Rational choice theory",
+   "C": "Functionalism",
+   "D": "Symbolic interactionism"
+  }
+ },
+ {
+  "id": "Q044",
+  "format": "choice",
+  "question": "A teenager loses phone privileges for breaking curfew and then breaks curfew less. This is:",
+  "options": {
+   "A": "Negative punishment",
+   "B": "Negative reinforcement",
+   "C": "Extinction",
+   "D": "Positive punishment"
+  }
+ },
+ {
+  "id": "Q045",
+  "format": "choice",
+  "question": "Which interaction is part of tertiary structure but not secondary structure?",
+  "options": {
+   "A": "The sequence of amino acids in the chain",
+   "B": "Side-chain interactions, such as salt bridges",
+   "C": "Peptide bonds joining neighboring amino acids",
+   "D": "Hydrogen bonds between backbone C=O and N–H groups"
+  }
+ },
+ {
+  "id": "Q046",
+  "format": "choice",
+  "question": "The bell keeps ringing without food, and the dog gradually stops salivating. After a rest, the response briefly returns. These are:",
+  "options": {
+   "A": "Extinction, then spontaneous recovery",
+   "B": "Habituation, then sensitization",
+   "C": "Acquisition, then extinction",
+   "D": "Generalization, then discrimination"
+  }
+ },
+ {
+  "id": "Q047",
+  "format": "choice",
+  "question": "Identical twins raised apart are more alike in a trait than fraternal twins raised together. This suggests:",
+  "options": {
+   "A": "Genes contribute substantially to the trait",
+   "B": "The trait has no genetic basis",
+   "C": "The trait is learned by imitation",
+   "D": "Shared family environment is the main cause"
+  }
+ },
+ {
+  "id": "Q048",
+  "format": "choice",
+  "question": "Some bacteria, such as Clostridium and Bacillus, survive boiling and drying by forming:",
+  "options": {
+   "A": "Capsules",
+   "B": "Pili",
+   "C": "Plasmids",
+   "D": "Endospores"
+  }
+ },
+ {
+  "id": "Q049",
+  "format": "choice",
+  "question": "A visual image held for less than a second as a nearly exact copy is in:",
+  "options": {
+   "A": "Long-term memory",
+   "B": "Sensory (iconic) memory",
+   "C": "Working memory's phonological loop",
+   "D": "Short-term memory"
+  }
+ },
+ {
+  "id": "Q050",
+  "format": "choice",
+  "question": "Which enzyme breaks glycogen down into glucose-1-phosphate?",
+  "options": {
+   "A": "Hexokinase",
+   "B": "Glycogen synthase",
+   "C": "Glucose-6-phosphatase",
+   "D": "Glycogen phosphorylase"
+  }
+ },
+ {
+  "id": "Q051",
+  "format": "choice",
+  "question": "Young children say \"goed\" and \"mouses\", forms they have almost never heard adults use. This is evidence against which view?",
+  "options": {
+   "A": "Humans have an inborn capacity for language",
+   "B": "Language and thought influence each other",
+   "C": "Children apply grammatical rules they have worked out",
+   "D": "Language is learned mainly by imitating and being reinforced"
+  }
+ },
+ {
+  "id": "Q052",
+  "format": "choice",
+  "question": "The growing integration of economies and cultures worldwide through trade, travel and communication is:",
+  "options": {
+   "A": "Assimilation",
+   "B": "Gentrification",
+   "C": "Globalization",
+   "D": "Urbanization"
+  }
+ },
+ {
+  "id": "Q053",
+  "format": "choice",
+  "question": "A 10-month-old searches for a toy after watching it get hidden under a blanket. In Piaget's terms, the baby has developed:",
+  "options": {
+   "A": "Egocentrism",
+   "B": "Abstract reasoning",
+   "C": "Conservation",
+   "D": "Object permanence"
+  }
+ },
+ {
+  "id": "Q054",
+  "format": "choice",
+  "question": "A 5-year-old insists a tall thin glass holds more juice than a short wide one, even after watching the same juice poured from one to the other. Which Piaget stage fits?",
+  "options": {
+   "A": "Concrete operational",
+   "B": "Formal operational",
+   "C": "Sensorimotor",
+   "D": "Preoperational"
+  }
+ },
+ {
+  "id": "Q055",
+  "format": "choice",
+  "question": "Which reinforcement schedule gives a high, steady response rate and the most resistance to extinction, as with slot machines?",
+  "options": {
+   "A": "Variable ratio",
+   "B": "Fixed interval",
+   "C": "Variable interval",
+   "D": "Fixed ratio"
+  }
+ },
+ {
+  "id": "Q056",
+  "format": "choice",
+  "question": "Prions cause disease by:",
+  "options": {
+   "A": "Producing toxins like bacteria do",
+   "B": "Inserting their DNA into the host genome",
+   "C": "Converting normal proteins into a misfolded form",
+   "D": "Reverse-transcribing their RNA"
+  }
+ },
+ {
+  "id": "Q057",
+  "format": "choice",
+  "question": "Witnesses asked how fast cars were going when they \"smashed\" (rather than \"hit\") later report broken glass that wasn't there. This shows:",
+  "options": {
+   "A": "The spacing effect",
+   "B": "Mood-congruent memory",
+   "C": "The primacy effect",
+   "D": "The misinformation effect"
+  }
+ },
+ {
+  "id": "Q058",
+  "format": "choice",
+  "question": "A height rule for a job excludes most women, though no one meant to discriminate. This is:",
+  "options": {
+   "A": "Prejudice",
+   "B": "Individual discrimination",
+   "C": "Stereotype threat",
+   "D": "Institutional discrimination"
+  }
+ },
+ {
+  "id": "Q059",
+  "format": "choice",
+  "question": "A patient understands speech but speaks slowly, with great effort, in short broken phrases. Which area is most likely damaged?",
+  "options": {
+   "A": "The occipital lobe",
+   "B": "The arcuate fasciculus",
+   "C": "Wernicke's area, in the temporal lobe",
+   "D": "Broca's area, in the frontal lobe"
+  }
+ },
+ {
+  "id": "Q060",
+  "format": "choice",
+  "question": "After seeing news coverage of plane crashes, someone judges flying more dangerous than driving. This reflects:",
+  "options": {
+   "A": "Belief perseverance",
+   "B": "The availability heuristic",
+   "C": "Confirmation bias",
+   "D": "The representativeness heuristic"
+  }
+ },
+ {
+  "id": "Q061",
+  "format": "choice",
+  "question": "The civil rights movement sought specific legal changes that would affect everyone. In Aberle's terms, it was a:",
+  "options": {
+   "A": "Revolutionary movement",
+   "B": "Redemptive movement",
+   "C": "Reformative movement",
+   "D": "Alternative movement"
+  }
+ },
+ {
+  "id": "Q062",
+  "format": "choice",
+  "question": "People given adrenaline felt happy or angry depending on how an actor in the room behaved. This supports:",
+  "options": {
+   "A": "Schachter–Singer two-factor theory",
+   "B": "James–Lange theory",
+   "C": "Cannon–Bard theory",
+   "D": "Drive-reduction theory"
+  }
+ },
+ {
+  "id": "Q063",
+  "format": "choice",
+  "question": "You can ride a bike but can't explain exactly how you balance. This skill is stored as:",
+  "options": {
+   "A": "Procedural (implicit) memory",
+   "B": "Semantic memory",
+   "C": "Episodic memory",
+   "D": "Flashbulb memory"
+  }
+ },
+ {
+  "id": "Q064",
+  "format": "choice",
+  "question": "Erikson's first stage, in infancy, is:",
+  "options": {
+   "A": "Autonomy vs. shame and doubt",
+   "B": "Industry vs. inferiority",
+   "C": "Initiative vs. guilt",
+   "D": "Trust vs. mistrust"
+  }
+ },
+ {
+  "id": "Q065",
+  "format": "choice",
+  "question": "After learning a new phone number, you can't recall your old one. This is:",
+  "options": {
+   "A": "Encoding failure",
+   "B": "Retroactive interference",
+   "C": "Proactive interference",
+   "D": "Decay"
+  }
+ },
+ {
+  "id": "Q066",
+  "format": "choice",
+  "question": "People recalling a list remember the first items well because they had time to rehearse them into long-term memory. This is:",
+  "options": {
+   "A": "The spacing effect",
+   "B": "Proactive interference",
+   "C": "The primacy effect",
+   "D": "The recency effect"
+  }
+ },
+ {
+  "id": "Q067",
+  "format": "choice",
+  "question": "A system in which people rise mainly through talent and effort is a:",
+  "options": {
+   "A": "Meritocracy",
+   "B": "Oligarchy",
+   "C": "Estate system",
+   "D": "Caste system"
+  }
+ },
+ {
+  "id": "Q068",
+  "format": "choice",
+  "question": "Which is a negative symptom of schizophrenia?",
+  "options": {
+   "A": "Delusions, such as believing one is being watched",
+   "B": "Disorganized, hard-to-follow speech",
+   "C": "Flat affect and loss of motivation",
+   "D": "Hallucinations, such as hearing voices"
+  }
+ },
+ {
+  "id": "Q069",
+  "format": "choice",
+  "question": "After being yelled at by his boss, a man comes home and kicks the door. Which defense mechanism is this?",
+  "options": {
+   "A": "Regression",
+   "B": "Rationalization",
+   "C": "Displacement",
+   "D": "Projection"
+  }
+ },
+ {
+  "id": "Q070",
+  "format": "choice",
+  "question": "Having less than most people in your society consider a normal standard of living, even though basic needs are met, is:",
+  "options": {
+   "A": "Absolute poverty",
+   "B": "Social exclusion",
+   "C": "Relative poverty",
+   "D": "Downward mobility"
+  }
+ },
+ {
+  "id": "Q071",
+  "format": "choice",
+  "question": "Antibiotic resistance genes often spread quickly between different bacteria because they:",
+  "options": {
+   "A": "Are passed only from parent to daughter cells",
+   "B": "Are created in bacteria by exposure to the antibiotic itself",
+   "C": "Are handed to bacteria by the patient's own immune cells",
+   "D": "Sit on plasmids that can pass from cell to cell by conjugation"
+  }
+ },
+ {
+  "id": "Q072",
+  "format": "choice",
+  "question": "Pollution and waste sites placed disproportionately in poor and minority neighborhoods are the central concern of:",
+  "options": {
+   "A": "Gentrification",
+   "B": "Environmental justice",
+   "C": "Cultural relativism",
+   "D": "Globalization"
+  }
+ },
+ {
+  "id": "Q073",
+  "format": "choice",
+  "question": "Enantiomers have:",
+  "options": {
+   "A": "Different molecular formulas despite a similar structure",
+   "B": "Identical physical properties except opposite optical rotation",
+   "C": "Different boiling and melting points from each other",
+   "D": "Mirror-image shapes that can be stacked exactly on each other"
+  }
+ },
+ {
+  "id": "Q074",
+  "format": "choice",
+  "question": "What distinguishes bipolar I disorder from major depressive disorder?",
+  "options": {
+   "A": "Starting in adulthood",
+   "B": "Psychotic symptoms during an episode",
+   "C": "At least one manic episode",
+   "D": "Depressive episodes lasting longer than two weeks"
+  }
+ },
+ {
+  "id": "Q075",
+  "format": "choice",
+  "question": "Which amino acid often breaks α-helices because its side chain loops back to bond to the backbone nitrogen?",
+  "options": {
+   "A": "Leucine",
+   "B": "Glutamate",
+   "C": "Alanine",
+   "D": "Proline"
+  }
+ },
+ {
+  "id": "Q076",
+  "format": "choice",
+  "question": "A small group with close, personal, long-lasting ties, such as a family, is a:",
+  "options": {
+   "A": "Out-group",
+   "B": "Secondary group",
+   "C": "Primary group",
+   "D": "Reference group"
+  }
+ },
+ {
+  "id": "Q077",
+  "format": "choice",
+  "question": "After a disaster, some people blame the victims, as if \"people get what they deserve.\" This reflects:",
+  "options": {
+   "A": "The actor–observer bias",
+   "B": "Cognitive dissonance",
+   "C": "The just-world hypothesis",
+   "D": "The self-serving bias"
+  }
+ },
+ {
+  "id": "Q078",
+  "format": "choice",
+  "question": "Divers who learned words underwater recalled them better underwater than on land. This is:",
+  "options": {
+   "A": "Mood-congruent memory",
+   "B": "Context-dependent memory",
+   "C": "State-dependent memory",
+   "D": "Priming"
+  }
+ },
+ {
+  "id": "Q079",
+  "format": "choice",
+  "question": "A disorder appears when an inherited vulnerability meets enough life stress. This is the:",
+  "options": {
+   "A": "Diathesis–stress model",
+   "B": "Psychoanalytic model",
+   "C": "Drive-reduction model",
+   "D": "Biomedical model"
+  }
+ },
+ {
+  "id": "Q080",
+  "format": "choice",
+  "question": "An anxious student makes a study schedule for an upcoming exam. This is:",
+  "options": {
+   "A": "Emotion-focused coping",
+   "B": "Problem-focused coping",
+   "C": "Primary appraisal",
+   "D": "A defense mechanism"
+  }
+ },
+ {
+  "id": "Q081",
+  "format": "choice",
+  "question": "A student barely studies early in the term but studies hard just before each exam, which comes on a fixed date. This pattern matches which schedule?",
+  "options": {
+   "A": "Variable ratio",
+   "B": "Variable interval",
+   "C": "Fixed interval",
+   "D": "Fixed ratio"
+  }
+ },
+ {
+  "id": "Q082",
+  "format": "choice",
+  "question": "How do sociologists distinguish sex from gender?",
+  "options": {
+   "A": "They are interchangeable terms for the same biological traits",
+   "B": "Gender refers to biology, while sex refers to social expectations",
+   "C": "Sex is a status, while gender is never a status",
+   "D": "Sex is biological; gender is socially constructed roles and expectations"
+  }
+ },
+ {
+  "id": "Q083",
+  "format": "choice",
+  "question": "A person collapses on a busy sidewalk and no one helps, each assuming someone else will. This is:",
+  "options": {
+   "A": "The bystander effect",
+   "B": "Social loafing",
+   "C": "Deindividuation",
+   "D": "Groupthink"
+  }
+ },
+ {
+  "id": "Q084",
+  "format": "choice",
+  "question": "Delta waves dominate the EEG during:",
+  "options": {
+   "A": "REM sleep",
+   "B": "Relaxed wakefulness with eyes closed",
+   "C": "Stage N3 (slow-wave sleep)",
+   "D": "Stage N1"
+  }
+ },
+ {
+  "id": "Q085",
+  "format": "choice",
+  "question": "Which statement about rods is correct?",
+  "options": {
+   "A": "They give the sharpest detailed vision",
+   "B": "They are packed most densely in the fovea",
+   "C": "They work in dim light but do not detect color",
+   "D": "They come in three types for red, green and blue"
+  }
+ },
+ {
+  "id": "Q086",
+  "format": "choice",
+  "question": "What is the order of Selye's general adaptation syndrome?",
+  "options": {
+   "A": "Exhaustion, alarm, resistance",
+   "B": "Alarm, exhaustion, resistance",
+   "C": "Resistance, alarm, exhaustion",
+   "D": "Alarm, resistance, exhaustion"
+  }
+ },
+ {
+  "id": "Q087",
+  "format": "choice",
+  "question": "At pH 7.4, a simple amino acid such as alanine exists mainly as a:",
+  "options": {
+   "A": "Cation: –NH₃⁺ and –COOH",
+   "B": "Anion: –NH₂ and –COO⁻",
+   "C": "Neutral molecule: –NH₂ and –COOH",
+   "D": "Zwitterion: –NH₃⁺ and –COO⁻"
+  }
+ },
+ {
+  "id": "Q088",
+  "format": "choice",
+  "question": "A child bitten by a German shepherd becomes afraid of all dogs. This is:",
+  "options": {
+   "A": "Stimulus generalization",
+   "B": "Negative reinforcement",
+   "C": "Extinction",
+   "D": "Stimulus discrimination"
+  }
+ },
+ {
+  "id": "Q089",
+  "format": "choice",
+  "question": "Which structure is the body's master clock, setting circadian rhythms from light information from the eyes?",
+  "options": {
+   "A": "The pons, in the brainstem below the midbrain",
+   "B": "The pineal gland in the center of the brain",
+   "C": "The amygdala, deep in the temporal lobe",
+   "D": "The suprachiasmatic nucleus of the hypothalamus"
+  }
+ },
+ {
+  "id": "Q090",
+  "format": "choice",
+  "question": "A man attracted to a coworker accuses his wife of wanting to cheat. Which defense mechanism is this?",
+  "options": {
+   "A": "Displacement",
+   "B": "Sublimation",
+   "C": "Reaction formation",
+   "D": "Projection"
+  }
+ },
+ {
+  "id": "Q091",
+  "format": "choice",
+  "question": "In Asch's line experiments, many people gave clearly wrong answers to match the group. This demonstrates:",
+  "options": {
+   "A": "Group polarization",
+   "B": "Conformity",
+   "C": "Social loafing",
+   "D": "Obedience"
+  }
+ },
+ {
+  "id": "Q092",
+  "format": "choice",
+  "question": "Oxidizing a primary alcohol with a mild oxidant such as PCC gives:",
+  "options": {
+   "A": "An aldehyde",
+   "B": "An alkane",
+   "C": "A ketone",
+   "D": "A carboxylic acid"
+  }
+ },
+ {
+  "id": "Q093",
+  "format": "choice",
+  "question": "Bacteria reproduce mainly by:",
+  "options": {
+   "A": "Mitosis",
+   "B": "Budding off viruses",
+   "C": "Meiosis",
+   "D": "Binary fission"
+  }
+ },
+ {
+  "id": "Q094",
+  "format": "choice",
+  "question": "How does a bacterial flagellum differ from a eukaryotic one?",
+  "options": {
+   "A": "It is powered directly by ATP hydrolysis along its length",
+   "B": "It is built of microtubules in a 9 + 2 pattern",
+   "C": "It whips back and forth",
+   "D": "It is made of flagellin and spins like a rotary motor"
+  }
+ },
+ {
+  "id": "Q095",
+  "format": "choice",
+  "question": "Told that Sam is quiet and loves poetry, people guess he is more likely a poetry professor than a truck driver, though truck drivers far outnumber poetry professors. This is:",
+  "options": {
+   "A": "Anchoring",
+   "B": "The availability heuristic",
+   "C": "The representativeness heuristic",
+   "D": "The framing effect"
+  }
+ },
+ {
+  "id": "Q096",
+  "format": "choice",
+  "question": "Which change to Milgram's procedure sharply reduced obedience?",
+  "options": {
+   "A": "The learner mentioned a heart condition",
+   "B": "Participants were paid before the session began",
+   "C": "The experimenter wore a gray lab coat",
+   "D": "The experimenter gave orders by phone from another room"
+  }
+ },
+ {
+  "id": "Q097",
+  "format": "choice",
+  "question": "Laws and social norms struggling to keep up with new technology, such as social media, is:",
+  "options": {
+   "A": "Ethnocentrism",
+   "B": "Cultural diffusion",
+   "C": "Culture shock",
+   "D": "Cultural lag"
+  }
+ },
+ {
+  "id": "Q098",
+  "format": "choice",
+  "question": "Children who watched an adult hit a Bobo doll later hit the doll themselves. This shows:",
+  "options": {
+   "A": "Observational learning",
+   "B": "Latent learning",
+   "C": "Shaping",
+   "D": "Classical conditioning"
+  }
+ },
+ {
+  "id": "Q099",
+  "format": "choice",
+  "question": "\"I feel afraid because I notice my heart pounding.\" Which theory of emotion says this?",
+  "options": {
+   "A": "James–Lange",
+   "B": "Cannon–Bard",
+   "C": "Schachter–Singer",
+   "D": "Lazarus's appraisal theory"
+  }
+ },
+ {
+  "id": "Q100",
+  "format": "choice",
+  "question": "Ekman's six basic emotions, with facial expressions recognized across cultures, are happiness, sadness, fear, anger, surprise and:",
+  "options": {
+   "A": "Guilt",
+   "B": "Pride",
+   "C": "Disgust",
+   "D": "Jealousy"
+  }
+ },
+ {
+  "id": "Q101",
+  "format": "choice",
+  "question": "At a noisy party you suddenly notice your name in a conversation you weren't listening to. This shows:",
+  "options": {
+   "A": "Inattentional blindness",
+   "B": "The cocktail party effect",
+   "C": "Change blindness",
+   "D": "Divided attention"
+  }
+ },
+ {
+  "id": "Q102",
+  "format": "choice",
+  "question": "Where does β-oxidation of fatty acids take place?",
+  "options": {
+   "A": "Smooth ER",
+   "B": "Mitochondrial matrix",
+   "C": "Nucleus",
+   "D": "Cytosol"
+  }
+ },
+ {
+  "id": "Q103",
+  "format": "choice",
+  "question": "Performance is best at moderate arousal, and the best level is lower for hard, complex tasks. This is:",
+  "options": {
+   "A": "The Yerkes–Dodson law",
+   "B": "The James–Lange theory",
+   "C": "Drive-reduction theory",
+   "D": "The general adaptation syndrome"
+  }
+ },
+ {
+  "id": "Q104",
+  "format": "choice",
+  "question": "Wealthier residents move into a low-income neighborhood, rents rise, and long-time residents are pushed out. This is:",
+  "options": {
+   "A": "Residential segregation",
+   "B": "Suburbanization",
+   "C": "Urban sprawl",
+   "D": "Gentrification"
+  }
+ },
+ {
+  "id": "Q105",
+  "format": "choice",
+  "question": "Insulin promotes which process?",
+  "options": {
+   "A": "Glycogen synthesis",
+   "B": "Ketone body production",
+   "C": "Breakdown of stored fat",
+   "D": "Gluconeogenesis"
+  }
+ },
+ {
+  "id": "Q106",
+  "format": "choice",
+  "question": "A teen says, \"You shouldn't steal because it's against the law, and society needs rules.\" In Kohlberg's theory, this is:",
+  "options": {
+   "A": "Formal operational thought",
+   "B": "Preconventional morality",
+   "C": "Postconventional morality",
+   "D": "Conventional morality"
+  }
+ },
+ {
+  "id": "Q107",
+  "format": "choice",
+  "question": "You see four dots that sit close together as one group and two dots farther away as another. Which Gestalt principle is this?",
+  "options": {
+   "A": "Proximity",
+   "B": "Continuity",
+   "C": "Closure",
+   "D": "Similarity"
+  }
+ },
+ {
+  "id": "Q108",
+  "format": "choice",
+  "question": "A radiologist reports a tumor on a scan when there is none. In signal detection theory, this is a:",
+  "options": {
+   "A": "Hit",
+   "B": "Miss",
+   "C": "Correct rejection",
+   "D": "False alarm"
+  }
+ },
+ {
+  "id": "Q109",
+  "format": "choice",
+  "question": "An experienced pianist plays better with an audience, but a beginner plays worse. This is:",
+  "options": {
+   "A": "Group polarization",
+   "B": "Social facilitation",
+   "C": "Deindividuation",
+   "D": "Social loafing"
+  }
+ },
+ {
+  "id": "Q110",
+  "format": "choice",
+  "question": "A canvasser first asks you to sign a petition, then later asks you to volunteer for a weekend. Saying yes to the small request makes yes to the big one more likely. This is:",
+  "options": {
+   "A": "The reciprocity norm",
+   "B": "The peripheral route",
+   "C": "The foot-in-the-door technique",
+   "D": "The door-in-the-face technique"
+  }
+ },
+ {
+  "id": "Q111",
+  "format": "choice",
+  "question": "According to place theory, how does the ear code the pitch of a high-frequency sound?",
+  "options": {
+   "A": "By how loud the sound is",
+   "B": "By which semicircular canal is stimulated",
+   "C": "By which part of the basilar membrane vibrates most",
+   "D": "By how fast the auditory nerve fires in step with the sound"
+  }
+ },
+ {
+  "id": "Q112",
+  "format": "choice",
+  "question": "In Parsons' \"sick role\", people who are ill are excused from normal duties, but in return they are expected to:",
+  "options": {
+   "A": "Stay away from doctors",
+   "B": "Prove that the illness was not their fault",
+   "C": "Pay for their own care",
+   "D": "Try to get well and seek appropriate medical help"
+  }
+ },
+ {
+  "id": "Q113",
+  "format": "choice",
+  "question": "Aspirin makes your headaches go away, so you take aspirin more often when they start. This is:",
+  "options": {
+   "A": "Negative reinforcement",
+   "B": "Positive reinforcement",
+   "C": "Negative punishment",
+   "D": "Positive punishment"
+  }
+ },
+ {
+  "id": "Q114",
+  "format": "choice",
+  "question": "Which approach to personality stresses free will, unconditional positive regard and the drive to reach one's potential?",
+  "options": {
+   "A": "Behaviorist",
+   "B": "Trait",
+   "C": "Psychoanalytic",
+   "D": "Humanistic"
+  }
+ },
+ {
+  "id": "Q115",
+  "format": "choice",
+  "question": "After discussion, a group of mildly pro-policy members becomes strongly pro-policy. This is:",
+  "options": {
+   "A": "Groupthink",
+   "B": "Group polarization",
+   "C": "Social loafing",
+   "D": "Deindividuation"
+  }
+ },
+ {
+  "id": "Q116",
+  "format": "choice",
+  "question": "A viewer is persuaded by an ad because a celebrity appears in it, without thinking much about the claims. In the elaboration likelihood model, this is the:",
+  "options": {
+   "A": "Central route",
+   "B": "Peripheral route",
+   "C": "Foot-in-the-door technique",
+   "D": "Cognitive dissonance"
+  }
+ },
+ {
+  "id": "Q117",
+  "format": "choice",
+  "question": "Tasks a child can do with help but not yet alone fall in Vygotsky's:",
+  "options": {
+   "A": "Latency stage",
+   "B": "Conventional level",
+   "C": "Sensorimotor stage",
+   "D": "Zone of proximal development"
+  }
+ },
+ {
+  "id": "Q118",
+  "format": "choice",
+  "question": "Cooley's idea that we form our self-image from how we imagine others see us is the:",
+  "options": {
+   "A": "Self-serving bias",
+   "B": "Generalized other",
+   "C": "Ideal self",
+   "D": "Looking-glass self"
+  }
+ },
+ {
+  "id": "Q119",
+  "format": "number",
+  "question": "Someone can just tell a 50 g weight from a 51 g weight. By Weber's law, what is the just-noticeable difference for a 200 g weight, in g?"
+ },
+ {
+  "id": "Q120",
+  "format": "choice",
+  "question": "Which is an ascribed status?",
+  "options": {
+   "A": "Being a physician",
+   "B": "Being someone's daughter",
+   "C": "Being a marathon runner",
+   "D": "Being a college graduate"
+  }
+ },
+ {
+  "id": "Q121",
+  "format": "choice",
+  "question": "Which brain structure is most closely tied to fear and detecting threats?",
+  "options": {
+   "A": "Cerebellum",
+   "B": "Amygdala",
+   "C": "Hippocampus",
+   "D": "Broca's area"
+  }
+ },
+ {
+  "id": "Q122",
+  "format": "choice",
+  "question": "Which is the most acidic?",
+  "options": {
+   "A": "An alkane",
+   "B": "A carboxylic acid",
+   "C": "An amine",
+   "D": "An alcohol"
+  }
+ },
+ {
+  "id": "Q123",
+  "format": "choice",
+  "question": "Which amino acid's side chain has a pKa near 6, so it can gain or lose a proton near physiological pH (useful in enzyme active sites)?",
+  "options": {
+   "A": "Serine",
+   "B": "Aspartate",
+   "C": "Histidine",
+   "D": "Lysine"
+  }
+ },
+ {
+  "id": "Q124",
+  "format": "choice",
+  "question": "Alcohol and benzodiazepines are both:",
+  "options": {
+   "A": "Depressants that boost the inhibitory effect of GABA",
+   "B": "Stimulants that raise dopamine and norepinephrine",
+   "C": "Opioids that act on endorphin receptors",
+   "D": "Hallucinogens that act on serotonin receptors"
+  }
+ },
+ {
+  "id": "Q125",
+  "format": "choice",
+  "question": "Someone who paid a lot for a car that keeps breaking down insists it's a great car. This reduces:",
+  "options": {
+   "A": "Learned helplessness",
+   "B": "Cognitive dissonance",
+   "C": "Social loafing",
+   "D": "Stereotype threat"
+  }
+ },
+ {
+  "id": "Q126",
+  "format": "choice",
+  "question": "In Lazarus's model, deciding whether a situation is a threat at all is:",
+  "options": {
+   "A": "The alarm stage",
+   "B": "Primary appraisal",
+   "C": "Coping",
+   "D": "Secondary appraisal"
+  }
+ },
+ {
+  "id": "Q127",
+  "format": "choice",
+  "question": "Malthus predicted that:",
+  "options": {
+   "A": "Population would outgrow the food supply, bringing famine and disease",
+   "B": "Population growth would stop on its own as societies industrialized",
+   "C": "Wealthier societies would have more children",
+   "D": "Technology would always keep food ahead of population"
+  }
+ },
+ {
+  "id": "Q128",
+  "format": "choice",
+  "question": "Getting a job interview through a friend of a friend draws on:",
+  "options": {
+   "A": "Cultural capital",
+   "B": "Meritocracy",
+   "C": "Social capital",
+   "D": "Economic capital"
+  }
+ },
+ {
+  "id": "Q129",
+  "format": "choice",
+  "question": "Merton's strain theory says deviance happens when:",
+  "options": {
+   "A": "Other people label someone as deviant, and the label sticks",
+   "B": "People lack legitimate means to reach goals their culture values",
+   "C": "People's bonds to family, school and community are weak",
+   "D": "People learn deviant behavior from friends and family around them"
+  }
+ },
+ {
+  "id": "Q130",
+  "format": "choice",
+  "question": "Which is a feature of Weber's ideal bureaucracy?",
+  "options": {
+   "A": "No clear chain of command between levels of staff",
+   "B": "Hiring and promotion based on qualifications, under written rules",
+   "C": "Decisions based on personal loyalty to the leader rather than rules",
+   "D": "Duties that change from day to day as needed"
+  }
+ },
+ {
+  "id": "Q131",
+  "format": "choice",
+  "question": "Michels' \"iron law of oligarchy\" says that organizations tend to:",
+  "options": {
+   "A": "Grow more democratic as they get bigger",
+   "B": "Spread one culture around the world",
+   "C": "Run on efficiency, predictability and control, like fast-food chains",
+   "D": "Come under the control of a small group of leaders, even if they start out democratic"
+  }
+ },
+ {
+  "id": "Q132",
+  "format": "choice",
+  "question": "The idea that money is valuable only because people collectively agree it is fits:",
+  "options": {
+   "A": "Social exchange theory",
+   "B": "Conflict theory",
+   "C": "Social constructionism",
+   "D": "Functionalism"
+  }
+ },
+ {
+  "id": "Q133",
+  "format": "short answer",
+  "question": "The number of live births per 1,000 people per year is the crude ___ rate."
+ },
+ {
+  "id": "Q134",
+  "format": "choice",
+  "question": "A new nurse feels pulled between charting, caring for many patients and training a student, all parts of the one job. This is:",
+  "options": {
+   "A": "Role exit",
+   "B": "Role strain",
+   "C": "Role conflict",
+   "D": "A master status"
+  }
+ },
+ {
+  "id": "Q135",
+  "format": "choice",
+  "question": "A 75-year-old looking back on whether their life had meaning faces which Erikson stage?",
+  "options": {
+   "A": "Generativity vs. stagnation",
+   "B": "Intimacy vs. isolation",
+   "C": "Identity vs. role confusion",
+   "D": "Integrity vs. despair"
+  }
+ },
+ {
+  "id": "Q136",
+  "format": "choice",
+  "question": "Which theory holds that bodily arousal and the conscious feeling of emotion happen at the same time but independently?",
+  "options": {
+   "A": "Yerkes–Dodson",
+   "B": "Schachter–Singer",
+   "C": "James–Lange",
+   "D": "Cannon–Bard"
+  }
+ },
+ {
+  "id": "Q137",
+  "format": "choice",
+  "question": "A close-knit committee ignores warnings and silences doubters to keep agreement, leading to a bad decision. This is:",
+  "options": {
+   "A": "The bystander effect",
+   "B": "Social facilitation",
+   "C": "Group polarization",
+   "D": "Groupthink"
+  }
+ },
+ {
+  "id": "Q138",
+  "format": "choice",
+  "question": "Why are amides, such as peptide bonds, less reactive than esters?",
+  "options": {
+   "A": "Amides carry a charge that repels incoming nucleophiles",
+   "B": "Amides have no carbonyl group for a nucleophile to attack",
+   "C": "Nitrogen is more electronegative than oxygen, so it holds electrons tighter",
+   "D": "Resonance from nitrogen's lone pair makes the carbonyl carbon less electrophilic"
+  }
+ },
+ {
+  "id": "Q139",
+  "format": "choice",
+  "question": "A split-brain patient sees an object only in the left visual field and can't name it. Why?",
+  "options": {
+   "A": "The left eye is disconnected from the brain",
+   "B": "The corpus callosum carries all visual input into the brain",
+   "C": "The left visual field goes to the left hemisphere, which can't see",
+   "D": "The image reaches only the right hemisphere, and speech is usually in the left"
+  }
+ },
+ {
+  "id": "Q140",
+  "format": "choice",
+  "question": "After his hippocampi were removed, patient H.M.:",
+  "options": {
+   "A": "Could still form new memories of facts but could no longer learn motor skills",
+   "B": "Lost all memories of his life before surgery but could form new ones",
+   "C": "Couldn't form new memories of facts and events, but could learn new motor skills",
+   "D": "Could not hold anything in short-term memory, even for a few seconds"
+  }
+ },
+ {
+  "id": "Q141",
+  "format": "choice",
+  "question": "Which perspective sees society as interdependent parts that each serve a function in keeping the whole stable?",
+  "options": {
+   "A": "Symbolic interactionism",
+   "B": "Functionalism",
+   "C": "Conflict theory",
+   "D": "Social constructionism"
+  }
+ },
+ {
+  "id": "Q142",
+  "format": "choice",
+  "question": "Which substrate reacts fastest by the SN1 mechanism?",
+  "options": {
+   "A": "A methyl halide",
+   "B": "A primary alkyl halide",
+   "C": "A tertiary alkyl halide",
+   "D": "A vinyl halide"
+  }
+ },
+ {
+  "id": "Q143",
+  "format": "choice",
+  "question": "Someone stays in a friendship because its rewards outweigh its costs. Which theory explains this?",
+  "options": {
+   "A": "Conflict theory",
+   "B": "Symbolic interactionism",
+   "C": "Social exchange theory",
+   "D": "Functionalism"
+  }
+ },
+ {
+  "id": "Q144",
+  "format": "choice",
+  "question": "Hydrolyzing an ester with acid and water gives:",
+  "options": {
+   "A": "An aldehyde and an alcohol",
+   "B": "An amide and water",
+   "C": "A carboxylic acid and an alcohol",
+   "D": "Two alcohols"
+  }
+ },
+ {
+  "id": "Q145",
+  "format": "choice",
+  "question": "Where do nucleophiles attack a carbonyl group, and why?",
+  "options": {
+   "A": "At the carbon, because oxygen pulls electron density away from it",
+   "B": "Nowhere, because carbonyl groups are too stable to react",
+   "C": "At the α-hydrogen, because that hydrogen is somewhat acidic",
+   "D": "At the oxygen, because its lone pairs make it electron-rich"
+  }
+ },
+ {
+  "id": "Q146",
+  "format": "choice",
+  "question": "You say you were late because of traffic, but when a classmate is late you think they're disorganized. This is:",
+  "options": {
+   "A": "The self-serving bias",
+   "B": "The just-world hypothesis",
+   "C": "The actor–observer bias",
+   "D": "In-group bias"
+  }
+ },
+ {
+  "id": "Q147",
+  "format": "choice",
+  "question": "In the Strange Situation, a toddler is upset when the mother leaves and is quickly comforted when she returns. This is:",
+  "options": {
+   "A": "Disorganized attachment",
+   "B": "Secure attachment",
+   "C": "Avoidant attachment",
+   "D": "Ambivalent (resistant) attachment"
+  }
+ },
+ {
+  "id": "Q148",
+  "format": "choice",
+  "question": "At a pH above its isoelectric point, an amino acid carries a net:",
+  "options": {
+   "A": "Positive charge",
+   "B": "Zero charge",
+   "C": "Charge set only by its size",
+   "D": "Negative charge"
+  }
+ },
+ {
+  "id": "Q149",
+  "format": "choice",
+  "question": "You read a smudged word correctly because the sentence around it tells you what it should be. This is:",
+  "options": {
+   "A": "Top-down processing",
+   "B": "Feature detection",
+   "C": "Bottom-up processing",
+   "D": "Sensory adaptation"
+  }
+ },
+ {
+  "id": "Q150",
+  "format": "choice",
+  "question": "Across many countries, lower socioeconomic status goes with:",
+  "options": {
+   "A": "Higher rates of illness and shorter life expectancy",
+   "B": "No consistent difference in health or longevity",
+   "C": "Longer life expectancy and fewer hospital stays",
+   "D": "Lower rates of chronic diseases such as diabetes"
+  }
+ },
+ {
+  "id": "Q151",
+  "format": "choice",
+  "question": "Judging another culture's customs as inferior by the standards of your own is:",
+  "options": {
+   "A": "Cultural relativism",
+   "B": "Ethnocentrism",
+   "C": "Cultural lag",
+   "D": "Assimilation"
+  }
+ },
+ {
+  "id": "Q152",
+  "format": "choice",
+  "question": "A cashier works her way up to store manager over her career. This is:",
+  "options": {
+   "A": "Upward intragenerational mobility",
+   "B": "Upward intergenerational mobility",
+   "C": "Horizontal mobility",
+   "D": "Structural mobility"
+  }
+ },
+ {
+  "id": "Q153",
+  "format": "choice",
+  "question": "A status that dominates how others see a person, overshadowing their other statuses, is a:",
+  "options": {
+   "A": "Master status",
+   "B": "Ascribed status",
+   "C": "Reference group",
+   "D": "Role"
+  }
+ },
+ {
+  "id": "Q154",
+  "format": "choice",
+  "question": "After a few minutes you no longer notice the smell of your own kitchen, because the receptors respond less to an unchanging stimulus. This is:",
+  "options": {
+   "A": "Sensory adaptation",
+   "B": "Top-down processing",
+   "C": "Perceptual constancy",
+   "D": "Habituation"
+  }
+ },
+ {
+  "id": "Q155",
+  "format": "choice",
+  "question": "The idea that the language you speak shapes how you think and perceive is the:",
+  "options": {
+   "A": "Interactionist theory of language",
+   "B": "Sapir–Whorf hypothesis (linguistic relativity)",
+   "C": "Learning (behaviorist) theory of language",
+   "D": "Nativist theory of language"
+  }
+ },
+ {
+  "id": "Q156",
+  "format": "choice",
+  "question": "The way inequality passes from one generation to the next, partly through schools and inheritance, is called:",
+  "options": {
+   "A": "Globalization",
+   "B": "Social reproduction",
+   "C": "Meritocracy",
+   "D": "Social mobility"
+  }
+ },
+ {
+  "id": "Q157",
+  "format": "choice",
+  "question": "A family leaves its country because of war. In migration terms, the war is a:",
+  "options": {
+   "A": "Push factor",
+   "B": "Chain migration",
+   "C": "Pull factor",
+   "D": "Brain drain"
+  }
+ },
+ {
+  "id": "Q158",
+  "format": "choice",
+  "question": "A student believes she can master organic chemistry if she puts in the work. This belief is her:",
+  "options": {
+   "A": "Self-concept",
+   "B": "Self-esteem",
+   "C": "Self-efficacy",
+   "D": "External locus of control"
+  }
+ },
+ {
+  "id": "Q159",
+  "format": "choice",
+  "question": "Knowing how to talk, dress and act in the ways valued by elite schools and employers is Bourdieu's:",
+  "options": {
+   "A": "Cultural capital",
+   "B": "Human capital",
+   "C": "Social capital",
+   "D": "Economic capital"
+  }
+ },
+ {
+  "id": "Q160",
+  "format": "choice",
+  "question": "Schools teach punctuality, obedience and competition without listing them as goals. This is the:",
+  "options": {
+   "A": "Credentialism",
+   "B": "Hidden curriculum",
+   "C": "Teacher expectancy effect",
+   "D": "Tracking"
+  }
+ },
+ {
+  "id": "Q161",
+  "format": "choice",
+  "question": "Women reminded of a stereotype about gender and math score lower on a math test than women who weren't reminded. This is:",
+  "options": {
+   "A": "Stereotype threat",
+   "B": "A self-fulfilling prophecy",
+   "C": "In-group bias",
+   "D": "Discrimination"
+  }
+ },
+ {
+  "id": "Q162",
+  "format": "choice",
+  "question": "How do sociologists distinguish race from ethnicity?",
+  "options": {
+   "A": "Race rests on perceived physical traits; ethnicity on shared culture or ancestry",
+   "B": "Race rests on shared culture and language; ethnicity on physical traits",
+   "C": "They are interchangeable terms that sort people into the same groups",
+   "D": "Race can change over a person's lifetime, but ethnicity is fixed at birth"
+  }
+ },
+ {
+  "id": "Q163",
+  "format": "choice",
+  "question": "A teen arrested once comes to see himself as a delinquent and commits more crimes. Which theory of deviance does this fit?",
+  "options": {
+   "A": "Differential association",
+   "B": "Labeling theory",
+   "C": "Social control theory",
+   "D": "Strain theory"
+  }
+ },
+ {
+  "id": "Q164",
+  "format": "choice",
+  "question": "During a long fast, the liver makes ketone bodies from:",
+  "options": {
+   "A": "Glucose taken up from the blood",
+   "B": "Glycogen stored in the liver",
+   "C": "Acetyl-CoA from fatty acid breakdown",
+   "D": "Lactate released by muscle"
+  }
+ },
+ {
+  "id": "Q165",
+  "format": "choice",
+  "question": "Sleep spindles and K-complexes mark which stage?",
+  "options": {
+   "A": "N2",
+   "B": "N3",
+   "C": "N1",
+   "D": "REM"
+  }
+ },
+ {
+  "id": "Q166",
+  "format": "choice",
+  "question": "Someone needs a screwdriver and never thinks to use a coin, because coins are for money. This is:",
+  "options": {
+   "A": "Confirmation bias",
+   "B": "Mental set",
+   "C": "Functional fixedness",
+   "D": "Insight"
+  }
+ },
+ {
+  "id": "Q167",
+  "format": "choice",
+  "question": "A student-athlete's big game falls the night before a major exam. This clash between two of her roles is:",
+  "options": {
+   "A": "Role strain",
+   "B": "Role conflict",
+   "C": "Status inconsistency",
+   "D": "Role exit"
+  }
+ }
+]

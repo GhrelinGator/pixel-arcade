@@ -1,5 +1,5 @@
 /* Tutor pack: appeals void misses, post-mortems attach, ranking, content, privacy. node test/tutor_test.js */
-const E = require('./load')(['engine.js', 'session.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js', 'content_chem2.js', 'content_bio2.js', 'content_phys2.js', 'content_check.js', 'tutor.js']);
+const E = require('./load')(['engine.js', 'session.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js', 'content_chem2.js', 'content_bio2.js', 'content_phys2.js', 'content_sci3.js', 'content_ps.js', 'content_check.js', 'tutor.js']);
 let fails = 0; const ok = (c, m) => { if (!c) { fails++; console.log('FAIL', m); } };
 const ITEM = Object.fromEntries(E.ITEMS.map(i => [i.id, i]));
 const pick = t => E.ITEMS.find(i => i.type === t);

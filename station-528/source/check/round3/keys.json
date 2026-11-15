@@ -1,0 +1,682 @@
+{
+ "b-mol.pi": {
+  "type": "choice",
+  "key": "Negative charge"
+ },
+ "b-mol.zwitterion": {
+  "type": "choice",
+  "key": "Zwitterion: –NH₃⁺ and –COO⁻"
+ },
+ "b-mol.his": {
+  "type": "choice",
+  "key": "Histidine"
+ },
+ "b-mol.proline": {
+  "type": "choice",
+  "key": "Proline"
+ },
+ "b-mol.core": {
+  "type": "choice",
+  "key": "Nonpolar ones such as leucine, valine and phenylalanine"
+ },
+ "b-mol.tertiary": {
+  "type": "choice",
+  "key": "Side-chain interactions, such as salt bridges"
+ },
+ "b-mol.chaperone": {
+  "type": "choice",
+  "key": "Chaperones"
+ },
+ "b-energy.beta-ox": {
+  "type": "choice",
+  "key": "Mitochondrial matrix"
+ },
+ "b-energy.ppp": {
+  "type": "choice",
+  "key": "NADPH and ribose-5-phosphate"
+ },
+ "b-energy.ketone": {
+  "type": "choice",
+  "key": "Acetyl-CoA from fatty acid breakdown"
+ },
+ "b-energy.phosphorylase": {
+  "type": "choice",
+  "key": "Glycogen phosphorylase"
+ },
+ "b-energy.insulin": {
+  "type": "choice",
+  "key": "Glycogen synthesis"
+ },
+ "b-energy.cori": {
+  "type": "choice",
+  "key": "Carried to the liver and converted back to glucose"
+ },
+ "b-energy.glucagon": {
+  "type": "choice",
+  "key": "Glucagon"
+ },
+ "b-prok.fission": {
+  "type": "choice",
+  "key": "Binary fission"
+ },
+ "b-prok.endospore": {
+  "type": "choice",
+  "key": "Endospores"
+ },
+ "b-prok.flagellum": {
+  "type": "choice",
+  "key": "It is made of flagellin and spins like a rotary motor"
+ },
+ "b-prok.resistance": {
+  "type": "choice",
+  "key": "Sit on plasmids that can pass from cell to cell by conjugation"
+ },
+ "b-prok.prion": {
+  "type": "choice",
+  "key": "Converting normal proteins into a misfolded form"
+ },
+ "o-func.nucleophile": {
+  "type": "choice",
+  "key": "Donates an electron pair to form a new bond"
+ },
+ "o-func.sn2": {
+  "type": "choice",
+  "key": "Inversion of configuration"
+ },
+ "o-func.sn1": {
+  "type": "choice",
+  "key": "A tertiary alkyl halide"
+ },
+ "o-func.carbonyl": {
+  "type": "choice",
+  "key": "At the carbon, because oxygen pulls electron density away from it"
+ },
+ "o-func.acidity": {
+  "type": "choice",
+  "key": "A carboxylic acid"
+ },
+ "o-func.ester-hyd": {
+  "type": "choice",
+  "key": "A carboxylic acid and an alcohol"
+ },
+ "o-func.amide": {
+  "type": "choice",
+  "key": "Resonance from nitrogen's lone pair makes the carbonyl carbon less electrophilic"
+ },
+ "o-func.enantiomers": {
+  "type": "choice",
+  "key": "Identical physical properties except opposite optical rotation"
+ },
+ "o-func.diastereomers": {
+  "type": "choice",
+  "key": "Diastereomers"
+ },
+ "o-func.pcc": {
+  "type": "choice",
+  "key": "An aldehyde"
+ },
+ "ps-sense.weber": {
+  "type": "typed",
+  "accepted": [
+   "weber's law",
+   "webers law",
+   "weber law"
+  ]
+ },
+ "ps-sense.g-jnd": {
+  "type": "num",
+  "num": {
+   "value": 4,
+   "tolPct": 2,
+   "unit": "g"
+  }
+ },
+ "ps-sense.sdt-fa": {
+  "type": "choice",
+  "key": "False alarm"
+ },
+ "ps-sense.sdt-crit": {
+  "type": "choice",
+  "key": "A liberal criterion"
+ },
+ "ps-sense.adaptation": {
+  "type": "choice",
+  "key": "Sensory adaptation"
+ },
+ "ps-sense.topdown": {
+  "type": "choice",
+  "key": "Top-down processing"
+ },
+ "ps-sense.gestalt": {
+  "type": "choice",
+  "key": "Proximity"
+ },
+ "ps-sense.place": {
+  "type": "choice",
+  "key": "By which part of the basilar membrane vibrates most"
+ },
+ "ps-sense.rods": {
+  "type": "choice",
+  "key": "They work in dim light but do not detect color"
+ },
+ "ps-cog.cocktail": {
+  "type": "choice",
+  "key": "The cocktail party effect"
+ },
+ "ps-cog.object-perm": {
+  "type": "choice",
+  "key": "Object permanence"
+ },
+ "ps-cog.preop": {
+  "type": "choice",
+  "key": "Preoperational"
+ },
+ "ps-cog.availability": {
+  "type": "choice",
+  "key": "The availability heuristic"
+ },
+ "ps-cog.represent": {
+  "type": "choice",
+  "key": "The representativeness heuristic"
+ },
+ "ps-cog.fixedness": {
+  "type": "choice",
+  "key": "Functional fixedness"
+ },
+ "ps-cog.broca": {
+  "type": "choice",
+  "key": "Broca's area, in the frontal lobe"
+ },
+ "ps-cog.whorf": {
+  "type": "choice",
+  "key": "Sapir–Whorf hypothesis (linguistic relativity)"
+ },
+ "ps-cog.goed": {
+  "type": "choice",
+  "key": "Language is learned mainly by imitating and being reinforced"
+ },
+ "ps-mem.iconic": {
+  "type": "choice",
+  "key": "Sensory (iconic) memory"
+ },
+ "ps-mem.chunking": {
+  "type": "typed",
+  "accepted": [
+   "chunking"
+  ]
+ },
+ "ps-mem.primacy": {
+  "type": "choice",
+  "key": "The primacy effect"
+ },
+ "ps-mem.retroactive": {
+  "type": "choice",
+  "key": "Retroactive interference"
+ },
+ "ps-mem.procedural": {
+  "type": "choice",
+  "key": "Procedural (implicit) memory"
+ },
+ "ps-mem.hm": {
+  "type": "choice",
+  "key": "Couldn't form new memories of facts and events, but could learn new motor skills"
+ },
+ "ps-mem.misinfo": {
+  "type": "choice",
+  "key": "The misinformation effect"
+ },
+ "ps-mem.context": {
+  "type": "choice",
+  "key": "Context-dependent memory"
+ },
+ "ps-mem.ltp": {
+  "type": "choice",
+  "key": "Long-term potentiation"
+ },
+ "ps-sleep.rem": {
+  "type": "choice",
+  "key": "REM sleep"
+ },
+ "ps-sleep.delta": {
+  "type": "choice",
+  "key": "Stage N3 (slow-wave sleep)"
+ },
+ "ps-sleep.n2": {
+  "type": "choice",
+  "key": "N2"
+ },
+ "ps-sleep.beta": {
+  "type": "choice",
+  "key": "Beta"
+ },
+ "ps-sleep.scn": {
+  "type": "choice",
+  "key": "The suprachiasmatic nucleus of the hypothalamus"
+ },
+ "ps-sleep.narcolepsy": {
+  "type": "choice",
+  "key": "Narcolepsy"
+ },
+ "ps-sleep.depressant": {
+  "type": "choice",
+  "key": "Depressants that boost the inhibitory effect of GABA"
+ },
+ "ps-sleep.reward": {
+  "type": "choice",
+  "key": "The mesolimbic pathway, from the ventral tegmental area to the nucleus accumbens"
+ },
+ "ps-emo.james-lange": {
+  "type": "choice",
+  "key": "James–Lange"
+ },
+ "ps-emo.cannon-bard": {
+  "type": "choice",
+  "key": "Cannon–Bard"
+ },
+ "ps-emo.two-factor": {
+  "type": "choice",
+  "key": "Schachter–Singer two-factor theory"
+ },
+ "ps-emo.amygdala": {
+  "type": "choice",
+  "key": "Amygdala"
+ },
+ "ps-emo.ekman": {
+  "type": "choice",
+  "key": "Disgust"
+ },
+ "ps-emo.appraisal": {
+  "type": "choice",
+  "key": "Primary appraisal"
+ },
+ "ps-emo.gas": {
+  "type": "choice",
+  "key": "Alarm, resistance, exhaustion"
+ },
+ "ps-emo.coping": {
+  "type": "choice",
+  "key": "Problem-focused coping"
+ },
+ "ps-brain.parkinson": {
+  "type": "choice",
+  "key": "Dopamine"
+ },
+ "ps-brain.gage": {
+  "type": "choice",
+  "key": "Planning, impulse control and personality"
+ },
+ "ps-brain.split": {
+  "type": "choice",
+  "key": "The image reaches only the right hemisphere, and speech is usually in the left"
+ },
+ "ps-brain.drive": {
+  "type": "choice",
+  "key": "Drive-reduction theory"
+ },
+ "ps-brain.maslow": {
+  "type": "choice",
+  "key": "Love and belonging"
+ },
+ "ps-brain.yerkes": {
+  "type": "choice",
+  "key": "The Yerkes–Dodson law"
+ },
+ "ps-brain.overjust": {
+  "type": "choice",
+  "key": "The overjustification effect"
+ },
+ "ps-brain.twins": {
+  "type": "choice",
+  "key": "Genes contribute substantially to the trait"
+ },
+ "ps-pers.conscientious": {
+  "type": "choice",
+  "key": "Conscientiousness"
+ },
+ "ps-pers.id": {
+  "type": "choice",
+  "key": "The id"
+ },
+ "ps-pers.projection": {
+  "type": "choice",
+  "key": "Projection"
+ },
+ "ps-pers.displacement": {
+  "type": "choice",
+  "key": "Displacement"
+ },
+ "ps-pers.humanistic": {
+  "type": "choice",
+  "key": "Humanistic"
+ },
+ "ps-pers.mdd-bipolar": {
+  "type": "choice",
+  "key": "At least one manic episode"
+ },
+ "ps-pers.negative": {
+  "type": "choice",
+  "key": "Flat affect and loss of motivation"
+ },
+ "ps-pers.dopamine-schiz": {
+  "type": "choice",
+  "key": "Schizophrenia"
+ },
+ "ps-pers.ocd": {
+  "type": "choice",
+  "key": "Obsessive–compulsive disorder"
+ },
+ "ps-pers.diathesis": {
+  "type": "choice",
+  "key": "Diathesis–stress model"
+ },
+ "ps-learn.cs": {
+  "type": "choice",
+  "key": "Conditioned stimulus"
+ },
+ "ps-learn.cr": {
+  "type": "choice",
+  "key": "Conditioned response"
+ },
+ "ps-learn.extinction": {
+  "type": "choice",
+  "key": "Extinction, then spontaneous recovery"
+ },
+ "ps-learn.generalize": {
+  "type": "choice",
+  "key": "Stimulus generalization"
+ },
+ "ps-learn.negreinf": {
+  "type": "choice",
+  "key": "Negative reinforcement"
+ },
+ "ps-learn.negpun": {
+  "type": "choice",
+  "key": "Negative punishment"
+ },
+ "ps-learn.vr": {
+  "type": "choice",
+  "key": "Variable ratio"
+ },
+ "ps-learn.fi": {
+  "type": "choice",
+  "key": "Fixed interval"
+ },
+ "ps-learn.bobo": {
+  "type": "choice",
+  "key": "Observational learning"
+ },
+ "ps-learn.elm": {
+  "type": "choice",
+  "key": "Peripheral route"
+ },
+ "ps-learn.dissonance": {
+  "type": "choice",
+  "key": "Cognitive dissonance"
+ },
+ "ps-social.asch": {
+  "type": "choice",
+  "key": "Conformity"
+ },
+ "ps-social.milgram": {
+  "type": "choice",
+  "key": "The experimenter gave orders by phone from another room"
+ },
+ "ps-social.facilitation": {
+  "type": "choice",
+  "key": "Social facilitation"
+ },
+ "ps-social.bystander": {
+  "type": "choice",
+  "key": "The bystander effect"
+ },
+ "ps-social.groupthink": {
+  "type": "choice",
+  "key": "Groupthink"
+ },
+ "ps-social.polarization": {
+  "type": "choice",
+  "key": "Group polarization"
+ },
+ "ps-social.fitd": {
+  "type": "choice",
+  "key": "The foot-in-the-door technique"
+ },
+ "ps-social.strain": {
+  "type": "choice",
+  "key": "People lack legitimate means to reach goals their culture values"
+ },
+ "ps-social.labeling": {
+  "type": "choice",
+  "key": "Labeling theory"
+ },
+ "ps-self.erik-teen": {
+  "type": "choice",
+  "key": "Identity vs. role confusion"
+ },
+ "ps-self.erik-old": {
+  "type": "choice",
+  "key": "Integrity vs. despair"
+ },
+ "ps-self.erik-infant": {
+  "type": "choice",
+  "key": "Trust vs. mistrust"
+ },
+ "ps-self.kohlberg": {
+  "type": "choice",
+  "key": "Conventional morality"
+ },
+ "ps-self.zpd": {
+  "type": "choice",
+  "key": "Zone of proximal development"
+ },
+ "ps-self.looking-glass": {
+  "type": "choice",
+  "key": "Looking-glass self"
+ },
+ "ps-self.mead-i": {
+  "type": "choice",
+  "key": "\"I\""
+ },
+ "ps-self.efficacy": {
+  "type": "choice",
+  "key": "Self-efficacy"
+ },
+ "ps-self.locus": {
+  "type": "choice",
+  "key": "An external locus of control"
+ },
+ "ps-think.fae": {
+  "type": "choice",
+  "key": "The fundamental attribution error"
+ },
+ "ps-think.actor-obs": {
+  "type": "choice",
+  "key": "The actor–observer bias"
+ },
+ "ps-think.selfserving": {
+  "type": "choice",
+  "key": "The self-serving bias"
+ },
+ "ps-think.threat": {
+  "type": "choice",
+  "key": "Stereotype threat"
+ },
+ "ps-think.discrim": {
+  "type": "choice",
+  "key": "Refusing to rent an apartment to someone because of their ethnicity"
+ },
+ "ps-think.pygmalion": {
+  "type": "choice",
+  "key": "A self-fulfilling prophecy"
+ },
+ "ps-think.ethnocentrism": {
+  "type": "choice",
+  "key": "Ethnocentrism"
+ },
+ "ps-think.justworld": {
+  "type": "choice",
+  "key": "The just-world hypothesis"
+ },
+ "so-interact.ascribed": {
+  "type": "choice",
+  "key": "Being someone's daughter"
+ },
+ "so-interact.master": {
+  "type": "choice",
+  "key": "Master status"
+ },
+ "so-interact.role-conflict": {
+  "type": "choice",
+  "key": "Role conflict"
+ },
+ "so-interact.role-strain": {
+  "type": "choice",
+  "key": "Role strain"
+ },
+ "so-interact.primary": {
+  "type": "choice",
+  "key": "Primary group"
+ },
+ "so-interact.gemeinschaft": {
+  "type": "choice",
+  "key": "Community bound by personal ties and shared values, as in a small village"
+ },
+ "so-interact.bureaucracy": {
+  "type": "choice",
+  "key": "Hiring and promotion based on qualifications, under written rules"
+ },
+ "so-interact.oligarchy": {
+  "type": "choice",
+  "key": "Come under the control of a small group of leaders, even if they start out democratic"
+ },
+ "so-interact.dramaturgy": {
+  "type": "choice",
+  "key": "Dramaturgical approach"
+ },
+ "so-interact.secure": {
+  "type": "choice",
+  "key": "Secure attachment"
+ },
+ "so-interact.institutional": {
+  "type": "choice",
+  "key": "Institutional discrimination"
+ },
+ "so-theory.functionalism": {
+  "type": "choice",
+  "key": "Functionalism"
+ },
+ "so-theory.conflict": {
+  "type": "choice",
+  "key": "Conflict theory"
+ },
+ "so-theory.interactionism": {
+  "type": "choice",
+  "key": "Symbolic interactionism"
+ },
+ "so-theory.constructionism": {
+  "type": "choice",
+  "key": "Social constructionism"
+ },
+ "so-theory.exchange": {
+  "type": "choice",
+  "key": "Social exchange theory"
+ },
+ "so-theory.latent": {
+  "type": "choice",
+  "key": "Students meet future spouses there"
+ },
+ "so-theory.hidden": {
+  "type": "choice",
+  "key": "Hidden curriculum"
+ },
+ "so-theory.sickrole": {
+  "type": "choice",
+  "key": "Try to get well and seek appropriate medical help"
+ },
+ "so-theory.medicalization": {
+  "type": "choice",
+  "key": "Medicalization"
+ },
+ "so-theory.lag": {
+  "type": "choice",
+  "key": "Cultural lag"
+ },
+ "so-theory.nonmaterial": {
+  "type": "choice",
+  "key": "Its values and language"
+ },
+ "so-demo.transition": {
+  "type": "choice",
+  "key": "Falling death rates while birth rates stay high, so the population grows fast"
+ },
+ "so-demo.malthus": {
+  "type": "choice",
+  "key": "Population would outgrow the food supply, bringing famine and disease"
+ },
+ "so-demo.push": {
+  "type": "choice",
+  "key": "Push factor"
+ },
+ "so-demo.cbr": {
+  "type": "typed",
+  "accepted": [
+   "birth"
+  ]
+ },
+ "so-demo.reform": {
+  "type": "choice",
+  "key": "Reformative movement"
+ },
+ "so-demo.sexgender": {
+  "type": "choice",
+  "key": "Sex is biological; gender is socially constructed roles and expectations"
+ },
+ "so-demo.race-eth": {
+  "type": "choice",
+  "key": "Race rests on perceived physical traits; ethnicity on shared culture or ancestry"
+ },
+ "so-demo.globalization": {
+  "type": "choice",
+  "key": "Globalization"
+ },
+ "so-ineq.cultural-cap": {
+  "type": "choice",
+  "key": "Cultural capital"
+ },
+ "so-ineq.social-cap": {
+  "type": "choice",
+  "key": "Social capital"
+ },
+ "so-ineq.intergen": {
+  "type": "choice",
+  "key": "Upward intergenerational mobility"
+ },
+ "so-ineq.intragen": {
+  "type": "choice",
+  "key": "Upward intragenerational mobility"
+ },
+ "so-ineq.relative": {
+  "type": "choice",
+  "key": "Relative poverty"
+ },
+ "so-ineq.meritocracy": {
+  "type": "choice",
+  "key": "Meritocracy"
+ },
+ "so-ineq.gentrify": {
+  "type": "choice",
+  "key": "Gentrification"
+ },
+ "so-ineq.envjustice": {
+  "type": "choice",
+  "key": "Environmental justice"
+ },
+ "so-ineq.gradient": {
+  "type": "choice",
+  "key": "Higher rates of illness and shorter life expectancy"
+ },
+ "so-ineq.reproduction": {
+  "type": "choice",
+  "key": "Social reproduction"
+ }
+}

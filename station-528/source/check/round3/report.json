@@ -1,0 +1,17 @@
+[
+ {
+  "id": "ps-learn.cr",
+  "verdict": "pass-noted",
+  "key": "Conditioned response",
+  "A": {
+   "ok": true,
+   "got": "Conditioned response",
+   "note": "The stem says 'In the same experiment' without naming it, so it depends on a neighboring card (Pavlov's dogs) and is unclear if shown alone or shuffled; it should say 'In Pavlov's experiment'."
+  },
+  "B": {
+   "ok": true,
+   "got": "Conditioned response",
+   "note": ""
+  }
+ }
+]

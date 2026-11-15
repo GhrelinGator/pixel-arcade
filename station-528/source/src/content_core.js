@@ -9,6 +9,9 @@ const COURSES = [
   { id: 'bio2', name: 'General Biology II' },
   { id: 'phys1', name: 'Physics I' },
   { id: 'phys2', name: 'Physics II' },
+  { id: 'orgo', name: 'Organic Chemistry' },
+  { id: 'psych', name: 'Intro Psychology' },
+  { id: 'soc', name: 'Intro Sociology' },
 ];
 const UNITS = [
   { id: 'c-atoms', course: 'chem1', name: 'Atoms, electrons & periodic trends', cat: '4E' },
@@ -55,6 +58,22 @@ const UNITS = [
   { id: 'p-light', course: 'phys2', name: 'Light & optics', cat: '4D' },
   { id: 'p-mag', course: 'phys2', name: 'Magnetism', cat: '4C' },
   { id: 'p-atomic', course: 'phys2', name: 'Photons & atomic physics', cat: '4E' },
+  { id: 'o-func', course: 'orgo', name: 'Functional groups, reactions & isomers', cat: '5D' },
+  { id: 'ps-sense', course: 'psych', name: 'Sensation & perception', cat: '6A' },
+  { id: 'ps-cog', course: 'psych', name: 'Attention, thinking & language', cat: '6B' },
+  { id: 'ps-mem', course: 'psych', name: 'Memory', cat: '6B' },
+  { id: 'ps-sleep', course: 'psych', name: 'Consciousness, sleep & drugs', cat: '6B' },
+  { id: 'ps-emo', course: 'psych', name: 'Emotion & stress', cat: '6C' },
+  { id: 'ps-brain', course: 'psych', name: 'Brain, behavior & motivation', cat: '7A' },
+  { id: 'ps-pers', course: 'psych', name: 'Personality & psychological disorders', cat: '7A' },
+  { id: 'ps-learn', course: 'psych', name: 'Learning & attitude change', cat: '7C' },
+  { id: 'ps-social', course: 'psych', name: 'Social influence & groups', cat: '7B' },
+  { id: 'ps-self', course: 'psych', name: 'Identity & development', cat: '8A' },
+  { id: 'ps-think', course: 'psych', name: 'Social thinking, bias & prejudice', cat: '8B' },
+  { id: 'so-interact', course: 'soc', name: 'Status, roles, groups & organizations', cat: '8C' },
+  { id: 'so-theory', course: 'soc', name: 'Theories, institutions & culture', cat: '9A' },
+  { id: 'so-demo', course: 'soc', name: 'Demographics & social change', cat: '9B' },
+  { id: 'so-ineq', course: 'soc', name: 'Class, mobility & inequality', cat: '10A' },
 ];
 const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
 /* The Station's eleven wings: the ten foundational concepts plus CARS. Short labels are this app's own. */

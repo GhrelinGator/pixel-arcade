@@ -220,3 +220,6 @@ table.t td.n, table.t th.n { text-align: right; font-family: var(--mono); }
 .seg.seg4 { grid-template-columns: repeat(4, 1fr); }
 .seg.seg4 button { min-height: 44px; }
 .tpre { white-space: pre-wrap; word-break: break-word; font-family: var(--mono); font-size: 12px; line-height: 1.45; max-height: 60vh; overflow: auto; background: var(--panel2); border-radius: 10px; padding: 12px; margin-top: 8px; }
+.extra { margin: 14px 0 4px; padding: 12px 12px 4px; border: 1px dashed var(--rule); border-radius: 14px; }
+.extra > p { margin: 4px 0 8px; }
+.extra .task { margin: 8px 0; }

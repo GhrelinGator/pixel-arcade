@@ -3,10 +3,11 @@
    node tools/blind.js compare     -> compares check/answers_A.json and check/answers_B.json to the keys */
 const fs = require('fs'), path = require('path');
 const load = require('../test/load');
-const E = load(['engine.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js', 'content_chem2.js', 'content_bio2.js', 'content_phys2.js', 'content_check.js']);
+const E = load(['engine.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js', 'content_chem2.js', 'content_bio2.js', 'content_phys2.js', 'content_sci3.js', 'content_ps.js', 'content_check.js']);
 const ONLY_NEW = process.argv.includes('new'); /* export/compare only items without a recorded verdict */
 const POOL = E.ITEMS.filter(it => !ONLY_NEW || !E.CROSSCHECK.verdicts[it.id]);
-const dir = path.join(__dirname, '..', 'check', process.argv.includes('new') ? 'round2' : '');
+const dirArg = (process.argv.find(a => a.startsWith('dir=')) || '').slice(4);
+const dir = path.join(__dirname, '..', 'check', dirArg || (process.argv.includes('new') ? 'round2' : ''));
 fs.mkdirSync(dir, { recursive: true });
 const L = 'ABCD';
 

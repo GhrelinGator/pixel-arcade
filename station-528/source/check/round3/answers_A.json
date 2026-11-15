@@ -1,0 +1,670 @@
+{
+ "Q001": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q002": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q003": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q004": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q005": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q006": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q007": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q008": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q009": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q010": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q011": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q012": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q013": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q014": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q015": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q016": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q017": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q018": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q019": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q020": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q021": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q022": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q023": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q024": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q025": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q026": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q027": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q028": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q029": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q030": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q031": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q032": {
+  "answer": "chunking",
+  "note": ""
+ },
+ "Q033": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q034": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q035": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q036": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q037": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q038": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q039": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q040": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q041": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q042": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q043": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q044": {
+  "answer": "birth",
+  "note": ""
+ },
+ "Q045": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q046": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q047": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q048": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q049": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q050": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q051": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q052": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q053": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q054": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q055": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q056": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q057": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q058": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q059": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q060": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q061": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q062": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q063": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q064": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q065": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q066": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q067": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q068": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q069": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q070": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q071": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q072": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q073": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q074": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q075": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q076": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q077": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q078": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q079": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q080": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q081": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q082": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q083": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q084": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q085": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q086": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q087": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q088": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q089": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q090": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q091": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q092": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q093": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q094": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q095": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q096": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q097": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q098": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q099": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q100": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q101": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q102": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q103": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q104": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q105": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q106": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q107": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q108": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q109": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q110": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q111": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q112": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q113": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q114": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q115": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q116": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q117": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q118": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q119": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q120": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q121": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q122": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q123": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q124": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q125": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q126": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q127": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q128": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q129": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q130": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q131": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q132": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q133": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q134": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q135": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q136": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q137": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q138": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q139": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q140": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q141": {
+  "answer": "4 g",
+  "note": ""
+ },
+ "Q142": {
+  "answer": "Weber's law",
+  "note": ""
+ },
+ "Q143": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q144": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q145": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q146": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q147": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q148": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q149": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q150": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q151": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q152": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q153": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q154": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q155": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q156": {
+  "answer": "A",
+  "note": "The stem says 'In the same experiment' without naming it, so it depends on a neighboring card (Pavlov's dogs) and is unclear if shown alone or shuffled; it should say 'In Pavlov's experiment'."
+ },
+ "Q157": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q158": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q159": {
+  "answer": "A",
+  "note": ""
+ },
+ "Q160": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q161": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q162": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q163": {
+  "answer": "C",
+  "note": ""
+ },
+ "Q164": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q165": {
+  "answer": "B",
+  "note": ""
+ },
+ "Q166": {
+  "answer": "D",
+  "note": ""
+ },
+ "Q167": {
+  "answer": "D",
+  "note": ""
+ }
+}

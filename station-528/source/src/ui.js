@@ -44,7 +44,8 @@ function quotaToday() {
   const base = newQuota(phase(), t, T, S.newPerDay);
   const thr = throttledQuota(base, Object.values(MEM.cards), t, S.reviewCap, capNow());
   const sleep = dayStats(t).sleepFlag;
-  return { quota: sleepQuota(thr, sleep), base, thr, sleep, stopped: t >= T - 21 };
+  const stopped = t >= T - 21, extra = stopped ? 0 : (dayStats(t).extraNew || 0);
+  return { quota: sleepQuota(thr, sleep) + extra, base, thr, sleep, stopped, extra };
 }
 const curWindow = () => intakeWindow(S.intakeSlot, S.wakeTime, S.bedTime);
 /* D2: "Back on schedule by <date>". null when nothing is piling up. */
@@ -183,6 +184,7 @@ function viewStation() {
     ${thisWeek() ? '' : weekCardHTML()}
     ${kvGet('primerPhase', ph) !== ph ? `<div class="note small"><span class="grow">New phase. <a href="#/primer">A two-minute refresher</a> on what your bets mean.</span><button class="chip ghost" data-act="primer-ok" aria-label="Dismiss">✕</button></div>` : ''}
     <div class="today">${roundsTask}${intakeTask}</div>
+    ${roundsDone && (intakeDone || ik.noUnits) ? extraCardHTML() : ''}
     ${weekRowHTML()}
     <div class="tiles">
       <div class="tile"><div class="lbl">Exam-day recall</div><div class="v">${pct(sn.recall)}</div><div class="d">if you stopped reviewing today</div></div>
@@ -269,14 +271,63 @@ function setPace(p) {
   const t = today(), rs = kvGet('sess:rounds');
   if (!rs || rs.day !== t || rs.taken == null) return;
   const extra = capNow() - rs.taken; if (extra <= 0) return;
+  pullDeferred(extra);
+}
+/* Bring cards pushed to tomorrow by the daily cap back into today's Rounds, same order as the cap uses. */
+function pullDeferred(max) {
+  const t = today(), rs = kvGet('sess:rounds');
+  if (!rs || rs.day !== t) return 0;
   const n = now();
   const add = activeCards().filter(c => c.deferDay === t && c.due === t + 1)
-    .sort((a, b) => ((b.deferrals >= 3) - (a.deferrals >= 3)) || (rNow(a, n) - rNow(b, n))).slice(0, extra);
-  if (!add.length) return;
+    .sort((a, b) => ((b.deferrals >= 3) - (a.deferrals >= 3)) || (rNow(a, n) - rNow(b, n))).slice(0, max);
+  if (!add.length) return 0;
   for (const c of add) { c.due = t; c.deferrals = Math.max(0, (c.deferrals || 1) - 1); c.deferDay = null; }
   saveCards(add);
-  rs.queue.push(...add.map(c => ({ id: c.id, kind: 'review' }))); rs.taken += add.length; rs.done = false;
+  rs.queue.push(...add.map(c => ({ id: c.id, kind: 'review' }))); rs.taken = (rs.taken || 0) + add.length; rs.done = false;
   kvSet('sess:rounds', rs);
+  return add.length;
+}
+
+/* ---------- extra study (optional, after today's essentials) ---------- */
+const AHEAD_N = 20, EXTRA_NEW = 5, CATCHUP_N = 25;
+/* Cards coming due in the next two weeks, not seen today, shakiest first. */
+function aheadCandidates() {
+  const t = today(), n = now(), rs = kvGet('sess:rounds');
+  const queued = new Set(rs && rs.day === t ? rs.queue.map(q => q.id) : []);
+  return activeCards().filter(c => c.due > t && c.due <= t + 14 && c.last != null && dayOf(c.last) < t && !queued.has(c.id) && !c.echoes.some(e => e <= t))
+    .sort((a, b) => rNow(a, n) - rNow(b, n));
+}
+function extraOptions() {
+  const t = today(), q = quotaToday(), back = backlogInfo();
+  const fresh = S.openUnits.length ? pickIntake(ITEMS, MEM.cards, S.openUnits, EXTRA_NEW, UNIT_ORDER, focusWing()).length : 0;
+  const rs = kvGet('sess:rounds');
+  const deferred = rs && rs.day === t ? activeCards().filter(c => c.deferDay === t && c.due === t + 1).length : 0;
+  return { ahead: Math.min(AHEAD_N, aheadCandidates().length), fresh: q.stopped || back ? 0 : fresh, stopped: q.stopped, back, deferred: Math.min(CATCHUP_N, deferred) };
+}
+function extraCardHTML() {
+  const o = extraOptions();
+  if (!o.ahead && !o.fresh && !o.deferred) return '';
+  const row = (act, title, sub, btn) => `<div class="task"><div class="grow"><b>${title}</b><span class="small muted">${sub}</span></div><button class="btn" data-act="${act}">${btn}</button></div>`;
+  return `<div class="extra"><div class="lbl">Extra study · optional</div>
+    <p class="small muted">Today's plan is already enough to stay on track. Use these only if you want more.</p>
+    ${o.deferred ? row('extra-catchup', `Catch up: ${o.deferred} more waiting reviews`, 'Cards the daily cap moved to tomorrow, shakiest first.', 'Add') : ''}
+    ${o.ahead ? row('extra-ahead', `Review ahead: ${o.ahead} cards`, 'Coming due soon, shakiest first. Early reviews help a bit less than on-time ones.', 'Start') : ''}
+    ${o.fresh ? row('extra-new', `Learn ${o.fresh} more new card${o.fresh === 1 ? '' : 's'}`, `Each adds about 2 to 4 reviews over the next month.`, 'Start') : ''}
+    ${!o.fresh && o.back ? '<p class="small muted">Extra new cards wait until you\'ve caught up.</p>' : ''}</div>`;
+}
+function startExtra(kind) {
+  const t = today();
+  if (kind === 'new') {
+    const k = dayKey(t), d = dayStats(t); d.extraNew = (d.extraNew || 0) + EXTRA_NEW; kvSet(k, d);
+    const is = kvGet('sess:intake'); if (is && is.day === t && is.queue.length === 0) { is.done = false; kvSet('sess:intake', is); }
+    return go('#/intake');
+  }
+  const rs = getRun('rounds');
+  if (kind === 'ahead') {
+    const add = aheadCandidates().slice(0, AHEAD_N);
+    rs.queue.push(...add.map(c => ({ id: c.id, kind: 'ahead' }))); rs.done = false; kvSet('sess:rounds', rs);
+  } else { kvSet('sess:rounds', rs); pullDeferred(CATCHUP_N); }
+  go('#/rounds');
 }
 function paceSheet() {
   const b = backlogInfo();
@@ -582,7 +633,7 @@ const promptOf = R => R.inst ? R.inst.prompt : (R.echo && R.it.alt ? R.it.alt : 
 function drawRun() {
   const R = RUN, it = R.it, total = R.sess.queue.length + R.sess.stats.attempts, done = R.sess.stats.attempts;
   const label = R.kind === 'rounds' ? 'DAILY ROUNDS' : 'INTAKE';
-  const tag = R.q.kind === 'new' ? 'new card' : R.q.kind.startsWith('relearn') ? 'again, to lock it in' : R.echo ? 'follow-up check' : 'review';
+  const tag = R.q.kind === 'new' ? 'new card' : R.q.kind.startsWith('relearn') ? 'again, to lock it in' : R.echo ? 'follow-up check' : R.q.kind === 'ahead' ? 'review ahead (extra)' : 'review';
   let body = '';
   if (R.phase === 'feedback') body = feedbackHTML();
   else if (it.type === 'choice') body = choiceHTML();
@@ -760,7 +811,7 @@ function viewDebrief(kind) {
   const roundsDone = tc.rounds.done || (!tc.rounds.built && tc.rounds.n === 0);
   const essentials = roundsDone && !tc.intake.inQueue && !tc.intake.newLeft;
   const nextBtn = kind === 'rounds' && (tc.intake.inQueue || tc.intake.newLeft) ? `<a class="btn primary block" href="#/intake">Go to Intake (${tc.intake.inQueue || tc.intake.newLeft} new)</a>`
-    : kind === 'intake' && !roundsDone ? `<a class="btn primary block" href="#/rounds">Go to Daily Rounds</a>` : `<a class="btn primary block" href="#/">Back to the Station</a>`;
+    : kind === 'intake' && !roundsDone ? `<a class="btn primary block" href="#/rounds">Go to Daily Rounds</a>` : `<a class="btn primary block" href="#/">Back to the Station</a>${essentials ? '<p class="small muted" style="text-align:center;margin-top:8px">Want more? Optional extra study is on the Station.</p>' : ''}`;
   const cb = kvGet('lastComeback'), comeback = cb && cb.day === sess.day;
   const pms = pmSummary(s.pm);
   /* celebrations live here, after the work, never during it (delta v2 D11) */
@@ -1061,6 +1112,9 @@ document.addEventListener('click', e => {
   if (act === 'block-go' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); const b = BLOCK; BLOCK = null; nextCard(b.kind, b.sess); return; }
   if (act === 'block-stop' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); BLOCK = null; go('#/'); return; }
   if (act === 'lookaway') { lookAway(); return; }
+  if (act === 'extra-ahead') { startExtra('ahead'); return; }
+  if (act === 'extra-new') { startExtra('new'); return; }
+  if (act === 'extra-catchup') { startExtra('catchup'); return; }
   if (act === 'tutor-copy') { tutorCopy(); return; }
   if (act === 'tutor-share') { tutorShare(); return; }
   if (act === 'tutor-dl') { tutorDownload(); return; }

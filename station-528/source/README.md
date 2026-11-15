@@ -20,6 +20,11 @@ Live: https://ghrelingator.github.io/pixel-arcade/station-528/
 - **Data stays local.** Storage is IndexedDB, with `navigator.storage.persist()`, one-click JSON export and import, and a weekly backup reminder.
 - **Flagging.** One tap suspends and quarantines a card. A card answered wrong at Sure twice is auto-flagged so its answer key gets a second look.
 
+### Added in v0.1.2
+
+- **Extra study (optional).** Once Rounds and Intake are done, the Station offers more without pressure. *Review ahead* gives the 20 cards coming due within two weeks, shakiest first, as real reviews that FSRS reschedules. *Learn 5 more new cards* raises only today's limit, with a note that each adds about 2 to 4 reviews over the next month; it is held back while reviews are backed up and in the last three weeks. *Catch up* adds 25 of the reviews the daily cap moved to tomorrow.
+- **Psych/Soc deck.** 138 cards in 15 units across all twelve Psych/Soc categories, mostly scenario questions. Plus 29 science top-ups for the thinnest areas: amino acids and proteins, metabolism, prokaryotes and viruses, and a new Organic Chemistry unit.
+
 ### Added in v0.1.1 (from build spec delta v2)
 
 - **Re-entry ramp (D2).** After one or more days away, the first visit opens a Welcome back screen. It never shows how many days were missed or how many cards are overdue. Backlog appears only as "back on schedule by ‹date›", from a 14-day simulation, and you can pick a catch-up pace: Normal, Faster (+20%) or Fastest (+50%). The first answer after a break lights a cosmetic comeback beacon, celebrated in the Debrief. The new-card throttle now counts backlog that today's cap can't absorb.
@@ -32,13 +37,13 @@ Live: https://ghrelingator.github.io/pixel-arcade/station-528/
 - **Tutor pack.** No built-in AI. Instead, the Tutor pack page (from the Debrief, Calibration or Settings) builds a Markdown file for any AI chat. It covers today, the last 7 or 30 days, or everything, and holds missed cards with your exact answers, bets and post-mortem labels, the keys and the cards' explanations, the wrong options you picked and why they're wrong, weakest units, calibration, cards that keep slipping, flagged keys, and optional tutoring instructions (retrieve first, target the misconception, worked then faded examples, contrast look-alikes, stay on the AAMC outline). Share, copy or download it; it contains study data only.
 - **Logging (D1, partial).** Logs gain session and block ids, local hour, sleep flag, hint level, selection reason, recovery pace and Intake slot, so the D1 experiments can be analyzed later.
 
-Planned for later versions, per the spec: Scout pretests, the Workshop ladder, contrast-set Expeditions and Boss runs (v0.2); Case Files and CARS (v0.3); Psych/Soc and biochemistry coverage (v0.4); Exam Sim (v1.0).
+Planned for later versions, per the spec: Scout pretests, the Workshop ladder, contrast-set Expeditions and Boss runs (v0.2); Case Files and CARS (v0.3); deeper biochemistry coverage (v0.4); Exam Sim (v1.0). A first Psych/Soc deck arrived early, in v0.1.2.
 
 ## The cards
 
-- **Deck.** 516 original cards across 44 units of General Chemistry I–II, General Biology I–II and Physics I–II, covering every Bio/Biochem and Chem/Phys content category (1A–5E). 81 of them are calculation cards that generate fresh numbers on every review, and code computes their answers. Psych/Soc and CARS arrive in later versions.
+- **Deck.** 683 original cards across 60 units: General Chemistry I–II, General Biology I–II, Physics I–II, Organic Chemistry, Intro Psychology and Intro Sociology. They cover every Bio/Biochem and Chem/Phys content category (1A–5E) and every Psych/Soc category (6A–10A). 82 are calculation cards that generate fresh numbers on every review, and code computes their answers. CARS needs passages and arrives with Case Files.
 - **No AAMC material.** AAMC content-category codes are used as tags only.
-- **Blind cross-check.** Two fresh-context checkers (Claude Opus 5.5 and Claude Sonnet 5.5) answered every card with the key hidden and the options shuffled differently, as in spec §8.3, step 4: the first 354 cards on Nov 14, the 162 expansion cards on Nov 15. Every card agreed with its key; three that a checker called loosely worded were rewritten and passed a second blind check. Only cross-checked cards can enter Intake. The audit trail is in `check/` and `check/round2/`.
+- **Blind cross-check.** Two fresh-context checkers (Claude Opus 5.5 and Claude Sonnet 5.5) answered every card with the key hidden and the options shuffled differently, as in spec §8.3, step 4: the first 354 cards on Nov 14, the 162 expansion cards on Nov 15, and the 167 Psych/Soc and science top-up cards on Nov 15 (`check/round3/`). Every card agreed with its key; three that a checker called loosely worded were rewritten and passed a second blind check. Only cross-checked cards can enter Intake. The audit trail is in `check/` and `check/round2/`.
 - **No human expert review yet.** Use ⚑ Flag on anything doubtful.
 
 ## Build and test
@@ -56,6 +61,7 @@ node test/ui_targeted.js      # calculation card, hint lock, appeal, keyboard fl
 node test/ui_habit.js         # delta v2: re-entry, pace, plans, weeks, seasons, sleep, blocks, post-mortems, tutor pack
 node test/tutor_test.js       # tutor pack contents: appeals, labels, ranking, generated questions, privacy
 node test/ui_review.js        # fresh install, 4 am rollover into a new week, re-entry, seasons, old-backup import, layout checks
+node test/ui_extra.js         # extra study: review ahead, extra new cards, catch-up
 ```
 
 ## Licenses
