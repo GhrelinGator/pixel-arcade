@@ -51,5 +51,26 @@ let fails = 0; const ok = (c, m) => { if (!c) { fails++; console.log('FAIL', m);
   const quarantined = items.map(i => i.id === pick[0] ? Object.assign({}, i, { status: 'quarantined' }) : i);
   ok(!E.pickIntake(quarantined, {}, ['c-atoms', 'c-bond', 'b-cell', 'p-kin'], 15, order).includes(pick[0]), 'quarantined items never enter intake');
 }
+
+/* ---------- delta v2 ---------- */
+{
+  /* D16 focus wing: up to half the day's new cards come from it, the rest as usual */
+  const order = Object.fromEntries(E.UNITS.map((u, i) => [u.id, { i, course: u.course }]));
+  const items = E.ITEMS.map(i => Object.assign({}, i, { status: 'active' }));
+  const open = ['c-atoms', 'c-bond', 'b-cell', 'p-kin'], byId = Object.fromEntries(items.map(i => [i.id, i]));
+  const plain = E.pickIntake(items, {}, open, 10, order), fw = byId[plain[plain.length - 1]].fc;
+  const foc = E.pickIntake(items, {}, open, 10, order, fw);
+  ok(foc.length === 10 && new Set(foc).size === 10, 'focus: full quota, no duplicates');
+  ok(foc.slice(0, 5).every(id => byId[id].fc === fw), 'focus: the first half comes from the focus wing');
+  /* D14 blocks: about 20 minutes of answering fills a block; a long idle gap starts a fresh one */
+  const sess = E.newSession('rounds', 1, []);
+  let t = 0, full = false;
+  for (let i = 0; i < 200 && !full; i++) { t += 15000; full = E.tickBlock(sess, t, 12000); }
+  ok(full && Math.abs(t - 20 * 60000) <= 15000, 'blocks: 20 minutes of steady answering fills a block');
+  E.nextBlock(sess, t); ok(sess.block.n === 2 && sess.block.ms === 0, 'blocks: next block resets');
+  E.tickBlock(sess, t + 60000, 9000); E.tickBlock(sess, t + 60000 + 30 * 60000, 9000);
+  ok(sess.block.n === 3 && sess.block.ms === 9000, 'blocks: a 30-minute gap starts a fresh block');
+  ok(typeof sess.id === 'string' && sess.stats.pm && typeof sess.stats.pm === 'object', 'sessions carry an id and post-mortem tallies');
+}
 console.log(fails ? fails + ' failure(s)' : 'session: all checks pass');
 process.exit(fails ? 1 : 0);

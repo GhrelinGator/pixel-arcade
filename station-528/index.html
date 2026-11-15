@@ -184,6 +184,55 @@ table.t td.n, table.t th.n { text-align: right; font-family: var(--mono); }
 @media (max-width: 360px) { .tiles { grid-template-columns: 1fr 1fr; } .conf button b { font-size: 14px; } }
 @media (prefers-reduced-motion: reduce) { .reveal.go .fill { animation-duration: .01s; } .prog i { transition: none; } }
 
+/* delta v2: check-in, weekly card, sleep row, blocks, post-mortems, trend */
+.task .sub2 { display: block; margin-top: 2px; }
+.task.now { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.two .field { margin: 8px 0; }
+.chip { min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--rule); background: var(--panel); font-size: 15px; font-weight: 600; }
+.chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.chip.ghost { background: transparent; border-color: transparent; color: var(--mute); padding: 0 10px; }
+.chip:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.sleep { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 8px 8px 8px 14px; margin: 12px 0; border: 1px dashed var(--rule); border-radius: 12px; }
+.essentials { border-radius: 12px; padding: 12px 14px; margin: 12px 0; background: var(--good-soft); font-size: 15.5px; }
+.note { display: flex; align-items: center; gap: 8px; border-radius: 12px; padding: 8px 8px 8px 14px; margin: 12px 0; background: var(--panel2); }
+.note .grow { flex: 1; }
+.week .plantext, .plantext { font-weight: 600; margin: 6px 0; }
+.week .btn.small, .btn.small { min-height: 40px; padding: 0 14px; font-size: 15px; }
+.weekrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 2px 0; }
+.dots { display: inline-flex; gap: 4px; }
+.dots i { width: 12px; height: 12px; border-radius: 50%; background: var(--unlit); }
+.dots i.on { background: var(--accent); }
+.dots i.td { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--ink2); }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 6px; }
+.seg button { min-height: 52px; border-radius: 10px; border: 1.5px solid var(--rule); background: var(--panel); display: grid; place-content: center; text-align: center; line-height: 1.2; }
+.seg button span { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+.seg button.on { border-color: var(--accent); background: var(--accent-soft); }
+.seg button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.cheer { display: flex; gap: 12px; align-items: center; background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; margin: 12px 0; font-size: 15.5px; }
+.cheer .beacon { font-size: 24px; color: var(--lit); line-height: 1; }
+.pm { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--rule); }
+.rest { position: fixed; inset: 0; z-index: 20; background: #0b0d0e; color: #8a919b; display: grid; place-items: center; transition: background 1.2s, color 1.2s; }
+.rest.up { background: var(--bg); color: var(--ink); }
+.restin { text-align: center; max-width: 320px; padding: 20px; }
+.restin p { font-size: 18px; }
+.restbar { height: 4px; border-radius: 2px; background: rgba(138, 145, 155, .25); overflow: hidden; margin: 18px 0; }
+.restbar i { display: block; height: 100%; width: 0; background: #4fb0ad; }
+.restbar i.go { width: 100%; transition: width 120s linear; }
+.smxrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.chart.smx text { font-size: 10.5px; }
+.chart.smx .pt { fill: var(--ink); font-weight: 700; font-size: 11px; }
+.chart .ln { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; }
+.chart .dot { fill: var(--accent); stroke: var(--panel); stroke-width: 2; }
+.hbar { display: block; height: 10px; border-radius: 0 4px 4px 0; background: var(--accent); min-width: 2px; }
+.pmt td { vertical-align: middle; }
+@media (prefers-reduced-motion: reduce) { .restbar i.go { transition: none; width: 100%; } .rest { transition: none; } }
+.sleep { display: block; padding: 6px 8px 10px 14px; }
+.sleepbtns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 2px; }
+.chart .grid { stroke: var(--rule); stroke-dasharray: 2 3; }
+.field select { width: 100%; min-width: 0; }
+
 </style>
 </head>
 <body>
@@ -301,14 +350,62 @@ function newQuota(phase, today, T, override) {
   return override != null ? override : PHASES[phase].newPerDay;
 }
 /* §6.4 throttle: average due over the next 7 days vs the review cap. */
-function throttledQuota(quota, cards, today, cap) {
-  let n = 0;
-  for (const c of cards) if (c.state === 'review' && !c.suspended && c.due > today && c.due <= today + 7) n++;
-  const avg = n / 7;
+/* §6.4 throttle, extended by delta v2 D2: the projected 7-day load includes any backlog today's
+   Rounds can't absorb (due now beyond today's cap). Above 0.8× cap new cards halve; above the cap
+   they pause, and resume on their own once the projection drops. todayCap is the cap at the chosen
+   recovery pace; the thresholds use the base cap. */
+function throttledQuota(quota, cards, today, cap, todayCap = cap) {
+  let dueNow = 0, ahead = 0;
+  for (const c of cards) {
+    if (c.state !== 'review' || c.suspended) continue;
+    if (c.due <= today) dueNow++; else if (c.due <= today + 7) ahead++;
+  }
+  const avg = (ahead + Math.max(0, dueNow - todayCap)) / 7;
   if (avg > cap) return 0;
   if (avg > 0.8 * cap) return Math.floor(quota / 2);
   return quota;
 }
+/* D13 sleep check: a short night halves today's new cards, a poor one sets them to 0. Nothing else changes. */
+function sleepQuota(quota, flag) { return flag === 'poor' ? 0 : flag === 'short' ? Math.floor(quota / 2) : quota; }
+
+/* D2 recovery pace: the daily review cap while catching up. */
+const PACES = { normal: { name: 'Normal', mult: 1 }, faster: { name: 'Faster', mult: 1.2 }, fastest: { name: 'Fastest', mult: 1.5 } };
+function paceCap(cap, pace) { return Math.round(cap * ((PACES[pace] || PACES.normal).mult)); }
+
+/* D2 "Back on schedule by <date>": simulate the next 14 days at the given cap. carry0 is the backlog
+   already past today's cap (0 if today's Rounds were built, since applyCap moved those cards to tomorrow).
+   Returns the first day whose due reviews all fit, or null if that takes more than 14 days.
+   Optimistic on purpose: it ignores reviews that come back within the window. */
+function backOnSchedule(cards, today, cap, carry0) {
+  const byDay = {};
+  for (const c of cards) if (c.state === 'review' && !c.suspended && c.due > today && c.due <= today + 14) byDay[c.due] = (byDay[c.due] || 0) + 1;
+  let carry = carry0;
+  for (let d = today + 1; d <= today + 14; d++) {
+    carry = Math.max(0, (byDay[d] || 0) + carry - cap);
+    if (carry === 0) return d;
+  }
+  return null;
+}
+
+/* D13 time windows, in minutes after midnight. Evening Intake: bedtime −120 to −30 min.
+   Morning alternative for early risers: wake +30 to +180 min. */
+const hm = s => { const m = /^(\d{1,2}):(\d{2})/.exec(s || ''); return m ? (+m[1] * 60 + +m[2]) % 1440 : null; };
+function intakeWindow(slot, wake, bed) {
+  const w = hm(wake), b = hm(bed);
+  if (slot === 'morning' && w != null) return [(w + 30) % 1440, (w + 180) % 1440];
+  if (b == null) return null;
+  return [(b - 120 + 1440) % 1440, (b - 30 + 1440) % 1440];
+}
+function inWindow(win, minutes) {
+  if (!win) return false;
+  const [a, b] = win;
+  return a <= b ? minutes >= a && minutes < b : minutes >= a || minutes < b;
+}
+const clock = m => { const h = Math.floor(m / 60) % 24, mm = String(m % 60).padStart(2, '0'); return `${h % 12 || 12}:${mm}\u00a0${h < 12 ? 'am' : 'pm'}`; }; /* no line break before am/pm */
+
+/* D16 calendar helpers: weeks start on Monday. */
+function weekStart(day) { return day - ((day + 3) % 7); } /* day 0 (1970-01-01) was a Thursday */
+const monthOf = day => dateOfDay(day).slice(0, 7);
 
 /* ---------- cards ---------- */
 function newCard(id) {
@@ -497,14 +594,22 @@ function buildRounds(cardList, today, now, cap, T, isHY, sweepDone) {
   const { take, rest } = applyCap(cardList, today, now, cap);
   const ids = take.map(c => c.id);
   for (const c of echoesDue(cardList, today)) if (!ids.includes(c.id)) ids.push(c.id);
-  return { queue: ids.map(id => ({ id, kind: 'review' })), deferred: rest.length, swept };
+  return { queue: ids.map(id => ({ id, kind: 'review' })), deferred: rest.length, swept, taken: take.length };
 }
 
 /* New cards for today: blocked by unit within each course (concepts are introduced in blocks
-   before any interleaving), courses taken in turn, and every 5th pick a reasoning (Skill 2+) item. */
-function pickIntake(items, cards, openUnits, quota, unitOrder) {
+   before any interleaving), courses taken in turn, and every 5th pick a reasoning (Skill 2+) item.
+   focus (delta v2 D16): an optional wing id; up to half of today's new cards come from it first. */
+function pickIntake(items, cards, openUnits, quota, unitOrder, focus) {
   if (quota <= 0) return [];
   const fresh = items.filter(it => openUnits.includes(it.unit) && it.status === 'active' && /* only cross-checked items (spec §8.3) */ (!cards[it.id] || cards[it.id].state === 'new') && !(cards[it.id] && cards[it.id].suspended));
+  if (focus == null) return pickBlocks(fresh, quota, unitOrder);
+  const first = pickBlocks(fresh.filter(it => it.fc === focus), Math.ceil(quota / 2), unitOrder);
+  const taken = new Set(first);
+  return first.concat(pickBlocks(fresh.filter(it => !taken.has(it.id)), quota - first.length, unitOrder));
+}
+function pickBlocks(fresh, quota, unitOrder) {
+  if (quota <= 0) return [];
   const byCourse = {};
   for (const it of fresh) (byCourse[unitOrder[it.unit].course] = byCourse[unitOrder[it.unit].course] || []).push(it);
   for (const k in byCourse) byCourse[k].sort((a, b) => unitOrder[a.unit].i - unitOrder[b.unit].i);
@@ -566,8 +671,22 @@ function recordAttempt(sess, id, attempt, grade) {
 
 function newSession(kind, day, queue) {
   return { kind, day, queue, scored: {}, cardSess: {}, startedAt: Date.now(), done: false,
-    stats: { attempts: 0, first: 0, firstCorrect: 0, cbm: 0, gain: 0, calib: {}, c3err: [], backToCriterion: 0, newLearned: 0 } };
+    id: kind + '-' + day + '-' + Math.random().toString(36).slice(2, 7), block: { n: 1, ms: 0, lastAt: null },
+    stats: { attempts: 0, first: 0, firstCorrect: 0, cbm: 0, gain: 0, calib: {}, c3err: [], backToCriterion: 0, newLearned: 0, pm: {} } };
 }
+
+/* Delta v2 D14 blocks: count answering time (gaps capped at 3 min; a 10+ min gap starts a fresh block).
+   A block is done after about 20 minutes. Returns true when the block just filled up. */
+const BLOCK_MS = 20 * 60000, IDLE_MS = 10 * 60000, GAP_CAP_MS = 3 * 60000;
+function tickBlock(sess, nowMs, answerMs) {
+  const b = sess.block || (sess.block = { n: 1, ms: 0, lastAt: null });
+  const gap = b.lastAt == null ? answerMs : nowMs - b.lastAt;
+  if (b.lastAt != null && gap > IDLE_MS) { b.n++; b.ms = Math.min(answerMs, GAP_CAP_MS); }
+  else b.ms += Math.min(gap, GAP_CAP_MS);
+  b.lastAt = nowMs;
+  return b.ms >= BLOCK_MS;
+}
+function nextBlock(sess, nowMs) { const b = sess.block || (sess.block = { n: 0 }); b.n++; b.ms = 0; b.lastAt = nowMs; }
 
 ;
 /* ==== content_core.js ==== */
@@ -2608,7 +2727,8 @@ function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.ad
 self.toast = toast;
 
 /* ---------- settings & helpers ---------- */
-const DEFAULTS = { setupDone: false, examDate: '2029-01-20', phase: 'auto', openUnits: [], reviewCap: 150, newPerDay: null, lastExportAt: null, sweepDone: false };
+const DEFAULTS = { setupDone: false, examDate: '2029-01-20', phase: 'auto', openUnits: [], reviewCap: 150, newPerDay: null, lastExportAt: null, sweepDone: false,
+  /* delta v2 */ wakeTime: '06:45', bedTime: '23:00', intakeSlot: 'evening', sleepCheck: true, recoveryPace: 'normal', semesterStarts: [] };
 function loadSettings() { S = Object.assign({}, DEFAULTS, kvGet('settings', {})); }
 function saveSettings() { return kvSet('settings', S); }
 const now = () => Date.now();
@@ -2623,6 +2743,42 @@ const dayKey = d => 'day:' + dateOfDay(d);
 const dayStats = d => kvGet(dayKey(d), { reviews: 0, newCards: 0, cbm: 0, gain: 0, calib: {} });
 const medianFor = kind => { const xs = kvGet('times', {})[kind] || []; return xs.length >= 10 ? median(xs) : null; }; /* no 'slow' rule until there are 10 timings */
 function wingOf(it) { return it.fc; }
+const capNow = () => paceCap(S.reviewCap, S.recoveryPace);
+const localMin = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); };
+const fmtDay = d => new Date(msOfDay(d)).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+const whenText = d => d == null ? null : d === today() + 1 ? 'tomorrow' : fmtDay(d);
+const thisWeek = () => { const w = kvGet('week', null); return w && w.start === weekStart(today()) ? w : null; };
+const focusWing = () => { const w = thisWeek(); return w && w.focus != null ? w.focus : undefined; };
+/* today's new-card quota and why it is what it is */
+function quotaToday() {
+  const t = today(), T = examDay();
+  const base = newQuota(phase(), t, T, S.newPerDay);
+  const thr = throttledQuota(base, Object.values(MEM.cards), t, S.reviewCap, capNow());
+  const sleep = dayStats(t).sleepFlag;
+  return { quota: sleepQuota(thr, sleep), base, thr, sleep, stopped: t >= T - 21 };
+}
+const curWindow = () => intakeWindow(S.intakeSlot, S.wakeTime, S.bedTime);
+/* D2: "Back on schedule by <date>". null when nothing is piling up. */
+function backlogInfo() {
+  const t = today(), cap = capNow(), act = activeCards();
+  const rs = kvGet('sess:rounds'), built = rs && rs.day === t;
+  const carry0 = built ? 0 : Math.max(0, act.filter(c => c.due <= t).length - cap);
+  const deferred = built ? act.filter(c => c.deferDay === t && c.due === t + 1).length : 0;
+  if (!carry0 && !deferred) return null;
+  return { by: backOnSchedule(act, t, cap, carry0), cap };
+}
+const backlogText = b => b.by == null ? 'more than two weeks to get back on schedule at this pace' : `back on schedule by ${whenText(b.by)}`;
+/* activity: a day counts once any card is answered. Returns true on the first answer after 1+ idle days (D2). */
+function markActive(t) {
+  const L = kvGet('lastActive', null);
+  if (L === t) return false;
+  const comeback = L != null && t - L >= 2;
+  if (comeback) { const n = kvGet('beacons', 0) + 1; kvSet('beacons', n); kvSet('lastComeback', { day: t, n }); }
+  kvSet('lastActive', t);
+  const a = kvGet('activeDays', []); if (!a.includes(t)) { a.push(t); while (a.length > 400) a.shift(); kvSet('activeDays', a); }
+  return comeback;
+}
+const activeInWeek = ws => kvGet('activeDays', []).filter(d => d >= ws && d < ws + 7);
 
 function initItems() {
   const fl = flags();
@@ -2643,6 +2799,10 @@ function render() {
   if (!S.setupDone) return viewSetup();
   const h = location.hash.replace(/^#\/?/, '');
   const [r, arg] = h.split('/');
+  if (!r || r === 'rounds' || r === 'intake') { dailyCheck(); const ci = kvGet('checkin'); if (ci && ci.day === today() && !ci.done) return viewCheckin(); }
+  if (r === 'checkin') return viewCheckin();
+  if (r === 'plans') return viewPlans();
+  if (r === 'primer') return viewPrimer();
   if (r === 'rounds' || r === 'intake') return startRun(r);
   if (r === 'debrief') return viewDebrief(arg);
   if (r === 'calibration') return viewCalibration();
@@ -2665,15 +2825,16 @@ function todayCounts() {
   else {
     const all = Object.values(MEM.cards).filter(isActive);
     const due = all.filter(c => c.due <= t).length, ech = all.filter(c => c.due > t && c.echoes.some(e => e <= t)).length;
-    rounds = { n: Math.min(due, S.reviewCap) + ech, built: false, done: false, over: Math.max(0, due - S.reviewCap) };
+    rounds = { n: Math.min(due, capNow()) + ech, built: false, done: false };
   }
+  rounds.backlog = backlogInfo();
   const is = kvGet('sess:intake');
-  const quota = throttledQuota(newQuota(phase(), t, T, S.newPerDay), Object.values(MEM.cards), t, S.reviewCap);
+  const q = quotaToday(), quota = q.quota;
   const introduced = dayStats(t).newCards;
   const remaining = Math.max(0, quota - introduced);
-  const avail = S.openUnits.length ? pickIntake(ITEMS, MEM.cards, S.openUnits, remaining, UNIT_ORDER).length : 0;
+  const avail = S.openUnits.length ? pickIntake(ITEMS, MEM.cards, S.openUnits, remaining, UNIT_ORDER, focusWing()).length : 0;
   const inQueue = is && is.day === t ? is.queue.length : 0;
-  return { rounds, intake: { inQueue, newLeft: avail, quota, introduced, noUnits: !S.openUnits.length } };
+  return { rounds, intake: { inQueue, newLeft: avail, quota, introduced, noUnits: !S.openUnits.length, q } };
 }
 function stationNumbers() {
   const act = activeCards(), T = examDay();
@@ -2690,16 +2851,32 @@ function viewStation() {
   const tc = todayCounts(), sn = stationNumbers();
   const cal = calibration(kvGet('calib', {}));
   const exportDue = sn.n > 0 && (!S.lastExportAt || now() - Date.parse(S.lastExportAt) > 7 * DAY);
-  const r = tc.rounds, ik = tc.intake;
-  const roundsTask = r.done || (!r.built && r.n === 0)
-    ? `<div class="task done"><div class="grow"><b>Daily Rounds</b><span class="small">${r.done ? 'Cleared for today.' : 'Nothing due yet.'}</span></div><div class="n">✓</div></div>`
-    : `<a class="task" href="#/rounds" style="text-decoration:none;color:inherit"><div class="grow"><b>Daily Rounds</b><span class="small muted">Reviews the scheduler says are due${r.over ? ` · ${r.over} pushed to tomorrow (daily cap)` : ''}</span></div><div class="n">${r.n}</div><span class="btn primary">${r.built ? 'Resume' : 'Start'}</span></a>`;
+  const r = tc.rounds, ik = tc.intake, ds = dayStats(t);
+  const roundsDone = r.done || (!r.built && r.n === 0);
+  const pace = S.recoveryPace !== 'normal' ? ` at ${PACES[S.recoveryPace].name.toLowerCase()} pace` : '';
+  const roundsTask = roundsDone
+    ? `<div class="task done"><div class="grow"><b>Daily Rounds</b><span class="small">${r.done ? 'Cleared for today.' : 'Nothing due yet.'}${r.backlog ? ` ${backlogText(r.backlog)[0].toUpperCase() + backlogText(r.backlog).slice(1)}${pace}.` : ''}</span></div><div class="n">✓</div></div>`
+    : `<div class="task"><div class="grow"><a href="#/rounds" style="text-decoration:none;color:inherit"><b>Daily Rounds</b><span class="small muted">Reviews the scheduler says are due</span></a>${r.backlog ? `<span class="small muted sub2">Catching up: ${backlogText(r.backlog)}${pace} · <a href="#" data-act="pace">change pace</a></span>` : ''}</div><div class="n">${r.n}</div><a class="btn primary" href="#/rounds">${r.built ? 'Resume' : 'Start'}</a></div>`;
+  const win = curWindow(), nowIn = inWindow(win, localMin());
+  const winText = win ? (nowIn ? ' · your Intake window is now' : ` · best ${clock(win[0])}–${clock(win[1])}`) : '';
+  const sleepNote = ik.q.sleep === 'short' && ik.q.thr > 0 ? ` · halved after a short night (<a href="#" data-act="sleep-change">change</a>)` : '';
   let intakeTask;
-  if (ik.inQueue) intakeTask = `<a class="task" href="#/intake" style="text-decoration:none;color:inherit"><div class="grow"><b>Intake</b><span class="small muted">New cards, each until you recall it 3 times</span></div><div class="n">${ik.inQueue}</div><span class="btn">Resume</span></a>`;
+  if (ik.inQueue) intakeTask = `<a class="task${nowIn ? ' now' : ''}" href="#/intake" style="text-decoration:none;color:inherit"><div class="grow"><b>Intake</b><span class="small muted">New cards, each until you recall it 3 times${winText}</span></div><div class="n">${ik.inQueue}</div><span class="btn">Resume</span></a>`;
   else if (ik.noUnits) intakeTask = `<a class="task" href="#/settings" style="text-decoration:none;color:inherit"><div class="grow"><b>Intake</b><span class="small muted">Choose the units your classes have covered.</span></div><span class="btn">Choose</span></a>`;
-  else if (ik.newLeft) intakeTask = `<a class="task" href="#/intake" style="text-decoration:none;color:inherit"><div class="grow"><b>Intake</b><span class="small muted">New cards from your open units (${ik.introduced}/${ik.quota} today)</span></div><div class="n">${ik.newLeft}</div><span class="btn">Start</span></a>`;
-  else intakeTask = `<div class="task done"><div class="grow"><b>Intake</b><span class="small">${ik.quota === 0 ? (t >= T - 21 ? 'New cards have stopped for the final three weeks.' : 'Paused: your review load is high this week.') : ik.introduced ? 'Done for today.' : 'No new cards left in your open units. Open more in Settings.'}</span></div><div class="n">✓</div></div>`;
-
+  else if (ik.newLeft) intakeTask = `<div class="task${nowIn ? ' now' : ''}"><a href="#/intake" class="grow" style="text-decoration:none;color:inherit"><b>Intake</b><span class="small muted">New cards from your open units (${ik.introduced}/${ik.quota} today)${winText}${sleepNote}</span></a><div class="n">${ik.newLeft}</div><a class="btn" href="#/intake">Start</a></div>`;
+  else {
+    const why = ik.quota > 0 ? (ik.introduced ? 'Done for today.' : 'No new cards left in your open units. Open more in Settings.')
+      : ik.q.stopped ? 'New cards have stopped for the final three weeks.'
+      : ik.q.sleep === 'poor' && ik.q.thr > 0 ? 'No new cards today after a poor night. Reviews are unchanged. <a href="#" data-act="sleep-change">Change</a>'
+      : ik.q.sleep === 'short' && ik.q.thr > 0 ? 'Done for today (halved after a short night). <a href="#" data-act="sleep-change">Change</a>'
+      : 'Paused while you catch up on reviews. New cards come back on their own.';
+    intakeTask = `<div class="task done"><div class="grow"><b>Intake</b><span class="small">${why}</span></div><div class="n">✓</div></div>`;
+  }
+  const intakeDone = !ik.inQueue && !ik.newLeft && !ik.noUnits;
+  const essentials = roundsDone && (intakeDone || ik.noUnits) && ds.reviews > 0;
+  const askSleep = S.sleepCheck && !ds.sleepFlag && kvGet('sleepAsked') !== t && !essentials;
+  const sleepRow = askSleep ? `<div class="sleep"><div class="row between"><span class="small">How did you sleep last night?</span><button class="chip ghost" data-act="sleep-skip" aria-label="Skip the sleep question">✕</button></div><div class="sleepbtns">${['normal', 'short', 'poor'].map(f => `<button class="chip" data-sleep="${f}">${f[0].toUpperCase() + f.slice(1)}</button>`).join('')}</div></div>` : '';
+  const beacons = kvGet('beacons', 0);
   const plan = ['BB', 'CP', 'PS', 'CARS'].map(sec => {
     const ws = WINGS.filter(w => w.sec === sec);
     const label = { BB: 'Bio / Biochem', CP: 'Chem / Phys', PS: 'Psych / Soc', CARS: 'Reading' }[sec];
@@ -2707,10 +2884,15 @@ function viewStation() {
   }).join('');
 
   app().innerHTML = `
-    <div class="top"><div class="grow"><h1>STATION 528</h1><div class="sub">${T - t} days to exam · Phase ${ph}, ${PHASES[ph].name}</div></div>
+    <div class="top"><div class="grow"><h1>STATION 528</h1><div class="sub">${T - t} days to exam · Phase ${ph}, ${PHASES[ph].name}${beacons ? ` · <span title="Comeback beacons: one for each time you came back after a break">✦ ${beacons}</span>` : ''}</div></div>
       <a class="ib" href="#/calibration" aria-label="Calibration">◎</a><a class="ib" href="#/settings" aria-label="Settings">⚙</a></div>
     ${exportDue ? `<div class="banner">Your progress lives only in this browser. ${S.lastExportAt ? 'Your last backup is over a week old.' : 'You haven\'t made a backup yet.'}<div class="row"><button class="btn primary" data-act="export">Export backup</button></div></div>` : ''}
+    ${essentials ? `<div class="essentials"><b>✓ Today's essentials are done.</b> Anything more is optional.</div>` : ''}
+    ${sleepRow}
+    ${thisWeek() ? '' : weekCardHTML()}
+    ${kvGet('primerPhase', ph) !== ph ? `<div class="note small"><span class="grow">New phase. <a href="#/primer">A two-minute refresher</a> on what your bets mean.</span><button class="chip ghost" data-act="primer-ok" aria-label="Dismiss">✕</button></div>` : ''}
     <div class="today">${roundsTask}${intakeTask}</div>
+    ${weekRowHTML()}
     <div class="tiles">
       <div class="tile"><div class="lbl">Exam-day recall</div><div class="v">${pct(sn.recall)}</div><div class="d">if you stopped reviewing today</div></div>
       <div class="tile"><div class="lbl">Outline</div><div class="v">${sn.covered}/${CATEGORY_COUNT}</div><div class="d">categories with 20 cards held 3+ weeks</div></div>
@@ -2719,6 +2901,7 @@ function viewStation() {
     <a class="task" href="#/calibration" style="text-decoration:none;color:inherit"><div class="grow"><b>Calibration</b><span class="small muted">${calSummary(cal)}</span></div><span class="ib" aria-hidden="true">→</span></a>
     <div class="plan">${plan}</div>
     <p class="small muted" style="margin-top:16px">Lights show how much of each wing you'd recall right now; bars show how much has held for 3+ weeks. Nothing ever breaks: a dim wing just needs reviews.</p>`;
+  bindWeekCard();
 }
 function wingHTML(w, st) {
   const total = ITEMS.filter(i => i.fc === w.id && i.status !== 'quarantined').length;
@@ -2735,6 +2918,238 @@ function calSummary(cal) {
   const c3 = cal.levels[2];
   const oc = cal.overconfidence;
   return `${cal.n} bets · ${c3.n >= 10 ? `"Sure" is right ${pct(c3.acc)} of the time (target 80%+)` : 'not enough "Sure" bets yet'} · ${oc > 0.03 ? 'overconfident by ' + Math.round(oc * 100) + ' pts' : oc < -0.03 ? 'underconfident by ' + Math.round(-oc * 100) + ' pts' : 'well calibrated'}`;
+}
+
+/* ---------- delta v2: re-entry, seasons, weekly card, plans ---------- */
+/* First visit of each study day: spot a return after idle days (D2) and season changes (D16). */
+function dailyCheck() {
+  const t = today();
+  if (kvGet('primerPhase') == null) kvSet('primerPhase', phase());
+  if (kvGet('lastVisit') === t) return;
+  kvSet('lastVisit', t);
+  const L = kvGet('lastActive', null);
+  const idle = L == null ? 0 : t - L - 1; /* whole days with no answers */
+  let season = kvGet('season', null), fresh = null, prev = null;
+  if (!season) kvSet('season', { id: 1, start: t, trigger: 'start' });
+  else {
+    const trig = idle >= 7 && season.start <= L ? 'lapse'
+      : monthOf(t) !== monthOf(season.start) ? 'month'
+      : (S.semesterStarts || []).some(x => { const d = dayOfDate(x); return d > season.start && d <= t; }) ? 'semester' : null;
+    if (trig) { prev = seasonRecap(season, t); fresh = { id: season.id + 1, start: t, trigger: trig }; kvSet('season', fresh); }
+  }
+  if (idle >= 1 || fresh) kvSet('checkin', { day: t, welcome: idle >= 1, season: fresh, prev, done: false });
+}
+function seasonRecap(season, t) {
+  let days = 0, learned = 0, gain = 0;
+  for (let d = season.start; d < t; d++) { const x = kvGet(dayKey(d)); if (x && x.reviews) { days++; learned += x.newCards || 0; gain += x.gain || 0; } }
+  return { id: season.id, days, learned, gain };
+}
+const SEASON_TITLE = { month: 'A new month', semester: 'A new semester', lapse: 'A fresh start', start: 'Season one' };
+function viewCheckin() {
+  const t = today(), ci = kvGet('checkin');
+  if (!ci || ci.day !== t || ci.done) return go('#/');
+  RUN = null;
+  const plans = kvGet('plans', []), b = backlogInfo();
+  const welcome = ci.welcome ? `<div class="card stack"><h2>Welcome back</h2>
+      <p>Good to see you. Coming back is the part that counts, and one gap doesn't undo a habit.</p>
+      <p class="small muted">Your reviews are already sorted so the cards you're closest to forgetting come first. Your first answer today lights a comeback beacon on the Station.</p>
+      ${b ? `<p class="small">At this pace you'll be <b>${backlogText(b)}</b>. Pick a pace for catching up:</p>${paceButtons()}` : ''}</div>` : '';
+  const p = ci.prev, season = ci.season ? `<div class="card stack"><div class="lbl">Season ${ci.season.id}</div><h2>${SEASON_TITLE[ci.season.trigger]}</h2>
+      <p>${ci.season.trigger === 'lapse' ? 'A new season starts today, with a clean slate.' : 'A new season starts today.'}${p && p.days ? ` Last season: ${p.learned} new card${p.learned === 1 ? '' : 's'} learned and +${p.gain.toFixed(1)} exam-day items, over ${p.days} active day${p.days === 1 ? '' : 's'}.` : ''}</p>
+      <p class="small muted">New seasons are a good moment to check that your plan still fits how your days run.</p></div>` : '';
+  app().innerHTML = `<div class="top"><div class="grow"><h1>STATION 528</h1><div class="sub">${esc(fmtDay(t))}</div></div></div>
+    ${welcome}${season}${planRehearsalHTML(plans, true)}
+    <button class="btn primary block" data-act="checkin-done" style="margin-top:6px">Continue</button>`;
+}
+function paceButtons() {
+  return `<div class="seg" role="group" aria-label="Recovery pace">${Object.entries(PACES).map(([k, v]) => `<button class="${S.recoveryPace === k ? 'on' : ''}" data-pace="${k}" aria-pressed="${S.recoveryPace === k}"><b>${v.name}</b><span>${paceCap(S.reviewCap, k)}/day</span></button>`).join('')}</div>`;
+}
+/* Pace change: if today's Rounds were already built, pull back cards that were pushed to tomorrow, up to the new cap. */
+function setPace(p) {
+  S.recoveryPace = p; saveSettings();
+  const t = today(), rs = kvGet('sess:rounds');
+  if (!rs || rs.day !== t || rs.taken == null) return;
+  const extra = capNow() - rs.taken; if (extra <= 0) return;
+  const n = now();
+  const add = activeCards().filter(c => c.deferDay === t && c.due === t + 1)
+    .sort((a, b) => ((b.deferrals >= 3) - (a.deferrals >= 3)) || (rNow(a, n) - rNow(b, n))).slice(0, extra);
+  if (!add.length) return;
+  for (const c of add) { c.due = t; c.deferrals = Math.max(0, (c.deferrals || 1) - 1); c.deferDay = null; }
+  saveCards(add);
+  rs.queue.push(...add.map(c => ({ id: c.id, kind: 'review' }))); rs.taken += add.length; rs.done = false;
+  kvSet('sess:rounds', rs);
+}
+function paceSheet() {
+  const b = backlogInfo();
+  openSheet(`<h2>Catch-up pace</h2><p class="small">${b ? `At this pace: <b>${backlogText(b)}</b>.` : 'Nothing is piling up right now.'} The order stays the same: the cards you're closest to forgetting go first.</p>${paceButtons()}
+    <div class="row end" style="margin-top:12px"><button class="btn" data-act="sheet-close">Done</button></div>`);
+}
+
+/* D3 if-then plans */
+const CUES = ['I finish breakfast', 'I get back from class', 'I finish lunch', 'I finish dinner', 'I finish my homework for the night', 'I get to the library'];
+const PLAN_ACTIONS = { rounds: 'do Daily Rounds', intake: 'do Intake', both: 'do Daily Rounds, then Intake' };
+const PLACES = ['my desk', 'the library', 'the kitchen table', 'my usual study spot'];
+const planText = p => `If ${p.cue}, then I will ${PLAN_ACTIONS[p.action] || p.action} at ${p.place}.`;
+const planDefault = i => i === 0 ? { cue: CUES[0], action: 'rounds', place: PLACES[0] } : { cue: CUES[4], action: 'intake', place: PLACES[0] };
+function planRehearsalHTML(plans, inCheckin) {
+  const t = today();
+  if (!plans.length) return `<div class="card small"><b>Make a plan.</b> Tying study to something you already do each day makes it far more likely to happen: "If I finish breakfast, then I will do Daily Rounds at my desk." <div class="row" style="margin-top:8px"><a class="btn" href="#/plans">Write a plan</a>${inCheckin ? '' : ''}</div></div>`;
+  const done = plans.every(p => p.lastRehearsedAt === t);
+  return `<div class="card"><div class="lbl">Your plan${plans.length > 1 ? 's' : ''}</div>${plans.map(p => `<p class="plantext">${esc(planText(p))}</p>`).join('')}
+    ${done ? '<p class="small muted">✓ Still true.</p>' : `<div class="row"><button class="btn" data-act="plan-ok">Still true</button><a class="btn ghost" href="#/plans">Edit</a></div>`}</div>`;
+}
+let PLAN_DRAFT = null;
+function planEditorHTML(p, i) {
+  const opt = (list, v) => list.map(x => `<option ${x === v ? 'selected' : ''}>${esc(x)}</option>`).join('') + `<option value="__other" ${list.includes(v) ? '' : 'selected'}>Something else…</option>`;
+  return `<div class="card planed" data-i="${i}">
+    <div class="field"><label class="lbl" for="cue${i}">If…</label><select id="cue${i}" data-pf="cue">${opt(CUES, p.cue)}</select>${CUES.includes(p.cue) ? '' : `<input data-pt="cue" value="${esc(p.cue)}" placeholder="I finish…" aria-label="Your cue">`}</div>
+    <div class="field"><label class="lbl" for="act${i}">then I will…</label><select id="act${i}" data-pf="action">${Object.entries(PLAN_ACTIONS).map(([k, v]) => `<option value="${k}" ${p.action === k ? 'selected' : ''}>${v}</option>`).join('')}</select></div>
+    <div class="field"><label class="lbl" for="pl${i}">at…</label><select id="pl${i}" data-pf="place">${opt(PLACES, p.place)}</select>${PLACES.includes(p.place) ? '' : `<input data-pt="place" value="${esc(p.place)}" placeholder="the place" aria-label="Your place">`}</div>
+    <p class="plantext small" data-preview>${esc(planText(p))}</p>
+    ${i > 0 || PLAN_DRAFT.length > 1 ? `<button class="btn ghost small" data-act="plan-del" data-i="${i}">Remove this plan</button>` : ''}</div>`;
+}
+function bindPlanEditor(rerender) {
+  document.querySelectorAll('.planed').forEach(el => {
+    const i = +el.dataset.i, p = PLAN_DRAFT[i];
+    const preview = () => { el.querySelector('[data-preview]').textContent = planText(p); };
+    el.querySelectorAll('[data-pf]').forEach(sel => sel.addEventListener('change', () => {
+      const f = sel.dataset.pf;
+      if (sel.value === '__other') { p[f] = ''; rerender(); const inp = document.querySelector(`.planed[data-i="${i}"] [data-pt="${f}"]`); if (inp) inp.focus(); return; }
+      p[f] = sel.value; if (f !== 'action') rerender(); else preview();
+    }));
+    el.querySelectorAll('[data-pt]').forEach(inp => inp.addEventListener('input', () => { p[inp.dataset.pt] = inp.value.trim().replace(/[.,]+$/, ''); preview(); }));
+  });
+  document.querySelectorAll('[data-act="plan-del"]').forEach(b => b.addEventListener('click', () => { PLAN_DRAFT.splice(+b.dataset.i, 1); rerender(); }));
+}
+function viewPlans() {
+  if (!PLAN_DRAFT) PLAN_DRAFT = kvGet('plans', []).map(p => Object.assign({}, p));
+  if (!PLAN_DRAFT.length) PLAN_DRAFT.push(planDefault(0));
+  app().innerHTML = `${topBar('PLANS', 'Up to two')}
+    <p class="small muted">Pick something you already do every day as the cue, then say what you'll do and where. Specific plans like this make follow-through much more likely, especially when you look them over now and then.</p>
+    ${PLAN_DRAFT.map(planEditorHTML).join('')}
+    ${PLAN_DRAFT.length < 2 ? `<button class="btn ghost" data-act="plan-add">+ Add a second plan</button>` : ''}
+    <button class="btn primary block" data-act="plan-save" style="margin-top:10px">Save</button>`;
+  bindPlanEditor(viewPlans);
+}
+function savePlans() {
+  const t = today(), clean = PLAN_DRAFT.filter(p => p.cue && p.place).slice(0, 2);
+  kvSet('plans', clean.map((p, i) => ({ id: p.id || 'plan' + (i + 1) + '-' + t, cue: p.cue, action: p.action, place: p.place, createdAt: p.createdAt || dateOfDay(t), lastRehearsedAt: t })));
+  PLAN_DRAFT = null;
+}
+
+/* D16 weekly card: plan rehearsal, active-days goal, optional focus wing */
+let WEEK_DRAFT = null;
+function weekCardHTML() {
+  const last = kvGet('week', null), plans = kvGet('plans', []);
+  if (!WEEK_DRAFT) WEEK_DRAFT = { goal: last ? last.goal : 5, focus: null };
+  const avail = new Set(ITEMS.filter(i => S.openUnits.includes(i.unit) && i.status === 'active' && !(MEM.cards[i.id] && MEM.cards[i.id].state !== 'new')).map(i => i.fc));
+  return `<div class="card week"><div class="lbl">This week</div>
+    ${plans.length ? `${plans.map(p => `<p class="plantext">${esc(planText(p))}</p>`).join('')}${plans.every(p => p.lastRehearsedAt === today()) ? '' : `<div class="row"><button class="btn small" data-act="plan-ok">Still true</button><a class="btn ghost small" href="#/plans">Edit</a></div>`}`
+      : `<p class="small">No plan yet. <a href="#/plans">Write one</a>: "If I finish breakfast, then I will do Daily Rounds at my desk."</p>`}
+    <div class="two">
+      <div class="field"><label class="lbl" for="goal">Active days goal</label><select id="goal">${[3, 4, 5, 6, 7].map(n => `<option value="${n}" ${WEEK_DRAFT.goal === n ? 'selected' : ''}>${n} days</option>`).join('')}</select></div>
+      <div class="field"><label class="lbl" for="focus">Focus wing (optional)</label><select id="focus"><option value="">No focus</option>${WINGS.filter(w => avail.has(w.id)).map(w => `<option value="${w.id}" ${WEEK_DRAFT.focus === w.id ? 'selected' : ''}>${esc(w.name)}</option>`).join('')}</select></div>
+    </div>
+    <p class="small muted">A focus wing supplies up to half of each day's new cards. Reviews aren't affected.</p>
+    <button class="btn primary" data-act="week-set">Set this week</button></div>`;
+}
+function bindWeekCard() {
+  const g = $('#goal'), f = $('#focus'); if (!g) return;
+  g.addEventListener('change', () => { WEEK_DRAFT.goal = +g.value; });
+  f.addEventListener('change', () => { WEEK_DRAFT.focus = f.value === '' ? null : +f.value; });
+}
+function weekRowHTML() {
+  const w = thisWeek(); if (!w) return '';
+  const ws = weekStart(today()), act = new Set(activeInWeek(ws)), n = act.size;
+  const dots = Array.from({ length: 7 }, (_, i) => `<i class="${act.has(ws + i) ? 'on' : ''}${ws + i === today() ? ' td' : ''}" title="${'MTWTFSS'[i]}"></i>`).join('');
+  const fw = w.focus != null ? WINGS.find(x => x.id === w.focus) : null;
+  return `<div class="weekrow small"><span class="lbl">This week</span><span class="dots" aria-label="${n} active day${n === 1 ? '' : 's'} this week">${dots}</span><span>${n} of ${w.goal} days${n >= w.goal ? ' ✓' : ''}</span>${fw ? `<span class="muted">· focus: ${esc(fw.name)}</span>` : ''}</div>`;
+}
+/* the weekly goal was reached today (for the Debrief only: celebrations stay out of study screens, D11) */
+function goalReachedToday() {
+  const w = thisWeek(); if (!w) return false;
+  const days = activeInWeek(weekStart(today())).sort((a, b) => a - b);
+  return days.length >= w.goal && days[w.goal - 1] === today();
+}
+
+/* ---------- delta v2: blocks (D14) ---------- */
+let BLOCK = null;
+function viewBlockDone(kind, sess) {
+  RUN = null; BLOCK = { kind, sess };
+  const left = new Set(sess.queue.map(q => q.id)).size, intake = kind === 'intake';
+  const go1 = `<button class="btn ${intake ? '' : 'primary'}" data-act="block-go">Keep going</button>`, stop = `<button class="btn ${intake ? 'primary' : ''}" data-act="block-stop">Stop here for now</button>`;
+  app().innerHTML = `<div class="top"><div class="grow"><h1>BLOCK DONE</h1><div class="sub">${left} card${left === 1 ? '' : 's'} left in ${intake ? 'Intake' : 'Daily Rounds'}</div></div></div>
+    <div class="card stack"><p><b>That's about 20 minutes of answering.</b> A natural place to pause. ${intake ? 'New cards keep: the rest of this Intake will be here later today.' : 'Everything is saved, so you can pick this up any time today.'}</p>
+      <p class="small muted">Optional: look away from the screen for two minutes. A short quiet rest after learning may help it settle. The evidence is mixed, so skip it freely.</p>
+      <button class="btn block" data-act="lookaway">Look away for 2 minutes</button></div>
+    <div class="row">${intake ? stop + go1 : go1 + stop}</div>`;
+}
+function lookAway() {
+  const bg = document.createElement('div'); bg.className = 'rest';
+  bg.innerHTML = `<div class="restin"><p>Look away from the screen.<br>It will brighten when two minutes are up.</p><div class="restbar"><i></i></div><button class="btn ghost" data-act="rest-end">Skip</button></div>`;
+  document.body.appendChild(bg);
+  requestAnimationFrame(() => bg.querySelector('.restbar i').classList.add('go'));
+  lookAway.h = setTimeout(() => { bg.classList.add('up'); bg.querySelector('p').textContent = 'Ready when you are.'; bg.querySelector('[data-act="rest-end"]').textContent = 'Back to it'; }, 120000);
+}
+function endRest() { clearTimeout(lookAway.h); document.querySelectorAll('.rest').forEach(n => n.remove()); }
+
+/* ---------- delta v2: post-mortems (D15) ---------- */
+const PM = [['misread', 'Misread it'], ['content', 'Didn\'t know it'], ['reasoning', 'Reasoning slip'], ['trap', 'Fell for a trap'], ['careless', 'Careless']];
+const PM_LABEL = Object.fromEntries(PM);
+function setPostMortem(R, k) {
+  const x = R.result, prev = x.pm;
+  if (prev === k) return;
+  const bump = (o, key, d) => { o[key] = Math.max(0, (o[key] || 0) + d); };
+  const all = kvGet('pmAll', {}), st = R.sess.stats.pm || (R.sess.stats.pm = {});
+  if (prev) { bump(all, prev, -1); bump(st, prev, -1); }
+  bump(all, k, 1); bump(st, k, 1); x.pm = k;
+  kvSet('pmAll', all); kvSet('sess:' + R.kind, R.sess);
+  addLog({ ts: now(), itemId: R.it.id, mode: 'postmortem', postMortem: k, sessionId: R.sess.id, localHour: new Date().getHours() });
+}
+function pmBars(pm) {
+  const tot = PM.reduce((a, [k]) => a + (pm[k] || 0), 0);
+  return `<table class="t pmt"><tbody>${PM.map(([k, l]) => `<tr><td>${l}</td><td class="n">${pm[k] || 0}</td><td style="width:45%">${pm[k] ? `<span class="hbar" style="width:${Math.round(100 * pm[k] / tot)}%"></span>` : ''}</td></tr>`).join('')}</tbody></table>`;
+}
+const pmSummary = pm => Object.entries(pm || {}).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${n} ${PM_LABEL[k].toLowerCase()}`).join(', ');
+
+/* ---------- delta v2: calibration trend (D15) ---------- */
+function calTrend() {
+  const cm = kvGet('calibMonth', {}), months = Object.keys(cm).sort().slice(-6);
+  if (months.length < 2) return `<p class="small muted">The monthly trend appears once you have bets from two different months.</p>`;
+  const names = ['Unsure', 'Fairly sure', 'Sure'], W = 112, H = 140, pad = { l: 6, r: 6, t: 22, b: 20 };
+  const x = i => pad.l + (months.length === 1 ? 0 : i * (W - pad.l - pad.r) / (months.length - 1)), y = v => pad.t + (1 - v) * (H - pad.t - pad.b);
+  const mlabel = m => new Date(m + '-15T12:00:00').toLocaleDateString(undefined, { month: 'short' });
+  const panels = [1, 2, 3].map(c => {
+    const band = CAL_BANDS[c];
+    const pts = months.map((m, i) => { const b = (cm[m] || {})[c]; return b && b.n >= 5 ? { i, m, acc: b.correct / b.n, n: b.n } : null; });
+    const segs = []; let cur = [];
+    for (const p of pts) { if (p) cur.push(p); else if (cur.length) { segs.push(cur); cur = []; } }
+    if (cur.length) segs.push(cur);
+    let g = `<text x="${pad.l}" y="12" class="pt">${names[c - 1]}</text>`;
+    g += `<rect class="band" x="${pad.l}" y="${y(band[1])}" width="${W - pad.l - pad.r}" height="${y(band[0]) - y(band[1])}" rx="2"><title>Target ${Math.round(band[0] * 100)}–${Math.round(band[1] * 100)}%</title></rect>`;
+    g += `<line class="grid" x1="${pad.l}" y1="${y(0.5)}" x2="${W - pad.r}" y2="${y(0.5)}"/><line class="grid" x1="${pad.l}" y1="${y(1)}" x2="${W - pad.r}" y2="${y(1)}"/><line class="axis" x1="${pad.l}" y1="${y(0)}" x2="${W - pad.r}" y2="${y(0)}"/>`;
+    for (const sg of segs) if (sg.length > 1) g += `<polyline class="ln" points="${sg.map(p => `${x(p.i)},${y(p.acc)}`).join(' ')}"/>`;
+    for (const p of pts) if (p) g += `<circle class="dot" cx="${x(p.i)}" cy="${y(p.acc)}" r="4"><title>${mlabel(p.m)}: ${pct(p.acc)} right of ${p.n}</title></circle>`;
+    g += `<text x="${pad.l}" y="${H - 4}">${mlabel(months[0])}</text><text x="${W - pad.r}" y="${H - 4}" text-anchor="end">${mlabel(months[months.length - 1])}</text>`;
+    return `<svg class="chart smx" viewBox="0 0 ${W} ${H}" role="img" aria-label="${names[c - 1]}: accuracy by month against its target band">${g}</svg>`;
+  }).join('');
+  const rows = months.map(m => `<tr><td>${esc(mlabel(m))} ${m.slice(0, 4)}</td>${[1, 2, 3].map(c => { const b = (cm[m] || {})[c]; return `<td class="n">${b && b.n ? pct(b.correct / b.n) + `<span class="muted"> /${b.n}</span>` : '—'}</td>`; }).join('')}</tr>`).join('');
+  return `<div class="smxrow">${panels}</div><p class="small muted">Share right each month, from 0% at the bottom line to 100% at the top. Shaded: the target range for that bet. Months with fewer than 5 bets at a level are left out.</p>
+    <details class="why"><summary>Show as a table</summary><table class="t"><thead><tr><th>Month</th><th class="n">Unsure</th><th class="n">Fairly</th><th class="n">Sure</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+}
+
+/* Calibration refresher (a short version of D15's Calibration Academy) */
+function viewPrimer() {
+  kvSet('primerPhase', phase());
+  app().innerHTML = `${topBar('WHAT YOUR BETS MEAN', 'A two-minute refresher', '#/calibration')}
+    <div class="card stack">
+      <p><b>Each bet is a probability.</b> <i>Unsure</i> means you'd be right less than 2 times in 3. <i>Fairly sure</i> means about 2 to 4 times in 5. <i>Sure</i> means at least 4 times in 5. The scoring is built so that betting what you really believe always scores best over time.</p>
+      <p><b>Most people bet too high.</b> Confidence runs ahead of accuracy, especially on topics that feel familiar. The fix is feedback, which is what the Calibration chart gives you. Check it every few weeks.</p>
+      <p><b>Start from your base rate.</b> Before betting <i>Sure</i>, ask how often you're right on this kind of card. A wing page shows your recall by unit, so a shaky unit should pull your bet down.</p>
+      <p><b>A quick test for Sure.</b> Could you say why each other option is wrong, or derive the number a second way? If not, <i>Fairly sure</i> is the honest bet.</p>
+      <p><b>Name the miss.</b> After a wrong <i>Sure</i>, one tap says what happened. Over time the pattern tells you what to fix: misreads mean slow down on the question, missing content means more reviews, traps mean reading every option before betting.</p>
+    </div>
+    <a class="btn block" href="#/calibration">See your calibration</a>`;
 }
 
 /* ---------- wing detail ---------- */
@@ -2763,15 +3178,14 @@ function getRun(kind) {
   if (kind === 'rounds') {
     const list = Object.values(MEM.cards).filter(c => isActive(c));
     const T = examDay();
-    const b = buildRounds(list, t, now(), S.reviewCap, T, id => ITEM[id] && ITEM[id].hy, S.sweepDone);
+    const b = buildRounds(list, t, now(), capNow(), T, id => ITEM[id] && ITEM[id].hy, S.sweepDone);
     if (b.swept) { S.sweepDone = true; saveSettings(); }
     saveCards(list);
     sess = newSession('rounds', t, b.queue);
+    sess.taken = b.taken;
   } else {
-    const T = examDay();
-    const quota = throttledQuota(newQuota(phase(), t, T, S.newPerDay), Object.values(MEM.cards), t, S.reviewCap);
-    const remaining = Math.max(0, quota - dayStats(t).newCards);
-    const ids = pickIntake(ITEMS, MEM.cards, S.openUnits, remaining, UNIT_ORDER);
+    const remaining = Math.max(0, quotaToday().quota - dayStats(t).newCards);
+    const ids = pickIntake(ITEMS, MEM.cards, S.openUnits, remaining, UNIT_ORDER, focusWing());
     const prev = sess && sess.day === t ? sess : null;
     sess = prev ? Object.assign(prev, { queue: ids.map(id => ({ id, kind: 'new' })), done: false }) : newSession('intake', t, ids.map(id => ({ id, kind: 'new' })));
   }
@@ -2784,6 +3198,7 @@ function startRun(kind) {
     if (sess.stats.attempts) return go('#/debrief/' + kind);
     return go('#/');
   }
+  if (sess.block && sess.block.ms >= BLOCK_MS) return viewBlockDone(kind, sess);
   nextCard(kind, sess);
 }
 function nextCard(kind, sess) {
@@ -2796,6 +3211,12 @@ function nextCard(kind, sess) {
   const echo = q.kind === 'review' && card && card.due > today() && card.echoes.some(e => e <= today());
   RUN = { kind, sess, it, inst, phase: it.type === 'choice' ? 'think' : 'answer', picked: null, hint: false, shownAt: now(), order: shuffleIdx(it.options ? it.options.length : 0), echo, q };
   drawRun();
+}
+/* Continue after feedback: a filled block (about 20 min of answering) gets a "Block done" pause first (D14). */
+function advance(R) {
+  if (R.timer) clearTimeout(R.timer);
+  if (R.sess.queue.length && R.sess.block && R.sess.block.ms >= BLOCK_MS && R.sess.day === today()) return viewBlockDone(R.kind, R.sess);
+  nextCard(R.kind, R.sess);
 }
 function shuffleIdx(n) { const a = Array.from({ length: n }, (_, i) => i); for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 function markCleared(kind) { if (kind !== 'rounds') return; const k = dayKey(today()), d = dayStats(today()); d.dueCleared = true; kvSet(k, d); }
@@ -2873,7 +3294,7 @@ function applyAttempt(R, a) {
   const rBefore = rNow(card, now());
   /* snapshot everything this attempt touches, so an appeal ("my answer means the same") can redo it cleanly */
   const copy = o => JSON.parse(JSON.stringify(o));
-  const undo = { card: copy(card), wasStored: !!cardOf(it.id), sess: copy(R.sess), day: copy(dayStats(t)), calib: copy(kvGet('calib', {})), calibUnit: copy(kvGet('calibUnit', {})) };
+  const undo = { card: copy(card), wasStored: !!cardOf(it.id), sess: copy(R.sess), day: copy(dayStats(t)), calib: copy(kvGet('calib', {})), calibUnit: copy(kvGet('calibUnit', {})), calibMonth: copy(kvGet('calibMonth', {})), pmAll: copy(kvGet('pmAll', {})) };
   const grade = gradeOf(a, medianFor(it.kind));
   const sch = schedule(card, grade, now(), { T, phase: phase(), highYield: it.hy });
   const res = recordAttempt(R.sess, it.id, { correct: a.correct, conf: a.conf, wasNew }, grade);
@@ -2885,6 +3306,9 @@ function applyAttempt(R, a) {
   }
   R.sess.stats.gain += sch.gain;
   if (wasNew && res.first) R.sess.stats.newLearned++;
+  markActive(t);
+  tickBlock(R.sess, now(), a.ms);
+  if (!R.sess.id) R.sess.id = R.kind + '-' + t + '-old';
   saveCard(card);
   kvSet('sess:' + R.kind, R.sess);
   /* daily + all-time stats (first attempts only for scoring and calibration) */
@@ -2894,6 +3318,7 @@ function applyAttempt(R, a) {
     d.cbm += res.cbm;
     if (a.conf >= 1) {
       const cal = kvGet('calib', {}); (cal[a.conf] = cal[a.conf] || { n: 0, correct: 0 }).n++; if (ok) cal[a.conf].correct++; kvSet('calib', cal);
+      const cm = kvGet('calibMonth', {}), mo = cm[monthOf(t)] = cm[monthOf(t)] || {}; (mo[a.conf] = mo[a.conf] || { n: 0, correct: 0 }).n++; if (ok) mo[a.conf].correct++; kvSet('calibMonth', cm);
       (d.calib[a.conf] = d.calib[a.conf] || { n: 0, correct: 0 }).n++; if (ok) d.calib[a.conf].correct++;
       if (a.conf === 3) { const cu = kvGet('calibUnit', {}); const u = cu[it.unit] = cu[it.unit] || { n: 0, correct: 0 }; u.n++; if (ok) u.correct++; kvSet('calibUnit', cu); }
     }
@@ -2902,7 +3327,11 @@ function applyAttempt(R, a) {
   kvSet(dayKey(t), d);
   addLog({ ts: now(), itemId: it.id, mode: R.kind === 'rounds' ? (R.echo ? 'echo' : 'rounds') : 'intake', firstAttempt: res.first, response: a.given, correct: ok,
     confidence: a.conf || null, cbm: res.cbm, grade, msTaken: a.ms, hintUsed: !!a.hint, rBefore, rExamBefore: sch.rExamBefore, rExamAfter: sch.rExamAfter,
-    s: card.s, d: card.d, due: card.due, value: R.inst ? R.inst.value : undefined });
+    s: card.s, d: card.d, due: card.due, value: R.inst ? R.inst.value : undefined,
+    /* delta v2 D1 fields, so models can be refit offline */
+    hintLevel: a.hint ? 2 : 0, sessionId: R.sess.id, blockId: R.sess.id + '/b' + (R.sess.block ? R.sess.block.n : 1), localHour: new Date().getHours(),
+    sleepFlag: d.sleepFlag || null, recoveryPace: S.recoveryPace, selectionReason: R.echo ? 'echo' : R.q.kind,
+    intakeSlot: R.kind === 'intake' ? S.intakeSlot : undefined, inIntakeWindow: R.kind === 'intake' ? inWindow(curWindow(), localMin()) : undefined });
   R.result = { a, ok, res, grade, gain: sch.gain, surprise: res.first && !ok && a.conf === 3, fixed: false, undo };
   R.phase = 'feedback';
   drawRun();
@@ -2947,7 +3376,8 @@ function feedbackHTML() {
   const expl = open ? `<div class="expl">${explBody}</div>` : `<details class="why"><summary>Why</summary><div class="expl">${explBody}</div></details>`;
   const u = UNIT[it.unit];
   const appeal = it.type === 'typed' && !x.ok && a.conf !== 0 && a.given && !x.appealed ? `<button class="btn ghost small" data-act="appeal">My answer means the same — count it</button>` : '';
-  return `${v}${sur}${mid}${expl}
+  const pm = x.surprise && x.fixed ? `<div class="pm"><div class="lbl">What went wrong? <span style="text-transform:none;letter-spacing:0">(one tap, optional)</span></div><div class="chips">${PM.map(([k, l]) => `<button class="chip ${x.pm === k ? 'on' : ''}" data-pm="${k}" aria-pressed="${x.pm === k}">${l}</button>`).join('')}</div></div>` : '';
+  return `${v}${sur}${mid}${expl}${pm}
     <div class="where">${esc(COURSES.find(c => c.id === u.course).name)} · ${esc(u.name)} · ${it.cat}${x.ok && x.gain > 0.0005 ? ` · +${x.gain.toFixed(2)} exam-day items` : ''}</div>
     <button class="btn primary block" data-act="next" id="next" style="margin-top:14px">Continue</button>
     <div class="foot"><button class="btn ghost small" data-act="flag">⚑ Flag card</button>${appeal}</div>`;
@@ -2964,13 +3394,23 @@ function fixCheck() {
 function viewDebrief(kind) {
   const sess = kvGet('sess:' + kind);
   if (!sess || !sess.stats.attempts) return go('#/');
-  const s = sess.stats, t = today(), T = examDay();
-  const tomorrow = Object.values(MEM.cards).filter(c => isActive(c) && (c.due === t + 1 || c.echoes.includes(t + 1))).length;
+  const s = sess.stats, t = today();
+  const tomorrow = Object.values(MEM.cards).filter(c => isActive(c) && (c.due <= t + 1 && c.due > t || c.echoes.includes(t + 1))).length;
   const cal = calibration(s.calib), calAll = calibration(kvGet('calib', {}));
   const c3 = s.c3err.map(id => ITEM[id]).filter(Boolean);
-  const tc = todayCounts();
-  const nextBtn = kind === 'rounds' && (tc.intake.inQueue || tc.intake.newLeft) ? `<a class="btn primary block" href="#/intake">Go to Intake (${tc.intake.inQueue || tc.intake.newLeft} new)</a>` : `<a class="btn primary block" href="#/">Back to the Station</a>`;
+  const tc = todayCounts(), back = tc.rounds.backlog;
+  const roundsDone = tc.rounds.done || (!tc.rounds.built && tc.rounds.n === 0);
+  const essentials = roundsDone && !tc.intake.inQueue && !tc.intake.newLeft;
+  const nextBtn = kind === 'rounds' && (tc.intake.inQueue || tc.intake.newLeft) ? `<a class="btn primary block" href="#/intake">Go to Intake (${tc.intake.inQueue || tc.intake.newLeft} new)</a>`
+    : kind === 'intake' && !roundsDone ? `<a class="btn primary block" href="#/rounds">Go to Daily Rounds</a>` : `<a class="btn primary block" href="#/">Back to the Station</a>`;
+  const cb = kvGet('lastComeback'), comeback = cb && cb.day === sess.day;
+  const pms = pmSummary(s.pm);
+  /* celebrations live here, after the work, never during it (delta v2 D11) */
+  const cheers = [comeback ? `<div class="cheer"><span class="beacon">✦</span><div><b>Comeback beacon lit.</b> Welcome back. That's beacon ${cb.n} on the Station.</div></div>` : '',
+    goalReachedToday() ? `<div class="cheer"><span class="beacon">●</span><div><b>Weekly goal reached:</b> ${thisWeek().goal} active days this week.</div></div>` : '',
+    essentials && sess.day === t ? `<div class="essentials"><b>✓ Today's essentials are done.</b> Anything more is optional.</div>` : ''].join('');
   app().innerHTML = `${topBar(kind === 'rounds' ? 'ROUNDS DEBRIEF' : 'INTAKE DEBRIEF', dateOfDay(sess.day))}
+    ${cheers}
     <div class="card"><div class="lbl">Exam-day items gained</div><div class="big">+${(s.gain).toFixed(1)}</div>
       <p class="small muted">How much this session raised predicted recall on exam day, summed over the cards you reviewed. One point is one card's worth of recall.</p></div>
     <div class="card"><div class="kv">
@@ -2979,10 +3419,11 @@ function viewDebrief(kind) {
       ${kind === 'intake' ? `<span>New cards recalled 3 times</span><span>${Object.values(sess.cardSess).filter(c => c.isNew && c.correct >= 3).length}</span>` : ''}
       <span>Certainty-based score</span><span>${s.cbm > 0 ? '+' : ''}${s.cbm}</span>
       <span>Misses brought back to correct</span><span>${s.backToCriterion}</span>
-      <span>Due tomorrow</span><span>${tomorrow}</span>
-    </div></div>
-    ${c3.length ? `<div class="card"><div class="lbl">High-confidence misses today</div><ul>${c3.map(it => `<li class="small">${fmt(it.type === 'gen' ? it.title : it.prompt)}</li>`).join('')}</ul><p class="small muted">Each returns tomorrow and in a week. Confident errors are corrected well, but they tend to creep back.</p></div>` : ''}
+      <span>Reviews tomorrow</span><span>${Math.min(tomorrow, capNow())}</span>
+    </div>${back ? `<p class="small muted" style="margin-bottom:0">Catching up: ${backlogText(back)}.</p>` : ''}</div>
+    ${c3.length ? `<div class="card"><div class="lbl">High-confidence misses today</div><ul>${c3.map(it => `<li class="small">${fmt(it.type === 'gen' ? it.title : it.prompt)}</li>`).join('')}</ul>${pms ? `<p class="small">What went wrong, by your call: ${esc(pms)}.</p>` : ''}<p class="small muted">Each returns tomorrow and in a week. Confident errors are corrected well, but they tend to creep back.</p></div>` : ''}
     <div class="card"><div class="lbl">Today's bets</div>${calTable(cal)}<p class="small muted">${calMessage(calAll)}</p></div>
+    ${kind === 'intake' && !kvGet('hideExNote') ? `<div class="note small"><span class="grow">Training today? Moderate or hard exercise in the hours after learning is the better slot; studying between sets isn't.</span><button class="chip ghost" data-act="hide-ex" aria-label="Dismiss this note">✕</button></div>` : ''}
     ${nextBtn}`;
 }
 
@@ -3026,6 +3467,9 @@ function viewCalibration() {
   app().innerHTML = `${topBar('CALIBRATION', 'First attempts only, all time')}
     <div class="card">${calChart(cal)}${calTable(cal)}</div>
     <div class="card"><p>${calMessage(cal)}</p>${cal.overconfidence != null ? `<p class="small muted">Overconfidence index: ${cal.overconfidence > 0 ? '+' : ''}${Math.round(cal.overconfidence * 100)} pts (how much your bets imply beyond your actual accuracy; 0 is ideal).</p>` : ''}</div>
+    <div class="card"><div class="lbl">Month by month</div>${calTrend()}</div>
+    ${pmSummary(kvGet('pmAll', {})) ? `<div class="card"><div class="lbl">Missed "Sure" bets, by your call</div>${pmBars(kvGet('pmAll', {}))}</div>` : ''}
+    <a class="task" href="#/primer" style="text-decoration:none;color:inherit"><div class="grow"><b>What your bets mean</b><span class="small muted">A two-minute refresher on betting well</span></div><span class="ib" aria-hidden="true">→</span></a>
     <div class="card small"><div class="lbl">How the bets score</div>
       <p>Unsure: +1 if right, 0 if wrong. Fairly sure: +2 / −2. Sure: +3 / −6. "I don't know": 0.</p>
       <p class="muted">This is certainty-based marking, used in medical schools. It is a proper scoring rule: over many questions you score highest by betting what you really believe. "Sure" only pays when you're right more than 80% of the time; "Fairly sure" beats "Unsure" above 67%.</p></div>`;
@@ -3052,7 +3496,23 @@ function viewSettings() {
     <h3>Daily limits</h3>
     <div class="field"><label class="lbl" for="cap">Review cap per day</label><input type="number" id="cap" min="20" max="500" value="${S.reviewCap}"></div>
     <div class="field"><label class="lbl" for="npd">New cards per day</label><select id="npd"><option value="">Automatic (${PHASES[ph].newPerDay} in this phase)</option>${[5, 10, 15, 20, 25].map(n => `<option value="${n}" ${S.newPerDay === n ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
-    <p class="small muted">When the next week's reviews average over 80% of the cap, new cards halve; over the cap, they pause.</p>
+    <p class="small muted">When the next week's reviews (plus anything still waiting) average over 80% of the cap, new cards halve; over the cap, they pause until you've caught up.</p>
+    <div class="field"><span class="lbl">Catch-up pace</span>${paceButtons()}</div>
+    <p class="small muted">Only matters when reviews pile up after a break. ${(() => { const b = backlogInfo(); return b ? 'Right now: ' + esc(backlogText(b)) + '.' : 'Nothing is waiting right now.'; })()}</p>
+    <h3>Your day</h3>
+    <div class="two"><div class="field"><label class="lbl" for="wake">Usually wake</label><input type="time" id="wake" value="${esc(S.wakeTime)}"></div>
+      <div class="field"><label class="lbl" for="bed">Usually go to bed</label><input type="time" id="bed" value="${esc(S.bedTime)}"></div></div>
+    <div class="field"><label class="lbl" for="slot">Intake slot</label><select id="slot">
+      <option value="evening" ${S.intakeSlot === 'evening' ? 'selected' : ''}>Evening · ${(() => { const w = intakeWindow('evening', S.wakeTime, S.bedTime); return w ? clock(w[0]) + '–' + clock(w[1]) : '—'; })()}</option>
+      <option value="morning" ${S.intakeSlot === 'morning' ? 'selected' : ''}>Morning · ${(() => { const w = intakeWindow('morning', S.wakeTime, S.bedTime); return w ? clock(w[0]) + '–' + clock(w[1]) : '—'; })()}</option></select></div>
+    <p class="small muted">New material learned in the evening gets a night's sleep right away, which tends to help it stick. Whether that beats a morning person's peak alertness hasn't been tested, so either slot is fine; Intake is never blocked outside it.</p>
+    <label class="chk"><input type="checkbox" id="sleepchk" ${S.sleepCheck ? 'checked' : ''}><span class="grow">Ask about last night's sleep at the first visit each day<span class="small muted" style="display:block">A short night halves that day's new cards; a poor one skips them. Reviews never change.</span></span></label>
+    <h3>Plans and seasons</h3>
+    ${kvGet('plans', []).map(p => `<p class="plantext small">${esc(planText(p))}</p>`).join('') || '<p class="small muted">No plan yet.</p>'}
+    <div class="row"><a class="btn" href="#/plans">${kvGet('plans', []).length ? 'Edit plans' : 'Write a plan'}</a></div>
+    <p class="small muted">A new season starts each month, after any break of a week or more, and on semester start dates you add here. Season ${(kvGet('season') || { id: 1 }).id} is running now.</p>
+    <div class="stack">${(S.semesterStarts || []).map((d, i) => `<div class="row"><span class="mono small grow">Semester starts ${esc(d)}</span><button class="btn ghost small" data-semdel="${i}">Remove</button></div>`).join('')}</div>
+    <div class="row" style="margin-top:6px"><input type="date" id="semadd" aria-label="Semester start date" style="height:46px;border:1.5px solid var(--rule);border-radius:10px;background:var(--panel);padding:0 12px"><button class="btn" data-act="semadd">Add</button></div>
     <h3>Backup</h3>
     <p class="small">Your cards and history live only in this browser. ${S.lastExportAt ? 'Last backup: ' + esc(S.lastExportAt.slice(0, 10)) + '.' : 'No backup yet.'} <span id="persist" class="muted"></span></p>
     <div class="row"><button class="btn primary" data-act="export">Export backup</button><label class="btn">Import backup<input type="file" id="import" accept="application/json,.json" hidden></label></div>
@@ -3080,6 +3540,12 @@ function bindSettings() {
   $('#phase').addEventListener('change', e => { S.phase = e.target.value; saveSettings(); viewSettings(); });
   $('#cap').addEventListener('change', e => { const v = Math.max(20, Math.min(500, parseInt(e.target.value, 10) || 150)); S.reviewCap = v; saveSettings(); });
   $('#npd').addEventListener('change', e => { S.newPerDay = e.target.value ? +e.target.value : null; saveSettings(); });
+  $('#wake').addEventListener('change', e => { if (hm(e.target.value) != null) { S.wakeTime = e.target.value; saveSettings(); viewSettings(); } });
+  $('#bed').addEventListener('change', e => { if (hm(e.target.value) != null) { S.bedTime = e.target.value; saveSettings(); viewSettings(); } });
+  $('#slot').addEventListener('change', e => { S.intakeSlot = e.target.value; saveSettings(); });
+  $('#sleepchk').addEventListener('change', e => { S.sleepCheck = e.target.checked; saveSettings(); });
+  document.querySelectorAll('[data-semdel]').forEach(b => b.addEventListener('click', () => { S.semesterStarts.splice(+b.dataset.semdel, 1); saveSettings(); viewSettings(); }));
+  $('[data-act="semadd"]').addEventListener('click', () => { const v = $('#semadd').value; if (!v) return; S.semesterStarts = [...new Set([...(S.semesterStarts || []), v])].sort(); saveSettings(); viewSettings(); });
   document.querySelectorAll('[data-unit]').forEach(b => b.addEventListener('change', () => { setUnit(b.dataset.unit, b.checked); viewSettings(); }));
   document.querySelectorAll('[data-course]').forEach(b => b.addEventListener('change', () => { UNITS.filter(u => u.course === b.dataset.course).forEach(u => setUnit(u.id, b.checked)); viewSettings(); }));
   $('#import').addEventListener('change', async e => {
@@ -3087,7 +3553,7 @@ function bindSettings() {
     try {
       const data = JSON.parse(await f.text());
       if (!confirm(`Replace everything here with this backup (${(data.cards || []).length} cards, ${(data.logs || []).length} reviews)?`)) return;
-      await importAll(data); loadSettings(); initItems(); toast('Backup restored.'); go('#/');
+      await importAll(data); loadSettings(); initItems(); migrate(); toast('Backup restored.'); go('#/');
     } catch (err) { toast(err.message || 'Could not read that file.'); }
   });
 }
@@ -3140,6 +3606,7 @@ function viewAbout() {
 /* ---------- setup ---------- */
 function viewSetup() {
   const sel = new Set(S.openUnits);
+  if (!PLAN_DRAFT) PLAN_DRAFT = [planDefault(0)];
   app().innerHTML = `<div class="top"><div class="grow"><h1>STATION 528</h1><div class="sub">MCAT study, one day at a time</div></div></div>
     <div class="card stack"><p><b>How it works.</b> Each day the scheduler picks what you review (Daily Rounds) and what you learn new (Intake). You write or pick an answer, then bet how sure you are. The Station tracks what you'd remember on exam day.</p>
     <p class="small muted">Only confident mistakes cost points, so honest uncertainty is always safe.</p></div>
@@ -3147,11 +3614,23 @@ function viewSetup() {
     <p class="small muted">A placeholder until you register (January 2029 seats likely open around October 2028). You can change it any time.</p>
     <h3>Which units have your classes covered?</h3>
     <div class="units">${COURSES.map(c => `<div class="chk course"><span class="grow">${esc(c.name)}</span></div>` + UNITS.filter(u => u.course === c.id).map(u => `<label class="chk" style="padding-left:12px"><input type="checkbox" data-unit="${u.id}" ${sel.has(u.id) ? 'checked' : ''}><span class="grow">${esc(u.name)}</span></label>`).join('')).join('')}</div>
+    <h3>Your day</h3>
+    <div class="two"><div class="field"><label class="lbl" for="wake">Usually wake</label><input type="time" id="wake" value="${esc(S.wakeTime)}"></div>
+      <div class="field"><label class="lbl" for="bed">Usually go to bed</label><input type="time" id="bed" value="${esc(S.bedTime)}"></div></div>
+    <p class="small muted">Used to suggest when to learn new cards. Nothing is ever locked to a time.</p>
+    <h3>Your plan</h3>
+    <p class="small muted">Tie studying to something you already do. You can change it any time.</p>
+    ${PLAN_DRAFT.map(planEditorHTML).join('')}
     <div class="card small"><b>Your data stays in this browser.</b> Next, your browser may ask whether this site can keep its storage. Say yes, and export a backup every week (the app will remind you).</div>
     <button class="btn primary block" data-act="begin">Open the Station</button>`;
-  document.querySelectorAll('[data-unit]').forEach(b => b.addEventListener('change', () => { b.checked ? sel.add(b.dataset.unit) : sel.delete(b.dataset.unit); }));
+  document.querySelectorAll('[data-unit]').forEach(b => b.addEventListener('change', () => { b.checked ? sel.add(b.dataset.unit) : sel.delete(b.dataset.unit); S.openUnits = UNITS.map(u => u.id).filter(id => sel.has(id)); }));
+  ['exam', 'wake', 'bed'].forEach(id => $('#' + id).addEventListener('change', e => { const k = { exam: 'examDate', wake: 'wakeTime', bed: 'bedTime' }[id]; if (e.target.value) S[k] = e.target.value; }));
+  bindPlanEditor(() => { const y = window.scrollY; viewSetup(); window.scrollTo(0, y); });
   $('[data-act="begin"]').addEventListener('click', async () => {
     const d = $('#exam').value; if (d) S.examDate = d;
+    if (hm($('#wake').value) != null) S.wakeTime = $('#wake').value;
+    if (hm($('#bed').value) != null) S.bedTime = $('#bed').value;
+    savePlans();
     S.openUnits = UNITS.map(u => u.id).filter(id => sel.has(id));
     S.setupDone = true; await saveSettings();
     try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) { /* not supported */ }
@@ -3174,7 +3653,7 @@ function flagSheet() {
 
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix],[data-ins]'); if (!t) return;
+  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix],[data-ins],[data-pm],[data-sleep],[data-pace]'); if (!t) return;
   const R = RUN;
   if (t.dataset.ins != null) { /* helper keys for numbers on phones */
     const inp = $('#ans'); if (!inp) return;
@@ -3186,17 +3665,39 @@ document.addEventListener('click', e => {
   if (t.dataset.o != null && R && R.phase === 'answer') { R.picked = +t.dataset.o; drawRun(); return; }
   if (t.dataset.fix != null && R) { R.fixPick = +t.dataset.fix; if (fixCheck()) { R.result.fixed = true; } drawRun(); return; }
   if (t.dataset.c != null && R) { submit(+t.dataset.c); return; }
+  if (t.dataset.pm != null && R && R.result) { setPostMortem(R, t.dataset.pm); const y = window.scrollY; drawRun(); window.scrollTo(0, y); return; }
+  if (t.dataset.sleep != null) {
+    const k = dayKey(today()), d = dayStats(today()); d.sleepFlag = t.dataset.sleep; kvSet(k, d); kvSet('sleepAsked', today()); trimIntake();
+    if (t.dataset.sleep !== 'normal') toast(t.dataset.sleep === 'poor' ? 'No new cards today. Reviews are unchanged.' : 'New cards halved for today. Reviews are unchanged.');
+    render(); return;
+  }
+  if (t.dataset.pace != null) { setPace(t.dataset.pace); if (document.querySelector('.sheet-bg')) paceSheet(); else if (location.hash.startsWith('#/settings')) viewSettings(); else viewCheckin(); return; }
   const act = t.dataset.act;
   if (act === 'reveal' && R) { if (!t.disabled) { R.phase = 'answer'; drawRun(); } return; }
   if (act === 'dk' && R) { applyAttempt(R, { correct: false, conf: 0, hint: R.hint, ms: now() - R.shownAt, given: '' }); return; }
   if (act === 'hint' && R) { R.hint = true; drawRun(); return; }
-  if (act === 'next' && R) { if (R.timer) clearTimeout(R.timer); nextCard(R.kind, R.sess); return; }
+  if (act === 'next' && R) { advance(R); return; }
   if (act === 'flag' && R) { flagSheet(); return; }
   if (act === 'appeal' && R) {
     const ex = kvGet('extraAccepted', {}); (ex[R.it.id] = ex[R.it.id] || []).push(R.result.a.given); kvSet('extraAccepted', ex);
     regrade(R); return;
   }
   if (act === 'export') { doExport(); return; }
+  if (act === 'checkin-done') { const ci = kvGet('checkin'); if (ci) { ci.done = true; kvSet('checkin', ci); } if (location.hash.startsWith('#/checkin')) go('#/'); else render(); return; }
+  if (act === 'plan-ok') { const ps = kvGet('plans', []); ps.forEach(p => { p.lastRehearsedAt = today(); }); kvSet('plans', ps); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
+  if (act === 'plan-add') { PLAN_DRAFT.push(planDefault(PLAN_DRAFT.length)); viewPlans(); return; }
+  if (act === 'plan-save') { savePlans(); toast('Plan saved.'); go('#/'); return; }
+  if (act === 'week-set') { const w = WEEK_DRAFT || { goal: 5, focus: null }; kvSet('week', { start: weekStart(today()), goal: w.goal, focus: w.focus, setAt: today() }); WEEK_DRAFT = null; const is = kvGet('sess:intake'); if (is && is.day === today() && !Object.keys(is.cardSess).length) { is.queue = []; kvSet('sess:intake', is); } viewStation(); return; }
+  if (act === 'sleep-skip') { kvSet('sleepAsked', today()); viewStation(); return; }
+  if (act === 'sleep-change') { e.preventDefault(); const k = dayKey(today()), d = dayStats(today()); delete d.sleepFlag; kvSet(k, d); kvSet('sleepAsked', null); viewStation(); return; }
+  if (act === 'pace') { e.preventDefault(); paceSheet(); return; }
+  if (act === 'sheet-close') { closeSheet(); render(); return; }
+  if (act === 'primer-ok') { kvSet('primerPhase', phase()); viewStation(); return; }
+  if (act === 'hide-ex') { kvSet('hideExNote', true); t.closest('.note').remove(); return; }
+  if (act === 'block-go' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); const b = BLOCK; BLOCK = null; nextCard(b.kind, b.sess); return; }
+  if (act === 'block-stop' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); BLOCK = null; go('#/'); return; }
+  if (act === 'lookaway') { lookAway(); return; }
+  if (act === 'rest-end') { endRest(); return; }
   if (act === 'persist') { e.preventDefault(); navigator.storage.persist().then(p => { toast(p ? 'Storage will be kept.' : 'The browser declined. Add the page to your home screen and back up weekly.'); viewSettings(); }); return; }
   if (act === 'wipe') { if (confirm('Erase all cards, history and settings in this browser? Export a backup first if you might want them.') && confirm('Really erase everything?')) wipeAll().then(() => { loadSettings(); initItems(); go('#/'); }); return; }
 });
@@ -3206,7 +3707,7 @@ document.addEventListener('input', e => {
 document.addEventListener('keydown', e => {
   const R = RUN; if (!R) return;
   const inInput = e.target.tagName === 'INPUT';
-  if (R.phase === 'feedback') { if (e.key === 'Enter' && !(R.result.surprise && !R.result.fixed)) { e.preventDefault(); nextCard(R.kind, R.sess); } return; }
+  if (R.phase === 'feedback') { if (e.key === 'Enter' && !(R.result.surprise && !R.result.fixed)) { e.preventDefault(); advance(R); } return; }
   if (R.phase === 'think' && (e.key === ' ' || e.key === 'Enter')) { const b = $('[data-act="reveal"]'); if (b && !b.disabled) { e.preventDefault(); b.click(); } return; }
   if (R.phase === 'answer' && R.it.type === 'choice' && !inInput && /^[a-d]$/i.test(e.key)) { const i = 'abcd'.indexOf(e.key.toLowerCase()); if (i < R.order.length) { R.picked = R.order[i]; drawRun(); } return; }
   if (/^[123]$/.test(e.key) && !inInput) { const b = $(`.conf [data-c="${e.key}"]`); if (b && !b.disabled) b.click(); return; }
@@ -3222,18 +3723,41 @@ function regrade(R) {
   if (u.wasStored || card.state !== 'new') MEM.cards[it.id] = card; else delete MEM.cards[it.id];
   if (MEM.cards[it.id]) saveCard(card);
   R.sess = u.sess; kvSet('sess:' + R.kind, R.sess);
-  kvSet(dayKey(today()), u.day); kvSet('calib', u.calib); kvSet('calibUnit', u.calibUnit);
+  kvSet(dayKey(today()), u.day); kvSet('calib', u.calib); kvSet('calibUnit', u.calibUnit); kvSet('calibMonth', u.calibMonth || {}); kvSet('pmAll', u.pmAll || {});
   const fl = flags(); if (fl[it.id] && fl[it.id].auto && (card.c3Wrong || 0) < 2) { delete fl[it.id]; kvSet('flags', fl); }
   applyAttempt(R, Object.assign({}, x.a, { correct: true }));
   R.result.appealed = true;
   drawRun(); toast('Counted. Your wording will be accepted for this card from now on.');
 }
 
+/* After a sleep answer: drop not-yet-started new cards beyond today's (possibly lower) quota. */
+function trimIntake() {
+  const t = today(), is = kvGet('sess:intake');
+  if (!is || is.day !== t) return;
+  let left = Math.max(0, quotaToday().quota - dayStats(t).newCards);
+  is.queue = is.queue.filter(q => is.cardSess[q.id] || q.kind !== 'new' || left-- > 0);
+  kvSet('sess:intake', is);
+}
+/* One-time fill-ins for data saved before delta v2: active days and monthly calibration, from daily stats. */
+function migrate() {
+  const days = Object.keys(MEM.kv).filter(k => /^day:\d{4}-\d{2}-\d{2}$/.test(k));
+  if (kvGet('activeDays') == null) {
+    const act = days.filter(k => (MEM.kv[k] || {}).reviews > 0).map(k => dayOfDate(k.slice(4))).sort((a, b) => a - b);
+    kvSet('activeDays', act.slice(-400));
+    if (act.length) kvSet('lastActive', act[act.length - 1]);
+  }
+  if (kvGet('calibMonth') == null) {
+    const cm = {};
+    for (const k of days) { const c = (MEM.kv[k] || {}).calib || {}, mo = k.slice(4, 11); for (const l of ['1', '2', '3']) if (c[l]) { const m = cm[mo] = cm[mo] || {}, b = m[l] = m[l] || { n: 0, correct: 0 }; b.n += c[l].n; b.correct += c[l].correct; } }
+    kvSet('calibMonth', cm);
+  }
+}
+
 /* ---------- boot ---------- */
 async function boot() {
   try { await dbLoad(); }
   catch (e) { app().innerHTML = `<div class="card"><h2>Storage is unavailable</h2><p>This browser blocked local storage (private browsing can do this). Station 528 needs it to remember your reviews.</p></div>`; return; }
-  loadSettings(); initItems(); render();
+  loadSettings(); initItems(); migrate(); render();
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 }
 boot();

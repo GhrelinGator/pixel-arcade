@@ -13,14 +13,22 @@ function buildRounds(cardList, today, now, cap, T, isHY, sweepDone) {
   const { take, rest } = applyCap(cardList, today, now, cap);
   const ids = take.map(c => c.id);
   for (const c of echoesDue(cardList, today)) if (!ids.includes(c.id)) ids.push(c.id);
-  return { queue: ids.map(id => ({ id, kind: 'review' })), deferred: rest.length, swept };
+  return { queue: ids.map(id => ({ id, kind: 'review' })), deferred: rest.length, swept, taken: take.length };
 }
 
 /* New cards for today: blocked by unit within each course (concepts are introduced in blocks
-   before any interleaving), courses taken in turn, and every 5th pick a reasoning (Skill 2+) item. */
-function pickIntake(items, cards, openUnits, quota, unitOrder) {
+   before any interleaving), courses taken in turn, and every 5th pick a reasoning (Skill 2+) item.
+   focus (delta v2 D16): an optional wing id; up to half of today's new cards come from it first. */
+function pickIntake(items, cards, openUnits, quota, unitOrder, focus) {
   if (quota <= 0) return [];
   const fresh = items.filter(it => openUnits.includes(it.unit) && it.status === 'active' && /* only cross-checked items (spec §8.3) */ (!cards[it.id] || cards[it.id].state === 'new') && !(cards[it.id] && cards[it.id].suspended));
+  if (focus == null) return pickBlocks(fresh, quota, unitOrder);
+  const first = pickBlocks(fresh.filter(it => it.fc === focus), Math.ceil(quota / 2), unitOrder);
+  const taken = new Set(first);
+  return first.concat(pickBlocks(fresh.filter(it => !taken.has(it.id)), quota - first.length, unitOrder));
+}
+function pickBlocks(fresh, quota, unitOrder) {
+  if (quota <= 0) return [];
   const byCourse = {};
   for (const it of fresh) (byCourse[unitOrder[it.unit].course] = byCourse[unitOrder[it.unit].course] || []).push(it);
   for (const k in byCourse) byCourse[k].sort((a, b) => unitOrder[a.unit].i - unitOrder[b.unit].i);
@@ -82,5 +90,19 @@ function recordAttempt(sess, id, attempt, grade) {
 
 function newSession(kind, day, queue) {
   return { kind, day, queue, scored: {}, cardSess: {}, startedAt: Date.now(), done: false,
-    stats: { attempts: 0, first: 0, firstCorrect: 0, cbm: 0, gain: 0, calib: {}, c3err: [], backToCriterion: 0, newLearned: 0 } };
+    id: kind + '-' + day + '-' + Math.random().toString(36).slice(2, 7), block: { n: 1, ms: 0, lastAt: null },
+    stats: { attempts: 0, first: 0, firstCorrect: 0, cbm: 0, gain: 0, calib: {}, c3err: [], backToCriterion: 0, newLearned: 0, pm: {} } };
 }
+
+/* Delta v2 D14 blocks: count answering time (gaps capped at 3 min; a 10+ min gap starts a fresh block).
+   A block is done after about 20 minutes. Returns true when the block just filled up. */
+const BLOCK_MS = 20 * 60000, IDLE_MS = 10 * 60000, GAP_CAP_MS = 3 * 60000;
+function tickBlock(sess, nowMs, answerMs) {
+  const b = sess.block || (sess.block = { n: 1, ms: 0, lastAt: null });
+  const gap = b.lastAt == null ? answerMs : nowMs - b.lastAt;
+  if (b.lastAt != null && gap > IDLE_MS) { b.n++; b.ms = Math.min(answerMs, GAP_CAP_MS); }
+  else b.ms += Math.min(gap, GAP_CAP_MS);
+  b.lastAt = nowMs;
+  return b.ms >= BLOCK_MS;
+}
+function nextBlock(sess, nowMs) { const b = sess.block || (sess.block = { n: 0 }); b.n++; b.ms = 0; b.lastAt = nowMs; }

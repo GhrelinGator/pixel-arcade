@@ -108,14 +108,62 @@ function newQuota(phase, today, T, override) {
   return override != null ? override : PHASES[phase].newPerDay;
 }
 /* §6.4 throttle: average due over the next 7 days vs the review cap. */
-function throttledQuota(quota, cards, today, cap) {
-  let n = 0;
-  for (const c of cards) if (c.state === 'review' && !c.suspended && c.due > today && c.due <= today + 7) n++;
-  const avg = n / 7;
+/* §6.4 throttle, extended by delta v2 D2: the projected 7-day load includes any backlog today's
+   Rounds can't absorb (due now beyond today's cap). Above 0.8× cap new cards halve; above the cap
+   they pause, and resume on their own once the projection drops. todayCap is the cap at the chosen
+   recovery pace; the thresholds use the base cap. */
+function throttledQuota(quota, cards, today, cap, todayCap = cap) {
+  let dueNow = 0, ahead = 0;
+  for (const c of cards) {
+    if (c.state !== 'review' || c.suspended) continue;
+    if (c.due <= today) dueNow++; else if (c.due <= today + 7) ahead++;
+  }
+  const avg = (ahead + Math.max(0, dueNow - todayCap)) / 7;
   if (avg > cap) return 0;
   if (avg > 0.8 * cap) return Math.floor(quota / 2);
   return quota;
 }
+/* D13 sleep check: a short night halves today's new cards, a poor one sets them to 0. Nothing else changes. */
+function sleepQuota(quota, flag) { return flag === 'poor' ? 0 : flag === 'short' ? Math.floor(quota / 2) : quota; }
+
+/* D2 recovery pace: the daily review cap while catching up. */
+const PACES = { normal: { name: 'Normal', mult: 1 }, faster: { name: 'Faster', mult: 1.2 }, fastest: { name: 'Fastest', mult: 1.5 } };
+function paceCap(cap, pace) { return Math.round(cap * ((PACES[pace] || PACES.normal).mult)); }
+
+/* D2 "Back on schedule by <date>": simulate the next 14 days at the given cap. carry0 is the backlog
+   already past today's cap (0 if today's Rounds were built, since applyCap moved those cards to tomorrow).
+   Returns the first day whose due reviews all fit, or null if that takes more than 14 days.
+   Optimistic on purpose: it ignores reviews that come back within the window. */
+function backOnSchedule(cards, today, cap, carry0) {
+  const byDay = {};
+  for (const c of cards) if (c.state === 'review' && !c.suspended && c.due > today && c.due <= today + 14) byDay[c.due] = (byDay[c.due] || 0) + 1;
+  let carry = carry0;
+  for (let d = today + 1; d <= today + 14; d++) {
+    carry = Math.max(0, (byDay[d] || 0) + carry - cap);
+    if (carry === 0) return d;
+  }
+  return null;
+}
+
+/* D13 time windows, in minutes after midnight. Evening Intake: bedtime −120 to −30 min.
+   Morning alternative for early risers: wake +30 to +180 min. */
+const hm = s => { const m = /^(\d{1,2}):(\d{2})/.exec(s || ''); return m ? (+m[1] * 60 + +m[2]) % 1440 : null; };
+function intakeWindow(slot, wake, bed) {
+  const w = hm(wake), b = hm(bed);
+  if (slot === 'morning' && w != null) return [(w + 30) % 1440, (w + 180) % 1440];
+  if (b == null) return null;
+  return [(b - 120 + 1440) % 1440, (b - 30 + 1440) % 1440];
+}
+function inWindow(win, minutes) {
+  if (!win) return false;
+  const [a, b] = win;
+  return a <= b ? minutes >= a && minutes < b : minutes >= a || minutes < b;
+}
+const clock = m => { const h = Math.floor(m / 60) % 24, mm = String(m % 60).padStart(2, '0'); return `${h % 12 || 12}:${mm}\u00a0${h < 12 ? 'am' : 'pm'}`; }; /* no line break before am/pm */
+
+/* D16 calendar helpers: weeks start on Monday. */
+function weekStart(day) { return day - ((day + 3) % 7); } /* day 0 (1970-01-01) was a Thursday */
+const monthOf = day => dateOfDay(day).slice(0, 7);
 
 /* ---------- cards ---------- */
 function newCard(id) {

@@ -110,5 +110,37 @@ ok(E.textMatches('phosphofructokinase-1 (PFK-1)', ['phosphofructokinase-1', 'pfk
 ok(!E.textMatches('sp2, sp3', ['sp2']) && !E.textMatches('mitochondria or nucleus', ['mitochondria']), 'hedged lists are not accepted');
 ok(E.numMatches('13', { value: 12.5, tolPct: 1 }) && E.numMatches('12', { value: 12.5, tolPct: 1 }) && E.numMatches('1.3', { value: 4 / 3, tolPct: 2 }) && !E.numMatches('1.2', { value: 4 / 3, tolPct: 2 }), '2-significant-figure answers accepted, wrong ones not');
 ok(E.numMatches('10^-14', { value: 1e-14, tolPct: 1 }) && E.numMatches('1×10^-14', { value: 1e-14, tolPct: 1 }), 'bare powers of ten');
+
+/* ---------- delta v2 ---------- */
+{
+  const T0 = 20000, card = (due, extra) => Object.assign({ state: 'review', suspended: false, due }, extra || {});
+  /* D2: the throttle sees backlog past today's cap */
+  const ahead = Array.from({ length: 7 * 50 }, (_, i) => card(T0 + 1 + (i % 7)));          /* 50/day next week */
+  ok(E.throttledQuota(10, ahead, T0, 150) === 10, 'light week: full new-card quota');
+  const backlog = ahead.concat(Array.from({ length: 900 }, () => card(T0 - 3)));            /* 900 overdue */
+  ok(E.throttledQuota(10, backlog, T0, 150) === 0, 'D2: a large overdue backlog pauses new cards');
+  const some = ahead.concat(Array.from({ length: 150 + 7 * 80 }, () => card(T0)));         /* 80/day spill */
+  ok(E.throttledQuota(10, some, T0, 150) === 5, 'D2: a moderate backlog halves new cards');
+  ok(E.throttledQuota(10, some, T0, 150, 225) === 10, 'D2: a faster pace absorbs more of the backlog today');
+  const dueTodayOnly = Array.from({ length: 140 }, () => card(T0));
+  ok(E.throttledQuota(10, dueTodayOnly, T0, 150) === 10, 'cards due today within the cap are not backlog');
+  /* D2: back-on-schedule simulation */
+  const light = Array.from({ length: 7 * 40 }, (_, i) => card(T0 + 1 + (i % 7)));
+  ok(E.backOnSchedule(light, T0, 150, 300) === T0 + 3, 'D2: 300 extra at 110 spare/day clears on day 3');
+  ok(E.backOnSchedule(light, T0, 225, 300) === T0 + 2, 'D2: fastest pace clears sooner');
+  ok(E.backOnSchedule(light, T0, 150, 5000) === null, 'D2: more than two weeks reports null');
+  ok(E.paceCap(150, 'normal') === 150 && E.paceCap(150, 'faster') === 180 && E.paceCap(150, 'fastest') === 225 && E.paceCap(150, 'bogus') === 150, 'D2: recovery pace caps');
+  /* D13: sleep check changes only the new-card quota */
+  ok(E.sleepQuota(10, 'normal') === 10 && E.sleepQuota(10, 'short') === 5 && E.sleepQuota(15, 'short') === 7 && E.sleepQuota(10, 'poor') === 0 && E.sleepQuota(10, undefined) === 10, 'D13: sleep flags');
+  /* D13: a new card's first review after Intake is on a later day, whatever the grade */
+  const now0 = Date.UTC(2026, 10, 16, 15), t0 = E.dayOf(now0);
+  for (const g of [1, 2, 3, 4]) { const c = E.newCard('x'); E.schedule(c, g, now0, { T: t0 + 400, phase: 'A', highYield: false }); ok(c.due > t0, `D13: new card graded ${g} is first due on a later day`); }
+  /* D13: windows, including one that wraps midnight */
+  const ev = E.intakeWindow('evening', '06:45', '23:00'), late = E.intakeWindow('evening', '07:00', '00:30');
+  ok(ev[0] === 21 * 60 && ev[1] === 22 * 60 + 30 && E.inWindow(ev, 21 * 60 + 15) && !E.inWindow(ev, 22 * 60 + 45), 'D13: evening window is bedtime −120 to −30 min');
+  ok(E.inWindow(late, 23 * 60 + 50) && !E.inWindow(late, 30) && E.intakeWindow('morning', '06:45', '23:00')[0] === 7 * 60 + 15, 'D13: windows across midnight and the morning alternative');
+  /* D16: weeks start on Monday */
+  ok(E.weekStart(E.dayOfDate('2026-11-15')) === E.dayOfDate('2026-11-09') && E.weekStart(E.dayOfDate('2026-11-16')) === E.dayOfDate('2026-11-16'), 'D16: Monday week start');
+}
 console.log(fails ? fails + ' failure(s)' : 'engine: all checks pass');
 process.exit(fails ? 1 : 0);

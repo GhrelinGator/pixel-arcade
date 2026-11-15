@@ -20,6 +20,17 @@ Live: https://ghrelingator.github.io/pixel-arcade/station-528/
 - **Data stays local.** Storage is IndexedDB, with `navigator.storage.persist()`, one-click JSON export and import, and a weekly backup reminder.
 - **Flagging.** One tap suspends and quarantines a card. A card answered wrong at Sure twice is auto-flagged so its answer key gets a second look.
 
+### Added in v0.1.1 (from build spec delta v2)
+
+- **Re-entry ramp (D2).** After one or more days away, the first visit opens a Welcome back screen. It never shows how many days were missed or how many cards are overdue. Backlog appears only as "back on schedule by ‹date›", from a 14-day simulation, and you can pick a catch-up pace: Normal, Faster (+20%) or Fastest (+50%). The first answer after a break lights a cosmetic comeback beacon, celebrated in the Debrief. The new-card throttle now counts backlog that today's cap can't absorb.
+- **If-then plans (D3).** One or two plans ("If I finish breakfast, then I will do Daily Rounds at my desk") are written at setup or on the Plans page. You rehearse them on the weekly card and when you come back after a break.
+- **Weeks and seasons (D16).** The first visit each week shows a "This week" card: rehearse your plan, set an active-days goal (default 5) and optionally pick a focus wing, which supplies up to half of the day's new cards. A new season starts each month, on semester start dates you add, and after a break of 7 or more days, with a recap and a re-plan prompt.
+- **Sleep-aware Intake (D13).** Wake time and bedtime set an Intake window: evening (bedtime −2 h to −30 min) or a one-tap morning alternative. Intake is never blocked outside it. An optional daily sleep check halves new cards after a short night and skips them after a poor one. Reviews never change.
+- **Blocks and a stopping point (D14).** After about 20 minutes of answering, "Block done" offers an optional, skippable two-minute look-away. Once Rounds and Intake are done, the Station shows "Today's essentials are done."
+- **Post-mortems and calibration trend (D15).** After a corrected wrong "Sure", one optional tap records what happened: misread, didn't know it, reasoning slip, trap or careless. Debrief and Calibration tally the answers. Calibration adds a month-by-month trend for each bet level and a short primer, offered again at each phase change.
+- **Exercise note (D23).** A modest, dismissible note in the Intake debrief.
+- **Logging (D1, partial).** Logs gain session and block ids, local hour, sleep flag, hint level, selection reason, recovery pace and Intake slot, so the D1 experiments can be analyzed later.
+
 Planned for later versions, per the spec: Scout pretests, the Workshop ladder, contrast-set Expeditions and Boss runs (v0.2); Case Files and CARS (v0.3); Psych/Soc and biochemistry coverage (v0.4); Exam Sim (v1.0).
 
 ## The cards
@@ -41,6 +52,7 @@ node tools/lint.js            # content lint (structure, one key, NOT/EXCEPT sha
 node tools/blind.js export    # key-hidden sets for a new cross-check; `compare write` records verdicts
 node test/ui_flow.js          # end-to-end on a phone viewport, incl. backup round trip (§13.9)
 node test/ui_targeted.js      # calculation card, hint lock, appeal, keyboard flow
+node test/ui_habit.js         # delta v2: re-entry, pace, plans, weeks, seasons, sleep, blocks, post-mortems
 ```
 
 ## Licenses
