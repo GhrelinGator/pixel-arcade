@@ -232,6 +232,9 @@ table.t td.n, table.t th.n { text-align: right; font-family: var(--mono); }
 .sleepbtns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 2px; }
 .chart .grid { stroke: var(--rule); stroke-dasharray: 2 3; }
 .field select { width: 100%; min-width: 0; }
+.seg.seg4 { grid-template-columns: repeat(4, 1fr); }
+.seg.seg4 button { min-height: 44px; }
+.tpre { white-space: pre-wrap; word-break: break-word; font-family: var(--mono); font-size: 12px; line-height: 1.45; max-height: 60vh; overflow: auto; background: var(--panel2); border-radius: 10px; padding: 12px; margin-top: 8px; }
 
 </style>
 </head>
@@ -2708,6 +2711,208 @@ async function wipeAll() {
 }
 
 ;
+/* ==== tutor.js ==== */
+/* Tutor pack: a Markdown file the player can hand to any AI chat for tutoring.
+   It holds study data only: misses with the player's own answers, the keys and the cards' explanations,
+   weak units, calibration and flagged keys, plus optional instructions for the tutor.
+   Pure: everything comes in through `inp`, so it can be tested without a browser. */
+
+const TYPE_LABEL = { typed: 'typed recall', num: 'number', choice: 'multiple choice', gen: 'calculation (new numbers each time)' };
+const PM_TEXT = { misread: 'misread it', content: "didn't know it", reasoning: 'reasoning slip', trap: 'fell for a trap', careless: 'careless' };
+const BET = { 1: 'Unsure', 2: 'Fairly sure', 3: 'Sure' };
+const TUTOR_MAX_ITEMS = 40;
+
+function answerOf(it) {
+  if (it.type === 'choice') return it.options[0];
+  if (it.type === 'typed') { const a = it.accepted[0]; return SHOW[it.id] || a[0].toUpperCase() + a.slice(1); }
+  if (it.type === 'num') return `${it.num.value}${it.num.unit ? ' ' + it.num.unit : ''}`;
+  return null;
+}
+const oneLine = s => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
+const quote = s => `"${oneLine(s).replace(/"/g, "'")}"`;
+
+/* Walk the log in order: appeals void the miss they overturned; post-mortems attach to the latest miss. */
+function tutorAttempts(logs) {
+  const out = [], lastWrong = {};
+  for (const l of logs) {
+    if (l.mode === 'rounds' || l.mode === 'intake' || l.mode === 'echo') {
+      const a = Object.assign({}, l); out.push(a);
+      if (!l.correct) lastWrong[l.itemId] = a;
+    } else if (l.mode === 'appeal') { const w = lastWrong[l.itemId]; if (w) { w.voided = true; delete lastWrong[l.itemId]; } }
+    else if (l.mode === 'postmortem') { const w = lastWrong[l.itemId]; if (w) w.postMortem = l.postMortem; }
+  }
+  return out.filter(a => !a.voided);
+}
+
+const TUTOR_INSTRUCTIONS = `## Instructions for the tutor
+
+You're tutoring a college student preparing for the MCAT. This file comes from Station 528, a spaced-repetition study app that schedules their reviews, so don't build a study schedule. Your job is understanding: fix the ideas behind the misses below.
+
+How to tutor:
+1. **Start by asking which area they want to work on**, or suggest the top one from "Where to start". Work on one concept at a time.
+2. **Make them retrieve before you explain.** Open each topic with a short question and let them answer before teaching. Never give the answer to a question you've just asked until they've tried.
+3. **Go after the misconception, not the fact.** Their wrong answers are listed. Work out what belief would produce that answer, name it, and show why it fails. Misses they bet "Sure" on matter most: confident errors are very fixable but tend to creep back, so revisit them later in the session.
+4. **Use their own diagnosis.** Each confident miss may carry their label: misread, didn't know it, reasoning slip, fell for a trap, careless. Misreads call for slowing down on the question stem; missing content needs teaching; trap answers need practice spotting why a tempting option is wrong.
+5. **Ask them to explain.** Have them say why an answer is right and why each tempting alternative is wrong. Push for the mechanism ("why does that happen?").
+6. **For calculations**, show one fully worked example, then give a similar problem with fewer steps shown, then one they solve alone.
+7. **Contrast look-alikes.** When two ideas get confused, put them side by side and quiz the difference.
+8. **Keep it at MCAT level.** Stay inside the AAMC content outline; skip detail beyond it.
+9. **If an answer key here looks wrong or ambiguous, say so** and explain why. The student can flag it in the app.
+10. **Wrap up** with 3 to 5 short questions mixing today's topics, then a two-line summary of what to keep reviewing.
+
+Be concise and conversational. Ask one question at a time.
+`;
+
+/* inp: { logs, cards, items (id→item), units (id→unit), courses (id→course), flags, today, examDay, phase,
+   openUnits, rangeStart (day index or null for everything), rangeLabel, instructions, now } */
+function tutorPack(inp) {
+  const { items, cards, units, courses, today: t, now: nowMs } = inp;
+  const inRange = l => inp.rangeStart == null || dayOf(l.ts) >= inp.rangeStart;
+  const all = tutorAttempts(inp.logs.slice().sort((a, b) => a.ts - b.ts));
+  const att = all.filter(inRange).filter(a => items[a.itemId]);
+  const first = att.filter(a => a.firstAttempt);
+  const studyDays = new Set(att.map(a => dayOf(a.ts))).size;
+  const fmtD = ms => new Date(ms).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const pctS = x => Math.round(100 * x) + '%';
+  const unitName = id => { const u = units[id]; return u ? `${u.name} (${courses[u.course] ? courses[u.course].name : u.course})` : id; };
+
+  /* misses, grouped by card */
+  const byItem = {};
+  for (const a of att) {
+    const g = byItem[a.itemId] = byItem[a.itemId] || { id: a.itemId, tries: 0, right: 0, misses: [] };
+    g.tries++; if (a.correct) g.right++; else g.misses.push(a);
+  }
+  const missed = Object.values(byItem).filter(g => g.misses.length);
+  const weight = g => g.misses.reduce((s, m) => s + ({ 3: 4, 2: 2, 1: 1 }[m.confidence] || 1), 0);
+  missed.sort((a, b) => weight(b) - weight(a) || b.misses.length - a.misses.length || b.misses[b.misses.length - 1].ts - a.misses[a.misses.length - 1].ts);
+
+  /* units: first-attempt accuracy in range, plus current recall of their cards */
+  const ust = {};
+  for (const a of first) { const u = items[a.itemId].unit, s = ust[u] = ust[u] || { n: 0, right: 0, sureMiss: 0 }; s.n++; if (a.correct) s.right++; else if (a.confidence === 3) s.sureMiss++; }
+  const unitRows = Object.entries(ust).filter(([, s]) => s.n >= 3).map(([u, s]) => {
+    const cs = Object.values(cards).filter(c => items[c.id] && items[c.id].unit === u && c.state === 'review' && !c.suspended);
+    const rec = cs.length ? cs.reduce((x, c) => x + rNow(c, nowMs), 0) / cs.length : null;
+    return { u, acc: s.right / s.n, n: s.n, sureMiss: s.sureMiss, rec };
+  }).sort((a, b) => a.acc - b.acc || b.sureMiss - a.sureMiss);
+
+  /* calibration from first attempts in range */
+  const cal = {};
+  for (const a of first) if (a.confidence >= 1 && a.confidence <= 3) { const b = cal[a.confidence] = cal[a.confidence] || { n: 0, correct: 0 }; b.n++; if (a.correct) b.correct++; }
+  const calc = calibration(cal);
+  const pms = {}; for (const a of att) if (a.postMortem) pms[a.postMortem] = (pms[a.postMortem] || 0) + 1;
+
+  const active = Object.values(cards).filter(c => c.state === 'review' && !c.suspended && items[c.id]);
+  const exRecall = active.length ? active.reduce((x, c) => x + rExam(c, inp.examDay), 0) / active.length : null;
+
+  const L = [];
+  L.push(`# Station 528 tutor pack`, '');
+  L.push(`MCAT study data for an AI tutor. Generated ${dateOfDay(t)}; covers ${inp.rangeLabel}.`, '');
+  if (inp.instructions) L.push(TUTOR_INSTRUCTIONS);
+  L.push(`## The student`, '');
+  L.push(`- Exam date: ${dateOfDay(inp.examDay)} (${inp.examDay - t} days away), study phase ${inp.phase}.`);
+  L.push(`- Cards in regular review: ${active.length}. Projected recall on exam day if they stopped reviewing now: ${exRecall == null ? 'n/a' : pctS(exRecall)}.`);
+  L.push(`- Units opened so far (what their classes have covered): ${inp.openUnits.length ? inp.openUnits.map(id => units[id] ? units[id].name : id).join('; ') : 'none yet'}.`);
+  L.push(`- In this period: ${att.length} answers on ${studyDays} study day${studyDays === 1 ? '' : 's'}; ${first.length} first tries, ${first.filter(a => a.correct).length} right.`, '');
+  L.push(`How the app works, so the data makes sense: the student types answers (or picks from options shown only after they've thought) and bets on each first try: Unsure (right less than 2 in 3 times), Fairly sure (2 to 4 in 5), or Sure (at least 4 in 5). Each card is a short MCAT fact, concept or calculation.`, '');
+
+  /* where to start */
+  L.push(`## Where to start`, '');
+  if (!att.length) L.push(`No answers in this period yet.`, '');
+  else {
+    const top = [];
+    const sure = missed.filter(g => g.misses.some(m => m.confidence === 3));
+    if (sure.length) top.push(`${sure.length} card${sure.length === 1 ? ' was' : 's were'} missed while betting Sure. Start there (marked ★ below).`);
+    const weakU = unitRows.filter(r => r.acc < 0.7).slice(0, 3);
+    if (weakU.length) top.push(`Weakest units: ${weakU.map(r => `${units[r.u] ? units[r.u].name : r.u} (${pctS(r.acc)} right first try)`).join('; ')}.`);
+    const calcMiss = missed.filter(g => items[g.id].type === 'gen' || items[g.id].type === 'num').length;
+    if (calcMiss) top.push(`${calcMiss} calculation card${calcMiss === 1 ? '' : 's'} missed: worth one worked example each.`);
+    const nBets = Object.values(cal).reduce((a, b) => a + b.n, 0);
+    if (nBets >= 20 && calc.overconfidence != null && calc.overconfidence > 0.1) top.push(`They tend to bet higher than their accuracy (overconfidence index +${Math.round(calc.overconfidence * 100)} points). Ask "how sure are you?" before revealing answers.`);
+    if (!top.length) top.push(`Few misses in this period. Probe understanding with "why" questions on recent units instead.`);
+    top.forEach((x, i) => L.push(`${i + 1}. ${x}`));
+    L.push('');
+  }
+
+  /* missed cards */
+  if (missed.length) {
+    L.push(`## Missed cards`, '');
+    L.push(`Most important first. ★ means at least one miss came with a "Sure" bet. "Their answers" are exactly what they typed or picked.`, '');
+    missed.slice(0, TUTOR_MAX_ITEMS).forEach((g, i) => {
+      const it = items[g.id], last = g.misses[g.misses.length - 1], star = g.misses.some(m => m.confidence === 3) ? '★ ' : '';
+      const card = cards[g.id];
+      L.push(`### ${i + 1}. ${star}${unitName(it.unit)}`);
+      L.push(`AAMC category ${it.cat} · ${TYPE_LABEL[it.type] || it.type}${it.sk >= 2 ? ' · reasoning item' : ''}`, '');
+      if (it.type === 'gen') {
+        const withPrompt = g.misses.filter(m => m.prompt).pop();
+        if (withPrompt) {
+          L.push(`**Question (the version they missed):** ${oneLine(withPrompt.prompt)}`);
+          L.push(`**Correct answer:** ${withPrompt.value != null ? sig(withPrompt.value, 3) + (withPrompt.unit ? ' ' + withPrompt.unit : '') : 'see the worked solution'}`);
+          if (withPrompt.expl) L.push(`**Card's worked solution:** ${oneLine(withPrompt.expl)}`);
+        } else {
+          L.push(`**Problem type:** ${oneLine(it.title)} (numbers change each time; this miss was logged before the app saved the exact question).`);
+          if (last.value != null) L.push(`**Correct answer to the version they missed:** ${sig(last.value, 3)}`);
+        }
+      } else {
+        L.push(`**Question:** ${oneLine(last.alt && it.alt ? it.alt : it.prompt)}`);
+        if (it.type === 'choice') {
+          L.push(`**Options:** ${it.options.map((o, k) => `${k === 0 ? '(correct) ' : ''}${oneLine(o)}`).join(' | ')}`);
+        }
+        L.push(`**Correct answer:** ${oneLine(answerOf(it))}${it.type === 'typed' && it.accepted.length > 1 ? ` (also accepted: ${it.accepted.slice(1, 5).join(', ')})` : ''}${it.type === 'num' && (it.num.tol != null || it.num.tolPct != null) ? ` (within ${it.num.tol != null ? '±' + it.num.tol : '±' + it.num.tolPct + '%'})` : ''}`);
+      }
+      const ans = g.misses.slice(-4).map(m => `${m.response ? quote(m.response) : "\"I don't know\""} (${m.confidence ? BET[m.confidence] : 'no bet'}, ${fmtD(m.ts)}${m.postMortem ? `; their label: ${PM_TEXT[m.postMortem]}` : ''})`);
+      L.push(`**Their answers:** ${ans.join('; ')}`);
+      if (it.type === 'choice') {
+        const picked = [...new Set(g.misses.map(m => it.options.indexOf(m.response)).filter(k => k > 0))];
+        for (const k of picked) if (it.lures && it.lures[k - 1]) L.push(`**Why "${oneLine(it.options[k])}" is wrong (card's note):** ${oneLine(it.lures[k - 1])}`);
+      }
+      if (it.type !== 'gen' && it.expl) L.push(`**Card's explanation:** ${oneLine(it.expl)}`);
+      L.push(`**Record in this period:** ${g.right} of ${g.tries} right${card && card.lapses ? ` · missed ${card.lapses} time${card.lapses === 1 ? '' : 's'} overall` : ''}`, '');
+    });
+    if (missed.length > TUTOR_MAX_ITEMS) L.push(`(${missed.length - TUTOR_MAX_ITEMS} more missed cards left out to keep this file short.)`, '');
+  }
+
+  /* units */
+  if (unitRows.length) {
+    L.push(`## Units, weakest first`, '');
+    L.push(`| Unit | First tries | Right | "Sure" misses | Recall now |`, `|---|---|---|---|---|`);
+    for (const r of unitRows.slice(0, 12)) L.push(`| ${unitName(r.u)} | ${r.n} | ${pctS(r.acc)} | ${r.sureMiss} | ${r.rec == null ? '–' : pctS(r.rec)} |`);
+    L.push('', `"Recall now" is the app's estimate of how much of that unit they'd remember today.`, '');
+  }
+
+  /* calibration */
+  if (Object.keys(cal).length) {
+    L.push(`## Calibration (how well their bets match their accuracy)`, '');
+    L.push(`| Bet | Target | Times | Right |`, `|---|---|---|---|`);
+    const target = { 1: 'under 67%', 2: '67–80%', 3: '80% or more' };
+    for (const c of [1, 2, 3]) if (cal[c]) L.push(`| ${BET[c]} | ${target[c]} | ${cal[c].n} | ${pctS(cal[c].correct / cal[c].n)} |`);
+    const nb = Object.values(cal).reduce((a, b) => a + b.n, 0);
+    L.push('', nb < 30 ? `Only ${nb} bets so far, so treat these as rough.` : `Overconfidence index: ${calc.overconfidence > 0 ? '+' : ''}${Math.round(calc.overconfidence * 100)} points (0 is ideal; positive means bets run higher than accuracy).`);
+    if (Object.keys(pms).length) L.push(`Their own labels for missed "Sure" bets: ${Object.entries(pms).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${PM_TEXT[k]} ×${n}`).join(', ')}.`);
+    L.push('');
+  }
+
+  /* stubborn cards outside the range */
+  const shown = new Set(missed.slice(0, TUTOR_MAX_ITEMS).map(g => g.id));
+  const leeches = Object.values(cards).filter(c => items[c.id] && (c.lapses || 0) >= 3 && !shown.has(c.id)).sort((a, b) => b.lapses - a.lapses).slice(0, 10);
+  if (leeches.length) {
+    L.push(`## Other cards that keep slipping (missed 3+ times overall)`, '');
+    for (const c of leeches) { const it = items[c.id]; L.push(`- ${oneLine(it.type === 'gen' ? it.title : it.prompt)} → **${oneLine(answerOf(it) || 'calculated')}** (${units[it.unit] ? units[it.unit].name : it.unit}; missed ${c.lapses} times)`); }
+    L.push('');
+  }
+
+  /* flagged keys */
+  const fl = Object.entries(inp.flags || {}).filter(([id]) => items[id]);
+  if (fl.length) {
+    L.push(`## Answer keys the student or the app flagged`, '');
+    L.push(`Please check these keys and say whether each is right.`, '');
+    for (const [id, f] of fl) { const it = items[id]; L.push(`- ${oneLine(it.type === 'gen' ? it.title : it.prompt)} → key: **${oneLine(answerOf(it) || 'calculated')}**${f.auto ? ' (auto-flagged: missed twice while betting Sure)' : f.reason ? ` (their note: ${quote(f.reason)})` : ''}`); }
+    L.push('');
+  }
+  L.push(`---`, `Cards © Station 528, CC BY-NC-SA 4.0.`);
+  return { text: L.join('\n'), missed: missed.length, units: unitRows.length, answers: att.length };
+}
+
+;
 /* ==== ui.js ==== */
 /* Station 528 UI: Station hub, Daily Rounds, Intake, Debrief, Calibration, Settings. */
 'use strict';
@@ -2803,6 +3008,7 @@ function render() {
   if (r === 'checkin') return viewCheckin();
   if (r === 'plans') return viewPlans();
   if (r === 'primer') return viewPrimer();
+  if (r === 'tutor') return viewTutor(arg);
   if (r === 'rounds' || r === 'intake') return startRun(r);
   if (r === 'debrief') return viewDebrief(arg);
   if (r === 'calibration') return viewCalibration();
@@ -3152,6 +3358,55 @@ function viewPrimer() {
     <a class="btn block" href="#/calibration">See your calibration</a>`;
 }
 
+
+/* ---------- tutor pack: study data for any AI chat ---------- */
+const TUTOR = { range: '7', instr: true, text: '', name: '' };
+const TUTOR_RANGES = [['today', 'Today'], ['7', '7 days'], ['30', '30 days'], ['all', 'All']];
+async function viewTutor(arg) {
+  if (arg && TUTOR_RANGES.some(([k]) => k === arg)) TUTOR.range = arg;
+  const t = today();
+  const start = { today: t, '7': t - 6, '30': t - 29, all: null }[TUTOR.range];
+  const label = { today: 'today only', '7': 'the last 7 days', '30': 'the last 30 days', all: 'everything so far' }[TUTOR.range];
+  const head = `${topBar('TUTOR PACK', 'For any AI chat')}
+    <p>A file of what's tripping you up: missed cards with your answers, the right answers and each card's explanation, your weakest units, and how well your bets match your accuracy. It also tells the AI how to tutor: quiz you first, then go after the idea behind each miss.</p>
+    <div class="seg seg4" role="group" aria-label="Period">${TUTOR_RANGES.map(([k, l]) => `<button class="${TUTOR.range === k ? 'on' : ''}" data-trange="${k}" aria-pressed="${TUTOR.range === k}"><b>${l}</b></button>`).join('')}</div>
+    <label class="chk"><input type="checkbox" id="tinstr" ${TUTOR.instr ? 'checked' : ''}><span class="grow">Include instructions for the tutor<span class="small muted" style="display:block">Leave on unless you'd rather write your own.</span></span></label>`;
+  app().innerHTML = head + `<p class="small muted">Building…</p>`;
+  const logs = await allLogs();
+  if (!location.hash.startsWith('#/tutor')) return;
+  const pack = tutorPack({ logs, cards: MEM.cards, items: ITEM, units: UNIT, courses: Object.fromEntries(COURSES.map(c => [c.id, c])), flags: flags(),
+    today: t, examDay: examDay(), phase: phase(), openUnits: S.openUnits, rangeStart: start, rangeLabel: label, instructions: TUTOR.instr, now: now() });
+  TUTOR.text = pack.text; TUTOR.name = `station528-tutor-${dateOfDay(t)}.md`;
+  let canFile = false;
+  try { canFile = !!(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'x.md', { type: 'text/markdown' })] })); } catch (e) { canFile = false; }
+  app().innerHTML = head + (pack.answers ? `<div class="card small">This pack: <b>${pack.missed}</b> missed card${pack.missed === 1 ? '' : 's'}${pack.units ? ` · ${pack.units} unit${pack.units === 1 ? '' : 's'} compared` : ''} · from ${pack.answers} answer${pack.answers === 1 ? '' : 's'}.</div>`
+      : `<div class="card small">No answers in this period yet${TUTOR.range === 'all' ? '' : '. Try a longer period'}.</div>`) +
+    `<div class="row">${canFile ? `<button class="btn primary" data-act="tutor-share">Share file</button>` : ''}<button class="btn ${canFile ? '' : 'primary'}" data-act="tutor-copy">Copy text</button><button class="btn" data-act="tutor-dl">Download</button></div>
+    <p class="small muted">Then, in the AI chat: attach the file (or paste the text) and say "Let's start." Only study data goes in: no name, sleep, plans or schedule. Nothing leaves this device unless you send it.</p>
+    <details class="why"><summary>Preview</summary><pre class="tpre">${esc(TUTOR.text)}</pre></details>`;
+  $('#tinstr').addEventListener('change', e => { TUTOR.instr = e.target.checked; viewTutor(); });
+}
+function tutorDownload() {
+  const blob = new Blob([TUTOR.text], { type: 'text/markdown' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = TUTOR.name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  toast('Saved. Attach it in your AI chat.');
+}
+async function tutorShare() {
+  const file = new File([TUTOR.text], TUTOR.name, { type: 'text/markdown' });
+  try { await navigator.share({ files: [file], title: 'Station 528 tutor pack' }); }
+  catch (e) { if (e && e.name !== 'AbortError') tutorDownload(); }
+}
+async function tutorCopy() {
+  try { await navigator.clipboard.writeText(TUTOR.text); toast('Copied. Paste it into an AI chat.'); }
+  catch (e) {
+    const pre = $('.tpre'); if (!pre) return;
+    pre.closest('details').open = true;
+    const r = document.createRange(); r.selectNodeContents(pre); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    toast('Selected. Use your device\'s Copy.');
+  }
+}
+
 /* ---------- wing detail ---------- */
 function viewWing(id) {
   const w = WINGS.find(x => x.id === id); if (!w) return go('#/');
@@ -3328,6 +3583,7 @@ function applyAttempt(R, a) {
   addLog({ ts: now(), itemId: it.id, mode: R.kind === 'rounds' ? (R.echo ? 'echo' : 'rounds') : 'intake', firstAttempt: res.first, response: a.given, correct: ok,
     confidence: a.conf || null, cbm: res.cbm, grade, msTaken: a.ms, hintUsed: !!a.hint, rBefore, rExamBefore: sch.rExamBefore, rExamAfter: sch.rExamAfter,
     s: card.s, d: card.d, due: card.due, value: R.inst ? R.inst.value : undefined,
+    prompt: R.inst ? R.inst.prompt : undefined, expl: R.inst ? R.inst.expl : undefined, unit: R.inst ? R.inst.unit : undefined, alt: R.echo && it.alt ? true : undefined,
     /* delta v2 D1 fields, so models can be refit offline */
     hintLevel: a.hint ? 2 : 0, sessionId: R.sess.id, blockId: R.sess.id + '/b' + (R.sess.block ? R.sess.block.n : 1), localHour: new Date().getHours(),
     sleepFlag: d.sleepFlag || null, recoveryPace: S.recoveryPace, selectionReason: R.echo ? 'echo' : R.q.kind,
@@ -3423,6 +3679,7 @@ function viewDebrief(kind) {
     </div>${back ? `<p class="small muted" style="margin-bottom:0">Catching up: ${backlogText(back)}.</p>` : ''}</div>
     ${c3.length ? `<div class="card"><div class="lbl">High-confidence misses today</div><ul>${c3.map(it => `<li class="small">${fmt(it.type === 'gen' ? it.title : it.prompt)}</li>`).join('')}</ul>${pms ? `<p class="small">What went wrong, by your call: ${esc(pms)}.</p>` : ''}<p class="small muted">Each returns tomorrow and in a week. Confident errors are corrected well, but they tend to creep back.</p></div>` : ''}
     <div class="card"><div class="lbl">Today's bets</div>${calTable(cal)}<p class="small muted">${calMessage(calAll)}</p></div>
+    ${s.first > s.firstCorrect ? `<a class="task" href="#/tutor/today" style="text-decoration:none;color:inherit"><div class="grow"><b>Go over today's misses with an AI tutor</b><span class="small muted">Makes a file you can upload to Claude or any AI chat</span></div><span class="ib" aria-hidden="true">→</span></a>` : ''}
     ${kind === 'intake' && !kvGet('hideExNote') ? `<div class="note small"><span class="grow">Training today? Moderate or hard exercise in the hours after learning is the better slot; studying between sets isn't.</span><button class="chip ghost" data-act="hide-ex" aria-label="Dismiss this note">✕</button></div>` : ''}
     ${nextBtn}`;
 }
@@ -3470,6 +3727,7 @@ function viewCalibration() {
     <div class="card"><div class="lbl">Month by month</div>${calTrend()}</div>
     ${pmSummary(kvGet('pmAll', {})) ? `<div class="card"><div class="lbl">Missed "Sure" bets, by your call</div>${pmBars(kvGet('pmAll', {}))}</div>` : ''}
     <a class="task" href="#/primer" style="text-decoration:none;color:inherit"><div class="grow"><b>What your bets mean</b><span class="small muted">A two-minute refresher on betting well</span></div><span class="ib" aria-hidden="true">→</span></a>
+    <a class="task" href="#/tutor" style="text-decoration:none;color:inherit"><div class="grow"><b>Tutor pack</b><span class="small muted">Your misses and weak spots, as a file for any AI tutor</span></div><span class="ib" aria-hidden="true">→</span></a>
     <div class="card small"><div class="lbl">How the bets score</div>
       <p>Unsure: +1 if right, 0 if wrong. Fairly sure: +2 / −2. Sure: +3 / −6. "I don't know": 0.</p>
       <p class="muted">This is certainty-based marking, used in medical schools. It is a proper scoring rule: over many questions you score highest by betting what you really believe. "Sure" only pays when you're right more than 80% of the time; "Fairly sure" beats "Unsure" above 67%.</p></div>`;
@@ -3516,6 +3774,9 @@ function viewSettings() {
     <h3>Backup</h3>
     <p class="small">Your cards and history live only in this browser. ${S.lastExportAt ? 'Last backup: ' + esc(S.lastExportAt.slice(0, 10)) + '.' : 'No backup yet.'} <span id="persist" class="muted"></span></p>
     <div class="row"><button class="btn primary" data-act="export">Export backup</button><label class="btn">Import backup<input type="file" id="import" accept="application/json,.json" hidden></label></div>
+    <h3>AI tutoring</h3>
+    <p class="small muted">Station 528 has no built-in AI. The tutor pack collects your misses, weak units and calibration into a file, with instructions, for whichever AI chat you use.</p>
+    <div class="row"><a class="btn" href="#/tutor">Make a tutor pack</a></div>
     <h3>Cards</h3>
     <div class="row"><a class="btn" href="#/flags">Flagged cards (${fl})</a><a class="btn" href="#/about">About the cards</a></div>
     <hr><button class="btn danger" data-act="wipe">Erase everything in this browser</button>`;
@@ -3653,7 +3914,8 @@ function flagSheet() {
 
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix],[data-ins],[data-pm],[data-sleep],[data-pace]'); if (!t) return;
+  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix],[data-ins],[data-pm],[data-sleep],[data-pace],[data-trange]'); if (!t) return;
+  if (t.dataset.trange != null) { TUTOR.range = t.dataset.trange; if (location.hash !== '#/tutor') go('#/tutor'); else viewTutor(); return; }
   const R = RUN;
   if (t.dataset.ins != null) { /* helper keys for numbers on phones */
     const inp = $('#ans'); if (!inp) return;
@@ -3697,6 +3959,9 @@ document.addEventListener('click', e => {
   if (act === 'block-go' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); const b = BLOCK; BLOCK = null; nextCard(b.kind, b.sess); return; }
   if (act === 'block-stop' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); BLOCK = null; go('#/'); return; }
   if (act === 'lookaway') { lookAway(); return; }
+  if (act === 'tutor-copy') { tutorCopy(); return; }
+  if (act === 'tutor-share') { tutorShare(); return; }
+  if (act === 'tutor-dl') { tutorDownload(); return; }
   if (act === 'rest-end') { endRest(); return; }
   if (act === 'persist') { e.preventDefault(); navigator.storage.persist().then(p => { toast(p ? 'Storage will be kept.' : 'The browser declined. Add the page to your home screen and back up weekly.'); viewSettings(); }); return; }
   if (act === 'wipe') { if (confirm('Erase all cards, history and settings in this browser? Export a backup first if you might want them.') && confirm('Really erase everything?')) wipeAll().then(() => { loadSettings(); initItems(); go('#/'); }); return; }

@@ -5,7 +5,7 @@ import hashlib, json, os, shutil
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, 'src')
 OUT = os.path.join(ROOT, 'site')
-JS = ['engine.js', 'session.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js', 'content_chem2.js', 'content_bio2.js', 'content_phys2.js', 'content_check.js', 'db.js', 'ui.js']
+JS = ['engine.js', 'session.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js', 'content_chem2.js', 'content_bio2.js', 'content_phys2.js', 'content_check.js', 'db.js', 'tutor.js', 'ui.js']
 
 def read(name):
     with open(os.path.join(SRC, name), encoding='utf-8') as f:

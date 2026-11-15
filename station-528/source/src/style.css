@@ -217,3 +217,6 @@ table.t td.n, table.t th.n { text-align: right; font-family: var(--mono); }
 .sleepbtns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 2px; }
 .chart .grid { stroke: var(--rule); stroke-dasharray: 2 3; }
 .field select { width: 100%; min-width: 0; }
+.seg.seg4 { grid-template-columns: repeat(4, 1fr); }
+.seg.seg4 button { min-height: 44px; }
+.tpre { white-space: pre-wrap; word-break: break-word; font-family: var(--mono); font-size: 12px; line-height: 1.45; max-height: 60vh; overflow: auto; background: var(--panel2); border-radius: 10px; padding: 12px; margin-top: 8px; }

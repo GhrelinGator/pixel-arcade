@@ -92,6 +92,7 @@ function render() {
   if (r === 'checkin') return viewCheckin();
   if (r === 'plans') return viewPlans();
   if (r === 'primer') return viewPrimer();
+  if (r === 'tutor') return viewTutor(arg);
   if (r === 'rounds' || r === 'intake') return startRun(r);
   if (r === 'debrief') return viewDebrief(arg);
   if (r === 'calibration') return viewCalibration();
@@ -441,6 +442,55 @@ function viewPrimer() {
     <a class="btn block" href="#/calibration">See your calibration</a>`;
 }
 
+
+/* ---------- tutor pack: study data for any AI chat ---------- */
+const TUTOR = { range: '7', instr: true, text: '', name: '' };
+const TUTOR_RANGES = [['today', 'Today'], ['7', '7 days'], ['30', '30 days'], ['all', 'All']];
+async function viewTutor(arg) {
+  if (arg && TUTOR_RANGES.some(([k]) => k === arg)) TUTOR.range = arg;
+  const t = today();
+  const start = { today: t, '7': t - 6, '30': t - 29, all: null }[TUTOR.range];
+  const label = { today: 'today only', '7': 'the last 7 days', '30': 'the last 30 days', all: 'everything so far' }[TUTOR.range];
+  const head = `${topBar('TUTOR PACK', 'For any AI chat')}
+    <p>A file of what's tripping you up: missed cards with your answers, the right answers and each card's explanation, your weakest units, and how well your bets match your accuracy. It also tells the AI how to tutor: quiz you first, then go after the idea behind each miss.</p>
+    <div class="seg seg4" role="group" aria-label="Period">${TUTOR_RANGES.map(([k, l]) => `<button class="${TUTOR.range === k ? 'on' : ''}" data-trange="${k}" aria-pressed="${TUTOR.range === k}"><b>${l}</b></button>`).join('')}</div>
+    <label class="chk"><input type="checkbox" id="tinstr" ${TUTOR.instr ? 'checked' : ''}><span class="grow">Include instructions for the tutor<span class="small muted" style="display:block">Leave on unless you'd rather write your own.</span></span></label>`;
+  app().innerHTML = head + `<p class="small muted">Building…</p>`;
+  const logs = await allLogs();
+  if (!location.hash.startsWith('#/tutor')) return;
+  const pack = tutorPack({ logs, cards: MEM.cards, items: ITEM, units: UNIT, courses: Object.fromEntries(COURSES.map(c => [c.id, c])), flags: flags(),
+    today: t, examDay: examDay(), phase: phase(), openUnits: S.openUnits, rangeStart: start, rangeLabel: label, instructions: TUTOR.instr, now: now() });
+  TUTOR.text = pack.text; TUTOR.name = `station528-tutor-${dateOfDay(t)}.md`;
+  let canFile = false;
+  try { canFile = !!(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'x.md', { type: 'text/markdown' })] })); } catch (e) { canFile = false; }
+  app().innerHTML = head + (pack.answers ? `<div class="card small">This pack: <b>${pack.missed}</b> missed card${pack.missed === 1 ? '' : 's'}${pack.units ? ` · ${pack.units} unit${pack.units === 1 ? '' : 's'} compared` : ''} · from ${pack.answers} answer${pack.answers === 1 ? '' : 's'}.</div>`
+      : `<div class="card small">No answers in this period yet${TUTOR.range === 'all' ? '' : '. Try a longer period'}.</div>`) +
+    `<div class="row">${canFile ? `<button class="btn primary" data-act="tutor-share">Share file</button>` : ''}<button class="btn ${canFile ? '' : 'primary'}" data-act="tutor-copy">Copy text</button><button class="btn" data-act="tutor-dl">Download</button></div>
+    <p class="small muted">Then, in the AI chat: attach the file (or paste the text) and say "Let's start." Only study data goes in: no name, sleep, plans or schedule. Nothing leaves this device unless you send it.</p>
+    <details class="why"><summary>Preview</summary><pre class="tpre">${esc(TUTOR.text)}</pre></details>`;
+  $('#tinstr').addEventListener('change', e => { TUTOR.instr = e.target.checked; viewTutor(); });
+}
+function tutorDownload() {
+  const blob = new Blob([TUTOR.text], { type: 'text/markdown' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = TUTOR.name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  toast('Saved. Attach it in your AI chat.');
+}
+async function tutorShare() {
+  const file = new File([TUTOR.text], TUTOR.name, { type: 'text/markdown' });
+  try { await navigator.share({ files: [file], title: 'Station 528 tutor pack' }); }
+  catch (e) { if (e && e.name !== 'AbortError') tutorDownload(); }
+}
+async function tutorCopy() {
+  try { await navigator.clipboard.writeText(TUTOR.text); toast('Copied. Paste it into an AI chat.'); }
+  catch (e) {
+    const pre = $('.tpre'); if (!pre) return;
+    pre.closest('details').open = true;
+    const r = document.createRange(); r.selectNodeContents(pre); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    toast('Selected. Use your device\'s Copy.');
+  }
+}
+
 /* ---------- wing detail ---------- */
 function viewWing(id) {
   const w = WINGS.find(x => x.id === id); if (!w) return go('#/');
@@ -617,6 +667,7 @@ function applyAttempt(R, a) {
   addLog({ ts: now(), itemId: it.id, mode: R.kind === 'rounds' ? (R.echo ? 'echo' : 'rounds') : 'intake', firstAttempt: res.first, response: a.given, correct: ok,
     confidence: a.conf || null, cbm: res.cbm, grade, msTaken: a.ms, hintUsed: !!a.hint, rBefore, rExamBefore: sch.rExamBefore, rExamAfter: sch.rExamAfter,
     s: card.s, d: card.d, due: card.due, value: R.inst ? R.inst.value : undefined,
+    prompt: R.inst ? R.inst.prompt : undefined, expl: R.inst ? R.inst.expl : undefined, unit: R.inst ? R.inst.unit : undefined, alt: R.echo && it.alt ? true : undefined,
     /* delta v2 D1 fields, so models can be refit offline */
     hintLevel: a.hint ? 2 : 0, sessionId: R.sess.id, blockId: R.sess.id + '/b' + (R.sess.block ? R.sess.block.n : 1), localHour: new Date().getHours(),
     sleepFlag: d.sleepFlag || null, recoveryPace: S.recoveryPace, selectionReason: R.echo ? 'echo' : R.q.kind,
@@ -712,6 +763,7 @@ function viewDebrief(kind) {
     </div>${back ? `<p class="small muted" style="margin-bottom:0">Catching up: ${backlogText(back)}.</p>` : ''}</div>
     ${c3.length ? `<div class="card"><div class="lbl">High-confidence misses today</div><ul>${c3.map(it => `<li class="small">${fmt(it.type === 'gen' ? it.title : it.prompt)}</li>`).join('')}</ul>${pms ? `<p class="small">What went wrong, by your call: ${esc(pms)}.</p>` : ''}<p class="small muted">Each returns tomorrow and in a week. Confident errors are corrected well, but they tend to creep back.</p></div>` : ''}
     <div class="card"><div class="lbl">Today's bets</div>${calTable(cal)}<p class="small muted">${calMessage(calAll)}</p></div>
+    ${s.first > s.firstCorrect ? `<a class="task" href="#/tutor/today" style="text-decoration:none;color:inherit"><div class="grow"><b>Go over today's misses with an AI tutor</b><span class="small muted">Makes a file you can upload to Claude or any AI chat</span></div><span class="ib" aria-hidden="true">→</span></a>` : ''}
     ${kind === 'intake' && !kvGet('hideExNote') ? `<div class="note small"><span class="grow">Training today? Moderate or hard exercise in the hours after learning is the better slot; studying between sets isn't.</span><button class="chip ghost" data-act="hide-ex" aria-label="Dismiss this note">✕</button></div>` : ''}
     ${nextBtn}`;
 }
@@ -759,6 +811,7 @@ function viewCalibration() {
     <div class="card"><div class="lbl">Month by month</div>${calTrend()}</div>
     ${pmSummary(kvGet('pmAll', {})) ? `<div class="card"><div class="lbl">Missed "Sure" bets, by your call</div>${pmBars(kvGet('pmAll', {}))}</div>` : ''}
     <a class="task" href="#/primer" style="text-decoration:none;color:inherit"><div class="grow"><b>What your bets mean</b><span class="small muted">A two-minute refresher on betting well</span></div><span class="ib" aria-hidden="true">→</span></a>
+    <a class="task" href="#/tutor" style="text-decoration:none;color:inherit"><div class="grow"><b>Tutor pack</b><span class="small muted">Your misses and weak spots, as a file for any AI tutor</span></div><span class="ib" aria-hidden="true">→</span></a>
     <div class="card small"><div class="lbl">How the bets score</div>
       <p>Unsure: +1 if right, 0 if wrong. Fairly sure: +2 / −2. Sure: +3 / −6. "I don't know": 0.</p>
       <p class="muted">This is certainty-based marking, used in medical schools. It is a proper scoring rule: over many questions you score highest by betting what you really believe. "Sure" only pays when you're right more than 80% of the time; "Fairly sure" beats "Unsure" above 67%.</p></div>`;
@@ -805,6 +858,9 @@ function viewSettings() {
     <h3>Backup</h3>
     <p class="small">Your cards and history live only in this browser. ${S.lastExportAt ? 'Last backup: ' + esc(S.lastExportAt.slice(0, 10)) + '.' : 'No backup yet.'} <span id="persist" class="muted"></span></p>
     <div class="row"><button class="btn primary" data-act="export">Export backup</button><label class="btn">Import backup<input type="file" id="import" accept="application/json,.json" hidden></label></div>
+    <h3>AI tutoring</h3>
+    <p class="small muted">Station 528 has no built-in AI. The tutor pack collects your misses, weak units and calibration into a file, with instructions, for whichever AI chat you use.</p>
+    <div class="row"><a class="btn" href="#/tutor">Make a tutor pack</a></div>
     <h3>Cards</h3>
     <div class="row"><a class="btn" href="#/flags">Flagged cards (${fl})</a><a class="btn" href="#/about">About the cards</a></div>
     <hr><button class="btn danger" data-act="wipe">Erase everything in this browser</button>`;
@@ -942,7 +998,8 @@ function flagSheet() {
 
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix],[data-ins],[data-pm],[data-sleep],[data-pace]'); if (!t) return;
+  const t = e.target.closest('[data-act],[data-o],[data-c],[data-fix],[data-ins],[data-pm],[data-sleep],[data-pace],[data-trange]'); if (!t) return;
+  if (t.dataset.trange != null) { TUTOR.range = t.dataset.trange; if (location.hash !== '#/tutor') go('#/tutor'); else viewTutor(); return; }
   const R = RUN;
   if (t.dataset.ins != null) { /* helper keys for numbers on phones */
     const inp = $('#ans'); if (!inp) return;
@@ -986,6 +1043,9 @@ document.addEventListener('click', e => {
   if (act === 'block-go' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); const b = BLOCK; BLOCK = null; nextCard(b.kind, b.sess); return; }
   if (act === 'block-stop' && BLOCK) { nextBlock(BLOCK.sess, now()); kvSet('sess:' + BLOCK.kind, BLOCK.sess); BLOCK = null; go('#/'); return; }
   if (act === 'lookaway') { lookAway(); return; }
+  if (act === 'tutor-copy') { tutorCopy(); return; }
+  if (act === 'tutor-share') { tutorShare(); return; }
+  if (act === 'tutor-dl') { tutorDownload(); return; }
   if (act === 'rest-end') { endRest(); return; }
   if (act === 'persist') { e.preventDefault(); navigator.storage.persist().then(p => { toast(p ? 'Storage will be kept.' : 'The browser declined. Add the page to your home screen and back up weekly.'); viewSettings(); }); return; }
   if (act === 'wipe') { if (confirm('Erase all cards, history and settings in this browser? Export a backup first if you might want them.') && confirm('Really erase everything?')) wipeAll().then(() => { loadSettings(); initItems(); go('#/'); }); return; }

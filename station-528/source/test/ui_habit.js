@@ -13,6 +13,7 @@ let fails = 0; const ok = (c, m) => { if (!c) { fails++; console.log('FAIL', m);
   const url = `http://localhost:${server.address().port}/`;
   const b = await chromium.launch(); const errors = [];
   const ctx = await b.newContext({ ...devices['iPhone 13'], deviceScaleFactor: 2, colorScheme: process.env.DARK ? 'dark' : 'light' });
+  await ctx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: `http://localhost:${server.address().port}` });
   const page = await ctx.newPage();
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
@@ -90,6 +91,24 @@ let fails = 0; const ok = (c, m) => { if (!c) { fails++; console.log('FAIL', m);
   ok(/Training today\?/.test(await text()), 'exercise note in the Intake debrief');
   await page.click('[data-act="hide-ex"]'); await page.waitForTimeout(80);
   ok(await ev(() => kvGet('hideExNote')) === true && !/Training today\?/.test(await text()), 'exercise note dismissed for good');
+
+  /* 5b. tutor pack from the Debrief */
+  await page.goto(url + '#/debrief/intake'); await page.waitForTimeout(200);
+  ok(await page.$('a[href="#/tutor/today"]') != null, 'Debrief links to the tutor pack after misses');
+  await page.click('a[href="#/tutor/today"]'); await page.waitForTimeout(500);
+  const tp = await text();
+  ok(/1\s*missed card/.test(tp) && /Copy text/.test(tp), 'tutor pack page summarizes today');
+  ok((await ev(() => TUTOR.text)).includes('"golgi apparatus" (Sure') && (await ev(() => TUTOR.text)).includes('their label: misread it'), 'pack holds the miss, bet and label');
+  ok(await ev(() => document.querySelector('[data-trange="today"]').classList.contains('on')), 'Debrief link opens on Today');
+  await shot('tutor');
+  const dl = page.waitForEvent('download'); await page.click('[data-act="tutor-dl"]');
+  const d1 = await dl; ok(/^station528-tutor-\d{4}-\d{2}-\d{2}\.md$/.test(d1.suggestedFilename()), 'download is a dated .md file');
+  await page.click('[data-act="tutor-copy"]'); await page.waitForTimeout(150);
+  ok((await ev(() => navigator.clipboard.readText())).startsWith('# Station 528 tutor pack'), 'copy puts the pack on the clipboard');
+  await page.uncheck('#tinstr'); await page.waitForTimeout(400);
+  ok(!(await ev(() => TUTOR.text)).includes('## Instructions for the tutor'), 'instructions can be left out');
+  await page.check('#tinstr'); await page.click('[data-trange="all"]'); await page.waitForTimeout(400);
+  ok(await ev(() => location.hash === '#/tutor' && TUTOR.range === 'all'), 'period switch');
 
   /* 6. re-entry after idle days with a big backlog: no missed-day or overdue counts anywhere */
   await ev(async () => {

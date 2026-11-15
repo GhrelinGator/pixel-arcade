@@ -29,6 +29,7 @@ Live: https://ghrelingator.github.io/pixel-arcade/station-528/
 - **Blocks and a stopping point (D14).** After about 20 minutes of answering, "Block done" offers an optional, skippable two-minute look-away. Once Rounds and Intake are done, the Station shows "Today's essentials are done."
 - **Post-mortems and calibration trend (D15).** After a corrected wrong "Sure", one optional tap records what happened: misread, didn't know it, reasoning slip, trap or careless. Debrief and Calibration tally the answers. Calibration adds a month-by-month trend for each bet level and a short primer, offered again at each phase change.
 - **Exercise note (D23).** A modest, dismissible note in the Intake debrief.
+- **Tutor pack.** No built-in AI. Instead, the Tutor pack page (from the Debrief, Calibration or Settings) builds a Markdown file for any AI chat. It covers today, the last 7 or 30 days, or everything, and holds missed cards with your exact answers, bets and post-mortem labels, the keys and the cards' explanations, the wrong options you picked and why they're wrong, weakest units, calibration, cards that keep slipping, flagged keys, and optional tutoring instructions (retrieve first, target the misconception, worked then faded examples, contrast look-alikes, stay on the AAMC outline). Share, copy or download it; it contains study data only.
 - **Logging (D1, partial).** Logs gain session and block ids, local hour, sleep flag, hint level, selection reason, recovery pace and Intake slot, so the D1 experiments can be analyzed later.
 
 Planned for later versions, per the spec: Scout pretests, the Workshop ladder, contrast-set Expeditions and Boss runs (v0.2); Case Files and CARS (v0.3); Psych/Soc and biochemistry coverage (v0.4); Exam Sim (v1.0).
@@ -52,7 +53,8 @@ node tools/lint.js            # content lint (structure, one key, NOT/EXCEPT sha
 node tools/blind.js export    # key-hidden sets for a new cross-check; `compare write` records verdicts
 node test/ui_flow.js          # end-to-end on a phone viewport, incl. backup round trip (§13.9)
 node test/ui_targeted.js      # calculation card, hint lock, appeal, keyboard flow
-node test/ui_habit.js         # delta v2: re-entry, pace, plans, weeks, seasons, sleep, blocks, post-mortems
+node test/ui_habit.js         # delta v2: re-entry, pace, plans, weeks, seasons, sleep, blocks, post-mortems, tutor pack
+node test/tutor_test.js       # tutor pack contents: appeals, labels, ranking, generated questions, privacy
 ```
 
 ## Licenses
