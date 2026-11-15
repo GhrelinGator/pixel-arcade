@@ -6,7 +6,7 @@ T('b-mol', 'aa-monomer', 'What are the monomers of proteins?', ['amino acids', '
   'Twenty standard amino acids, joined into polypeptides by peptide bonds.', { cat: '1A' });
 T('b-mol', 'peptide', 'What bond links one amino acid to the next in a protein chain?', ['peptide bond', 'peptide', 'amide bond', 'amide', 'peptide bonds'],
   'A peptide (amide) bond between the carboxyl carbon of one amino acid and the amino nitrogen of the next, formed by dehydration.', { cat: '1A' });
-C('b-mol', 'peptide-planar', 'Which describes the peptide bond?', ['Planar and rigid, with partial double-bond character', 'Free to rotate like any single bond', 'An ionic bond between charged groups', 'Formed by hydrolysis'],
+C('b-mol', 'peptide-planar', 'Which describes the peptide bond?', ['Planar and rigid, with partial double-bond character', 'Free to rotate like any carbon–carbon single bond', 'An ionic bond between the charged ends of amino acids', 'Formed by hydrolysis, which adds water'],
   ['Resonance with the carbonyl gives the C–N bond partial double-bond character, which blocks rotation.', 'It is a covalent amide bond.', 'Hydrolysis breaks peptide bonds; dehydration forms them.'],
   'Because of resonance, the six atoms around each peptide bond lie in one plane. Rotation happens only at the bonds to the α-carbon (φ and ψ), which shapes secondary structure.', { cat: '1A', sk: 2, hy: true });
 C('b-mol', 'secondary', 'α-helices and β-sheets are held together mainly by:', ['Hydrogen bonds between backbone C=O and N–H groups', 'Disulfide bonds', 'Hydrophobic interactions between side chains', 'Peptide bonds'],
@@ -30,18 +30,18 @@ C('b-mol', 'asp-charge', 'Which amino acid has a negatively charged side chain a
 C('b-mol', 'sucrose', 'Sucrose is made of which two monosaccharides?', ['Glucose and fructose', 'Glucose and galactose', 'Glucose and glucose', 'Fructose and galactose'],
   ['That is lactose.', 'That is maltose (or other glucose dimers).', 'No common disaccharide.'],
   'Sucrose (table sugar) = glucose + fructose; lactose = glucose + galactose; maltose = glucose + glucose.', { cat: '5D', cs: ['cs-sugars'] });
-C('b-mol', 'cellulose', 'What makes cellulose indigestible to humans while starch is digestible?', ['Cellulose uses β(1→4) glycosidic bonds; starch uses α(1→4)', 'Cellulose is made of fructose', 'Cellulose is a protein', 'Starch is branched and cellulose is not'],
+C('b-mol', 'cellulose', 'What makes cellulose indigestible to humans while starch is digestible?', ['Cellulose uses β(1→4) glycosidic bonds; starch uses α(1→4)', 'Cellulose is made of fructose, not glucose', 'Cellulose is a protein, not a carbohydrate', 'Starch is branched, while cellulose is a straight chain'],
   ['Both are polymers of glucose.', 'Both are polysaccharides.', 'Amylose (part of starch) is unbranched too; branching is not the key.'],
   'Our amylases cut α linkages only. The β linkages of cellulose need cellulase, which cows rely on gut microbes to supply.', { cat: '5D', hy: true, cs: ['cs-sugars'] });
-C('b-mol', 'saturated', 'Compared with unsaturated fatty acids, saturated fatty acids:', ['Have no C=C double bonds, pack tightly and melt at higher temperatures', 'Have cis double bonds that kink the chain', 'Are liquid at room temperature', 'Make membranes more fluid'],
+C('b-mol', 'saturated', 'Compared with unsaturated fatty acids, saturated fatty acids:', ['Have no C=C double bonds, so they pack tightly and melt higher', 'Have cis double bonds that kink the chain and loosen packing', 'Are liquid at room temperature, like most oils', 'Make membranes more fluid at low temperatures'],
   ['Kinks come from cis double bonds, found in unsaturated fats.', 'That describes oils, which are mostly unsaturated.', 'Tight packing makes membranes less fluid.'],
   'Straight saturated chains stack closely with strong dispersion forces (butter is solid). Unsaturated kinks disrupt packing (olive oil is liquid).', { cat: '5D' });
 T('b-mol', 'amphipathic', 'A molecule with both a hydrophilic and a hydrophobic region, like a phospholipid, is called ___.', ['amphipathic', 'amphiphilic'],
   'Amphipathic. Phospholipids put their polar heads toward water and their fatty acid tails together, forming bilayers.', { cat: '5D' });
-C('b-mol', 'nucleotide', 'A nucleotide is made of:', ['A phosphate group, a five-carbon sugar and a nitrogenous base', 'A sugar and a base only', 'An amino acid and a phosphate', 'Glycerol and fatty acids'],
+C('b-mol', 'nucleotide', 'A nucleotide is made of:', ['A phosphate group, a five-carbon sugar and a nitrogenous base', 'A five-carbon sugar and a nitrogenous base, with no phosphate', 'An amino acid, a phosphate group and a sugar', 'Glycerol bonded to three fatty acid chains'],
   ['That is a nucleoside.', 'Amino acids are not part of nucleic acids.', 'That is a fat (triglyceride).'],
   'Nucleoside = sugar + base; add one or more phosphates to get a nucleotide.', { cat: '1B' });
-C('b-mol', 'denature', 'Heat denatures a protein. What does it disrupt?', ['Secondary, tertiary and quaternary structure, but not peptide bonds', 'The amino acid sequence', 'The peptide bonds', 'The side chains\' chemical identity'],
+C('b-mol', 'denature', 'Heat denatures a protein. What does it disrupt?', ['Secondary, tertiary and quaternary structure, not peptide bonds', 'The amino acid sequence, by scrambling the order of residues', 'The peptide bonds linking the amino acids', 'The chemical identity of the side chains themselves'],
   ['The sequence (primary structure) survives denaturation.', 'Breaking peptide bonds takes hydrolysis, not ordinary heating.', 'The side chains are intact; only their interactions change.'],
   'Denaturation unfolds a protein by breaking noncovalent interactions (and sometimes disulfides). Some proteins refold when conditions return, as Anfinsen showed.', { cat: '1A', sk: 2, cs: ['cs-protein-levels'] });
 T('b-mol', 'dehydration', 'Polymers such as proteins and starch are built by ___ reactions, which release water.', ['dehydration', 'condensation', 'dehydration synthesis', 'condensation reactions', 'dehydration reactions', 'dehydration synthesis reactions'],
@@ -57,10 +57,10 @@ T('b-cell', 'ser', 'Which organelle makes lipids and detoxifies drugs in liver c
   'The smooth ER. It has no ribosomes, and it also stores Ca²⁺ in muscle (as the sarcoplasmic reticulum).', { cs: ['cs-er'] });
 T('b-cell', 'rer', 'Proteins destined for secretion are made on ribosomes bound to which organelle?', ['rough er', 'rough endoplasmic reticulum', 'rer', 'rough reticulum', 'the rough er'],
   'The rough ER. A signal sequence directs the ribosome there, and the growing protein enters the ER lumen, then travels to the Golgi.', { hy: true, cs: ['cs-er'] });
-C('b-cell', 'golgi', 'What does the Golgi apparatus mainly do?', ['Modifies, sorts and packages proteins and lipids for their destinations', 'Makes ATP', 'Replicates DNA', 'Digests worn-out organelles'],
+C('b-cell', 'golgi', 'What does the Golgi apparatus mainly do?', ['Modifies, sorts and ships proteins and lipids', 'Makes ATP for the cell by burning fuel', 'Replicates DNA before cell division', 'Digests worn-out organelles and debris'],
   ['That is the mitochondria.', 'That happens in the nucleus.', 'That is the lysosome.'],
   'Proteins arrive from the ER, get glycosylation trimmed and added, and leave in vesicles for the membrane, lysosomes or secretion.');
-C('b-cell', 'lysosome', 'Which describes lysosomes?', ['Membrane sacs of hydrolytic enzymes that work best at acidic pH', 'Sites of protein synthesis', 'Organelles that break down hydrogen peroxide', 'Stores of calcium for muscle contraction'],
+C('b-cell', 'lysosome', 'Which describes lysosomes?', ['Membrane sacs of hydrolytic enzymes that work best at acidic pH', 'Sites of protein synthesis on the rough ER and in the cytoplasm', 'Organelles that break down hydrogen peroxide', 'Stores of calcium released for muscle contraction'],
   ['That is ribosomes.', 'That is the peroxisome.', 'That is the (smooth/sarcoplasmic) ER.'],
   'Lysosomes keep a pH near 5. If enzymes leak into the neutral cytosol, they work poorly, a built-in safety feature.', { cs: ['cs-organelle-digest'] });
 C('b-cell', 'peroxisome', 'Which organelle breaks down very-long-chain fatty acids and hydrogen peroxide?', ['Peroxisome', 'Lysosome', 'Golgi apparatus', 'Nucleolus'],
@@ -72,7 +72,7 @@ C('b-cell', 'prok-lack', 'Which do prokaryotic cells lack?', ['A membrane-bound 
 C('b-cell', 'ribosome-size', 'Eukaryotic cytoplasmic ribosomes are:', ['80S, made of 60S and 40S subunits', '70S, made of 50S and 30S subunits', '80S, made of 50S and 30S subunits', '100S'],
   ['That is prokaryotic (and mitochondrial) ribosomes.', 'Mixes up the two systems.', 'Not a ribosome size.'],
   'Svedberg units measure sedimentation, so they do not add: 60S + 40S make an 80S ribosome, and 50S + 30S make a 70S one. Antibiotics such as streptomycin target 70S ribosomes.', { cs: ['cs-pro-euk'] });
-C('b-cell', 'microtubule', 'Microtubules are made of ___ and form ___.', ['Tubulin; the mitotic spindle, cilia and flagella', 'Actin; the cleavage furrow', 'Keratin; anchoring junctions', 'Myosin; thick filaments'],
+C('b-cell', 'microtubule', 'Microtubules are made of ___ and form ___.', ['Tubulin; the mitotic spindle, cilia and flagella', 'Actin; the cleavage furrow and microvilli', 'Keratin; anchoring junctions in skin cells', 'Myosin; the thick filaments of muscle'],
   ['Actin makes microfilaments.', 'Keratin is an intermediate filament.', 'Myosin is a motor protein, not a cytoskeletal polymer of this type.'],
   'Hollow tubes of α/β-tubulin dimers. Kinesin and dynein walk along them. Cilia and flagella use a 9+2 arrangement.', { hy: true, cs: ['cs-cytoskeleton'] });
 C('b-cell', 'microfilament', 'Which cytoskeletal element pinches a dividing animal cell in two?', ['Actin microfilaments', 'Microtubules', 'Intermediate filaments', 'Centrioles'],
@@ -92,12 +92,12 @@ C('b-cell', 'desmosome', 'Which junction anchors cells together via intermediate
   'Desmosomes are spot welds, abundant in skin and heart muscle.', { cs: ['cs-junctions'] });
 T('b-cell', 'nucleolus', 'Where in the nucleus is ribosomal RNA made and ribosome subunit assembly begun?', ['nucleolus', 'the nucleolus', 'nucleoli'],
   'The nucleolus: a dense region where rRNA genes are transcribed and subunits are started before export.');
-C('b-cell', 'endosym', 'Which observation supports the endosymbiotic origin of mitochondria?', ['They have their own circular DNA and bacteria-like ribosomes', 'They are made by the Golgi', 'They lack membranes', 'Their proteins are all encoded in the nucleus'],
+C('b-cell', 'endosym', 'Which observation supports the endosymbiotic origin of mitochondria?', ['They have their own circular DNA and bacteria-like ribosomes', 'They are assembled by the Golgi apparatus', 'They lack any membrane of their own', 'All of their proteins are encoded in the nucleus'],
   ['Mitochondria divide by fission; they are not built by the Golgi.', 'They have two membranes, consistent with engulfment.', 'Not true: mitochondrial DNA still encodes some proteins (13 in humans). Most are nuclear-encoded, but that reflects genes moving to the nucleus later.'],
   'Circular genomes, 70S-type ribosomes, double membranes and binary fission all resemble bacteria.', { sk: 2 });
 
 /* ---------- Membranes & transport (2A) ---------- */
-C('b-mem', 'cholesterol', 'What does cholesterol do to membrane fluidity?', ['Buffers it: less fluid at high temperature, prevents stiffening at low temperature', 'Always makes the membrane more fluid', 'Always makes the membrane more rigid', 'Has no effect'],
+C('b-mem', 'cholesterol', 'What does cholesterol do to membrane fluidity?', ['Buffers it: less fluid when warm, less stiff when cold', 'Always makes the membrane more fluid, at any temperature', 'Always makes the membrane more rigid, at any temperature', 'Has no real effect on membrane fluidity'],
   ['It restrains phospholipid movement when warm.', 'It keeps tails from packing tightly when cold.', 'Its effect is substantial in animal cells.'],
   'Cholesterol\'s rigid rings slot between phospholipids, damping fluidity changes in both directions.', { sk: 2 });
 C('b-mem', 'simple', 'Which crosses a lipid bilayer by simple diffusion?', ['O₂', 'Glucose', 'Na⁺', 'Insulin'],
@@ -161,10 +161,10 @@ N('b-energy', 'glyc-net', 'What is the net ATP yield of glycolysis per glucose?'
   '4 ATP made, 2 ATP spent in the investment phase: net 2 ATP (plus 2 NADH).', { hy: true });
 T('b-energy', 'pyruvate', 'What three-carbon molecule does glycolysis end with?', ['pyruvate', 'pyruvic acid'],
   'Two pyruvate per glucose. With oxygen it becomes acetyl-CoA; without, it is reduced to lactate (or ethanol in yeast).');
-C('b-energy', 'ferment', 'What is the main point of fermentation?', ['To regenerate NAD⁺ so glycolysis can keep making ATP', 'To make additional ATP from pyruvate', 'To produce oxygen', 'To feed the citric acid cycle'],
+C('b-energy', 'ferment', 'What is the main point of fermentation?', ['To regenerate NAD⁺ so glycolysis can keep making ATP', 'To make extra ATP by breaking down pyruvate', 'To produce oxygen for the electron transport chain', 'To feed acetyl-CoA into the citric acid cycle'],
   ['Fermentation itself makes no ATP.', 'No pathway in animal cells makes O₂.', 'Fermentation runs when the cycle and ETC cannot.'],
   'Glycolysis consumes NAD⁺. Converting pyruvate to lactate oxidizes NADH back to NAD⁺, keeping glycolysis running.', { sk: 2, hy: true });
-C('b-energy', 'atp-synthase', 'ATP synthase is driven directly by:', ['Protons flowing down their gradient back into the matrix', 'Electrons moving through the enzyme', 'Hydrolysis of GTP', 'The oxidation of glucose in the matrix'],
+C('b-energy', 'atp-synthase', 'ATP synthase is driven directly by:', ['Protons flowing down their gradient back into the matrix', 'Electrons passing through the enzyme from NADH', 'Hydrolysis of GTP made in the citric acid cycle', 'The oxidation of glucose in the matrix'],
   ['Electrons move through complexes I–IV, not ATP synthase.', 'GTP is made in the citric acid cycle; it does not drive ATP synthase.', 'Glucose is not oxidized in the matrix.'],
   'Chemiosmosis: the ETC pumps H⁺ into the intermembrane space, and H⁺ returning through ATP synthase turns its rotor.', { hy: true });
 C('b-energy', 'pdh', 'Pyruvate dehydrogenase converts pyruvate into:', ['Acetyl-CoA, CO₂ and NADH', 'Lactate', 'Oxaloacetate', 'Glucose'],
@@ -175,9 +175,9 @@ T('b-energy', 'pfk', 'What is the main rate-limiting enzyme of glycolysis?', ['p
 C('b-energy', 'atp-yield', 'Current estimates of the ATP made from one glucose by full aerobic respiration are about:', ['30–32', '2', '36–38', '100'],
   ['That is glycolysis alone.', 'Older textbooks give this, assuming whole-number ATP per NADH. Proton leak and transport costs bring it to about 30–32.', 'Far too high.'],
   'About 2.5 ATP per NADH and 1.5 per FADH₂ gives roughly 30–32 per glucose.', { sk: 1 });
-C('b-energy', 'uncoupler', 'An uncoupler such as DNP makes the inner mitochondrial membrane leaky to H⁺. What happens?', ['O₂ use continues or rises, ATP synthesis falls, and heat is released', 'O₂ use stops and ATP synthesis stops', 'ATP synthesis rises', 'The ETC reverses'],
+C('b-energy', 'uncoupler', 'An uncoupler such as DNP makes the inner mitochondrial membrane leaky to H⁺. What happens?', ['O₂ use continues, ATP synthesis falls, and heat is released', 'O₂ use stops, and ATP synthesis stops along with it', 'ATP synthesis rises because protons move faster', 'The ETC reverses and pumps protons back out'],
   ['That is what an ETC blocker such as cyanide does.', 'The proton gradient that drives ATP synthase is dissipated.', 'The ETC keeps running forward, even faster.'],
-  'Electron flow is no longer held back by the gradient, so O₂ consumption continues, but the energy escapes as heat instead of ATP. Brown fat does this on purpose (UCP1).', { sk: 2, cs: ['cs-etc-poisons'] });
+  'Electron flow is no longer held back by the gradient, so O₂ consumption continues (often rises), but the energy escapes as heat instead of ATP. Brown fat does this on purpose (UCP1).', { sk: 2, cs: ['cs-etc-poisons'] });
 C('b-energy', 'cyanide', 'Cyanide blocks complex IV. What happens to oxygen consumption and ATP synthesis?', ['Both stop', 'O₂ use rises, ATP falls', 'O₂ use stops, ATP rises', 'Neither changes'],
   ['That is an uncoupler.', 'No electron flow means no proton pumping, so ATP falls.', 'Complex IV is essential.'],
   'Electrons cannot reach O₂, the chain backs up, pumping stops and oxidative ATP production collapses.', { sk: 2, cs: ['cs-etc-poisons'] });
@@ -189,7 +189,7 @@ C('b-div', 'crossover', 'When does crossing over occur?', ['Prophase I of meiosi
 C('b-div', 'homologs-sep', 'Homologous chromosomes separate during:', ['Anaphase I', 'Anaphase II', 'Anaphase of mitosis', 'Telophase II'],
   ['Sister chromatids separate then.', 'Sister chromatids separate then.', 'By telophase II everything has separated.'],
   'Meiosis I is the reductional division (homologs part); meiosis II is like mitosis (sisters part).', { cat: '1C', hy: true, cs: ['cs-mitosis-meiosis'] });
-C('b-div', 'sisters-sep', 'Sister chromatids separate during:', ['Anaphase II and mitotic anaphase', 'Anaphase I only', 'Prophase I', 'Metaphase I'],
+C('b-div', 'sisters-sep', 'Sister chromatids separate during:', ['Anaphase II and mitotic anaphase', 'Anaphase I, when homologs separate', 'Prophase I, during crossing over', 'Metaphase I, at the cell\'s equator'],
   ['Sisters stay joined at their centromeres through meiosis I.', 'Prophase I is pairing and crossing over.', 'Metaphase I lines up homolog pairs.'],
   'Cohesin is cleaved at the centromere in anaphase of mitosis and anaphase II, freeing the sisters.', { cs: ['cs-mitosis-meiosis'] });
 C('b-div', 'meiosis-out', 'What does meiosis produce from one diploid cell?', ['Four haploid, genetically distinct cells', 'Two diploid, identical cells', 'Four diploid cells', 'Two haploid, identical cells'],
@@ -200,10 +200,10 @@ C('b-div', 's-phase', 'DNA is replicated during which phase of the cell cycle?',
   'Synthesis (S) phase doubles the DNA; each chromosome then has two sister chromatids.', { hy: true });
 T('b-div', 'metaphase', 'In which phase of mitosis do chromosomes line up at the cell\'s equator?', ['metaphase'],
   'Metaphase. The spindle checkpoint holds the cell there until every kinetochore is attached.', { cs: ['cs-mitosis-phases'] });
-C('b-div', 'nondis-1', 'Nondisjunction in meiosis I produces gametes that are:', ['All abnormal: two with an extra chromosome, two missing one', 'Half normal, half abnormal', 'All normal', 'All triploid'],
+C('b-div', 'nondis-1', 'Nondisjunction in meiosis I produces gametes that are:', ['All abnormal: two with an extra chromosome, two missing one', 'Half normal; one extra chromosome, one missing one', 'All normal, because meiosis II corrects the error', 'All triploid, with a full extra set of chromosomes'],
   ['That is the outcome of nondisjunction in meiosis II.', 'A failed separation must unbalance some gametes.', 'Only one chromosome pair was affected.'],
   'If a homolog pair fails to separate, both daughter cells of meiosis I are unbalanced, and so are all four gametes.', { cat: '1C', sk: 2, cs: ['cs-nondisjunction'] });
-C('b-div', 'nondis-2', 'Nondisjunction in meiosis II (in one of the two cells) produces:', ['Two normal gametes, one with an extra chromosome and one missing one', 'Four abnormal gametes', 'Four normal gametes', 'Two diploid gametes'],
+C('b-div', 'nondis-2', 'Nondisjunction in meiosis II (in one of the two cells) produces:', ['Two normal gametes, one with an extra chromosome, one missing one', 'Four abnormal gametes: two with an extra, two missing one', 'Four normal gametes, since meiosis I went correctly', 'Two diploid gametes and two with no chromosomes'],
   ['That is meiosis I nondisjunction.', 'Sisters failed to separate in one cell, so something is unbalanced.', 'Only the affected cell\'s two products are unbalanced.'],
   'The other meiosis II cell divides normally, giving two normal gametes.', { cat: '1C', sk: 2, cs: ['cs-nondisjunction'] });
 T('b-div', 'cohesin', 'Which protein complex holds sister chromatids together until anaphase?', ['cohesin', 'cohesins'],
@@ -211,7 +211,7 @@ T('b-div', 'cohesin', 'Which protein complex holds sister chromatids together un
 C('b-div', 'cyclin', 'Through the cell cycle, which statement about cyclins and CDKs is true?', ['Cyclin levels rise and fall; CDK levels stay fairly constant', 'CDK levels rise and fall; cyclins stay constant', 'Both stay constant', 'Both are made only in S phase'],
   ['It is the reverse.', 'Cyclin oscillation is what times the cycle.', 'Different cyclins peak in different phases.'],
   'CDKs are active only when bound to their cyclin, so cyclin synthesis and destruction switch CDK activity on and off.');
-C('b-div', 'p53', 'What does p53 do when DNA is damaged?', ['Halts the cell cycle (at G₁/S) for repair or triggers apoptosis', 'Speeds the cell into S phase', 'Repairs DNA directly as a polymerase', 'Separates sister chromatids'],
+C('b-div', 'p53', 'What does p53 do when DNA is damaged?', ['Halts the cell cycle (at G₁/S) for repair or triggers apoptosis', 'Speeds the cell into S phase to finish replication', 'Repairs damaged DNA directly, acting as a polymerase', 'Separates sister chromatids at anaphase'],
   ['That is the opposite of its role.', 'It is a transcription factor, not a repair enzyme.', 'That is separase.'],
   'p53 is a tumor suppressor; loss of function is found in roughly half of human cancers.', { hy: true });
 C('b-div', 'indep', 'The law of independent assortment follows from:', ['The random orientation of homolog pairs at metaphase I', 'Crossing over in prophase I', 'Sister chromatid separation in anaphase II', 'DNA replication in S phase'],
@@ -272,10 +272,10 @@ G('b-gen', 'g-map', 'Map distance', rnd => {
 });
 
 /* ---------- DNA, replication & gene expression (1B) ---------- */
-C('b-dna', 'dnapol', 'DNA polymerase synthesizes new DNA:', ['5′ → 3′, and only by extending an existing primer', '3′ → 5′, starting from nothing', 'In both directions equally', '5′ → 3′, starting from nothing'],
+C('b-dna', 'dnapol', 'DNA polymerase synthesizes new DNA:', ['5′ → 3′, and only by extending an existing primer', '3′ → 5′, and it can start a new chain on its own', 'In both directions equally, from a central start', '5′ → 3′, and it can start a new chain on its own'],
   ['It reads the template 3′→5′ but builds 5′→3′, and it cannot start chains.', 'Each new nucleotide is added to a free 3′-OH.', 'It cannot start a chain; primase lays an RNA primer first.'],
   'New nucleotides attach to the 3′-OH of the growing strand, so all synthesis runs 5′→3′.', { hy: true, cs: ['cs-replication'] });
-C('b-dna', 'lagging', 'Why is the lagging strand made in Okazaki fragments?', ['Polymerase can only build 5′→3′, so on that strand it must work away from the fork in short pieces', 'Helicase unwinds that strand more slowly', 'It is made of RNA', 'It is copied only after the leading strand is finished'],
+C('b-dna', 'lagging', 'Why is the lagging strand made in Okazaki fragments?', ['Polymerase only builds 5′→3′, so it must work away from the fork in short pieces', 'Helicase unwinds that strand more slowly than the other', 'It is made of RNA, which is synthesized in short pieces', 'It is copied only after the leading strand is completely finished'],
   ['Helicase unwinds both strands together.', 'Only the primers are RNA.', 'Both strands are copied at the same fork, at the same time.'],
   'Template strands are antiparallel. The lagging strand\'s new copy must be started repeatedly with new primers, then the pieces are joined.', { sk: 2, cs: ['cs-replication'] });
 T('b-dna', 'helicase', 'Which enzyme unwinds the double helix at the replication fork?', ['helicase', 'dna helicase'],
@@ -286,13 +286,13 @@ T('b-dna', 'topo', 'Which enzyme relieves the supercoiling that builds up ahead 
   'Topoisomerases cut and rejoin DNA to release tension. Bacterial DNA gyrase is the target of fluoroquinolone antibiotics.', { cs: ['cs-replication-enzymes'] });
 T('b-dna', 'primase', 'Primase lays down short primers made of ___.', ['rna'],
   'RNA. DNA polymerase then extends the primer; the primers are later removed and replaced with DNA.', { cs: ['cs-replication-enzymes'] });
-C('b-dna', 'rnapol', 'During transcription, RNA polymerase:', ['Reads the template strand 3′→5′ and builds RNA 5′→3′ without a primer', 'Reads 5′→3′ and builds RNA 3′→5′', 'Needs an RNA primer to start', 'Copies both DNA strands of a gene'],
+C('b-dna', 'rnapol', 'During transcription, RNA polymerase:', ['Reads the template 3′→5′ and builds RNA 5′→3′, with no primer', 'Reads the template 5′→3′ and builds RNA 3′→5′', 'Needs a short RNA primer before it can start', 'Copies both DNA strands of a gene at the same time'],
   ['Synthesis is always 5′→3′.', 'Unlike DNA polymerase, it can start chains on its own.', 'Only the template (antisense) strand is read for a given gene.'],
   'The RNA has the same sequence as the coding strand (with U for T).', { cs: ['cs-polymerase'] });
-C('b-dna', 'processing', 'Which modifications does a eukaryotic pre-mRNA receive before leaving the nucleus?', ['A 5′ cap, a 3′ poly-A tail and splicing out of introns', 'A 3′ cap and a 5′ poly-A tail', 'Removal of exons', 'Addition of a start codon'],
+C('b-dna', 'processing', 'Which modifications does a eukaryotic pre-mRNA receive before leaving the nucleus?', ['A 5′ cap, a 3′ poly-A tail and splicing out of introns', 'A 3′ cap, a 5′ poly-A tail and splicing out of introns', 'Splicing out of exons, keeping the introns', 'Addition of a start codon and a 5′ cap'],
   ['The cap is at 5′ and the tail at 3′.', 'Introns are removed; exons are kept and joined.', 'The start codon is already encoded in the gene.'],
   'The cap and tail protect the mRNA and help translation; the spliceosome removes introns. Prokaryotic mRNA gets none of these.', { hy: true });
-C('b-dna', 'codons', 'How many codons are there, and how many specify amino acids?', ['64 codons; 61 code for amino acids and 3 are stops', '20 codons; all code for amino acids', '64 codons; all code for amino acids', '61 codons; 3 are starts'],
+C('b-dna', 'codons', 'How many codons are there, and how many specify amino acids?', ['64 codons; 61 code for amino acids and 3 are stops', '20 codons; one for each of the amino acids', '64 codons; all 64 code for amino acids', '61 codons; 3 are start codons, the rest amino acids'],
   ['There are 4³ = 64 three-base combinations.', 'Three are stop codons (UAA, UAG, UGA).', 'There is one main start codon (AUG), and it also codes for methionine.'],
   '61 sense codons for 20 amino acids makes the code degenerate (redundant).');
 T('b-dna', 'start', 'What is the start codon?', ['aug'],
@@ -303,7 +303,7 @@ C('b-dna', 'silent', 'A point mutation changes a codon from GAA to GAG; both cod
 C('b-dna', 'nonsense', 'A mutation turns a codon into UAG. This is a:', ['Nonsense mutation', 'Missense mutation', 'Silent mutation', 'Frameshift mutation'],
   ['Missense swaps one amino acid for another.', 'Silent leaves the amino acid unchanged.', 'No bases were inserted or deleted.'],
   'UAG is a stop codon, so the protein is cut short (truncated).', { cs: ['cs-mutation'] });
-C('b-dna', 'frameshift', 'Which change causes a frameshift?', ['Deleting one nucleotide from a coding sequence', 'Deleting three nucleotides', 'Swapping one base for another', 'Changing a base in an intron'],
+C('b-dna', 'frameshift', 'Which change causes a frameshift?', ['Deleting one nucleotide from a coding sequence', 'Deleting three nucleotides in a row', 'Swapping one base for a different base', 'Changing a single base inside an intron'],
   ['Removing a whole codon keeps the frame (an in-frame deletion).', 'Substitutions do not shift the frame.', 'Introns are spliced out, so they do not set the reading frame.'],
   'Insertions or deletions that are not multiples of 3 shift every downstream codon.', { cs: ['cs-mutation'] });
 C('b-dna', 'missense', 'A point mutation changes one codon so that valine replaces glutamate. This is a:', ['Missense mutation', 'Nonsense mutation', 'Silent mutation', 'Frameshift mutation'],
@@ -317,7 +317,7 @@ C('b-dna', 'purines', 'Which bases are purines?', ['Adenine and guanine', 'Cytos
   'Purines have two fused rings ("Pure As Gold"). A purine always pairs with a pyrimidine, keeping the helix a constant width.', { cs: ['cs-bases'] });
 N('b-dna', 'gc-hbonds', 'How many hydrogen bonds hold a G–C base pair together?', { value: 3, tol: 0 },
   'Three (A–T has two). GC-rich DNA melts at a higher temperature.', { cs: ['cs-bases'] });
-C('b-dna', 'rna-dna', 'How does RNA differ chemically from DNA?', ['RNA has ribose (with a 2′-OH) and uracil instead of thymine', 'RNA has deoxyribose and thymine', 'RNA has no phosphate backbone', 'RNA uses different purines'],
+C('b-dna', 'rna-dna', 'How does RNA differ chemically from DNA?', ['RNA has ribose (with a 2′-OH) and uracil instead of thymine', 'RNA has deoxyribose (no 2′-OH) and uses thymine', 'RNA has no sugar-phosphate backbone, only bases', 'RNA uses different purines than DNA does'],
   ['That is DNA.', 'Both have sugar-phosphate backbones.', 'Both use adenine and guanine.'],
   'The 2′-OH makes RNA more reactive and less stable than DNA.', { cs: ['cs-bases'] });
 C('b-dna', 'meselson', 'Bacteria grown in ¹⁵N medium are moved to ¹⁴N. After one round of replication, all the DNA forms a single band of intermediate density. Which model does this rule out?', ['Conservative replication', 'Semiconservative replication', 'Dispersive replication', 'None of them'],
@@ -328,7 +328,7 @@ C('b-dna', 'meselson', 'Bacteria grown in ¹⁵N medium are moved to ¹⁴N. Aft
 C('b-prok', 'gram-pos', 'Gram-positive bacteria have:', ['A thick peptidoglycan wall and no outer membrane; they stain purple', 'A thin peptidoglycan wall and an outer membrane; they stain pink', 'No cell wall', 'A cellulose wall'],
   ['That is gram-negative.', 'Most bacteria have peptidoglycan walls (mycoplasma are the exception).', 'Cellulose walls belong to plants.'],
   'The thick wall traps the crystal violet stain.', { hy: true, cs: ['cs-gram'] });
-C('b-prok', 'gram-neg', 'Which feature belongs to gram-negative bacteria?', ['An outer membrane containing lipopolysaccharide (endotoxin)', 'A thick peptidoglycan layer', 'Teichoic acids in the wall', 'Retaining crystal violet stain'],
+C('b-prok', 'gram-neg', 'Which feature belongs to gram-negative bacteria?', ['An outer membrane containing lipopolysaccharide (endotoxin)', 'A thick peptidoglycan layer outside the membrane', 'Teichoic acids woven through a thick wall', 'Retaining the purple crystal violet stain'],
   ['That is gram-positive.', 'Teichoic acids are a gram-positive feature.', 'Gram-negatives lose the purple stain and take the pink counterstain.'],
   'Their thin peptidoglycan sits between two membranes; LPS triggers strong immune responses.', { cs: ['cs-gram'] });
 C('b-prok', 'transformation', 'A bacterium takes up naked DNA from its surroundings. This is:', ['Transformation', 'Transduction', 'Conjugation', 'Binary fission'],
@@ -340,7 +340,7 @@ C('b-prok', 'transduction', 'Bacterial DNA carried into another bacterium by a b
 C('b-prok', 'conjugation', 'An F⁺ bacterium transfers a plasmid to an F⁻ bacterium through a sex pilus. This is:', ['Conjugation', 'Transduction', 'Transformation', 'Lysogeny'],
   ['No virus is involved.', 'The DNA is not free in the environment.', 'Lysogeny is a viral life cycle.'],
   'Conjugation spreads plasmids, including antibiotic-resistance genes, between bacteria.', { cs: ['cs-gene-transfer'] });
-C('b-prok', 'retro', 'What enzyme lets a retrovirus such as HIV insert its genome into host DNA?', ['Reverse transcriptase (then integrase)', 'RNA polymerase', 'DNA ligase only', 'Helicase'],
+C('b-prok', 'retro', 'Which enzymes let a retrovirus such as HIV turn its RNA genome into DNA and insert it into the host\'s DNA?', ['Reverse transcriptase (then integrase)', 'Host RNA polymerase (then ligase)', 'DNA ligase alone, without other enzymes', 'Helicase (then DNA polymerase)'],
   ['Host RNA polymerase transcribes DNA into RNA; retroviruses need the reverse.', 'Integration uses viral integrase.', 'Helicase unwinds DNA; it neither copies RNA into DNA nor inserts it.'],
   'Reverse transcriptase makes DNA from the viral RNA genome; integrase splices it into a host chromosome.', { hy: true });
 C('b-prok', 'lysogenic', 'In the lysogenic cycle, a phage:', ['Integrates its genome into the host chromosome as a prophage', 'Immediately makes new viruses and bursts the cell', 'Kills the host by releasing toxins', 'Copies itself outside the cell'],
@@ -349,30 +349,30 @@ C('b-prok', 'lysogenic', 'In the lysogenic cycle, a phage:', ['Integrates its ge
 C('b-prok', 'growth', 'In what order do the phases of a bacterial growth curve occur?', ['Lag, exponential (log), stationary, death', 'Exponential, lag, stationary, death', 'Lag, stationary, exponential, death', 'Stationary, lag, exponential, death'],
   ['Cells must first adapt to the new medium.', 'Exponential growth precedes the plateau.', 'Stationary comes when nutrients run low.'],
   'Lag (adjusting), log (doubling at a steady rate), stationary (growth = death), death (decline).');
-C('b-prok', 'plasmid', 'Plasmids are:', ['Small circular DNA molecules separate from the chromosome, often carrying antibiotic resistance', 'Protein coats of viruses', 'Ribosomes', 'The bacterial chromosome'],
+C('b-prok', 'plasmid', 'Plasmids are:', ['Small circular DNA molecules, separate from the chromosome', 'Protein coats that surround viral genomes', 'Ribosomes that float free in the cytoplasm', 'The bacterial chromosome, coiled in the nucleoid region'],
   ['That is a capsid.', 'Ribosomes are RNA-protein machines.', 'Plasmids are extra, not the main chromosome.'],
   'They replicate independently and can be shared by conjugation, which spreads resistance.');
 
 /* ---------- Nerves, hormones & organ systems (3A / 3B) ---------- */
-C('b-sys', 'rmp', 'The resting membrane potential of a neuron (about −70 mV) is set mainly by:', ['K⁺ leaking out through open K⁺ channels', 'Na⁺ rushing in', 'Ca²⁺ entering the cell', 'Cl⁻ being pumped in'],
+C('b-sys', 'rmp', 'The resting membrane potential of a neuron (about −70 mV) is set mainly by:', ['K⁺ leaking out through open K⁺ channels', 'Na⁺ rushing in through open channels', 'Ca²⁺ entering the cell at rest', 'Cl⁻ being pumped into the cell'],
   ['Na⁺ influx happens during an action potential.', 'Ca²⁺ entry triggers neurotransmitter release.', 'Cl⁻ contributes a little but is not the main factor.'],
   'At rest the membrane is most permeable to K⁺, so the potential sits near K⁺\'s equilibrium potential (about −90 mV), pulled up slightly by Na⁺ leak.', { cat: '3A', hy: true, cs: ['cs-ap'] });
 C('b-sys', 'depol', 'During the rising (depolarization) phase of an action potential:', ['Voltage-gated Na⁺ channels open and Na⁺ flows in', 'Voltage-gated K⁺ channels open and K⁺ flows out', 'The Na⁺/K⁺ pump reverses', 'Cl⁻ channels open'],
   ['That is repolarization.', 'The pump keeps working normally; it is not what makes the spike.', 'Cl⁻ entering would hyperpolarize the cell (an inhibitory effect), not make the spike.'],
   'Positive feedback: depolarization opens more Na⁺ channels, driving the potential toward Na⁺\'s equilibrium potential.', { cat: '3A', hy: true, cs: ['cs-ap'] });
-C('b-sys', 'repol', 'What causes repolarization after the peak of an action potential?', ['Na⁺ channels inactivate and voltage-gated K⁺ channels let K⁺ flow out', 'Na⁺ channels open further', 'The Na⁺/K⁺ pump alone', 'Ca²⁺ flowing in'],
+C('b-sys', 'repol', 'What causes repolarization after the peak of an action potential?', ['Na⁺ channels inactivate and voltage-gated K⁺ channels let K⁺ out', 'Na⁺ channels open further, letting even more Na⁺ in', 'The Na⁺/K⁺ pump alone, moving 3 Na⁺ out per cycle', 'Ca²⁺ flowing in through voltage-gated channels'],
   ['Na⁺ channels inactivate at the peak.', 'The pump is too slow to account for repolarization; it maintains gradients over time.', 'Ca²⁺ entry does not repolarize a neuron.'],
   'The slow K⁺ channels also cause the brief hyperpolarization (undershoot).', { cat: '3A', cs: ['cs-ap'] });
-C('b-sys', 'refractory', 'Why can\'t a second action potential fire during the absolute refractory period?', ['Voltage-gated Na⁺ channels are inactivated and cannot reopen yet', 'The neuron has run out of Na⁺', 'K⁺ channels are all closed', 'The Na⁺/K⁺ pump has stopped'],
+C('b-sys', 'refractory', 'Why can\'t a second action potential fire during the absolute refractory period?', ['Voltage-gated Na⁺ channels are inactivated and cannot reopen yet', 'The neuron has run out of the Na⁺ ions it needs to let in', 'Voltage-gated K⁺ channels are all closed', 'The Na⁺/K⁺ pump has stopped until gradients reset'],
   ['Only a tiny fraction of ions crosses per spike; the gradients barely change.', 'K⁺ channels are open then.', 'The pump keeps running.'],
   'Inactivated channels must reset (by repolarization) before they can open again. This keeps action potentials one-way.', { cat: '3A', sk: 2, cs: ['cs-ap'] });
-C('b-sys', 'myelin', 'How does myelin speed up nerve conduction?', ['Action potentials jump between nodes of Ranvier (saltatory conduction)', 'It adds more Na⁺ channels under the myelin', 'It makes axons narrower', 'It releases neurotransmitter along the axon'],
+C('b-sys', 'myelin', 'How does myelin speed up nerve conduction?', ['Signals jump between nodes of Ranvier (saltatory conduction)', 'It adds more Na⁺ channels under the myelin', 'It makes axons narrower so signals travel faster', 'It releases neurotransmitter along the axon'],
   ['Na⁺ channels cluster at the nodes, not under the myelin.', 'Wider axons are faster; myelin insulates rather than narrowing.', 'Neurotransmitter is released at synapses.'],
   'Myelin insulates the axon, so current flows quickly to the next node. Loss of myelin (as in multiple sclerosis) slows or blocks conduction.', { cat: '3A' });
-C('b-sys', 'hormone-class', 'How do steroid hormones differ from peptide hormones in signaling?', ['Steroids cross the membrane and bind intracellular receptors that alter transcription', 'Steroids bind surface receptors and use second messengers', 'Steroids are stored in vesicles before release', 'Steroids act within seconds'],
+C('b-sys', 'hormone-class', 'How do steroid hormones differ from peptide hormones in signaling?', ['Steroids enter cells and bind intracellular receptors that alter transcription', 'Steroids bind surface receptors and use second messengers', 'Steroids are stored in secretory vesicles until a signal triggers release', 'Steroids act within seconds, faster than peptides'],
   ['That is how peptide hormones work.', 'Steroids are made on demand and diffuse out; peptides are stored.', 'Steroid effects take hours, because they work through gene expression.'],
   'Lipid-soluble steroids diffuse through membranes; water-soluble peptides cannot, so they rely on cell-surface receptors.', { cat: '3A', hy: true, cs: ['cs-hormone-class'] });
-C('b-sys', 'insulin', 'What does insulin do?', ['Lowers blood glucose by promoting uptake into cells and glycogen synthesis', 'Raises blood glucose by stimulating glycogen breakdown', 'Raises blood calcium', 'Increases water reabsorption in the kidney'],
+C('b-sys', 'insulin', 'What does insulin do?', ['Lowers blood glucose by promoting cell uptake and glycogen synthesis', 'Raises blood glucose by stimulating glycogen breakdown in the liver', 'Raises blood calcium by releasing it from bone', 'Increases water reabsorption in the kidney'],
   ['That is glucagon.', 'That is parathyroid hormone.', 'That is ADH.'],
   'Released by pancreatic β cells after a meal. It moves GLUT4 to the surface in muscle and fat.', { cat: '3A', hy: true });
 C('b-sys', 'bohr', 'Which change shifts the oxygen–hemoglobin dissociation curve to the right?', ['A rise in CO₂ and H⁺ (lower pH)', 'A fall in temperature', 'Lower 2,3-BPG', 'A higher pH'],
@@ -387,21 +387,21 @@ C('b-sys', 'co2-transport', 'How is most CO₂ carried in the blood?', ['As bica
 C('b-sys', 'pct', 'Where in the nephron is most filtered water and Na⁺ reabsorbed?', ['Proximal convoluted tubule', 'Loop of Henle', 'Distal convoluted tubule', 'Collecting duct'],
   ['The loop builds the concentration gradient; it reabsorbs less overall.', 'The DCT fine-tunes a small fraction.', 'The collecting duct makes the final, hormone-controlled adjustments.'],
   'The PCT reclaims about two-thirds of filtered water and Na⁺, plus nearly all glucose and amino acids.', { cat: '3B', hy: true, cs: ['cs-nephron'] });
-C('b-sys', 'adh', 'What does ADH (vasopressin) do in the kidney?', ['Inserts aquaporins in the collecting duct, increasing water reabsorption', 'Increases Na⁺ reabsorption in the distal tubule', 'Increases glomerular filtration', 'Increases K⁺ reabsorption'],
+C('b-sys', 'adh', 'What does ADH (vasopressin) do in the kidney?', ['Inserts aquaporins in the collecting duct, increasing water reabsorption', 'Increases Na⁺ reabsorption in the distal tubule and collecting duct', 'Raises the glomerular filtration rate by dilating arterioles', 'Increases K⁺ reabsorption in the collecting duct'],
   ['That is aldosterone.', 'ADH works on water permeability, not on filtration rate.', 'K⁺ handling is aldosterone\'s job, and it increases K⁺ secretion.'],
   'More ADH → more concentrated urine and more water retained. Alcohol inhibits ADH release.', { cat: '3B', hy: true, cs: ['cs-nephron'] });
-C('b-sys', 'aldosterone', 'Aldosterone acts on the distal nephron to:', ['Increase Na⁺ reabsorption and K⁺ secretion', 'Insert aquaporins', 'Decrease Na⁺ reabsorption', 'Increase glucose reabsorption'],
+C('b-sys', 'aldosterone', 'Aldosterone acts on the distal nephron to:', ['Increase Na⁺ reabsorption and K⁺ secretion', 'Insert aquaporins into the collecting duct', 'Decrease Na⁺ reabsorption and K⁺ secretion', 'Increase glucose reabsorption in the tubule'],
   ['That is ADH.', 'The opposite.', 'Glucose is reabsorbed in the PCT, not regulated by aldosterone.'],
   'A steroid from the adrenal cortex, released in response to angiotensin II and high K⁺. Water follows the reabsorbed Na⁺, raising blood volume.', { cat: '3B', cs: ['cs-nephron'] });
 C('b-sys', 'desc-loop', 'The descending limb of the loop of Henle is:', ['Permeable to water but not to salt', 'Permeable to salt but not to water', 'Impermeable to both', 'Where ADH acts'],
   ['That is the ascending limb.', 'The descending limb loses water to the salty medulla.', 'ADH acts on the collecting duct.'],
   'Water leaves the descending limb into the hypertonic medulla; the ascending limb pumps salt out but keeps water in.', { cat: '3B', sk: 2, cs: ['cs-nephron'] });
-C('b-sys', 'pepsin', 'Pepsin:', ['Digests protein in the stomach and is activated from pepsinogen by acid', 'Digests fat in the small intestine', 'Digests starch in the mouth', 'Is made by the liver'],
+C('b-sys', 'pepsin', 'Pepsin:', ['Digests protein in the stomach, activated from pepsinogen by acid', 'Digests fat in the small intestine with help from bile', 'Digests starch in the mouth before swallowing', 'Is made by the liver and secreted with bile'],
   ['That is pancreatic lipase, helped by bile.', 'That is salivary amylase.', 'Pepsinogen comes from chief cells in the stomach.'],
   'Secreting it as an inactive zymogen protects the cells that make it.', { cat: '3B' });
-C('b-sys', 'pulm', 'Blood leaving the right ventricle goes next to:', ['The pulmonary artery, then the lungs', 'The aorta', 'The left atrium', 'The vena cava'],
+C('b-sys', 'pulm', 'Blood leaving the right ventricle goes next to:', ['The pulmonary artery, then the lungs', 'The aorta, then the body', 'The left atrium, then the left ventricle', 'The vena cava, then the right atrium'],
   ['The aorta leaves the left ventricle.', 'Blood reaches the left atrium after the lungs.', 'The venae cavae return blood to the right atrium.'],
   'Right heart → lungs → left heart → body. The pulmonary artery carries deoxygenated blood (an artery carries blood away from the heart).', { cat: '3B' });
-C('b-sys', 'cardiac', 'Cardiac muscle is:', ['Striated, involuntary and linked by intercalated discs with gap junctions', 'Smooth, involuntary and unbranched', 'Striated, voluntary and multinucleated', 'Unstriated and voluntary'],
+C('b-sys', 'cardiac', 'Cardiac muscle is:', ['Striated, involuntary and joined by intercalated discs', 'Smooth, involuntary and made of unbranched cells', 'Striated, voluntary and made of multinucleated fibers', 'Unstriated, voluntary and joined by gap junctions'],
   ['That describes smooth muscle (no visible sarcomeres).', 'That is skeletal muscle.', 'No muscle type is unstriated and voluntary.'],
   'Gap junctions let the action potential spread cell to cell, so the heart contracts as a unit.', { cat: '3B', cs: ['cs-muscle'] });

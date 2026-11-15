@@ -5,10 +5,10 @@
 C('b-signal', 'gpcr', 'A hormone binds a G protein-coupled receptor that activates adenylyl cyclase. What is the second messenger?', ['cAMP', 'IP₃', 'Ca²⁺ from the ER', 'Tyrosine phosphate'],
   ['IP₃ comes from the phospholipase C (Gq) branch, not adenylyl cyclase.', 'Ca²⁺ is released by IP₃, a different branch.', 'Phosphotyrosine docking belongs to receptor tyrosine kinases.'],
   'Gs swaps GDP for GTP, activates adenylyl cyclase, and cAMP activates protein kinase A. Epinephrine and glucagon work this way.', { cat: '3A', hy: true, cs: ['cs-second-messenger'] });
-C('b-signal', 'gq', 'A Gq-coupled receptor activates phospholipase C. What happens next?', ['PIP₂ is split into IP₃, which releases Ca²⁺ from the ER, and DAG, which activates protein kinase C', 'ATP is converted to cAMP', 'The receptor phosphorylates itself on tyrosines', 'An ion channel in the receptor opens'],
+C('b-signal', 'gq', 'A Gq-coupled receptor activates phospholipase C. What happens next?', ['PIP₂ is split into IP₃, which releases ER Ca²⁺, and DAG, which activates PKC', 'ATP is converted to cAMP, which activates protein kinase A', 'The receptor phosphorylates itself on tyrosines, recruiting adaptors', 'An ion channel built into the receptor opens and lets ions in'],
   ['That is the Gs / adenylyl cyclase branch.', 'That is a receptor tyrosine kinase.', 'That is a ligand-gated ion channel.'],
   'Two messengers from one lipid: IP₃ (soluble, to the ER) and DAG (stays in the membrane).', { cat: '3A', sk: 2, cs: ['cs-second-messenger'] });
-C('b-signal', 'rtk', 'How does a receptor tyrosine kinase such as the insulin receptor pass on its signal?', ['Ligand binding brings receptor halves together and they phosphorylate each other\'s tyrosines', 'It activates a G protein', 'It opens a channel for Na⁺', 'It moves into the nucleus and binds DNA'],
+C('b-signal', 'rtk', 'How does a receptor tyrosine kinase such as the insulin receptor pass on its signal?', ['Ligand brings receptor halves together; they phosphorylate each other\'s tyrosines', 'It activates a G protein, which turns on adenylyl cyclase', 'It opens a built-in channel so Na⁺ can flow into the cell', 'It moves into the nucleus and binds DNA to change transcription'],
   ['That is a GPCR.', 'That is a ligand-gated ion channel.', 'That is how intracellular (steroid) receptors act.'],
   'The phosphotyrosines become docking sites for signaling proteins (for example the Ras–MAP kinase pathway).', { cat: '3A', hy: true, cs: ['cs-receptor-type'] });
 C('b-signal', 'fastest', 'Which receptor type gives the fastest response, within milliseconds?', ['A ligand-gated ion channel', 'A G protein-coupled receptor', 'A receptor tyrosine kinase', 'An intracellular steroid receptor'],
@@ -16,10 +16,10 @@ C('b-signal', 'fastest', 'Which receptor type gives the fastest response, within
   'Binding opens the channel directly, as when acetylcholine opens nicotinic receptors at the neuromuscular junction.', { cat: '3A', cs: ['cs-receptor-type'] });
 T('b-signal', 'paracrine', 'A signal that acts on nearby cells, without traveling through the blood, is called ___ signaling.', ['paracrine'],
   'Paracrine. Autocrine acts on the cell that made it; endocrine travels in the blood; synaptic crosses a synapse.', { cs: ['cs-signal-range'] });
-C('b-signal', 'amplify', 'One hormone molecule can lead to thousands of product molecules inside a cell. This is because:', ['Each step of the cascade activates many molecules of the next', 'The hormone is copied inside the cell', 'Receptors divide when activated', 'Second messengers are made by the ribosome'],
+C('b-signal', 'amplify', 'One hormone molecule can lead to thousands of product molecules inside a cell. This is because:', ['Each step of the cascade activates many molecules of the next', 'The hormone is copied many times inside the cell', 'Receptors divide into many copies when activated', 'Second messengers are made on the ribosome in large batches'],
   ['Hormones are not copied.', 'Receptors do not divide.', 'cAMP and IP₃ are made by enzymes, not ribosomes.'],
   'Signal amplification: one receptor activates many G proteins, each adenylyl cyclase makes many cAMP, each kinase phosphorylates many targets.', { cat: '3A' });
-C('b-signal', 'pde', 'Caffeine inhibits phosphodiesterase. What happens to cAMP signaling?', ['It lasts longer, because cAMP is broken down more slowly', 'It stops, because no cAMP is made', 'Nothing: phosphodiesterase makes cAMP', 'Receptors are destroyed'],
+C('b-signal', 'pde', 'Caffeine inhibits phosphodiesterase. What happens to cAMP signaling?', ['It lasts longer, because cAMP is broken down more slowly', 'It stops, because no cAMP can be made at all', 'Nothing changes: phosphodiesterase is what makes cAMP', 'The receptors are destroyed and signaling ends'],
   ['Adenylyl cyclase still makes cAMP.', 'Phosphodiesterase breaks cAMP down; adenylyl cyclase makes it.', 'Receptors are unaffected.'],
   'Signals are switched off by breaking down messengers (phosphodiesterase) and by Gα hydrolyzing its own GTP.', { cat: '3A', sk: 2 });
 
@@ -27,13 +27,13 @@ C('b-signal', 'pde', 'Caffeine inhibits phosphodiesterase. What happens to cAMP 
 C('b-nerve', 'ca-release', 'What directly triggers neurotransmitter release at an axon terminal?', ['Ca²⁺ entering through voltage-gated channels', 'Na⁺ entering the terminal', 'K⁺ leaving the terminal', 'Neurotransmitter binding to the terminal'],
   ['Na⁺ drives the action potential that arrives, but not vesicle fusion itself.', 'K⁺ efflux repolarizes the membrane.', 'Release comes before binding.'],
   'The action potential opens Ca²⁺ channels; Ca²⁺ lets vesicles fuse with the membrane and release their contents by exocytosis.', { hy: true, cs: ['cs-synapse'] });
-C('b-nerve', 'ipsp', 'An inhibitory postsynaptic potential (IPSP) usually results from:', ['Cl⁻ entering or K⁺ leaving the cell, making the membrane more negative', 'Na⁺ entering the cell', 'Ca²⁺ entering the dendrite', 'The Na⁺/K⁺ pump stopping'],
+C('b-nerve', 'ipsp', 'An inhibitory postsynaptic potential (IPSP) usually results from:', ['Cl⁻ entering or K⁺ leaving, making the membrane more negative', 'Na⁺ entering the cell through ligand-gated channels', 'Ca²⁺ entering the dendrite through open channels', 'The Na⁺/K⁺ pump briefly stopping at the synapse'],
   ['Na⁺ entry depolarizes: that is an EPSP.', 'Ca²⁺ entry depolarizes too.', 'Stopping the pump would slowly depolarize the cell.'],
   'Hyperpolarization moves the membrane away from threshold. GABA and glycine are classic inhibitory transmitters.', { cs: ['cs-synapse'] });
 C('b-nerve', 'summation', 'Several EPSPs arriving at once from different synapses add together to reach threshold. This is:', ['Spatial summation', 'Temporal summation', 'Saltatory conduction', 'Facilitated diffusion'],
   ['Temporal summation is repeated input from one synapse in quick succession.', 'That is how myelinated axons conduct.', 'That is membrane transport.'],
   'Neurons integrate inputs at the axon hillock: spatial summation adds across synapses, temporal adds over time.', { sk: 2, cs: ['cs-synapse'] });
-C('b-nerve', 'ache', 'A drug inhibits acetylcholinesterase. At the neuromuscular junction, this:', ['Prolongs acetylcholine\'s action, so stimulation lasts longer', 'Blocks acetylcholine release', 'Blocks acetylcholine receptors', 'Has no effect'],
+C('b-nerve', 'ache', 'A drug inhibits acetylcholinesterase. At the neuromuscular junction, this:', ['Prolongs acetylcholine\'s action, so stimulation lasts longer', 'Blocks acetylcholine release from the nerve terminal', 'Blocks acetylcholine receptors on the muscle', 'Has no effect, since ACh diffuses away anyway'],
   ['Release depends on Ca²⁺ entry, which is unaffected.', 'That is how curare works, the opposite effect.', 'The enzyme normally clears ACh within milliseconds.'],
   'Acetylcholinesterase breaks ACh down in the synaptic cleft. Inhibitors (some nerve agents and myasthenia gravis drugs) let ACh linger.', { sk: 2 });
 C('b-nerve', 'sympathetic', 'Which response is driven by the sympathetic nervous system?', ['Pupils dilate and heart rate rises', 'Digestion speeds up', 'The bronchioles constrict', 'The heart slows'],
@@ -48,7 +48,7 @@ C('b-nerve', 'glia', 'Which cells make myelin in the peripheral nervous system?'
 C('b-nerve', 'roots', 'In the spinal cord, sensory (afferent) fibers enter through the:', ['Dorsal root', 'Ventral root', 'Brainstem only', 'Sympathetic chain only'],
   ['The ventral root carries motor (efferent) fibers out.', 'Spinal sensory input enters at every level.', 'The sympathetic chain is autonomic, not the main sensory entry.'],
   'Dorsal in, ventral out. Sensory cell bodies sit in the dorsal root ganglia.');
-C('b-nerve', 'reflex', 'The knee-jerk reflex works without the brain because:', ['The sensory neuron synapses directly on a motor neuron in the spinal cord', 'Muscles contract on their own when stretched', 'The brainstem controls it', 'Interneurons in the brain relay it'],
+C('b-nerve', 'reflex', 'The knee-jerk reflex works without the brain because:', ['Sensory neurons connect straight to motor neurons in the spinal cord', 'Muscles contract on their own whenever they are stretched', 'The brainstem controls it without involving the cortex', 'Interneurons in the brain relay it back to the leg'],
   ['The muscle contracts because a motor neuron fires.', 'The reflex arc closes in the spinal cord.', 'The brain is not in the loop, though it is informed afterward.'],
   'A monosynaptic reflex arc: stretch receptor → sensory neuron → spinal motor neuron → quadriceps.', { sk: 2 });
 
@@ -59,10 +59,10 @@ C('b-endo', 'posterior', 'Which hormones are released from the posterior pituita
 C('b-endo', 'anterior', 'Which hormone does the anterior pituitary release?', ['ACTH', 'Oxytocin', 'ADH', 'Cortisol'],
   ['Oxytocin is released from the posterior pituitary.', 'ADH is released from the posterior pituitary.', 'Cortisol comes from the adrenal cortex (in response to ACTH).'],
   'Anterior pituitary: FSH, LH, ACTH, TSH, prolactin, growth hormone. It is controlled by hypothalamic releasing hormones through the portal blood vessels.', { cs: ['cs-pituitary'] });
-C('b-endo', 'thyroid-fb', 'In primary hypothyroidism the thyroid itself fails. What do you expect for TSH?', ['High, because low thyroid hormone removes negative feedback', 'Low, because the thyroid is not responding', 'Normal', 'Zero'],
+C('b-endo', 'thyroid-fb', 'In primary hypothyroidism the thyroid itself fails. What do you expect for TSH?', ['High, because low thyroid hormone removes negative feedback', 'Low, because the failing thyroid stops responding to it', 'Normal, because the pituitary is not affected', 'Zero, because no thyroid hormone is made'],
   ['Low TSH would mean the pituitary is the problem (secondary).', 'Feedback changes TSH.', 'The pituitary keeps secreting TSH.'],
   'T₃/T₄ normally inhibit TRH and TSH release. Without them, the pituitary drives TSH up.', { sk: 2, hy: true });
-C('b-endo', 'cortisol', 'Cortisol, released during prolonged stress, tends to:', ['Raise blood glucose and suppress the immune response', 'Lower blood glucose', 'Increase water excretion', 'Lower blood calcium'],
+C('b-endo', 'cortisol', 'Cortisol, released during prolonged stress, tends to:', ['Raise blood glucose and suppress the immune response', 'Lower blood glucose and boost immune responses', 'Increase water excretion by the kidneys', 'Lower blood calcium by storing it in bone'],
   ['It raises glucose through gluconeogenesis.', 'That is not its role.', 'That is calcitonin\'s small effect.'],
   'A glucocorticoid from the adrenal cortex (zona fasciculata), released in response to ACTH.', { hy: true, cs: ['cs-adrenal'] });
 C('b-endo', 'medulla', 'Epinephrine is secreted by the:', ['Adrenal medulla', 'Adrenal cortex', 'Anterior pituitary', 'Thyroid'],
@@ -71,9 +71,9 @@ C('b-endo', 'medulla', 'Epinephrine is secreted by the:', ['Adrenal medulla', 'A
 C('b-endo', 'thyroid-role', 'What is the main effect of thyroid hormone (T₃/T₄)?', ['It raises basal metabolic rate', 'It lowers blood calcium', 'It controls water reabsorption', 'It triggers ovulation'],
   ['Calcitonin, also from the thyroid, lowers calcium slightly.', 'That is ADH.', 'That is the LH surge.'],
   'T₃/T₄ increase oxygen use and heat production in most tissues. They need iodine.');
-C('b-endo', 'pth', 'When blood calcium falls, parathyroid hormone:', ['Raises calcium: bone resorption, kidney reabsorption and vitamin D activation', 'Lowers calcium further', 'Builds bone to store calcium', 'Has no effect on the kidney'],
+C('b-endo', 'pth', 'When blood calcium falls, parathyroid hormone:', ['Raises calcium through bone, kidney and vitamin D activation', 'Lowers calcium further by moving it from blood into bone', 'Builds new bone to store the extra calcium', 'Acts only on the gut, not on the kidney'],
   ['PTH responds to low calcium by raising it.', 'PTH mobilizes calcium from bone.', 'It acts strongly on the kidney.'],
-  'Calcitonin opposes PTH. Active vitamin D (calcitriol) raises calcium absorption in the gut.', { hy: true, cs: ['cs-calcium'] });
+  'PTH frees calcium from bone, increases calcium reabsorption in the kidney and activates vitamin D. Active vitamin D (calcitriol) raises calcium absorption in the gut. Calcitonin opposes PTH.', { hy: true, cs: ['cs-calcium'] });
 C('b-endo', 'releasing', 'How do hypothalamic releasing hormones reach the anterior pituitary?', ['Through the hypophyseal portal blood vessels', 'Down the axons of the pituitary stalk', 'Through the general circulation', 'Through the cerebrospinal fluid'],
   ['Axons carry ADH and oxytocin to the posterior pituitary.', 'The portal system delivers them directly, before dilution in the body\'s blood.', 'Not the route.'],
   'A portal system links two capillary beds, so small amounts of releasing hormone arrive concentrated.', { cs: ['cs-pituitary'] });
@@ -83,7 +83,7 @@ T('b-endo', 'melatonin', 'Which gland secretes melatonin, which helps regulate s
 /* ---------- Heart, blood & circulation (3B) ---------- */
 T('b-circ', 'sa', 'Which structure sets the normal heart rate?', ['sa node', 'sinoatrial node', 'sinoatrial', 'the sa node', 'sa'],
   'The sinoatrial (SA) node in the right atrium: its cells depolarize on their own.', { hy: true, cs: ['cs-conduction'] });
-C('b-circ', 'av', 'Why does the AV node delay the impulse?', ['So the atria finish contracting and the ventricles fill before they contract', 'To speed up the heart', 'To prevent the SA node from firing', 'To let the valves open during systole'],
+C('b-circ', 'av', 'Why does the AV node delay the impulse?', ['So the atria finish emptying into the ventricles before they contract', 'To speed up the heart rate during exercise', 'To keep the SA node from firing again too soon', 'To let the semilunar valves open during atrial systole'],
   ['The delay slows conduction; it does not set rate.', 'The SA node keeps firing regularly.', 'The delay is about filling, not valve timing directly.'],
   'Conduction path: SA node → atria → AV node (delay) → bundle of His → Purkinje fibers → ventricles.', { cs: ['cs-conduction'] });
 C('b-circ', 'velocity', 'Where is blood flow slowest?', ['Capillaries', 'Aorta', 'Large veins', 'Arterioles'],
@@ -101,13 +101,13 @@ C('b-circ', 'epo', 'Which organ releases erythropoietin when blood oxygen is low
 C('b-circ', 'type-o', 'Why can type O red cells be given to patients of any ABO type?', ['They carry neither A nor B antigens', 'They carry both A and B antigens', 'Type O plasma has no antibodies', 'Type O cells are Rh-negative'],
   ['That is type AB, the universal recipient.', 'Type O plasma has both anti-A and anti-B antibodies.', 'Rh status is separate from ABO.'],
   'Recipients\' antibodies attack donor antigens; type O cells offer none to attack.', { hy: true });
-C('b-circ', 'fetal-hb', 'Compared with adult hemoglobin, fetal hemoglobin:', ['Binds O₂ more tightly, so it can take O₂ from the mother\'s blood', 'Binds O₂ less tightly', 'Cannot bind O₂', 'Binds CO₂ instead of O₂'],
+C('b-circ', 'fetal-hb', 'Compared with adult hemoglobin, fetal hemoglobin:', ['Binds O₂ more tightly, so it can take O₂ from the mother\'s blood', 'Binds O₂ less tightly, so it releases O₂ more easily', 'Cannot bind O₂ until after birth', 'Binds CO₂ instead of O₂ in the placenta'],
   ['Lower affinity would hand O₂ back to the mother.', 'It carries O₂ normally.', 'It carries O₂.'],
   'Its curve is shifted left, partly because fetal hemoglobin binds 2,3-BPG weakly.', { cs: ['cs-o2-curve'] });
 C('b-circ', 'clot', 'In blood clotting, thrombin converts:', ['Fibrinogen into fibrin', 'Fibrin into fibrinogen', 'Platelets into red cells', 'Plasminogen into thrombin'],
   ['The reverse.', 'Platelets come from megakaryocytes.', 'Plasminogen becomes plasmin, which dissolves clots.'],
   'Fibrin threads stabilize the platelet plug.');
-C('b-circ', 's1', 'The first heart sound ("lub") is caused by:', ['The AV valves closing as the ventricles start to contract', 'The semilunar valves closing', 'The atria contracting', 'Blood entering the aorta'],
+C('b-circ', 's1', 'The first heart sound ("lub") is caused by:', ['The AV valves closing as the ventricles start to contract', 'The semilunar valves closing as the ventricles relax', 'The atria contracting to top off the ventricles', 'Blood rushing into the aorta'],
   ['That is the second sound ("dub"), at the start of diastole.', 'Atrial contraction is normally silent.', 'Ejection itself is not the sound.'],
   'S1 marks the start of ventricular systole; S2 marks its end.');
 G('b-circ', 'g-co', 'Cardiac output', rnd => {
@@ -117,7 +117,7 @@ G('b-circ', 'g-co', 'Cardiac output', rnd => {
 }, { hy: true, sk: 1 });
 
 /* ---------- Breathing & gas exchange (3B) ---------- */
-C('b-resp', 'inhale', 'During a normal inhalation:', ['The diaphragm contracts, chest volume rises and lung pressure falls below atmospheric', 'The diaphragm relaxes and pushes air in', 'Air is pumped in by positive pressure', 'Lung pressure rises above atmospheric'],
+C('b-resp', 'inhale', 'During a normal inhalation:', ['The diaphragm contracts, chest volume rises and lung pressure drops', 'The diaphragm relaxes and pushes air down into the lungs', 'Air is pumped in by positive pressure from the airways', 'Lung pressure rises above atmospheric pressure'],
   ['The diaphragm relaxes during exhalation.', 'Breathing on your own is negative-pressure breathing.', 'That happens during exhalation.'],
   'Boyle\'s law: bigger volume, lower pressure, so air flows in. Quiet exhalation is passive recoil.', { hy: true, cs: ['cs-breathing'] });
 C('b-resp', 'surfactant', 'What does pulmonary surfactant do?', ['Lowers surface tension so alveoli don\'t collapse', 'Kills inhaled bacteria', 'Carries O₂ across the membrane', 'Raises surface tension to help exhalation'],
@@ -126,32 +126,32 @@ C('b-resp', 'surfactant', 'What does pulmonary surfactant do?', ['Lowers surface
 C('b-resp', 'drive', 'What normally drives the urge to breathe most strongly?', ['Rising CO₂ (sensed through falling pH)', 'Falling O₂ at normal altitude', 'Rising blood glucose', 'Rising blood pressure'],
   ['Low O₂ becomes a strong driver only when it falls well below normal.', 'Not a respiratory signal.', 'Not the main driver.'],
   'Central chemoreceptors in the medulla respond to CO₂ via the pH of cerebrospinal fluid.', { hy: true });
-C('b-resp', 'hypervent', 'Hyperventilation leads to:', ['Respiratory alkalosis, from blowing off CO₂', 'Respiratory acidosis', 'Metabolic acidosis', 'No change in pH'],
+C('b-resp', 'hypervent', 'Hyperventilation leads to:', ['Respiratory alkalosis, from blowing off CO₂', 'Respiratory acidosis, from CO₂ building up', 'Metabolic acidosis, from lactic acid', 'No change in pH, since bicarbonate buffers it'],
   ['Acidosis follows hypoventilation (CO₂ builds up).', 'The cause here is respiratory.', 'Lower CO₂ shifts CO₂ + H₂O ⇌ H⁺ + HCO₃⁻ left, lowering H⁺.'],
   'Less CO₂ means less carbonic acid, so pH rises.', { sk: 2, hy: true, cs: ['cs-acid-base-body'] });
-C('b-resp', 'co', 'Why is carbon monoxide so dangerous?', ['It binds hemoglobin far more tightly than O₂ does, blocking O₂ transport', 'It destroys red blood cells', 'It blocks the airways', 'It lowers blood pressure'],
+C('b-resp', 'co', 'Why is carbon monoxide so dangerous?', ['It binds hemoglobin far more tightly than O₂ does', 'It destroys red blood cells as it enters them', 'It blocks the airways by causing swelling', 'It lowers blood pressure by widening vessels'],
   ['Red cells survive; their hemoglobin is occupied.', 'It is a transport problem, not airflow.', 'Not the main mechanism.'],
   'CO binds with roughly 200–250 times O₂\'s affinity and also shifts the curve left, so the remaining O₂ is unloaded poorly.');
 T('b-resp', 'residual', 'The air left in the lungs after the most forceful exhalation is the ___ volume.', ['residual', 'residual volume'],
   'Residual volume: it keeps alveoli open. Vital capacity is the most you can exhale after a full breath.');
-C('b-resp', 'diffusion', 'O₂ moves from alveoli into the blood by:', ['Simple diffusion down its partial-pressure gradient', 'Active transport', 'Facilitated diffusion through carriers', 'Bulk flow through pores'],
+C('b-resp', 'diffusion', 'O₂ moves from alveoli into the blood by:', ['Simple diffusion down its partial-pressure gradient', 'Active transport by ATP-powered pumps in the alveoli', 'Facilitated diffusion through carrier proteins', 'Bulk flow through pores in the walls'],
   ['No ATP-driven pump is involved.', 'O₂ crosses the membranes directly.', 'Exchange happens across cell membranes, not pores.'],
   'Alveolar P_O₂ (about 100 mmHg) exceeds that of venous blood (about 40 mmHg).');
 
 /* ---------- Digestion & absorption (3B) ---------- */
-C('b-digest', 'parietal', 'Gastric parietal cells secrete:', ['HCl and intrinsic factor', 'Pepsinogen', 'Bicarbonate', 'Gastrin'],
+C('b-digest', 'parietal', 'Gastric parietal cells secrete:', ['HCl and intrinsic factor', 'Pepsinogen and mucus', 'Bicarbonate and mucus', 'Gastrin and histamine'],
   ['Chief cells secrete pepsinogen.', 'The pancreas (and surface mucus cells) secrete bicarbonate.', 'G cells secrete gastrin, which stimulates parietal cells.'],
   'Intrinsic factor is needed to absorb vitamin B₁₂ in the ileum.', { hy: true, cs: ['cs-gi-cells'] });
-C('b-digest', 'trypsin', 'How is pancreatic trypsinogen activated?', ['Enteropeptidase on the small-intestine lining cleaves it to trypsin', 'Stomach acid activates it', 'Bile activates it', 'It is active as soon as it is made'],
+C('b-digest', 'trypsin', 'How is pancreatic trypsinogen activated?', ['Enteropeptidase on the intestinal lining cleaves it to trypsin', 'Stomach acid cleaves it as chyme enters the duodenum', 'Bile salts activate it in the small intestine', 'It is already active as soon as the pancreas makes it'],
   ['Pepsinogen is the one activated by acid.', 'Bile emulsifies fats; it does not activate proteases.', 'It is made inactive to protect the pancreas.'],
   'Trypsin then activates the other pancreatic zymogens.', { sk: 2 });
 C('b-digest', 'bile', 'Bile is made by the ___ and helps digestion by ___.', ['Liver; emulsifying fats', 'Gallbladder; digesting proteins', 'Pancreas; emulsifying fats', 'Liver; digesting fats enzymatically'],
   ['The gallbladder only stores and concentrates bile, and bile does not digest protein.', 'The pancreas makes enzymes and bicarbonate, not bile.', 'Bile contains no digestive enzymes; lipase does the chemistry.'],
   'Bile salts break fat into small droplets, giving pancreatic lipase more surface to work on.', { hy: true });
-C('b-digest', 'cck', 'Fat entering the duodenum triggers release of:', ['Cholecystokinin (CCK), which contracts the gallbladder and stimulates pancreatic enzymes', 'Secretin, which mainly stimulates bicarbonate release', 'Gastrin, which increases stomach acid', 'Insulin'],
+C('b-digest', 'cck', 'Fat entering the duodenum triggers release of:', ['Cholecystokinin (CCK), which contracts the gallbladder', 'Secretin, which mainly stimulates bicarbonate release', 'Gastrin, which increases stomach acid secretion', 'Insulin, which lowers blood glucose'],
   ['Secretin responds mainly to acid.', 'Gastrin comes from the stomach in response to food there.', 'Insulin responds to glucose.'],
-  'CCK also slows stomach emptying, giving fat more time to be digested.', { cs: ['cs-gi-hormones'] });
-C('b-digest', 'secretin', 'Acidic chyme entering the duodenum triggers secretin, which causes:', ['The pancreas to release bicarbonate-rich fluid', 'The gallbladder to contract', 'More HCl secretion', 'Insulin release'],
+  'CCK contracts the gallbladder to release bile and stimulates the pancreas to release digestive enzymes. It also slows stomach emptying, giving fat more time to be digested.', { cs: ['cs-gi-hormones'] });
+C('b-digest', 'secretin', 'Acidic chyme entering the duodenum triggers secretin, which causes:', ['The pancreas to release bicarbonate-rich fluid', 'The gallbladder to contract and release bile', 'The stomach to secrete more HCl and pepsin', 'The pancreas to release insulin into the blood'],
   ['That is mainly CCK.', 'Secretin reduces stomach acid secretion.', 'Not secretin\'s role.'],
   'Bicarbonate neutralizes the acid so pancreatic enzymes can work.', { cs: ['cs-gi-hormones'] });
 C('b-digest', 'chylomicron', 'After absorption, most dietary fats reach the blood by:', ['Packaging into chylomicrons that enter the lacteals (lymph)', 'Direct entry into the hepatic portal vein', 'Diffusion into capillaries as free fatty acids', 'Binding to hemoglobin'],
@@ -160,7 +160,7 @@ C('b-digest', 'chylomicron', 'After absorption, most dietary fats reach the bloo
 C('b-digest', 'large-int', 'What is the main job of the large intestine?', ['Absorbing water and electrolytes', 'Digesting proteins', 'Absorbing most nutrients', 'Making bile'],
   ['Protein digestion happens in the stomach and small intestine.', 'The small intestine absorbs most nutrients.', 'The liver makes bile.'],
   'Gut bacteria there also produce vitamin K and some B vitamins.');
-C('b-digest', 'glucagon', 'During fasting, glucagon raises blood glucose by:', ['Stimulating glycogen breakdown and gluconeogenesis in the liver', 'Stimulating glucose uptake into muscle', 'Stimulating glycogen synthesis', 'Slowing fat breakdown'],
+C('b-digest', 'glucagon', 'During fasting, glucagon raises blood glucose by:', ['Stimulating glycogen breakdown and gluconeogenesis in the liver', 'Stimulating glucose uptake into muscle and fat', 'Stimulating glycogen synthesis in liver and muscle', 'Slowing fat breakdown so glucose is used first'],
   ['That is insulin.', 'That is insulin.', 'Glucagon promotes fat breakdown.'],
   'Released by pancreatic α cells. Muscle lacks glucagon receptors, so muscle glycogen serves the muscle itself.', { hy: true });
 T('b-digest', 'amylase', 'Which enzyme in saliva starts starch digestion?', ['amylase', 'salivary amylase', 'alpha-amylase', 'ptyalin'],
@@ -179,18 +179,18 @@ C('b-immune', 'mhc1', 'A virus-infected cell is killed by a cytotoxic T cell. Wh
 C('b-immune', 'maturation', 'Where do T cells mature?', ['Thymus', 'Bone marrow', 'Spleen', 'Lymph nodes'],
   ['B cells mature in the bone marrow; T cells start there but mature in the thymus.', 'The spleen filters blood and hosts immune responses.', 'Lymph nodes are where mature lymphocytes meet antigen.'],
   'In the thymus, T cells that would attack self are eliminated (negative selection).', { hy: true });
-C('b-immune', 'plasma', 'Which cells secrete antibodies?', ['Plasma cells (activated B cells)', 'Helper T cells', 'Macrophages', 'Neutrophils'],
+C('b-immune', 'plasma', 'Which cells secrete antibodies?', ['Plasma cells (activated B cells)', 'Helper T cells (CD4⁺ lymphocytes)', 'Macrophages (tissue phagocytes)', 'Neutrophils (blood phagocytes)'],
   ['Helper T cells release cytokines that help B cells.', 'Macrophages engulf and present antigen.', 'Neutrophils engulf bacteria.'],
   'Each plasma cell makes one antibody specificity, inherited from the B cell clone it came from.', { cs: ['cs-b-t'] });
-C('b-immune', 'antibody', 'Which part of an antibody binds the antigen?', ['The variable regions at the tips of the heavy and light chains', 'The constant region of the heavy chain', 'The disulfide bonds', 'The hinge only'],
+C('b-immune', 'antibody', 'Which part of an antibody binds the antigen?', ['The variable regions at the tips of the arms', 'The constant region of the heavy chain', 'The disulfide bonds between the chains', 'The flexible hinge region alone'],
   ['The constant region sets the class (IgG, IgM…) and engages immune cells.', 'Disulfide bonds hold the chains together.', 'The hinge gives flexibility.'],
   'Two identical heavy and two identical light chains; the variable regions form two identical antigen-binding sites.');
 C('b-immune', 'secondary', 'Why is the response to a second exposure (or after a vaccine) faster and stronger?', ['Memory B and T cells specific to the antigen already exist', 'The antigen is weaker the second time', 'Innate immunity has learned', 'Antibodies from the first response last forever'],
   ['The antigen is the same.', 'Innate immunity has no antigen-specific memory.', 'Antibody levels fall over time; memory cells persist.'],
   'Clonal selection expanded the matching clones the first time; memory cells remain for years.', { hy: true });
-C('b-immune', 'clonal', 'Clonal selection means that:', ['An antigen activates the lymphocytes whose receptors already match it, and they multiply', 'Lymphocytes change their receptors to fit each new antigen', 'All lymphocytes respond to every antigen', 'Antigens are copied by B cells'],
+C('b-immune', 'clonal', 'Clonal selection means that:', ['An antigen activates the lymphocytes whose receptors already match it', 'Lymphocytes change their receptors to fit each new antigen', 'All lymphocytes respond equally to every antigen', 'Antigens are copied by B cells to train other cells'],
   ['Receptor diversity is generated beforehand, by gene rearrangement.', 'Each lymphocyte has one specificity.', 'Antigens are not copied.'],
-  'The antigen selects pre-existing clones; it does not instruct new ones.', { sk: 2 });
+  'The antigen selects pre-existing clones, which then multiply into effector and memory cells; it does not instruct new ones.', { sk: 2 });
 C('b-immune', 'ige', 'Allergic reactions involve which antibody class, bound to mast cells?', ['IgE', 'IgG', 'IgA', 'IgM'],
   ['IgG is the main circulating antibody and crosses the placenta.', 'IgA protects mucous membranes and is in breast milk.', 'IgM is made first in a response.'],
   'Allergen cross-links IgE on mast cells, which release histamine.', { cs: ['cs-ig-class'] });
@@ -205,7 +205,7 @@ C('b-immune', 'hiv', 'HIV weakens the whole adaptive immune response because it 
   'Helper T cells coordinate both B cell and cytotoxic T cell responses.', { hy: true });
 
 /* ---------- Muscle & bone (3B) ---------- */
-C('b-muscle', 'troponin', 'In skeletal muscle, Ca²⁺ triggers contraction by binding to:', ['Troponin, which moves tropomyosin off myosin-binding sites on actin', 'Myosin, which then binds ATP', 'Actin directly', 'Calmodulin'],
+C('b-muscle', 'troponin', 'In skeletal muscle, Ca²⁺ triggers contraction by binding to:', ['Troponin, which shifts tropomyosin off actin\'s binding sites', 'Myosin heads, which then bind ATP and attach to actin', 'Actin directly, exposing its binding sites', 'Calmodulin, which activates a myosin kinase'],
   ['Ca²⁺ does not bind myosin in skeletal muscle.', 'Ca²⁺ acts through the troponin–tropomyosin complex.', 'Calmodulin is the Ca²⁺ sensor in smooth muscle.'],
   'With binding sites exposed, myosin heads can form cross-bridges.', { hy: true, cs: ['cs-muscle-type'] });
 C('b-muscle', 'atp-release', 'In the cross-bridge cycle, ATP binding to myosin:', ['Releases myosin from actin', 'Causes the power stroke', 'Exposes the binding sites on actin', 'Pumps Na⁺ into the cell'],
@@ -214,16 +214,16 @@ C('b-muscle', 'atp-release', 'In the cross-bridge cycle, ATP binding to myosin:'
 C('b-muscle', 'sarcomere', 'When a sarcomere contracts, which band stays the same length?', ['The A band', 'The I band', 'The H zone', 'The whole sarcomere'],
   ['The I band (actin only) shortens.', 'The H zone (myosin only) shortens.', 'The sarcomere shortens.'],
   'The A band is the length of the myosin filaments, which do not change; the filaments slide past each other.', { sk: 2 });
-C('b-muscle', 'ttubule', 'What do T-tubules do in a muscle fiber?', ['Carry the action potential deep into the fiber to trigger Ca²⁺ release from the sarcoplasmic reticulum', 'Store calcium', 'Make ATP', 'Connect neighboring fibers'],
+C('b-muscle', 'ttubule', 'What do T-tubules do in a muscle fiber?', ['Carry the action potential deep inside to trigger Ca²⁺ release', 'Store calcium for release during contraction', 'Make ATP for the myosin heads near each sarcomere', 'Connect neighboring fibers so they contract together'],
   ['The sarcoplasmic reticulum stores Ca²⁺.', 'Mitochondria make ATP.', 'Skeletal fibers are not linked by T-tubules.'],
-  'This lets the whole fiber contract at once.');
-C('b-muscle', 'smooth', 'In smooth muscle, Ca²⁺ triggers contraction by binding:', ['Calmodulin, which activates myosin light-chain kinase', 'Troponin', 'Tropomyosin', 'Actin'],
+  'The signal reaches the sarcoplasmic reticulum, which releases Ca²⁺, so the whole fiber contracts at once.');
+C('b-muscle', 'smooth', 'In smooth muscle, Ca²⁺ triggers contraction by binding:', ['Calmodulin, which activates myosin light-chain kinase', 'Troponin, which moves tropomyosin off actin', 'Tropomyosin, which then uncovers binding sites on actin', 'Actin, which then binds myosin directly'],
   ['Smooth muscle lacks troponin.', 'Ca²⁺ does not bind tropomyosin.', 'Ca²⁺ does not bind actin.'],
   'Phosphorylating the myosin head allows cross-bridges to form.', { cs: ['cs-muscle-type'] });
 C('b-muscle', 'motor-unit', 'How does the nervous system make a muscle contract more forcefully?', ['By recruiting more motor units and firing them faster', 'By making each fiber contract more strongly on its own', 'By adding new muscle fibers', 'By releasing more Ca²⁺ into the blood'],
   ['Each fiber follows an all-or-none twitch to a single stimulus.', 'Fiber number does not change during a contraction.', 'Blood calcium is not the control.'],
   'Recruitment of more motor units plus higher firing rates (summation) increases force.');
-C('b-muscle', 'slow-twitch', 'Type I (slow-twitch) muscle fibers are:', ['Rich in mitochondria and myoglobin, and fatigue-resistant', 'Fast, glycolytic and quick to fatigue', 'Found only in the heart', 'Unable to use oxygen'],
+C('b-muscle', 'slow-twitch', 'Type I (slow-twitch) muscle fibers are:', ['Rich in mitochondria and myoglobin, and fatigue-resistant', 'Fast, glycolytic and quick to fatigue under load', 'Found only in the heart, not in skeletal muscle', 'Unable to use oxygen, so they rely on glycolysis'],
   ['That describes type IIx fast-twitch fibers.', 'They are skeletal muscle fibers.', 'They depend on aerobic metabolism.'],
   'Marathon runners have a higher proportion; sprinters, more fast-twitch fibers.');
 C('b-muscle', 'osteo', 'Which cells break down bone and release calcium?', ['Osteoclasts', 'Osteoblasts', 'Osteocytes', 'Chondrocytes'],
@@ -232,21 +232,21 @@ C('b-muscle', 'osteo', 'Which cells break down bone and release calcium?', ['Ost
 C('b-muscle', 'nmj', 'At the neuromuscular junction, the motor neuron releases:', ['Acetylcholine', 'Norepinephrine', 'Dopamine', 'GABA'],
   ['Norepinephrine is released by most sympathetic postganglionic neurons.', 'Dopamine acts mainly in the brain.', 'GABA is inhibitory in the CNS.'],
   'ACh opens nicotinic receptors on the muscle fiber, depolarizing it.');
-C('b-muscle', 'calcitonin', 'Calcitonin, from the thyroid, tends to:', ['Lower blood calcium by reducing bone resorption', 'Raise blood calcium', 'Activate vitamin D', 'Increase osteoclast activity'],
+C('b-muscle', 'calcitonin', 'Calcitonin, from the thyroid, tends to:', ['Lower blood calcium by reducing bone resorption', 'Raise blood calcium by releasing it from bone', 'Activate vitamin D in the kidney to absorb calcium', 'Increase osteoclast activity in bone'],
   ['That is PTH.', 'That is PTH\'s effect in the kidney.', 'That is the opposite.'],
   'Calcitonin opposes PTH; its effect in adults is modest.', { cs: ['cs-calcium'] });
 
 /* ---------- Reproduction & development (2C / 3B) ---------- */
-C('b-repro', 'oogenesis', 'Meiosis in a woman produces from one primary oocyte:', ['One egg, plus small polar bodies that degenerate', 'Four eggs', 'Two eggs', 'One egg and nothing else'],
+C('b-repro', 'oogenesis', 'Meiosis in a woman produces from one primary oocyte:', ['One egg, plus small polar bodies that degenerate', 'Four eggs, each able to be fertilized', 'Two eggs, one from each meiotic division', 'One egg, with no other cells left over'],
   ['That is spermatogenesis (four sperm).', 'Unequal division gives one large egg.', 'The other meiotic products become polar bodies.'],
   'Unequal cytokinesis keeps most cytoplasm in the egg. There are two polar bodies, or three if the first one also divides.', { cat: '2C', hy: true, cs: ['cs-gametogenesis'] });
-C('b-repro', 'arrest', 'At ovulation, the secondary oocyte is arrested in:', ['Metaphase II, completing meiosis only if fertilized', 'Prophase I', 'Interphase', 'Anaphase I'],
+C('b-repro', 'arrest', 'At ovulation, the secondary oocyte is arrested in:', ['Metaphase II, completing meiosis only if fertilized', 'Prophase I, where it waits until puberty', 'Interphase, before meiosis has begun', 'Anaphase I, while the homologs are separating'],
   ['Primary oocytes wait in prophase I from before birth until puberty.', 'It has already begun meiosis.', 'Meiosis I is finished at ovulation.'],
   'Two arrests: prophase I (until a follicle matures) and metaphase II (until fertilization).', { cat: '2C', sk: 2, cs: ['cs-gametogenesis'] });
 C('b-repro', 'lh-surge', 'What triggers ovulation?', ['A surge of LH', 'A drop in estrogen', 'A rise in progesterone', 'hCG from the embryo'],
   ['Estrogen rises before ovulation, which helps cause the LH surge.', 'Progesterone rises after ovulation (corpus luteum).', 'hCG appears only after implantation.'],
   'High estrogen switches to positive feedback, producing the mid-cycle LH (and FSH) surge.', { cat: '3B', hy: true, cs: ['cs-cycle'] });
-C('b-repro', 'corpus', 'After ovulation, the corpus luteum secretes mainly:', ['Progesterone, which maintains the uterine lining', 'FSH', 'LH', 'Oxytocin'],
+C('b-repro', 'corpus', 'After ovulation, the corpus luteum secretes mainly:', ['Progesterone, which maintains the uterine lining', 'FSH, which stimulates new follicles to grow', 'LH, which triggers the next ovulation', 'Oxytocin, which starts uterine contractions'],
   ['FSH comes from the anterior pituitary.', 'LH comes from the anterior pituitary.', 'Oxytocin comes from the posterior pituitary.'],
   'If no pregnancy occurs, the corpus luteum regresses, progesterone falls and menstruation begins.', { cat: '3B', cs: ['cs-cycle'] });
 C('b-repro', 'hcg', 'What keeps the corpus luteum alive in early pregnancy?', ['hCG made by the embryo', 'FSH', 'Estrogen from the mother\'s adrenal glands', 'Oxytocin'],
@@ -255,10 +255,10 @@ C('b-repro', 'hcg', 'What keeps the corpus luteum alive in early pregnancy?', ['
 C('b-repro', 'leydig', 'In the testes, LH stimulates:', ['Leydig cells to make testosterone', 'Sertoli cells to make sperm directly', 'The epididymis to store sperm', 'The prostate'],
   ['FSH acts on Sertoli cells, which support sperm development.', 'Storage is not under LH control.', 'Not LH\'s target.'],
   'LH → Leydig → testosterone; FSH → Sertoli → supports spermatogenesis.', { cat: '3B' });
-C('b-repro', 'fert-site', 'Where does fertilization usually occur?', ['In the fallopian tube (oviduct)', 'In the uterus', 'In the ovary', 'In the vagina'],
+C('b-repro', 'fert-site', 'Where does fertilization usually occur?', ['In the fallopian tube (oviduct)', 'In the uterus, near the cervix', 'In the ovary, just before release', 'In the vagina, soon after sperm arrive'],
   ['The embryo implants in the uterus about a week later.', 'The egg leaves the ovary at ovulation.', 'Sperm must travel much farther.'],
   'Usually in the ampulla of the fallopian tube.', { cat: '2C' });
-C('b-repro', 'polyspermy', 'After one sperm enters the egg, what prevents others from fertilizing it?', ['The cortical reaction, which hardens the zona pellucida', 'The acrosome reaction', 'Cleavage', 'Implantation'],
+C('b-repro', 'polyspermy', 'After one sperm enters the egg, what prevents others from fertilizing it?', ['The cortical reaction, which hardens the zona pellucida', 'The acrosome reaction of the first sperm', 'Cleavage of the zygote into two cells', 'Implantation of the zygote into the uterine wall'],
   ['The acrosome reaction is the sperm releasing enzymes to reach the egg.', 'Cleavage happens after fertilization.', 'Implantation comes days later.'],
   'Cortical granules release enzymes that modify the zona so no further sperm can bind.', { cat: '2C', sk: 2 });
 C('b-repro', 'germ-layers', 'Which germ layer gives rise to the nervous system and the epidermis?', ['Ectoderm', 'Mesoderm', 'Endoderm', 'Trophoblast'],
@@ -267,7 +267,7 @@ C('b-repro', 'germ-layers', 'Which germ layer gives rise to the nervous system a
 C('b-repro', 'mesoderm', 'Which tissue comes from mesoderm?', ['Skeletal muscle', 'The lining of the gut', 'The brain', 'The lining of the lungs'],
   ['The gut lining is endoderm.', 'The brain is ectoderm.', 'The lung lining is endoderm.'],
   'Mesoderm: muscle, bone, connective tissue, blood, heart, kidneys, gonads.', { cat: '2C', cs: ['cs-germ-layers'] });
-C('b-repro', 'cleavage', 'During cleavage, the early embryo:', ['Divides into more, smaller cells without growing overall', 'Grows rapidly in size', 'Forms three germ layers', 'Implants in the uterus'],
+C('b-repro', 'cleavage', 'During cleavage, the early embryo:', ['Divides into more, smaller cells without growing overall', 'Grows rapidly in overall size as its cells divide', 'Forms the three germ layers by folding inward', 'Implants in the uterine wall right away'],
   ['Total size stays about the same at first.', 'That is gastrulation, later.', 'Implantation follows blastocyst formation.'],
   'Zygote → morula → blastocyst (inner cell mass + trophoblast) → implantation → gastrulation.', { cat: '2C' });
 C('b-repro', 'induction', 'The notochord signals the overlying ectoderm to form the neural tube. This is an example of:', ['Induction', 'Apoptosis', 'Determination by cytoplasm alone', 'Dedifferentiation'],
@@ -275,7 +275,7 @@ C('b-repro', 'induction', 'The notochord signals the overlying ectoderm to form 
   'One tissue changes the fate of another through signals.', { cat: '2C' });
 
 /* ---------- Evolution & population genetics (1C) ---------- */
-C('b-evo', 'fitness', 'In evolutionary terms, the fittest individual is the one that:', ['Leaves the most surviving, fertile offspring', 'Is strongest', 'Lives longest', 'Is largest'],
+C('b-evo', 'fitness', 'In evolutionary terms, the fittest individual is the one that:', ['Leaves the most surviving, fertile offspring', 'Is strongest and wins the most fights', 'Lives the longest of any in its population', 'Is largest and best at finding food'],
   ['Strength helps only if it increases reproduction.', 'A long life without offspring has zero fitness.', 'Size is not fitness.'],
   'Fitness is relative reproductive success.', { hy: true });
 C('b-evo', 'drift', 'Genetic drift has the biggest effect in:', ['Small populations', 'Large populations', 'Populations under strong selection', 'Populations with high gene flow'],
@@ -302,9 +302,9 @@ C('b-evo', 'allopatric', 'A river splits a population in two, and over time the 
 C('b-evo', 'mule', 'A horse and a donkey produce a healthy but sterile mule. This is which kind of reproductive barrier?', ['Postzygotic (hybrid sterility)', 'Prezygotic (behavioral isolation)', 'Prezygotic (mechanical isolation)', 'No barrier'],
   ['They did mate, so mating behavior was not the barrier.', 'Mating worked mechanically.', 'Sterile hybrids keep the species separate.'],
   'Postzygotic barriers act after fertilization: hybrid inviability, sterility or breakdown.', { sk: 2, cs: ['cs-speciation'] });
-C('b-evo', 'kin', 'A worker bee helps raise her sisters instead of reproducing. The best explanation is:', ['Kin selection: helping relatives passes on shared genes (inclusive fitness)', 'Group selection for the good of the species', 'Genetic drift', 'She is unfit and cannot reproduce for other reasons'],
+C('b-evo', 'kin', 'A worker bee helps raise her sisters instead of reproducing. The best explanation is:', ['Kin selection: helping relatives spreads shared genes', 'Group selection for the good of the species', 'Genetic drift in a small hive population', 'She is unfit and cannot reproduce for other reasons'],
   ['Selection acts mainly on genes and individuals, not species.', 'This is a consistent behavior, not chance.', 'Her behavior raises the spread of her own genes.'],
-  'Hamilton\'s rule: altruism spreads when relatedness × benefit > cost.', { sk: 2 });
+  'Inclusive fitness counts genes passed on through relatives. Hamilton\'s rule: altruism spreads when relatedness × benefit > cost.', { sk: 2 });
 C('b-evo', 'unit', 'Which evolves: individuals or populations?', ['Populations: allele frequencies change across generations', 'Individuals: they adapt their genes during life', 'Both equally', 'Neither'],
   ['An individual\'s genes do not change in response to need.', 'Only populations show changes in allele frequency.', 'Populations do evolve.'],
   'Natural selection acts on individuals\' phenotypes, but evolution is the resulting change in the population.');

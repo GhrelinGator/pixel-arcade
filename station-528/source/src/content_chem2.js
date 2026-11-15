@@ -8,7 +8,7 @@ C('c-sep', 'simple-dist', 'Two liquids boil at 60 °C and 140 °C. What is the s
 C('c-sep', 'fractional', 'Two liquids boil at 78 °C and 85 °C. Which method separates them?', ['Fractional distillation', 'Simple distillation', 'Filtration', 'Gravity extraction'],
   ['Close boiling points would co-distill in a simple setup.', 'Filtration separates solids from liquids.', 'Not a standard technique.'],
   'The fractionating column gives many vaporization–condensation cycles, each enriching the lower-boiling component.', { cs: ['cs-distill'] });
-C('c-sep', 'vacuum', 'Why use vacuum distillation?', ['Lowering the pressure lowers the boiling point, so high-boiling or heat-sensitive compounds don\'t decompose', 'It raises the boiling point', 'It separates solids', 'It removes water only'],
+C('c-sep', 'vacuum', 'Why use vacuum distillation?', ['It lowers boiling points, so heat-sensitive compounds don\'t decompose', 'It raises boiling points, so compounds separate more cleanly', 'It separates solids from one another by sublimation', 'It removes water only, leaving organics behind'],
   ['The opposite.', 'Distillation separates liquids.', 'It is a general technique.'],
   'A liquid boils when its vapor pressure equals the external pressure; less external pressure means a lower boiling point.', { cs: ['cs-distill'] });
 C('c-sep', 'acid-extract', 'An ether solution holds a carboxylic acid and a neutral compound. Shaking it with aqueous NaHCO₃:', ['Moves the acid into the water layer as its carboxylate salt', 'Moves the neutral compound into the water layer', 'Leaves both in the ether', 'Destroys the acid'],
@@ -35,7 +35,7 @@ C('c-sep', 'affinity', 'Which chromatography uses a ligand (such as an antibody 
 C('c-sep', 'sds', 'In SDS-PAGE, proteins separate mainly by:', ['Size (mass), smaller ones moving faster', 'Charge, most negative ones moving faster', 'Isoelectric point', 'Shape, because they stay folded'],
   ['SDS gives every protein a similar charge-to-mass ratio, cancelling native charge.', 'That is isoelectric focusing.', 'SDS (often with a reducing agent) unfolds proteins.'],
   'The gel sieves the uniformly negative, unfolded chains, which run toward the positive electrode.', { hy: true, cs: ['cs-electrophoresis'] });
-C('c-sep', 'ief', 'In isoelectric focusing, a protein stops moving where:', ['The pH equals its isoelectric point (net charge zero)', 'The gel ends', 'The pH equals 7', 'It reaches the positive electrode'],
+C('c-sep', 'ief', 'In isoelectric focusing, a protein stops moving where:', ['The pH equals its isoelectric point (net charge zero)', 'The gel ends, where it can\'t move farther', 'The pH equals 7, where the gel is neutral', 'It reaches the positive electrode and sticks'],
   ['It stops well before that.', 'Each protein stops at its own pI.', 'Neutral proteins feel no pull to either electrode.'],
   'Above its pI a protein is negative; below it, positive. It migrates until neither applies.', { sk: 2, cs: ['cs-electrophoresis'] });
 C('c-sep', 'recryst', 'A good recrystallization solvent dissolves your compound:', ['Well when hot and poorly when cold', 'Well when cold and poorly when hot', 'Well at all temperatures', 'Poorly at all temperatures'],
@@ -88,7 +88,7 @@ G('c-sol', 'g-raoult', 'Raoult\'s law', rnd => {
 }, { cs: ['cs-colligative'] });
 
 /* ---------- Deeper: redox & electrochemistry (4C) ---------- */
-C('c-redox', 'conc-cell', 'A concentration cell has the same metal and solution in both halves, at different concentrations. Which is true?', ['E°cell = 0, but current flows until the concentrations become equal', 'It produces no current at all', 'The more dilute side is the cathode', 'Its voltage rises over time'],
+C('c-redox', 'conc-cell', 'A concentration cell has the same metal and solution in both halves, at different concentrations. Which is true?', ['E°cell = 0, but current flows until the concentrations become equal', 'It produces no current, since both halves are the same metal', 'The more dilute side is the cathode, where reduction occurs', 'Its voltage rises over time as ions move'],
   ['A difference in concentration drives it (Nernst equation).', 'Reduction happens on the more concentrated side, which is the cathode.', 'The voltage falls as the concentrations even out.'],
   'E = −(RT/nF) ln Q. Q < 1 while the cathode side is more concentrated, so E > 0.', { sk: 2, cs: ['cs-cells'] });
 C('c-redox', 'nernst', 'In a running galvanic cell, product concentrations rise. What happens to the cell voltage?', ['It falls toward zero', 'It rises', 'It stays at E°', 'It reverses sign at once'],

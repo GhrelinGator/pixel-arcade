@@ -18,6 +18,9 @@ for (const it of ITEMS) {
     if (new Set(it.options).size !== it.options.length) err(it.id, 'duplicate options');
     if (/\b(NOT|EXCEPT)\b/.test(it.prompt)) negStems++;
     if (it.options.some(o => /all of the above|none of the above/i.test(o))) err(it.id, '"of the above" options break shuffling');
+    /* the key must not give itself away by being clearly the longest option */
+    const kl = it.options[0].length, ml = Math.max(...it.options.slice(1).map(o => o.length));
+    if (kl > 1.3 * ml && kl - ml > 12) err(it.id, `key is clearly the longest option (${kl} vs ${ml} characters)`);
   }
   if (it.type === 'typed' && (!it.accepted || !it.accepted.length)) err(it.id, 'no accepted answers');
   if (it.type === 'typed') for (const a of it.accepted) if (!E.norm(a)) err(it.id, 'accepted answer normalizes to empty: ' + a);

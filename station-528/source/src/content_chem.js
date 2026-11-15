@@ -12,7 +12,7 @@ C('c-atoms', 'radius', 'Which atom has the largest atomic radius?', ['Cs', 'Na',
 C('c-atoms', 'ie-max', 'Which has the highest first ionization energy?', ['Ne', 'F', 'O', 'Li'],
   ['F is close, but Ne has one more proton in the same shell and a filled, very stable 2p subshell.', 'O is lower even than N, because its paired 2p electron is easier to remove.', 'Li has a lone 2s electron far from a weakly felt nucleus: the lowest of the period.'],
   'Ionization energy rises across a period as effective nuclear charge increases, peaking at the noble gas.', { hy: true, cs: ['cs-periodic'] });
-C('c-atoms', 'ie-n-o', 'Nitrogen\'s first ionization energy is higher than oxygen\'s. Why?', ['Oxygen\'s fourth 2p electron is paired, and the pairing repulsion makes it easier to remove', 'Nitrogen has a larger nuclear charge', 'Oxygen atoms are larger than nitrogen atoms', 'Nitrogen\'s 2p subshell is completely filled'],
+C('c-atoms', 'ie-n-o', 'Nitrogen\'s first ionization energy is higher than oxygen\'s. Why?', ['Oxygen\'s fourth 2p electron is paired, and repulsion makes it easier to remove', 'Nitrogen has a larger nuclear charge, so it holds electrons tighter', 'Oxygen atoms are larger, so their outer electrons sit farther out', 'Nitrogen\'s 2p subshell is completely filled, which is extra stable'],
   ['Oxygen has more protons (8 vs 7), not fewer.', 'Oxygen is slightly smaller, which on its own would raise its ionization energy.', 'Nitrogen\'s 2p is half-filled (3 of 6), not full. Half-filled is the stable arrangement.'],
   'N is 2p³ with one electron in each p orbital. O is 2p⁴, so one orbital holds a pair; the extra electron-electron repulsion lets that electron leave more easily. The same dip appears between Be and B for a different reason (B removes a higher-energy 2p electron).', { sk: 2, cs: ['cs-periodic'] });
 C('c-atoms', 'cr-config', 'What is the ground-state electron configuration of chromium (Z = 24)?', ['[Ar] 4s¹ 3d⁵', '[Ar] 4s² 3d⁴', '[Ar] 3d⁶', '[Ar] 4s² 3d⁵'],
@@ -113,7 +113,7 @@ C('c-imf', 'water-imf', 'What is the strongest intermolecular force between wate
 C('c-imf', 'bp-water', 'Which has the highest boiling point?', ['H₂O', 'H₂S', 'CH₄', 'Ne'],
   ['H₂S is heavier but cannot hydrogen-bond (S is not electronegative enough), so it boils at about −60 °C.', 'Nonpolar, dispersion only.', 'A single small atom with weak dispersion forces.'],
   'Hydrogen bonding gives water an unusually high boiling point (100 °C) for its size.', { cs: ['cs-imf'] });
-C('c-imf', 'pentane', 'n-Pentane boils at 36 °C; neopentane, with the same formula, boils at 10 °C. Why?', ['n-Pentane\'s long shape gives more surface contact, so stronger London dispersion forces', 'n-Pentane can hydrogen-bond', 'n-Pentane has a higher molar mass', 'n-Pentane has more polar bonds'],
+C('c-imf', 'pentane', 'n-Pentane boils at 36 °C; neopentane, with the same formula, boils at 10 °C. Why?', ['n-Pentane\'s long shape allows more contact, so stronger dispersion forces', 'n-Pentane can form hydrogen bonds between its molecules', 'n-Pentane has a higher molar mass, so more electrons to polarize', 'n-Pentane has more polar bonds, so stronger dipole forces'],
   ['Neither molecule has H on O, N or F.', 'They are isomers with the same molar mass.', 'Both are hydrocarbons with nearly nonpolar C–H bonds.'],
   'Dispersion forces grow with contact area. Compact, branched neopentane touches its neighbors less than the rod-like n-pentane.', { sk: 2, cs: ['cs-imf'] });
 C('c-imf', 'hbond-self', 'Which compound can form hydrogen bonds with other molecules of itself?', ['CH₃OH', 'CH₃OCH₃', 'CH₃F', 'CH₄'],
@@ -126,10 +126,10 @@ C('c-imf', 'sublimation', 'A solid turning directly into a gas is called:', ['Su
   'Sublimation (dry ice at room pressure is the classic example). It crosses the solid–gas line of a phase diagram.', { cat: '5E', cs: ['cs-phase'] });
 T('c-imf', 'triple', 'What is the point on a phase diagram where solid, liquid and gas coexist?', ['triple point', 'the triple point'],
   'The triple point: one temperature and pressure where all three phase boundaries meet.', { cat: '5E', cs: ['cs-phase'] });
-C('c-imf', 'water-slope', 'Water\'s solid–liquid line slopes to the left (negative slope). What does that mean?', ['Ice is less dense than liquid water, so raising pressure favors melting', 'Hydrogen bonds break under pressure', 'Water has an unusually high heat capacity', 'Ice cannot exist above 1 atm'],
+C('c-imf', 'water-slope', 'Water\'s solid–liquid line slopes to the left (negative slope). What does that mean?', ['Ice is less dense than liquid water, so raising pressure favors melting', 'Hydrogen bonds break under high pressure, so ice falls apart', 'Water has an unusually high heat capacity, which resists freezing', 'Ice cannot exist at any pressure above 1 atm'],
   ['Pressure does not break hydrogen bonds; it favors whichever phase takes up less volume.', 'True of water, but it explains temperature changes, not this slope.', 'Ice exists at high pressure too, just with a slightly lower melting point.'],
   'For most substances the solid is denser and the line slopes right. Water expands on freezing, so squeezing ice pushes it toward the denser liquid.', { cat: '5E', sk: 2, cs: ['cs-phase'] });
-C('c-imf', 'melting-heat', 'While ice melts at 0 °C, the heat you add mainly:', ['Overcomes intermolecular attractions, so the temperature stays constant', 'Raises the molecules\' average kinetic energy', 'Breaks covalent O–H bonds', 'Is released back to the surroundings'],
+C('c-imf', 'melting-heat', 'While ice melts at 0 °C, the heat you add mainly:', ['Overcomes intermolecular attractions, so the temperature stays constant', 'Raises the molecules\' average kinetic energy, so they move faster', 'Breaks covalent O–H bonds inside the water molecules', 'Is released back to the surroundings as the ice warms'],
   ['Temperature (average kinetic energy) does not change during a phase change.', 'Melting leaves the molecules intact; only intermolecular forces change.', 'Melting absorbs heat (it is endothermic).'],
   'During a phase change, added energy goes into potential energy (separating molecules), which is why heating curves have flat plateaus.', { cat: '5E', cs: ['cs-phase'] });
 C('c-imf', 'boil', 'A liquid boils when:', ['Its vapor pressure equals the external pressure', 'Its vapor pressure reaches 1 atm, whatever the surroundings', 'It reaches its critical point', 'Its vapor pressure drops to zero'],
@@ -196,7 +196,7 @@ C('c-gas', 'boyle', 'Which law says PV is constant for a fixed amount of gas at 
 C('c-gas', 'real-dev', 'Real gases deviate most from ideal behavior at:', ['High pressure and low temperature', 'Low pressure and high temperature', 'Low pressure and low temperature', 'High temperature only'],
   ['These are the conditions where gases behave most ideally.', 'Low pressure keeps molecules far apart, which helps ideality.', 'High temperature helps; it is high pressure that hurts.'],
   'At high pressure the molecules\' own volume matters; at low temperature their attractions matter. The ideal model ignores both.', { hy: true, sk: 2 });
-C('c-gas', 'real-vol', 'At very high pressure, a real gas takes up more volume than the ideal gas law predicts. Why?', ['The molecules themselves occupy space that cannot be compressed', 'Intermolecular attractions push molecules apart', 'Collisions become perfectly elastic', 'The gas cools as it is compressed'],
+C('c-gas', 'real-vol', 'At very high pressure, a real gas takes up more volume than the ideal gas law predicts. Why?', ['The molecules themselves occupy space that cannot be compressed', 'Intermolecular attractions push molecules apart', 'Collisions become perfectly elastic at high pressure', 'The gas cools as it is compressed, so it expands'],
   ['Attractions pull molecules together, which would make the volume smaller.', 'Ideal gases already assume elastic collisions.', 'Compressing a gas tends to warm it, and temperature is already in PV = nRT; it cannot explain the extra volume.'],
   'The ideal model treats molecules as points. When they are packed tightly, their finite size makes the gas less compressible (the "b" term in van der Waals).', { sk: 2 });
 C('c-gas', 'kmt-ke', 'The average kinetic energy of gas molecules depends only on:', ['Absolute temperature', 'Molar mass', 'Pressure', 'Volume'],
@@ -258,7 +258,7 @@ C('c-thermo', 'bond-enth', 'Using bond enthalpies, ΔH of a reaction is estimate
 C('c-thermo', 'ds-pos', 'Which process has ΔS > 0?', ['Liquid water evaporating', 'Liquid water freezing', '2 SO₂(g) + O₂(g) → 2 SO₃(g)', 'N₂(g) + 3 H₂(g) → 2 NH₃(g)'],
   ['Freezing orders the molecules: entropy falls.', 'Three moles of gas become two.', 'Four moles of gas become two.'],
   'Gas has far more possible arrangements than liquid. Look for more particles or more gas.', { hy: true, cs: ['cs-entropy'] });
-C('c-thermo', 'spont-rate', 'A reaction is described as spontaneous. What does that tell you about its rate?', ['Nothing: spontaneity is thermodynamics, rate is kinetics', 'It must be fast', 'It needs no activation energy', 'It must release heat'],
+C('c-thermo', 'spont-rate', 'A reaction is described as spontaneous. What does that tell you about its rate?', ['Nothing: spontaneity is thermodynamics, rate is kinetics', 'It must be fast, because it happens on its own', 'It needs no activation energy to get started', 'It must release heat, which speeds it up'],
   ['Diamond turning into graphite is spontaneous and immeasurably slow.', 'Spontaneous reactions still have activation barriers.', 'Endothermic reactions can be spontaneous if entropy rises enough.'],
   'ΔG says whether products are favored; activation energy sets how fast you get there.', { hy: true, sk: 2, cs: ['cs-kin-thermo'] });
 T('c-thermo', 'cp', 'The heat needed to raise 1 g of a substance by 1 °C is its ___.', ['specific heat', 'specific heat capacity', 'specific heat capacity c'],
@@ -283,7 +283,7 @@ G('c-thermo', 'g-crossover', 'Temperature where ΔG = 0', rnd => {
 }, { cs: ['cs-gibbs'] });
 
 /* ---------- Kinetics (5E) ---------- */
-C('c-kin', 'catalyst', 'What does a catalyst change?', ['The activation energy (and so the rate), not ΔG or K', 'The equilibrium constant', 'ΔH of the reaction', 'Which side the equilibrium favors'],
+C('c-kin', 'catalyst', 'What does a catalyst change?', ['The activation energy (and so the rate), not ΔG or K', 'The equilibrium constant, by favoring products', 'ΔH of the reaction, by lowering the products\' energy', 'Which side the equilibrium favors at the end'],
   ['K depends only on ΔG°, which a catalyst does not touch.', 'Reactants and products have the same energies with or without a catalyst.', 'A catalyst speeds forward and reverse equally, so equilibrium is reached sooner but sits at the same place.'],
   'A catalyst provides a lower-energy pathway and is regenerated. Enzymes are biological catalysts.', { hy: true, cs: ['cs-kin-thermo'] });
 T('c-kin', 'rds', 'The slowest step of a reaction mechanism, which sets the overall rate, is the ___.', ['rate-determining step', 'rate determining step', 'rate-limiting step', 'rate limiting step', 'slow step'],
@@ -300,10 +300,10 @@ C('c-kin', 'first-half', 'What is special about the half-life of a first-order r
 C('c-kin', 'k-units', 'What are the units of a first-order rate constant?', ['s⁻¹', 'M·s⁻¹', 'M⁻¹·s⁻¹', 'M'],
   ['M·s⁻¹ belongs to a zero-order k (and to rates themselves).', 'M⁻¹·s⁻¹ belongs to a second-order k.', 'k always involves time.'],
   'rate (M/s) = k[A] (M), so k must be in 1/s.', { cs: ['cs-order'] });
-C('c-kin', 'arrhenius', 'Why does raising temperature speed up most reactions?', ['A larger fraction of collisions have energy above the activation energy', 'It lowers the activation energy', 'It makes ΔH more negative', 'It only raises collision frequency'],
+C('c-kin', 'arrhenius', 'Why does raising temperature speed up most reactions?', ['A larger fraction of collisions have energy above the activation energy', 'It lowers the activation energy of the reaction pathway', 'It makes ΔH more negative, so products are favored', 'It only raises how often molecules collide with each other'],
   ['Ea is a property of the pathway; temperature does not lower it (a catalyst does).', 'ΔH is barely affected by temperature and does not set rate.', 'Collisions do get more frequent, but that effect is small compared with the energy effect.'],
   'k = A·e^(−Ea/RT). The exponential term, the fraction of energetic enough collisions, rises steeply with T.', { sk: 2 });
-C('c-kin', 'intermediate', 'How does a reaction intermediate differ from a transition state?', ['An intermediate sits in an energy dip and can in principle be detected; a transition state is an energy peak', 'An intermediate is an energy peak; a transition state is a dip', 'They are the same thing', 'An intermediate appears in the overall equation'],
+C('c-kin', 'intermediate', 'How does a reaction intermediate differ from a transition state?', ['An intermediate sits in an energy dip and can be detected; a transition state is a peak', 'An intermediate is an energy peak, and a transition state sits in a dip', 'They are the same thing, described from two angles', 'An intermediate appears in the overall balanced equation for the reaction'],
   ['That reverses them.', 'A transition state has partial bonds and exists for one vibration; an intermediate is a real species.', 'Intermediates are made and then used up, so they cancel out of the overall equation.'],
   'On an energy diagram, intermediates are local minima between steps; transition states are the maxima above each step.', { cs: ['cs-mechanism'] });
 G('c-kin', 'g-order', 'Order from rate data', rnd => {
@@ -325,7 +325,7 @@ C('c-eq', 'add-prod', 'A reaction is at equilibrium. You add more product. What 
 C('c-eq', 'heat-exo', 'For an exothermic reaction at equilibrium, raising the temperature:', ['Shifts it toward reactants and decreases K', 'Shifts it toward products and increases K', 'Shifts it but leaves K unchanged', 'Has no effect'],
   ['That is what happens for an endothermic reaction.', 'Temperature is the one change that does alter K.', 'Temperature affects every reaction with ΔH ≠ 0.'],
   'Treat heat as a product of an exothermic reaction. Adding heat pushes the reaction backward, and K itself falls.', { hy: true, sk: 2, cs: ['cs-lechat'] });
-C('c-eq', 'inert', 'You add argon to a fixed-volume vessel containing N₂ + 3 H₂ ⇌ 2 NH₃ at equilibrium. What happens?', ['No shift: the partial pressures of the reacting gases are unchanged', 'Shift toward NH₃ (fewer moles of gas)', 'Shift toward N₂ and H₂', 'K increases'],
+C('c-eq', 'inert', 'You add argon to a fixed-volume vessel containing N₂ + 3 H₂ ⇌ 2 NH₃ at equilibrium. What happens?', ['No shift: the partial pressures of the reacting gases are unchanged', 'Shift toward NH₃, because there are fewer moles of gas', 'Shift toward N₂ and H₂, because total pressure rose', 'K increases because the total pressure is higher'],
   ['That happens when you shrink the volume, not when you add an inert gas at constant volume.', 'Nothing has changed the reacting gases\' concentrations.', 'Only temperature changes K.'],
   'Total pressure rises, but each reactant\'s concentration (and partial pressure) stays the same, so Q still equals K.', { sk: 2, cs: ['cs-lechat'] });
 C('c-eq', 'compress', 'For N₂ + 3 H₂ ⇌ 2 NH₃, halving the container volume shifts the equilibrium:', ['Toward NH₃', 'Toward N₂ and H₂', 'Not at all', 'Toward whichever side is exothermic'],
@@ -439,10 +439,10 @@ C('c-redox', 'electrolytic-anode', 'In an electrolytic cell, the anode is:', ['P
 C('c-redox', 'kmno4', 'What is the oxidation state of Mn in KMnO₄?', ['+7', '+5', '+3', '−1'],
   ['Check the sum: +1 + 5 − 8 = −2, not 0.', 'Same check fails.', 'Mn in a polyatomic ion with four oxygens is not negative.'],
   'K is +1 and each O is −2 (total −8). For a neutral compound, Mn = 0 − 1 + 8 = +7.');
-C('c-redox', 'ox-agent', 'The oxidizing agent in a redox reaction is the species that:', ['Gets reduced (gains electrons)', 'Gets oxidized', 'Loses electrons', 'Is unchanged'],
+C('c-redox', 'ox-agent', 'The oxidizing agent in a redox reaction is the species that:', ['Gets reduced (gains electrons)', 'Gets oxidized (raises its oxidation state)', 'Loses electrons to the other species', 'Is left unchanged by the reaction'],
   ['The species that is oxidized is the reducing agent.', 'Losing electrons is oxidation, which makes it the reducing agent.', 'Agents always change oxidation state.'],
   'An oxidizing agent causes oxidation in something else by taking its electrons, and is itself reduced.', { hy: true, cs: ['cs-redox-agent'] });
-C('c-redox', 'salt-bridge', 'What does the salt bridge in a galvanic cell do?', ['Lets ions flow to keep each half-cell electrically neutral', 'Carries electrons between the half-cells', 'Supplies the reactants', 'Raises the cell voltage'],
+C('c-redox', 'salt-bridge', 'What does the salt bridge in a galvanic cell do?', ['Lets ions flow to keep each half-cell electrically neutral', 'Carries electrons between the two half-cells', 'Supplies the reactants for both half-reactions', 'Raises the cell voltage by adding more ions'],
   ['Electrons travel through the wire only.', 'Its ions are spectators.', 'It enables current but does not add voltage.'],
   'Without it, charge builds up (positive at the anode, negative at the cathode) and the current stops almost immediately.', { cs: ['cs-cells'] });
 N('c-redox', 'faraday', 'What is Faraday\'s constant, in coulombs per mole of electrons?', { value: 96485, tolPct: 1.5 },
@@ -459,16 +459,16 @@ G('c-redox', 'g-ecell', 'Standard cell potential', rnd => {
 C('c-nuc', 'alpha', 'In alpha decay, the nucleus\'s mass number and atomic number change by:', ['A − 4, Z − 2', 'A unchanged, Z + 1', 'A unchanged, Z − 1', 'A − 2, Z − 4'],
   ['That is beta-minus decay.', 'That is positron emission or electron capture.', 'This swaps them: an alpha particle is ⁴₂He.'],
   'An alpha particle is a helium-4 nucleus (2 protons, 2 neutrons).', { hy: true, cs: ['cs-decay'] });
-C('c-nuc', 'beta', 'In beta-minus decay:', ['A neutron becomes a proton and an electron is emitted; Z rises by 1, A is unchanged', 'A proton becomes a neutron; Z falls by 1', 'Z falls by 2 and A by 4', 'Only energy is released'],
+C('c-nuc', 'beta', 'In beta-minus decay:', ['A neutron becomes a proton and emits an electron; Z rises by 1', 'A proton becomes a neutron and emits a positron; Z falls by 1', 'Z falls by 2 and A by 4 as a helium nucleus leaves', 'Only energy is released, as a high-energy photon'],
   ['That is positron emission (β⁺).', 'That is alpha decay.', 'That is gamma emission.'],
-  'n → p + e⁻ + antineutrino. The atom moves one place right on the periodic table.', { hy: true, cs: ['cs-decay'] });
+  'n → p + e⁻ + antineutrino. Z rises by 1 and the mass number A is unchanged, so the atom moves one place right on the periodic table.', { hy: true, cs: ['cs-decay'] });
 C('c-nuc', 'positron', 'Positron emission changes the nucleus how?', ['Z falls by 1; A is unchanged', 'Z rises by 1; A is unchanged', 'Z falls by 2; A falls by 4', 'Nothing changes'],
   ['That is beta-minus.', 'That is alpha.', 'A proton becomes a neutron, so Z changes.'],
   'p → n + e⁺ + neutrino. The element moves one place left.', { cs: ['cs-decay'] });
-C('c-nuc', 'gamma', 'What does gamma emission change about the nucleus?', ['Only its energy: Z and A stay the same', 'Z rises by 1', 'A falls by 4', 'Z falls by 1'],
+C('c-nuc', 'gamma', 'What does gamma emission change about the nucleus?', ['Only its energy: Z and A stay the same', 'Z rises by 1 as a neutron converts', 'A falls by 4 and Z falls by 2', 'Z falls by 1 as a proton converts'],
   ['That is beta-minus.', 'That is alpha.', 'That is positron emission or electron capture.'],
   'A gamma ray is a high-energy photon released as an excited nucleus relaxes, often right after another decay.', { cs: ['cs-decay'] });
-C('c-nuc', 'mass-defect', 'A nucleus weighs less than its separate protons and neutrons. The missing mass:', ['Was released as binding energy, E = mc²', 'Was lost as electrons', 'Is a measurement error', 'Became neutrinos only'],
+C('c-nuc', 'mass-defect', 'A nucleus weighs less than its separate protons and neutrons. The missing mass:', ['Was released as binding energy, E = mc²', 'Was lost as electrons left the atom', 'Is a measurement error in the masses', 'Was carried away entirely by neutrinos'],
   ['Electrons are not part of the nuclear mass comparison.', 'It is real and measurable (the mass defect).', 'Neutrinos are not how binding energy is accounted for.'],
   'Mass defect × c² = nuclear binding energy, the energy needed to pull the nucleus apart.');
 G('c-nuc', 'g-decay', 'Half-life of an isotope', rnd => {

@@ -39,7 +39,7 @@ G('p-shm', 'g-spring-t', 'Spring period', rnd => {
 C('p-heat', 'first-law', 'A gas absorbs 500 J of heat and does 200 J of work on its surroundings. Its internal energy:', ['Rises by 300 J', 'Rises by 700 J', 'Falls by 300 J', 'Rises by 500 J'],
   ['That adds the work instead of subtracting it.', 'Heat in exceeds work out, so it rises.', 'The work done by the gas must be subtracted.'],
   'ΔU = Q − W (W done by the gas). Chemistry writes ΔU = q + w, with w the work done on the system; it is the same law with the opposite sign for w.', { hy: true, sk: 2, cs: ['cs-first-law'] });
-C('p-heat', 'isothermal', 'An ideal gas expands isothermally. Which is true?', ['ΔU = 0, so the heat absorbed equals the work done', 'No heat is exchanged', 'No work is done', 'The temperature rises'],
+C('p-heat', 'isothermal', 'An ideal gas expands isothermally. Which is true?', ['ΔU = 0, so the heat absorbed equals the work done', 'No heat is exchanged with the surroundings', 'No work is done, since the volume is fixed', 'The temperature rises as the gas expands'],
   ['That describes an adiabatic process.', 'That describes a constant-volume process.', 'Isothermal means constant temperature.'],
   'An ideal gas\'s internal energy depends only on temperature, so constant T means ΔU = 0.', { cs: ['cs-first-law'] });
 C('p-heat', 'adiabatic', 'A gas is compressed quickly, with no time for heat to escape (adiabatic). Its temperature:', ['Rises', 'Falls', 'Stays the same', 'Drops to zero'],
@@ -54,7 +54,7 @@ C('p-heat', 'transfer', 'A heat lamp warms your hand across empty space by:', ['
 C('p-heat', 'convection', 'Warm air rising from a radiator and circulating around a room transfers heat by:', ['Convection', 'Conduction', 'Radiation', 'Sublimation'],
   ['Conduction moves heat through direct contact without bulk flow.', 'Some radiation occurs, but the circulating air is convection.', 'That is a phase change.'],
   'Convection is heat carried by the bulk movement of a fluid.', { cs: ['cs-heat-transfer'] });
-C('p-heat', 'second-law', 'Which statement follows from the second law of thermodynamics?', ['Heat flows spontaneously from hot to cold, never the reverse on its own', 'Energy is always conserved', 'Absolute zero can be reached', 'Entropy of an isolated system can decrease'],
+C('p-heat', 'second-law', 'Which statement follows from the second law of thermodynamics?', ['Heat flows spontaneously from hot to cold, not the reverse', 'Energy is always conserved, so it cannot be created', 'Absolute zero can be reached with enough cooling', 'The entropy of an isolated system can decrease'],
   ['That is the first law.', 'The third law says it can only be approached.', 'The second law says it never decreases.'],
   'The total entropy of an isolated system never decreases. Refrigerators move heat from cold to hot only by doing work.', { hy: true });
 G('p-heat', 'g-melt', 'Heat to melt ice', rnd => {
@@ -87,7 +87,7 @@ G('p-heat', 'g-kelvin', 'Temperature scales', rnd => {
 }, { sk: 1 });
 
 /* ---------- Magnetism (4C) ---------- */
-C('p-mag', 'no-work', 'A charged particle moves through a uniform magnetic field. The magnetic force on it:', ['Changes its direction but not its speed', 'Speeds it up', 'Slows it down', 'Does positive work on it'],
+C('p-mag', 'no-work', 'A charged particle moves through a uniform magnetic field. The magnetic force on it:', ['Changes its direction but not its speed', 'Speeds it up in the direction of motion', 'Slows it down, like a drag force would', 'Does positive work, raising its energy'],
   ['The force is always perpendicular to the velocity.', 'A perpendicular force cannot slow it.', 'Perpendicular forces do no work.'],
   'F = qv × B is perpendicular to v, so kinetic energy stays constant; the particle curves, often into a circle.', { hy: true, sk: 2 });
 C('p-mag', 'parallel-v', 'A charge moves parallel to a magnetic field. The magnetic force on it is:', ['Zero', 'Maximum', 'Along the field', 'Opposite to its motion'],
@@ -115,19 +115,19 @@ G('p-mag', 'g-radius', 'Circular orbit in a field', rnd => {
 });
 
 /* ---------- Photons & atomic physics (4E / 4D) ---------- */
-C('p-atomic', 'intensity', 'In the photoelectric effect, making the light brighter (same frequency, above threshold):', ['Ejects more electrons but does not raise their maximum kinetic energy', 'Raises the electrons\' maximum kinetic energy', 'Lowers the work function', 'Has no effect'],
+C('p-atomic', 'intensity', 'In the photoelectric effect, making the light brighter (same frequency, above threshold):', ['Ejects more electrons without raising their maximum kinetic energy', 'Raises the maximum kinetic energy of the ejected electrons', 'Lowers the metal\'s work function, freeing electrons', 'Has no effect, since only frequency matters'],
   ['Each electron absorbs one photon; brighter light only means more photons.', 'The work function is a property of the metal.', 'More photons free more electrons.'],
   'KE_max = hf − φ depends on frequency, not intensity. This was key evidence that light comes in photons.', { hy: true, sk: 2, cs: ['cs-photoelectric'] });
 C('p-atomic', 'threshold', 'Light below a metal\'s threshold frequency shines on it very brightly. What happens?', ['No electrons are ejected', 'Electrons are ejected slowly', 'Electrons are ejected after a delay', 'The work function falls'],
   ['No photon has enough energy, however many there are.', 'Energy does not build up in one electron over time.', 'The metal\'s work function does not change.'],
   'Each photon must have hf ≥ φ on its own.', { cs: ['cs-photoelectric'] });
-C('p-atomic', 'absorption', 'A cool gas in front of a hot light source produces dark lines in the spectrum. These lines are at:', ['The same wavelengths the gas emits when heated', 'Random wavelengths', 'Only infrared wavelengths', 'Wavelengths the gas cannot absorb'],
+C('p-atomic', 'absorption', 'A cool gas in front of a hot light source produces dark lines in the spectrum. These lines are at:', ['The same wavelengths the gas emits when heated', 'Random wavelengths that vary each time', 'Only infrared wavelengths, from heat', 'Wavelengths the gas is unable to absorb'],
   ['They are a fingerprint of the element.', 'They can be anywhere the element has transitions.', 'Dark lines mean light was absorbed.'],
   'An atom absorbs exactly the photon energies matching its level gaps, the same gaps it emits from.');
-C('p-atomic', 'fluorescence', 'A fluorescent dye absorbs ultraviolet light and glows green. Why is the emitted light lower in energy?', ['Some energy is lost (as vibration/heat) before the photon is emitted', 'Green light has more energy than UV', 'The dye gains energy from the surroundings', 'Photons slow down in the dye'],
+C('p-atomic', 'fluorescence', 'A fluorescent dye absorbs ultraviolet light and glows green. Why is the emitted light lower in energy?', ['Some energy is lost as heat before the photon is emitted', 'Green light has more energy per photon than UV', 'The dye gains energy from the surroundings', 'Photons slow down and lose energy in the dye'],
   ['Green has less energy and a longer wavelength than UV.', 'That would make the emitted light more energetic.', 'Photon energy depends on frequency, not speed in a medium.'],
   'Absorb high-energy light, relax a little non-radiatively, emit lower-energy (longer-wavelength) light.', { sk: 2 });
-C('p-atomic', 'bohr', 'In the Bohr model of hydrogen, why does the atom emit only certain wavelengths?', ['Electron energy levels are quantized, so only certain energy gaps exist', 'The electron spirals continuously into the nucleus', 'The nucleus emits the light', 'Every wavelength is emitted but most are absorbed'],
+C('p-atomic', 'bohr', 'In the Bohr model of hydrogen, why does the atom emit only certain wavelengths?', ['Energy levels are quantized, so only certain energy gaps exist', 'The electron spirals continuously into the nucleus', 'The nucleus emits the light as protons vibrate', 'Every wavelength is emitted but most are absorbed'],
   ['That classical prediction is what the Bohr model fixed.', 'The light comes from electron transitions.', 'The emission spectrum is genuinely discrete.'],
   'E_photon = E_upper − E_lower = hf for allowed levels only.');
 G('p-atomic', 'g-photoelectric', 'Photoelectric effect', rnd => {

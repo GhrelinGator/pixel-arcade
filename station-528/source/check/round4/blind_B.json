@@ -1,0 +1,1201 @@
+[
+ {
+  "id": "Q001",
+  "format": "choice",
+  "question": "Why can't a second action potential fire during the absolute refractory period?",
+  "options": {
+   "A": "Voltage-gated K⁺ channels are all closed",
+   "B": "The Na⁺/K⁺ pump has stopped until gradients reset",
+   "C": "The neuron has run out of the Na⁺ ions it needs to let in",
+   "D": "Voltage-gated Na⁺ channels are inactivated and cannot reopen yet"
+  }
+ },
+ {
+  "id": "Q002",
+  "format": "choice",
+  "question": "Why does raising temperature speed up most reactions?",
+  "options": {
+   "A": "It makes ΔH more negative, so products are favored",
+   "B": "A larger fraction of collisions have energy above the activation energy",
+   "C": "It only raises how often molecules collide with each other",
+   "D": "It lowers the activation energy of the reaction pathway"
+  }
+ },
+ {
+  "id": "Q003",
+  "format": "choice",
+  "question": "A drug inhibits acetylcholinesterase. At the neuromuscular junction, this:",
+  "options": {
+   "A": "Has no effect, since ACh diffuses away anyway",
+   "B": "Blocks acetylcholine receptors on the muscle",
+   "C": "Blocks acetylcholine release from the nerve terminal",
+   "D": "Prolongs acetylcholine's action, so stimulation lasts longer"
+  }
+ },
+ {
+  "id": "Q004",
+  "format": "choice",
+  "question": "One hormone molecule can lead to thousands of product molecules inside a cell. This is because:",
+  "options": {
+   "A": "Second messengers are made on the ribosome in large batches",
+   "B": "Each step of the cascade activates many molecules of the next",
+   "C": "Receptors divide into many copies when activated",
+   "D": "The hormone is copied many times inside the cell"
+  }
+ },
+ {
+  "id": "Q005",
+  "format": "choice",
+  "question": "How does a reaction intermediate differ from a transition state?",
+  "options": {
+   "A": "An intermediate appears in the overall balanced equation for the reaction",
+   "B": "They are the same thing, described from two angles",
+   "C": "An intermediate sits in an energy dip and can be detected; a transition state is a peak",
+   "D": "An intermediate is an energy peak, and a transition state sits in a dip"
+  }
+ },
+ {
+  "id": "Q006",
+  "format": "choice",
+  "question": "Which feature belongs to gram-negative bacteria?",
+  "options": {
+   "A": "Retaining the purple crystal violet stain",
+   "B": "An outer membrane containing lipopolysaccharide (endotoxin)",
+   "C": "Teichoic acids woven through a thick wall",
+   "D": "A thick peptidoglycan layer outside the membrane"
+  }
+ },
+ {
+  "id": "Q007",
+  "format": "choice",
+  "question": "A charged particle moves through a uniform magnetic field. The magnetic force on it:",
+  "options": {
+   "A": "Does positive work, raising its energy",
+   "B": "Slows it down, like a drag force would",
+   "C": "Changes its direction but not its speed",
+   "D": "Speeds it up in the direction of motion"
+  }
+ },
+ {
+  "id": "Q008",
+  "format": "choice",
+  "question": "Calcitonin, from the thyroid, tends to:",
+  "options": {
+   "A": "Lower blood calcium by reducing bone resorption",
+   "B": "Activate vitamin D in the kidney to absorb calcium",
+   "C": "Increase osteoclast activity in bone",
+   "D": "Raise blood calcium by releasing it from bone"
+  }
+ },
+ {
+  "id": "Q009",
+  "format": "choice",
+  "question": "The total momentum of a system is conserved when:",
+  "options": {
+   "A": "Kinetic energy is conserved as well",
+   "B": "The collision is perfectly elastic",
+   "C": "The net external force on the system is zero",
+   "D": "All the objects involved have the same mass"
+  }
+ },
+ {
+  "id": "Q010",
+  "format": "choice",
+  "question": "How many codons are there, and how many specify amino acids?",
+  "options": {
+   "A": "20 codons; one for each of the amino acids",
+   "B": "64 codons; 61 code for amino acids and 3 are stops",
+   "C": "64 codons; all 64 code for amino acids",
+   "D": "61 codons; 3 are start codons, the rest amino acids"
+  }
+ },
+ {
+  "id": "Q011",
+  "format": "choice",
+  "question": "You add argon to a fixed-volume vessel containing N₂ + 3 H₂ ⇌ 2 NH₃ at equilibrium. What happens?",
+  "options": {
+   "A": "Shift toward NH₃, because there are fewer moles of gas",
+   "B": "K increases because the total pressure is higher",
+   "C": "No shift: the partial pressures of the reacting gases are unchanged",
+   "D": "Shift toward N₂ and H₂, because total pressure rose"
+  }
+ },
+ {
+  "id": "Q012",
+  "format": "choice",
+  "question": "Caffeine inhibits phosphodiesterase. What happens to cAMP signaling?",
+  "options": {
+   "A": "The receptors are destroyed and signaling ends",
+   "B": "Nothing changes: phosphodiesterase is what makes cAMP",
+   "C": "It stops, because no cAMP can be made at all",
+   "D": "It lasts longer, because cAMP is broken down more slowly"
+  }
+ },
+ {
+  "id": "Q013",
+  "format": "choice",
+  "question": "What do T-tubules do in a muscle fiber?",
+  "options": {
+   "A": "Carry the action potential deep inside to trigger Ca²⁺ release",
+   "B": "Connect neighboring fibers so they contract together",
+   "C": "Make ATP for the myosin heads near each sarcomere",
+   "D": "Store calcium for release during contraction"
+  }
+ },
+ {
+  "id": "Q014",
+  "format": "choice",
+  "question": "When blood calcium falls, parathyroid hormone:",
+  "options": {
+   "A": "Acts only on the gut, not on the kidney",
+   "B": "Builds new bone to store the extra calcium",
+   "C": "Lowers calcium further by moving it from blood into bone",
+   "D": "Raises calcium through bone, kidney and vitamin D activation"
+  }
+ },
+ {
+  "id": "Q015",
+  "format": "choice",
+  "question": "Microtubules are made of ___ and form ___.",
+  "options": {
+   "A": "Tubulin; the mitotic spindle, cilia and flagella",
+   "B": "Myosin; the thick filaments of muscle",
+   "C": "Keratin; anchoring junctions in skin cells",
+   "D": "Actin; the cleavage furrow and microvilli"
+  }
+ },
+ {
+  "id": "Q016",
+  "format": "choice",
+  "question": "In primary hypothyroidism the thyroid itself fails. What do you expect for TSH?",
+  "options": {
+   "A": "Low, because the failing thyroid stops responding to it",
+   "B": "Zero, because no thyroid hormone is made",
+   "C": "Normal, because the pituitary is not affected",
+   "D": "High, because low thyroid hormone removes negative feedback"
+  }
+ },
+ {
+  "id": "Q017",
+  "format": "choice",
+  "question": "In an elastic collision:",
+  "options": {
+   "A": "Both momentum and kinetic energy are conserved",
+   "B": "Only kinetic energy is conserved, not momentum",
+   "C": "Only momentum is conserved, not kinetic energy",
+   "D": "Neither momentum nor kinetic energy is conserved"
+  }
+ },
+ {
+  "id": "Q018",
+  "format": "choice",
+  "question": "What does p53 do when DNA is damaged?",
+  "options": {
+   "A": "Halts the cell cycle (at G₁/S) for repair or triggers apoptosis",
+   "B": "Repairs damaged DNA directly, acting as a polymerase",
+   "C": "Separates sister chromatids at anaphase",
+   "D": "Speeds the cell into S phase to finish replication"
+  }
+ },
+ {
+  "id": "Q019",
+  "format": "choice",
+  "question": "What is the main point of fermentation?",
+  "options": {
+   "A": "To feed acetyl-CoA into the citric acid cycle",
+   "B": "To produce oxygen for the electron transport chain",
+   "C": "To make extra ATP by breaking down pyruvate",
+   "D": "To regenerate NAD⁺ so glycolysis can keep making ATP"
+  }
+ },
+ {
+  "id": "Q020",
+  "format": "choice",
+  "question": "An uncoupler such as DNP makes the inner mitochondrial membrane leaky to H⁺. What happens?",
+  "options": {
+   "A": "O₂ use stops, and ATP synthesis stops along with it",
+   "B": "ATP synthesis rises because protons move faster",
+   "C": "The ETC reverses and pumps protons back out",
+   "D": "O₂ use continues, ATP synthesis falls, and heat is released"
+  }
+ },
+ {
+  "id": "Q021",
+  "format": "choice",
+  "question": "What does cholesterol do to membrane fluidity?",
+  "options": {
+   "A": "Always makes the membrane more fluid, at any temperature",
+   "B": "Always makes the membrane more rigid, at any temperature",
+   "C": "Buffers it: less fluid when warm, less stiff when cold",
+   "D": "Has no real effect on membrane fluidity"
+  }
+ },
+ {
+  "id": "Q022",
+  "format": "choice",
+  "question": "Heat denatures a protein. What does it disrupt?",
+  "options": {
+   "A": "The chemical identity of the side chains themselves",
+   "B": "Secondary, tertiary and quaternary structure, not peptide bonds",
+   "C": "The amino acid sequence, by scrambling the order of residues",
+   "D": "The peptide bonds linking the amino acids"
+  }
+ },
+ {
+  "id": "Q023",
+  "format": "choice",
+  "question": "A nucleotide is made of:",
+  "options": {
+   "A": "Glycerol bonded to three fatty acid chains",
+   "B": "A five-carbon sugar and a nitrogenous base, with no phosphate",
+   "C": "A phosphate group, a five-carbon sugar and a nitrogenous base",
+   "D": "An amino acid, a phosphate group and a sugar"
+  }
+ },
+ {
+  "id": "Q024",
+  "format": "choice",
+  "question": "Which cells secrete antibodies?",
+  "options": {
+   "A": "Plasma cells (activated B cells)",
+   "B": "Macrophages (tissue phagocytes)",
+   "C": "Neutrophils (blood phagocytes)",
+   "D": "Helper T cells (CD4⁺ lymphocytes)"
+  }
+ },
+ {
+  "id": "Q025",
+  "format": "choice",
+  "question": "Meiosis in a woman produces from one primary oocyte:",
+  "options": {
+   "A": "One egg, with no other cells left over",
+   "B": "Two eggs, one from each meiotic division",
+   "C": "One egg, plus small polar bodies that degenerate",
+   "D": "Four eggs, each able to be fertilized"
+  }
+ },
+ {
+  "id": "Q026",
+  "format": "choice",
+  "question": "An object is in static equilibrium. Which must be true?",
+  "options": {
+   "A": "Net force is zero and net torque is zero",
+   "B": "Net torque is zero; force can be anything",
+   "C": "All the forces acting on it are equal",
+   "D": "Net force is zero; torque can be anything"
+  }
+ },
+ {
+  "id": "Q027",
+  "format": "choice",
+  "question": "The first heart sound (\"lub\") is caused by:",
+  "options": {
+   "A": "The AV valves closing as the ventricles start to contract",
+   "B": "The atria contracting to top off the ventricles",
+   "C": "Blood rushing into the aorta",
+   "D": "The semilunar valves closing as the ventricles relax"
+  }
+ },
+ {
+  "id": "Q028",
+  "format": "choice",
+  "question": "Which observation supports the endosymbiotic origin of mitochondria?",
+  "options": {
+   "A": "They lack any membrane of their own",
+   "B": "They have their own circular DNA and bacteria-like ribosomes",
+   "C": "All of their proteins are encoded in the nucleus",
+   "D": "They are assembled by the Golgi apparatus"
+  }
+ },
+ {
+  "id": "Q029",
+  "format": "choice",
+  "question": "What does insulin do?",
+  "options": {
+   "A": "Increases water reabsorption in the kidney",
+   "B": "Lowers blood glucose by promoting cell uptake and glycogen synthesis",
+   "C": "Raises blood glucose by stimulating glycogen breakdown in the liver",
+   "D": "Raises blood calcium by releasing it from bone"
+  }
+ },
+ {
+  "id": "Q030",
+  "format": "choice",
+  "question": "During transcription, RNA polymerase:",
+  "options": {
+   "A": "Needs a short RNA primer before it can start",
+   "B": "Copies both DNA strands of a gene at the same time",
+   "C": "Reads the template 3′→5′ and builds RNA 5′→3′, with no primer",
+   "D": "Reads the template 5′→3′ and builds RNA 3′→5′"
+  }
+ },
+ {
+  "id": "Q031",
+  "format": "choice",
+  "question": "Which describes lysosomes?",
+  "options": {
+   "A": "Organelles that break down hydrogen peroxide",
+   "B": "Sites of protein synthesis on the rough ER and in the cytoplasm",
+   "C": "Membrane sacs of hydrolytic enzymes that work best at acidic pH",
+   "D": "Stores of calcium released for muscle contraction"
+  }
+ },
+ {
+  "id": "Q032",
+  "format": "choice",
+  "question": "Nondisjunction in meiosis I produces gametes that are:",
+  "options": {
+   "A": "All normal, because meiosis II corrects the error",
+   "B": "Half normal; one extra chromosome, one missing one",
+   "C": "All triploid, with a full extra set of chromosomes",
+   "D": "All abnormal: two with an extra chromosome, two missing one"
+  }
+ },
+ {
+  "id": "Q033",
+  "format": "choice",
+  "question": "Water's solid–liquid line slopes to the left (negative slope). What does that mean?",
+  "options": {
+   "A": "Ice cannot exist at any pressure above 1 atm",
+   "B": "Water has an unusually high heat capacity, which resists freezing",
+   "C": "Ice is less dense than liquid water, so raising pressure favors melting",
+   "D": "Hydrogen bonds break under high pressure, so ice falls apart"
+  }
+ },
+ {
+  "id": "Q034",
+  "format": "choice",
+  "question": "The oxidizing agent in a redox reaction is the species that:",
+  "options": {
+   "A": "Loses electrons to the other species",
+   "B": "Gets oxidized (raises its oxidation state)",
+   "C": "Is left unchanged by the reaction",
+   "D": "Gets reduced (gains electrons)"
+  }
+ },
+ {
+  "id": "Q035",
+  "format": "choice",
+  "question": "How do steroid hormones differ from peptide hormones in signaling?",
+  "options": {
+   "A": "Steroids are stored in secretory vesicles until a signal triggers release",
+   "B": "Steroids act within seconds, faster than peptides",
+   "C": "Steroids enter cells and bind intracellular receptors that alter transcription",
+   "D": "Steroids bind surface receptors and use second messengers"
+  }
+ },
+ {
+  "id": "Q036",
+  "format": "choice",
+  "question": "In the photoelectric effect, making the light brighter (same frequency, above threshold):",
+  "options": {
+   "A": "Raises the maximum kinetic energy of the ejected electrons",
+   "B": "Ejects more electrons without raising their maximum kinetic energy",
+   "C": "Has no effect, since only frequency matters",
+   "D": "Lowers the metal's work function, freeing electrons"
+  }
+ },
+ {
+  "id": "Q037",
+  "format": "choice",
+  "question": "The resting membrane potential of a neuron (about −70 mV) is set mainly by:",
+  "options": {
+   "A": "Cl⁻ being pumped into the cell",
+   "B": "Ca²⁺ entering the cell at rest",
+   "C": "Na⁺ rushing in through open channels",
+   "D": "K⁺ leaking out through open K⁺ channels"
+  }
+ },
+ {
+  "id": "Q038",
+  "format": "choice",
+  "question": "Clonal selection means that:",
+  "options": {
+   "A": "All lymphocytes respond equally to every antigen",
+   "B": "Lymphocytes change their receptors to fit each new antigen",
+   "C": "Antigens are copied by B cells to train other cells",
+   "D": "An antigen activates the lymphocytes whose receptors already match it"
+  }
+ },
+ {
+  "id": "Q039",
+  "format": "choice",
+  "question": "In skeletal muscle, Ca²⁺ triggers contraction by binding to:",
+  "options": {
+   "A": "Troponin, which shifts tropomyosin off actin's binding sites",
+   "B": "Calmodulin, which activates a myosin kinase",
+   "C": "Actin directly, exposing its binding sites",
+   "D": "Myosin heads, which then bind ATP and attach to actin"
+  }
+ },
+ {
+  "id": "Q040",
+  "format": "choice",
+  "question": "What enzyme lets a retrovirus such as HIV insert its genome into host DNA?",
+  "options": {
+   "A": "Helicase (then DNA polymerase)",
+   "B": "Host RNA polymerase (then ligase)",
+   "C": "Reverse transcriptase (then integrase)",
+   "D": "DNA ligase alone, without other enzymes"
+  }
+ },
+ {
+  "id": "Q041",
+  "format": "choice",
+  "question": "In smooth muscle, Ca²⁺ triggers contraction by binding:",
+  "options": {
+   "A": "Calmodulin, which activates myosin light-chain kinase",
+   "B": "Troponin, which moves tropomyosin off actin",
+   "C": "Actin, which then binds myosin directly",
+   "D": "Tropomyosin, which then uncovers binding sites on actin"
+  }
+ },
+ {
+  "id": "Q042",
+  "format": "choice",
+  "question": "After ovulation, the corpus luteum secretes mainly:",
+  "options": {
+   "A": "FSH, which stimulates new follicles to grow",
+   "B": "Progesterone, which maintains the uterine lining",
+   "C": "LH, which triggers the next ovulation",
+   "D": "Oxytocin, which starts uterine contractions"
+  }
+ },
+ {
+  "id": "Q043",
+  "format": "choice",
+  "question": "Blood leaving the right ventricle goes next to:",
+  "options": {
+   "A": "The left atrium, then the left ventricle",
+   "B": "The pulmonary artery, then the lungs",
+   "C": "The aorta, then the body",
+   "D": "The vena cava, then the right atrium"
+  }
+ },
+ {
+  "id": "Q044",
+  "format": "choice",
+  "question": "While ice melts at 0 °C, the heat you add mainly:",
+  "options": {
+   "A": "Breaks covalent O–H bonds inside the water molecules",
+   "B": "Is released back to the surroundings as the ice warms",
+   "C": "Raises the molecules' average kinetic energy, so they move faster",
+   "D": "Overcomes intermolecular attractions, so the temperature stays constant"
+  }
+ },
+ {
+  "id": "Q045",
+  "format": "choice",
+  "question": "How does a receptor tyrosine kinase such as the insulin receptor pass on its signal?",
+  "options": {
+   "A": "It moves into the nucleus and binds DNA to change transcription",
+   "B": "It opens a built-in channel so Na⁺ can flow into the cell",
+   "C": "Ligand brings receptor halves together; they phosphorylate each other's tyrosines",
+   "D": "It activates a G protein, which turns on adenylyl cyclase"
+  }
+ },
+ {
+  "id": "Q046",
+  "format": "choice",
+  "question": "At very high pressure, a real gas takes up more volume than the ideal gas law predicts. Why?",
+  "options": {
+   "A": "The molecules themselves occupy space that cannot be compressed",
+   "B": "Intermolecular attractions push molecules apart",
+   "C": "The gas cools as it is compressed, so it expands",
+   "D": "Collisions become perfectly elastic at high pressure"
+  }
+ },
+ {
+  "id": "Q047",
+  "format": "choice",
+  "question": "A reaction is described as spontaneous. What does that tell you about its rate?",
+  "options": {
+   "A": "It must release heat, which speeds it up",
+   "B": "Nothing: spontaneity is thermodynamics, rate is kinetics",
+   "C": "It needs no activation energy to get started",
+   "D": "It must be fast, because it happens on its own"
+  }
+ },
+ {
+  "id": "Q048",
+  "format": "choice",
+  "question": "How does RNA differ chemically from DNA?",
+  "options": {
+   "A": "RNA has no sugar-phosphate backbone, only bases",
+   "B": "RNA uses different purines than DNA does",
+   "C": "RNA has deoxyribose (no 2′-OH) and uses thymine",
+   "D": "RNA has ribose (with a 2′-OH) and uracil instead of thymine"
+  }
+ },
+ {
+  "id": "Q049",
+  "format": "choice",
+  "question": "What makes cellulose indigestible to humans while starch is digestible?",
+  "options": {
+   "A": "Cellulose is a protein, not a carbohydrate",
+   "B": "Cellulose is made of fructose, not glucose",
+   "C": "Starch is branched, while cellulose is a straight chain",
+   "D": "Cellulose uses β(1→4) glycosidic bonds; starch uses α(1→4)"
+  }
+ },
+ {
+  "id": "Q050",
+  "format": "choice",
+  "question": "Why is carbon monoxide so dangerous?",
+  "options": {
+   "A": "It destroys red blood cells as it enters them",
+   "B": "It lowers blood pressure by widening vessels",
+   "C": "It blocks the airways by causing swelling",
+   "D": "It binds hemoglobin far more tightly than O₂ does"
+  }
+ },
+ {
+  "id": "Q051",
+  "format": "choice",
+  "question": "What does ADH (vasopressin) do in the kidney?",
+  "options": {
+   "A": "Inserts aquaporins in the collecting duct, increasing water reabsorption",
+   "B": "Raises the glomerular filtration rate by dilating arterioles",
+   "C": "Increases Na⁺ reabsorption in the distal tubule and collecting duct",
+   "D": "Increases K⁺ reabsorption in the collecting duct"
+  }
+ },
+ {
+  "id": "Q052",
+  "format": "choice",
+  "question": "Pepsin:",
+  "options": {
+   "A": "Digests starch in the mouth before swallowing",
+   "B": "Digests fat in the small intestine with help from bile",
+   "C": "Is made by the liver and secreted with bile",
+   "D": "Digests protein in the stomach, activated from pepsinogen by acid"
+  }
+ },
+ {
+  "id": "Q053",
+  "format": "choice",
+  "question": "Compared with unsaturated fatty acids, saturated fatty acids:",
+  "options": {
+   "A": "Are liquid at room temperature, like most oils",
+   "B": "Have cis double bonds that kink the chain and loosen packing",
+   "C": "Make membranes more fluid at low temperatures",
+   "D": "Have no C=C double bonds, so they pack tightly and melt higher"
+  }
+ },
+ {
+  "id": "Q054",
+  "format": "choice",
+  "question": "DNA polymerase synthesizes new DNA:",
+  "options": {
+   "A": "5′ → 3′, and only by extending an existing primer",
+   "B": "In both directions equally, from a central start",
+   "C": "3′ → 5′, and it can start a new chain on its own",
+   "D": "5′ → 3′, and it can start a new chain on its own"
+  }
+ },
+ {
+  "id": "Q055",
+  "format": "choice",
+  "question": "How does myelin speed up nerve conduction?",
+  "options": {
+   "A": "It releases neurotransmitter along the axon",
+   "B": "Signals jump between nodes of Ranvier (saltatory conduction)",
+   "C": "It makes axons narrower so signals travel faster",
+   "D": "It adds more Na⁺ channels under the myelin"
+  }
+ },
+ {
+  "id": "Q056",
+  "format": "choice",
+  "question": "Plasmids are:",
+  "options": {
+   "A": "Ribosomes that float free in the cytoplasm",
+   "B": "Protein coats that surround viral genomes",
+   "C": "Small circular DNA molecules, separate from the chromosome",
+   "D": "The bacterial chromosome, coiled in the nucleoid region"
+  }
+ },
+ {
+  "id": "Q057",
+  "format": "choice",
+  "question": "Cardiac muscle is:",
+  "options": {
+   "A": "Striated, involuntary and joined by intercalated discs",
+   "B": "Smooth, involuntary and made of unbranched cells",
+   "C": "Striated, voluntary and made of multinucleated fibers",
+   "D": "Unstriated, voluntary and joined by gap junctions"
+  }
+ },
+ {
+  "id": "Q058",
+  "format": "choice",
+  "question": "Aldosterone acts on the distal nephron to:",
+  "options": {
+   "A": "Increase glucose reabsorption in the tubule",
+   "B": "Insert aquaporins into the collecting duct",
+   "C": "Increase Na⁺ reabsorption and K⁺ secretion",
+   "D": "Decrease Na⁺ reabsorption and K⁺ secretion"
+  }
+ },
+ {
+  "id": "Q059",
+  "format": "choice",
+  "question": "A charged capacitor is disconnected from its battery, then a dielectric is slid in. What happens?",
+  "options": {
+   "A": "Capacitance falls and the voltage across it rises",
+   "B": "Capacitance rises and stored charge rises",
+   "C": "Nothing changes, since the battery is gone",
+   "D": "Capacitance rises and voltage falls (charge is fixed)"
+  }
+ },
+ {
+  "id": "Q060",
+  "format": "choice",
+  "question": "How should an ammeter and a voltmeter be connected?",
+  "options": {
+   "A": "Both in parallel, so each sees the same voltage",
+   "B": "Both in series, so the same current flows through each",
+   "C": "Ammeter in series (low resistance); voltmeter in parallel (high resistance)",
+   "D": "Ammeter in parallel (low resistance); voltmeter in series (high resistance)"
+  }
+ },
+ {
+  "id": "Q061",
+  "format": "choice",
+  "question": "Which describes the peptide bond?",
+  "options": {
+   "A": "Free to rotate like any carbon–carbon single bond",
+   "B": "Formed by hydrolysis, which adds water",
+   "C": "An ionic bond between the charged ends of amino acids",
+   "D": "Planar and rigid, with partial double-bond character"
+  }
+ },
+ {
+  "id": "Q062",
+  "format": "choice",
+  "question": "An ideal gas expands isothermally. Which is true?",
+  "options": {
+   "A": "The temperature rises as the gas expands",
+   "B": "No work is done, since the volume is fixed",
+   "C": "No heat is exchanged with the surroundings",
+   "D": "ΔU = 0, so the heat absorbed equals the work done"
+  }
+ },
+ {
+  "id": "Q063",
+  "format": "choice",
+  "question": "Which modifications does a eukaryotic pre-mRNA receive before leaving the nucleus?",
+  "options": {
+   "A": "Addition of a start codon and a 5′ cap",
+   "B": "A 3′ cap, a 5′ poly-A tail and splicing out of introns",
+   "C": "A 5′ cap, a 3′ poly-A tail and splicing out of introns",
+   "D": "Splicing out of exons, keeping the introns"
+  }
+ },
+ {
+  "id": "Q064",
+  "format": "choice",
+  "question": "Fat entering the duodenum triggers release of:",
+  "options": {
+   "A": "Gastrin, which increases stomach acid secretion",
+   "B": "Insulin, which lowers blood glucose",
+   "C": "Cholecystokinin (CCK), which contracts the gallbladder",
+   "D": "Secretin, which mainly stimulates bicarbonate release"
+  }
+ },
+ {
+  "id": "Q065",
+  "format": "choice",
+  "question": "n-Pentane boils at 36 °C; neopentane, with the same formula, boils at 10 °C. Why?",
+  "options": {
+   "A": "n-Pentane has a higher molar mass, so more electrons to polarize",
+   "B": "n-Pentane has more polar bonds, so stronger dipole forces",
+   "C": "n-Pentane can form hydrogen bonds between its molecules",
+   "D": "n-Pentane's long shape allows more contact, so stronger dispersion forces"
+  }
+ },
+ {
+  "id": "Q066",
+  "format": "choice",
+  "question": "Why is the lagging strand made in Okazaki fragments?",
+  "options": {
+   "A": "Polymerase only builds 5′→3′, so it must work away from the fork in short pieces",
+   "B": "It is copied only after the leading strand is completely finished",
+   "C": "It is made of RNA, which is synthesized in short pieces",
+   "D": "Helicase unwinds that strand more slowly than the other"
+  }
+ },
+ {
+  "id": "Q067",
+  "format": "choice",
+  "question": "A ball is thrown upward at an angle. At the top of its path (no air resistance):",
+  "options": {
+   "A": "Vertical velocity is zero, but acceleration is still g downward",
+   "B": "Velocity and acceleration are both zero for an instant",
+   "C": "Horizontal velocity is zero, but vertical is not",
+   "D": "Acceleration is zero and velocity is horizontal"
+  }
+ },
+ {
+  "id": "Q068",
+  "format": "choice",
+  "question": "A worker bee helps raise her sisters instead of reproducing. The best explanation is:",
+  "options": {
+   "A": "Kin selection: helping relatives spreads shared genes",
+   "B": "Group selection for the good of the species",
+   "C": "She is unfit and cannot reproduce for other reasons",
+   "D": "Genetic drift in a small hive population"
+  }
+ },
+ {
+  "id": "Q069",
+  "format": "choice",
+  "question": "An inhibitory postsynaptic potential (IPSP) usually results from:",
+  "options": {
+   "A": "Na⁺ entering the cell through ligand-gated channels",
+   "B": "Cl⁻ entering or K⁺ leaving, making the membrane more negative",
+   "C": "Ca²⁺ entering the dendrite through open channels",
+   "D": "The Na⁺/K⁺ pump briefly stopping at the synapse"
+  }
+ },
+ {
+  "id": "Q070",
+  "format": "choice",
+  "question": "A Gq-coupled receptor activates phospholipase C. What happens next?",
+  "options": {
+   "A": "The receptor phosphorylates itself on tyrosines, recruiting adaptors",
+   "B": "PIP₂ is split into IP₃, which releases ER Ca²⁺, and DAG, which activates PKC",
+   "C": "ATP is converted to cAMP, which activates protein kinase A",
+   "D": "An ion channel built into the receptor opens and lets ions in"
+  }
+ },
+ {
+  "id": "Q071",
+  "format": "choice",
+  "question": "Total internal reflection requires:",
+  "options": {
+   "A": "Light going from higher n to lower n, beyond the critical angle",
+   "B": "Light going from lower n to higher n at a steep angle",
+   "C": "Any angle of incidence at a glass surface",
+   "D": "A reflective mirror coating on the surface"
+  }
+ },
+ {
+  "id": "Q072",
+  "format": "choice",
+  "question": "Why use vacuum distillation?",
+  "options": {
+   "A": "It lowers boiling points, so heat-sensitive compounds don't decompose",
+   "B": "It raises boiling points, so compounds separate more cleanly",
+   "C": "It separates solids from one another by sublimation",
+   "D": "It removes water only, leaving organics behind"
+  }
+ },
+ {
+  "id": "Q073",
+  "format": "choice",
+  "question": "In isoelectric focusing, a protein stops moving where:",
+  "options": {
+   "A": "It reaches the positive electrode and sticks",
+   "B": "The pH equals 7, where the gel is neutral",
+   "C": "The gel ends, where it can't move farther",
+   "D": "The pH equals its isoelectric point (net charge zero)"
+  }
+ },
+ {
+  "id": "Q074",
+  "format": "choice",
+  "question": "What does the salt bridge in a galvanic cell do?",
+  "options": {
+   "A": "Lets ions flow to keep each half-cell electrically neutral",
+   "B": "Raises the cell voltage by adding more ions",
+   "C": "Supplies the reactants for both half-reactions",
+   "D": "Carries electrons between the two half-cells"
+  }
+ },
+ {
+  "id": "Q075",
+  "format": "choice",
+  "question": "Which part of an antibody binds the antigen?",
+  "options": {
+   "A": "The constant region of the heavy chain",
+   "B": "The disulfide bonds between the chains",
+   "C": "The variable regions at the tips of the arms",
+   "D": "The flexible hinge region alone"
+  }
+ },
+ {
+  "id": "Q076",
+  "format": "choice",
+  "question": "Which statement follows from the second law of thermodynamics?",
+  "options": {
+   "A": "Energy is always conserved, so it cannot be created",
+   "B": "Heat flows spontaneously from hot to cold, not the reverse",
+   "C": "The entropy of an isolated system can decrease",
+   "D": "Absolute zero can be reached with enough cooling"
+  }
+ },
+ {
+  "id": "Q077",
+  "format": "choice",
+  "question": "A concentration cell has the same metal and solution in both halves, at different concentrations. Which is true?",
+  "options": {
+   "A": "E°cell = 0, but current flows until the concentrations become equal",
+   "B": "It produces no current, since both halves are the same metal",
+   "C": "The more dilute side is the cathode, where reduction occurs",
+   "D": "Its voltage rises over time as ions move"
+  }
+ },
+ {
+  "id": "Q078",
+  "format": "choice",
+  "question": "A cool gas in front of a hot light source produces dark lines in the spectrum. These lines are at:",
+  "options": {
+   "A": "Only infrared wavelengths, from heat",
+   "B": "The same wavelengths the gas emits when heated",
+   "C": "Wavelengths the gas is unable to absorb",
+   "D": "Random wavelengths that vary each time"
+  }
+ },
+ {
+  "id": "Q079",
+  "format": "choice",
+  "question": "Among visible colors, violet light has the:",
+  "options": {
+   "A": "Shortest wavelength and highest photon energy",
+   "B": "Lowest frequency of the visible colors",
+   "C": "Fastest speed in a vacuum of any color",
+   "D": "Longest wavelength and lowest photon energy"
+  }
+ },
+ {
+  "id": "Q080",
+  "format": "choice",
+  "question": "During fasting, glucagon raises blood glucose by:",
+  "options": {
+   "A": "Slowing fat breakdown so glucose is used first",
+   "B": "Stimulating glycogen breakdown and gluconeogenesis in the liver",
+   "C": "Stimulating glycogen synthesis in liver and muscle",
+   "D": "Stimulating glucose uptake into muscle and fat"
+  }
+ },
+ {
+  "id": "Q081",
+  "format": "choice",
+  "question": "What causes repolarization after the peak of an action potential?",
+  "options": {
+   "A": "Ca²⁺ flowing in through voltage-gated channels",
+   "B": "Na⁺ channels inactivate and voltage-gated K⁺ channels let K⁺ out",
+   "C": "The Na⁺/K⁺ pump alone, moving 3 Na⁺ out per cycle",
+   "D": "Na⁺ channels open further, letting even more Na⁺ in"
+  }
+ },
+ {
+  "id": "Q082",
+  "format": "choice",
+  "question": "Nondisjunction in meiosis II (in one of the two cells) produces:",
+  "options": {
+   "A": "Two diploid gametes and two with no chromosomes",
+   "B": "Four abnormal gametes: two with an extra, two missing one",
+   "C": "Two normal gametes, one with an extra chromosome, one missing one",
+   "D": "Four normal gametes, since meiosis I went correctly"
+  }
+ },
+ {
+  "id": "Q083",
+  "format": "choice",
+  "question": "Where does fertilization usually occur?",
+  "options": {
+   "A": "In the uterus, near the cervix",
+   "B": "In the fallopian tube (oviduct)",
+   "C": "In the ovary, just before release",
+   "D": "In the vagina, soon after sperm arrive"
+  }
+ },
+ {
+  "id": "Q084",
+  "format": "choice",
+  "question": "In beta-minus decay:",
+  "options": {
+   "A": "Only energy is released, as a high-energy photon",
+   "B": "A proton becomes a neutron and emits a positron; Z falls by 1",
+   "C": "A neutron becomes a proton and emits an electron; Z rises by 1",
+   "D": "Z falls by 2 and A by 4 as a helium nucleus leaves"
+  }
+ },
+ {
+  "id": "Q085",
+  "format": "choice",
+  "question": "In the Bohr model of hydrogen, why does the atom emit only certain wavelengths?",
+  "options": {
+   "A": "The electron spirals continuously into the nucleus",
+   "B": "The nucleus emits the light as protons vibrate",
+   "C": "Every wavelength is emitted but most are absorbed",
+   "D": "Energy levels are quantized, so only certain energy gaps exist"
+  }
+ },
+ {
+  "id": "Q086",
+  "format": "choice",
+  "question": "A nucleus weighs less than its separate protons and neutrons. The missing mass:",
+  "options": {
+   "A": "Was lost as electrons left the atom",
+   "B": "Was carried away entirely by neutrinos",
+   "C": "Is a measurement error in the masses",
+   "D": "Was released as binding energy, E = mc²"
+  }
+ },
+ {
+  "id": "Q087",
+  "format": "choice",
+  "question": "What does gamma emission change about the nucleus?",
+  "options": {
+   "A": "Z rises by 1 as a neutron converts",
+   "B": "Only its energy: Z and A stay the same",
+   "C": "Z falls by 1 as a proton converts",
+   "D": "A falls by 4 and Z falls by 2"
+  }
+ },
+ {
+  "id": "Q088",
+  "format": "choice",
+  "question": "Cortisol, released during prolonged stress, tends to:",
+  "options": {
+   "A": "Lower blood calcium by storing it in bone",
+   "B": "Raise blood glucose and suppress the immune response",
+   "C": "Increase water excretion by the kidneys",
+   "D": "Lower blood glucose and boost immune responses"
+  }
+ },
+ {
+  "id": "Q089",
+  "format": "choice",
+  "question": "How is pancreatic trypsinogen activated?",
+  "options": {
+   "A": "It is already active as soon as the pancreas makes it",
+   "B": "Bile salts activate it in the small intestine",
+   "C": "Enteropeptidase on the intestinal lining cleaves it to trypsin",
+   "D": "Stomach acid cleaves it as chyme enters the duodenum"
+  }
+ },
+ {
+  "id": "Q090",
+  "format": "choice",
+  "question": "Nitrogen's first ionization energy is higher than oxygen's. Why?",
+  "options": {
+   "A": "Nitrogen has a larger nuclear charge, so it holds electrons tighter",
+   "B": "Oxygen atoms are larger, so their outer electrons sit farther out",
+   "C": "Nitrogen's 2p subshell is completely filled, which is extra stable",
+   "D": "Oxygen's fourth 2p electron is paired, and repulsion makes it easier to remove"
+  }
+ },
+ {
+  "id": "Q091",
+  "format": "choice",
+  "question": "After one sperm enters the egg, what prevents others from fertilizing it?",
+  "options": {
+   "A": "Cleavage of the zygote into two cells",
+   "B": "The cortical reaction, which hardens the zona pellucida",
+   "C": "Implantation of the zygote into the uterine wall",
+   "D": "The acrosome reaction of the first sperm"
+  }
+ },
+ {
+  "id": "Q092",
+  "format": "choice",
+  "question": "ATP synthase is driven directly by:",
+  "options": {
+   "A": "Hydrolysis of GTP made in the citric acid cycle",
+   "B": "Protons flowing down their gradient back into the matrix",
+   "C": "Electrons passing through the enzyme from NADH",
+   "D": "The oxidation of glucose in the matrix"
+  }
+ },
+ {
+  "id": "Q093",
+  "format": "choice",
+  "question": "During a normal inhalation:",
+  "options": {
+   "A": "The diaphragm relaxes and pushes air down into the lungs",
+   "B": "Air is pumped in by positive pressure from the airways",
+   "C": "The diaphragm contracts, chest volume rises and lung pressure drops",
+   "D": "Lung pressure rises above atmospheric pressure"
+  }
+ },
+ {
+  "id": "Q094",
+  "format": "choice",
+  "question": "Compared with adult hemoglobin, fetal hemoglobin:",
+  "options": {
+   "A": "Binds O₂ more tightly, so it can take O₂ from the mother's blood",
+   "B": "Cannot bind O₂ until after birth",
+   "C": "Binds CO₂ instead of O₂ in the placenta",
+   "D": "Binds O₂ less tightly, so it releases O₂ more easily"
+  }
+ },
+ {
+  "id": "Q095",
+  "format": "choice",
+  "question": "O₂ moves from alveoli into the blood by:",
+  "options": {
+   "A": "Facilitated diffusion through carrier proteins",
+   "B": "Bulk flow through pores in the walls",
+   "C": "Simple diffusion down its partial-pressure gradient",
+   "D": "Active transport by ATP-powered pumps in the alveoli"
+  }
+ },
+ {
+  "id": "Q096",
+  "format": "choice",
+  "question": "What does the Golgi apparatus mainly do?",
+  "options": {
+   "A": "Makes ATP for the cell by burning fuel",
+   "B": "Digests worn-out organelles and debris",
+   "C": "Replicates DNA before cell division",
+   "D": "Modifies, sorts and ships proteins and lipids"
+  }
+ },
+ {
+  "id": "Q097",
+  "format": "choice",
+  "question": "A fluorescent dye absorbs ultraviolet light and glows green. Why is the emitted light lower in energy?",
+  "options": {
+   "A": "Green light has more energy per photon than UV",
+   "B": "Photons slow down and lose energy in the dye",
+   "C": "The dye gains energy from the surroundings",
+   "D": "Some energy is lost as heat before the photon is emitted"
+  }
+ },
+ {
+  "id": "Q098",
+  "format": "choice",
+  "question": "Gastric parietal cells secrete:",
+  "options": {
+   "A": "Bicarbonate and mucus",
+   "B": "Gastrin and histamine",
+   "C": "Pepsinogen and mucus",
+   "D": "HCl and intrinsic factor"
+  }
+ },
+ {
+  "id": "Q099",
+  "format": "choice",
+  "question": "At ovulation, the secondary oocyte is arrested in:",
+  "options": {
+   "A": "Metaphase II, completing meiosis only if fertilized",
+   "B": "Anaphase I, while the homologs are separating",
+   "C": "Interphase, before meiosis has begun",
+   "D": "Prophase I, where it waits until puberty"
+  }
+ },
+ {
+  "id": "Q100",
+  "format": "choice",
+  "question": "Why does the AV node delay the impulse?",
+  "options": {
+   "A": "So the atria finish emptying into the ventricles before they contract",
+   "B": "To keep the SA node from firing again too soon",
+   "C": "To speed up the heart rate during exercise",
+   "D": "To let the semilunar valves open during atrial systole"
+  }
+ },
+ {
+  "id": "Q101",
+  "format": "choice",
+  "question": "In evolutionary terms, the fittest individual is the one that:",
+  "options": {
+   "A": "Is largest and best at finding food",
+   "B": "Leaves the most surviving, fertile offspring",
+   "C": "Lives the longest of any in its population",
+   "D": "Is strongest and wins the most fights"
+  }
+ },
+ {
+  "id": "Q102",
+  "format": "choice",
+  "question": "Type I (slow-twitch) muscle fibers are:",
+  "options": {
+   "A": "Rich in mitochondria and myoglobin, and fatigue-resistant",
+   "B": "Fast, glycolytic and quick to fatigue under load",
+   "C": "Unable to use oxygen, so they rely on glycolysis",
+   "D": "Found only in the heart, not in skeletal muscle"
+  }
+ },
+ {
+  "id": "Q103",
+  "format": "choice",
+  "question": "Hyperventilation leads to:",
+  "options": {
+   "A": "Metabolic acidosis, from lactic acid",
+   "B": "Respiratory alkalosis, from blowing off CO₂",
+   "C": "Respiratory acidosis, from CO₂ building up",
+   "D": "No change in pH, since bicarbonate buffers it"
+  }
+ },
+ {
+  "id": "Q104",
+  "format": "choice",
+  "question": "During cleavage, the early embryo:",
+  "options": {
+   "A": "Forms the three germ layers by folding inward",
+   "B": "Grows rapidly in overall size as its cells divide",
+   "C": "Implants in the uterine wall right away",
+   "D": "Divides into more, smaller cells without growing overall"
+  }
+ },
+ {
+  "id": "Q105",
+  "format": "choice",
+  "question": "The knee-jerk reflex works without the brain because:",
+  "options": {
+   "A": "Muscles contract on their own whenever they are stretched",
+   "B": "The brainstem controls it without involving the cortex",
+   "C": "Sensory neurons connect straight to motor neurons in the spinal cord",
+   "D": "Interneurons in the brain relay it back to the leg"
+  }
+ },
+ {
+  "id": "Q106",
+  "format": "choice",
+  "question": "What does a catalyst change?",
+  "options": {
+   "A": "The activation energy (and so the rate), not ΔG or K",
+   "B": "The equilibrium constant, by favoring products",
+   "C": "ΔH of the reaction, by lowering the products' energy",
+   "D": "Which side the equilibrium favors at the end"
+  }
+ },
+ {
+  "id": "Q107",
+  "format": "choice",
+  "question": "Which change causes a frameshift?",
+  "options": {
+   "A": "Changing a single base inside an intron",
+   "B": "Swapping one base for a different base",
+   "C": "Deleting three nucleotides in a row",
+   "D": "Deleting one nucleotide from a coding sequence"
+  }
+ },
+ {
+  "id": "Q108",
+  "format": "choice",
+  "question": "Sister chromatids separate during:",
+  "options": {
+   "A": "Anaphase II and mitotic anaphase",
+   "B": "Metaphase I, at the cell's equator",
+   "C": "Anaphase I, when homologs separate",
+   "D": "Prophase I, during crossing over"
+  }
+ },
+ {
+  "id": "Q109",
+  "format": "choice",
+  "question": "Acidic chyme entering the duodenum triggers secretin, which causes:",
+  "options": {
+   "A": "The pancreas to release bicarbonate-rich fluid",
+   "B": "The stomach to secrete more HCl and pepsin",
+   "C": "The pancreas to release insulin into the blood",
+   "D": "The gallbladder to contract and release bile"
+  }
+ }
+]

@@ -23,6 +23,7 @@ Live: https://ghrelingator.github.io/pixel-arcade/station-528/
 ### Added in v0.1.2
 
 - **Extra study (optional).** Once Rounds and Intake are done, the Station offers more without pressure. *Review ahead* gives the 20 cards coming due within two weeks, shakiest first, as real reviews that FSRS reschedules. *Learn 5 more new cards* raises only today's limit, with a note that each adds about 2 to 4 reviews over the next month; it is held back while reviews are backed up and in the last three weeks. *Catch up* adds 25 of the reviews the daily cap moved to tomorrow.
+- **Fairer options.** In 109 older multiple-choice cards the right answer was clearly the longest option, which let you guess it. Those options were rebalanced (shorter keys, fuller wrong answers, same correct answer), every edited card passed a fresh blind check (`check/round4/`), and lint now rejects any card whose key is more than 30% and 12 characters longer than every other option.
 - **Psych/Soc deck.** 138 cards in 15 units across all twelve Psych/Soc categories, mostly scenario questions. Plus 29 science top-ups for the thinnest areas: amino acids and proteins, metabolism, prokaryotes and viruses, and a new Organic Chemistry unit.
 
 ### Added in v0.1.1 (from build spec delta v2)

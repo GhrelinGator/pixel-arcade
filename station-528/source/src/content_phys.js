@@ -2,7 +2,7 @@
 'use strict';
 
 /* ---------- Kinematics (4A) ---------- */
-C('p-kin', 'apex', 'A ball is thrown upward at an angle. At the top of its path (no air resistance):', ['Vertical velocity is zero, but acceleration is still g downward', 'Velocity and acceleration are both zero', 'Acceleration is zero and velocity is horizontal', 'Horizontal velocity is zero'],
+C('p-kin', 'apex', 'A ball is thrown upward at an angle. At the top of its path (no air resistance):', ['Vertical velocity is zero, but acceleration is still g downward', 'Velocity and acceleration are both zero for an instant', 'Acceleration is zero and velocity is horizontal', 'Horizontal velocity is zero, but vertical is not'],
   ['The horizontal velocity is unchanged throughout the flight.', 'Gravity never switches off; only the vertical velocity is momentarily zero.', 'Horizontal velocity stays constant the whole time.'],
   'Gravity accelerates the ball at 10 m/s² downward everywhere on its path, including the top.', { hy: true, sk: 2, cs: ['cs-projectile'] });
 C('p-kin', 'horiz-v', 'Ignoring air resistance, a projectile\'s horizontal velocity:', ['Stays constant', 'Increases steadily', 'Decreases steadily', 'Is zero at the top'],
@@ -124,16 +124,16 @@ G('p-energy', 'g-power', 'Power', rnd => {
 });
 
 /* ---------- Momentum, torque & equilibrium (4A) ---------- */
-C('p-mom', 'conserve', 'The total momentum of a system is conserved when:', ['The net external force on the system is zero', 'Kinetic energy is conserved', 'The collision is elastic', 'All objects have the same mass'],
+C('p-mom', 'conserve', 'The total momentum of a system is conserved when:', ['The net external force on the system is zero', 'Kinetic energy is conserved as well', 'The collision is perfectly elastic', 'All the objects involved have the same mass'],
   ['Momentum is conserved even when kinetic energy is not (inelastic collisions).', 'Momentum is conserved in elastic and inelastic collisions alike.', 'Masses do not matter.'],
   'Internal forces come in third-law pairs and cancel; only an outside force can change total momentum.', { hy: true, cs: ['cs-collisions'] });
-C('p-mom', 'elastic', 'In an elastic collision:', ['Both momentum and kinetic energy are conserved', 'Only momentum is conserved', 'Only kinetic energy is conserved', 'Neither is conserved'],
+C('p-mom', 'elastic', 'In an elastic collision:', ['Both momentum and kinetic energy are conserved', 'Only momentum is conserved, not kinetic energy', 'Only kinetic energy is conserved, not momentum', 'Neither momentum nor kinetic energy is conserved'],
   ['That is an inelastic collision.', 'Momentum is always conserved in an isolated collision.', 'Momentum is conserved in every isolated collision.'],
   'Elastic collisions keep kinetic energy; inelastic ones turn some into heat, sound or deformation.', { hy: true, cs: ['cs-collisions'] });
 C('p-mom', 'inelastic', 'In a perfectly inelastic collision:', ['The objects stick together and the most kinetic energy is lost', 'Kinetic energy is conserved', 'Momentum is lost', 'The objects bounce apart at their original speeds'],
   ['That is elastic.', 'Momentum is still conserved.', 'That describes a perfectly elastic bounce (seen from the center-of-mass frame), the opposite extreme.'],
   'Sticking together loses the maximum kinetic energy allowed while still conserving momentum.', { cs: ['cs-collisions'] });
-C('p-mom', 'equilibrium', 'An object is in static equilibrium. Which must be true?', ['Net force is zero and net torque is zero', 'Net force is zero only', 'Net torque is zero only', 'All forces are equal'],
+C('p-mom', 'equilibrium', 'An object is in static equilibrium. Which must be true?', ['Net force is zero and net torque is zero', 'Net force is zero; torque can be anything', 'Net torque is zero; force can be anything', 'All the forces acting on it are equal'],
   ['A seesaw with balanced forces can still rotate if torques are unbalanced.', 'An object can be balanced in rotation yet still slide.', 'Forces can differ as long as they cancel.'],
   'Translational equilibrium (ΣF = 0) and rotational equilibrium (Στ = 0) are both needed.', { hy: true });
 G('p-mom', 'g-inelastic', 'Perfectly inelastic collision', rnd => {
@@ -217,7 +217,7 @@ C('p-elec', 'add-parallel', 'Adding another resistor in parallel to a circuit ma
 C('p-elec', 'cap-parallel', 'How do capacitors combine in parallel?', ['Their capacitances add', 'Their reciprocals add', 'The total equals the smallest one', 'The total equals the largest one'],
   ['That is capacitors in series (the opposite of resistors).', 'In series the total is even smaller than the smallest; in parallel it is larger than any one.', 'Parallel capacitance is larger than any single capacitor, because the plate areas add.'],
   'Capacitors combine opposite to resistors: parallel adds directly (more plate area), series adds reciprocals.', { sk: 2, cs: ['cs-series-parallel'] });
-C('p-elec', 'dielectric', 'A charged capacitor is disconnected from its battery, then a dielectric is slid in. What happens?', ['Capacitance rises and voltage falls (charge is fixed)', 'Capacitance rises and charge rises', 'Capacitance falls and voltage rises', 'Nothing changes'],
+C('p-elec', 'dielectric', 'A charged capacitor is disconnected from its battery, then a dielectric is slid in. What happens?', ['Capacitance rises and voltage falls (charge is fixed)', 'Capacitance rises and stored charge rises', 'Capacitance falls and the voltage across it rises', 'Nothing changes, since the battery is gone'],
   ['Charge cannot change once disconnected.', 'A dielectric always increases C.', 'The dielectric does change C.'],
   'C = κC₀ goes up; with Q fixed, V = Q/C goes down. (If it stayed connected, V would be fixed and Q would rise instead.)', { sk: 2 });
 C('p-elec', 'field-dir', 'Electric field lines point:', ['Away from positive charges and toward negative charges', 'Toward positive charges', 'In circles around charges', 'Perpendicular to the force on a positive charge'],
@@ -229,7 +229,7 @@ C('p-elec', 'pe-field', 'A positive charge moves in the direction of an electric
 C('p-elec', 'wire-r', 'A wire is replaced by one of the same material that is twice as long with twice the diameter. Its resistance:', ['Halves', 'Doubles', 'Quadruples', 'Stays the same'],
   ['Length doubles R, but the area grows 4×.', 'The area increase outweighs the length.', 'They do not cancel exactly.'],
   'R = ρL/A. Doubling the diameter multiplies the area by 4; so R × 2 / 4 = ½R.', { sk: 2 });
-C('p-elec', 'meters', 'How should an ammeter and a voltmeter be connected?', ['Ammeter in series (very low resistance); voltmeter in parallel (very high resistance)', 'Ammeter in parallel; voltmeter in series', 'Both in series', 'Both in parallel'],
+C('p-elec', 'meters', 'How should an ammeter and a voltmeter be connected?', ['Ammeter in series (low resistance); voltmeter in parallel (high resistance)', 'Ammeter in parallel (low resistance); voltmeter in series (high resistance)', 'Both in series, so the same current flows through each', 'Both in parallel, so each sees the same voltage'],
   ['That swaps them and could short the circuit through the ammeter.', 'A series voltmeter would block the current.', 'A parallel ammeter would short the component.'],
   'Ideal meters do not disturb the circuit: no voltage drop across the ammeter, no current through the voltmeter.');
 G('p-elec', 'g-ohm', 'Ohm\'s law', rnd => {
@@ -317,10 +317,10 @@ C('p-light', 'magnifier', 'An object is placed inside the focal length of a conv
 C('p-light', 'refract', 'Light passes from air into glass at an angle. It bends:', ['Toward the normal', 'Away from the normal', 'Not at all', 'Parallel to the surface'],
   ['That happens going from glass into air (higher n to lower n).', 'At an angle, it does bend. Only along the normal does it go straight.', 'It refracts into the glass.'],
   'Snell\'s law, n₁ sin θ₁ = n₂ sin θ₂: entering a higher index slows the light and bends it toward the normal.', { hy: true, cs: ['cs-refraction'] });
-C('p-light', 'tir', 'Total internal reflection requires:', ['Light going from higher n to lower n at more than the critical angle', 'Light going from lower n to higher n', 'Any angle at a glass surface', 'A mirror coating'],
+C('p-light', 'tir', 'Total internal reflection requires:', ['Light going from higher n to lower n, beyond the critical angle', 'Light going from lower n to higher n at a steep angle', 'Any angle of incidence at a glass surface', 'A reflective mirror coating on the surface'],
   ['Going into a higher index, light always refracts in.', 'Below the critical angle, light partly escapes.', 'It needs no coating; that is the point of fiber optics.'],
   'sin θc = n₂/n₁ (n₁ > n₂). Endoscopes rely on it.', { hy: true, cs: ['cs-refraction'] });
-C('p-light', 'violet', 'Among visible colors, violet light has the:', ['Shortest wavelength and highest photon energy', 'Longest wavelength', 'Lowest frequency', 'Fastest speed in a vacuum'],
+C('p-light', 'violet', 'Among visible colors, violet light has the:', ['Shortest wavelength and highest photon energy', 'Longest wavelength and lowest photon energy', 'Lowest frequency of the visible colors', 'Fastest speed in a vacuum of any color'],
   ['Red has the longest visible wavelength.', 'Violet has the highest visible frequency.', 'All light travels at c in a vacuum.'],
   'Visible range: about 400 nm (violet) to 700 nm (red). E = hf = hc/λ.');
 C('p-light', 'myopia', 'Nearsightedness (myopia) is corrected with:', ['A diverging lens', 'A converging lens', 'A cylindrical lens', 'A prism'],

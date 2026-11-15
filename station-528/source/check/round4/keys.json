@@ -1,0 +1,438 @@
+{
+ "c-atoms.ie-n-o": {
+  "type": "choice",
+  "key": "Oxygen's fourth 2p electron is paired, and repulsion makes it easier to remove"
+ },
+ "c-imf.pentane": {
+  "type": "choice",
+  "key": "n-Pentane's long shape allows more contact, so stronger dispersion forces"
+ },
+ "c-imf.water-slope": {
+  "type": "choice",
+  "key": "Ice is less dense than liquid water, so raising pressure favors melting"
+ },
+ "c-imf.melting-heat": {
+  "type": "choice",
+  "key": "Overcomes intermolecular attractions, so the temperature stays constant"
+ },
+ "c-gas.real-vol": {
+  "type": "choice",
+  "key": "The molecules themselves occupy space that cannot be compressed"
+ },
+ "c-thermo.spont-rate": {
+  "type": "choice",
+  "key": "Nothing: spontaneity is thermodynamics, rate is kinetics"
+ },
+ "c-kin.catalyst": {
+  "type": "choice",
+  "key": "The activation energy (and so the rate), not ΔG or K"
+ },
+ "c-kin.arrhenius": {
+  "type": "choice",
+  "key": "A larger fraction of collisions have energy above the activation energy"
+ },
+ "c-kin.intermediate": {
+  "type": "choice",
+  "key": "An intermediate sits in an energy dip and can be detected; a transition state is a peak"
+ },
+ "c-eq.inert": {
+  "type": "choice",
+  "key": "No shift: the partial pressures of the reacting gases are unchanged"
+ },
+ "c-redox.ox-agent": {
+  "type": "choice",
+  "key": "Gets reduced (gains electrons)"
+ },
+ "c-redox.salt-bridge": {
+  "type": "choice",
+  "key": "Lets ions flow to keep each half-cell electrically neutral"
+ },
+ "c-nuc.beta": {
+  "type": "choice",
+  "key": "A neutron becomes a proton and emits an electron; Z rises by 1"
+ },
+ "c-nuc.gamma": {
+  "type": "choice",
+  "key": "Only its energy: Z and A stay the same"
+ },
+ "c-nuc.mass-defect": {
+  "type": "choice",
+  "key": "Was released as binding energy, E = mc²"
+ },
+ "b-mol.peptide-planar": {
+  "type": "choice",
+  "key": "Planar and rigid, with partial double-bond character"
+ },
+ "b-mol.cellulose": {
+  "type": "choice",
+  "key": "Cellulose uses β(1→4) glycosidic bonds; starch uses α(1→4)"
+ },
+ "b-mol.saturated": {
+  "type": "choice",
+  "key": "Have no C=C double bonds, so they pack tightly and melt higher"
+ },
+ "b-mol.nucleotide": {
+  "type": "choice",
+  "key": "A phosphate group, a five-carbon sugar and a nitrogenous base"
+ },
+ "b-mol.denature": {
+  "type": "choice",
+  "key": "Secondary, tertiary and quaternary structure, not peptide bonds"
+ },
+ "b-cell.golgi": {
+  "type": "choice",
+  "key": "Modifies, sorts and ships proteins and lipids"
+ },
+ "b-cell.lysosome": {
+  "type": "choice",
+  "key": "Membrane sacs of hydrolytic enzymes that work best at acidic pH"
+ },
+ "b-cell.microtubule": {
+  "type": "choice",
+  "key": "Tubulin; the mitotic spindle, cilia and flagella"
+ },
+ "b-cell.endosym": {
+  "type": "choice",
+  "key": "They have their own circular DNA and bacteria-like ribosomes"
+ },
+ "b-mem.cholesterol": {
+  "type": "choice",
+  "key": "Buffers it: less fluid when warm, less stiff when cold"
+ },
+ "b-energy.ferment": {
+  "type": "choice",
+  "key": "To regenerate NAD⁺ so glycolysis can keep making ATP"
+ },
+ "b-energy.atp-synthase": {
+  "type": "choice",
+  "key": "Protons flowing down their gradient back into the matrix"
+ },
+ "b-energy.uncoupler": {
+  "type": "choice",
+  "key": "O₂ use continues, ATP synthesis falls, and heat is released"
+ },
+ "b-div.sisters-sep": {
+  "type": "choice",
+  "key": "Anaphase II and mitotic anaphase"
+ },
+ "b-div.nondis-1": {
+  "type": "choice",
+  "key": "All abnormal: two with an extra chromosome, two missing one"
+ },
+ "b-div.nondis-2": {
+  "type": "choice",
+  "key": "Two normal gametes, one with an extra chromosome, one missing one"
+ },
+ "b-div.p53": {
+  "type": "choice",
+  "key": "Halts the cell cycle (at G₁/S) for repair or triggers apoptosis"
+ },
+ "b-dna.dnapol": {
+  "type": "choice",
+  "key": "5′ → 3′, and only by extending an existing primer"
+ },
+ "b-dna.lagging": {
+  "type": "choice",
+  "key": "Polymerase only builds 5′→3′, so it must work away from the fork in short pieces"
+ },
+ "b-dna.rnapol": {
+  "type": "choice",
+  "key": "Reads the template 3′→5′ and builds RNA 5′→3′, with no primer"
+ },
+ "b-dna.processing": {
+  "type": "choice",
+  "key": "A 5′ cap, a 3′ poly-A tail and splicing out of introns"
+ },
+ "b-dna.codons": {
+  "type": "choice",
+  "key": "64 codons; 61 code for amino acids and 3 are stops"
+ },
+ "b-dna.frameshift": {
+  "type": "choice",
+  "key": "Deleting one nucleotide from a coding sequence"
+ },
+ "b-dna.rna-dna": {
+  "type": "choice",
+  "key": "RNA has ribose (with a 2′-OH) and uracil instead of thymine"
+ },
+ "b-prok.gram-neg": {
+  "type": "choice",
+  "key": "An outer membrane containing lipopolysaccharide (endotoxin)"
+ },
+ "b-prok.retro": {
+  "type": "choice",
+  "key": "Reverse transcriptase (then integrase)"
+ },
+ "b-prok.plasmid": {
+  "type": "choice",
+  "key": "Small circular DNA molecules, separate from the chromosome"
+ },
+ "b-sys.rmp": {
+  "type": "choice",
+  "key": "K⁺ leaking out through open K⁺ channels"
+ },
+ "b-sys.repol": {
+  "type": "choice",
+  "key": "Na⁺ channels inactivate and voltage-gated K⁺ channels let K⁺ out"
+ },
+ "b-sys.refractory": {
+  "type": "choice",
+  "key": "Voltage-gated Na⁺ channels are inactivated and cannot reopen yet"
+ },
+ "b-sys.myelin": {
+  "type": "choice",
+  "key": "Signals jump between nodes of Ranvier (saltatory conduction)"
+ },
+ "b-sys.hormone-class": {
+  "type": "choice",
+  "key": "Steroids enter cells and bind intracellular receptors that alter transcription"
+ },
+ "b-sys.insulin": {
+  "type": "choice",
+  "key": "Lowers blood glucose by promoting cell uptake and glycogen synthesis"
+ },
+ "b-sys.adh": {
+  "type": "choice",
+  "key": "Inserts aquaporins in the collecting duct, increasing water reabsorption"
+ },
+ "b-sys.aldosterone": {
+  "type": "choice",
+  "key": "Increase Na⁺ reabsorption and K⁺ secretion"
+ },
+ "b-sys.pepsin": {
+  "type": "choice",
+  "key": "Digests protein in the stomach, activated from pepsinogen by acid"
+ },
+ "b-sys.pulm": {
+  "type": "choice",
+  "key": "The pulmonary artery, then the lungs"
+ },
+ "b-sys.cardiac": {
+  "type": "choice",
+  "key": "Striated, involuntary and joined by intercalated discs"
+ },
+ "p-kin.apex": {
+  "type": "choice",
+  "key": "Vertical velocity is zero, but acceleration is still g downward"
+ },
+ "p-mom.conserve": {
+  "type": "choice",
+  "key": "The net external force on the system is zero"
+ },
+ "p-mom.elastic": {
+  "type": "choice",
+  "key": "Both momentum and kinetic energy are conserved"
+ },
+ "p-mom.equilibrium": {
+  "type": "choice",
+  "key": "Net force is zero and net torque is zero"
+ },
+ "p-elec.dielectric": {
+  "type": "choice",
+  "key": "Capacitance rises and voltage falls (charge is fixed)"
+ },
+ "p-elec.meters": {
+  "type": "choice",
+  "key": "Ammeter in series (low resistance); voltmeter in parallel (high resistance)"
+ },
+ "p-light.tir": {
+  "type": "choice",
+  "key": "Light going from higher n to lower n, beyond the critical angle"
+ },
+ "p-light.violet": {
+  "type": "choice",
+  "key": "Shortest wavelength and highest photon energy"
+ },
+ "c-sep.vacuum": {
+  "type": "choice",
+  "key": "It lowers boiling points, so heat-sensitive compounds don't decompose"
+ },
+ "c-sep.ief": {
+  "type": "choice",
+  "key": "The pH equals its isoelectric point (net charge zero)"
+ },
+ "c-redox.conc-cell": {
+  "type": "choice",
+  "key": "E°cell = 0, but current flows until the concentrations become equal"
+ },
+ "b-signal.gq": {
+  "type": "choice",
+  "key": "PIP₂ is split into IP₃, which releases ER Ca²⁺, and DAG, which activates PKC"
+ },
+ "b-signal.rtk": {
+  "type": "choice",
+  "key": "Ligand brings receptor halves together; they phosphorylate each other's tyrosines"
+ },
+ "b-signal.amplify": {
+  "type": "choice",
+  "key": "Each step of the cascade activates many molecules of the next"
+ },
+ "b-signal.pde": {
+  "type": "choice",
+  "key": "It lasts longer, because cAMP is broken down more slowly"
+ },
+ "b-nerve.ipsp": {
+  "type": "choice",
+  "key": "Cl⁻ entering or K⁺ leaving, making the membrane more negative"
+ },
+ "b-nerve.ache": {
+  "type": "choice",
+  "key": "Prolongs acetylcholine's action, so stimulation lasts longer"
+ },
+ "b-nerve.reflex": {
+  "type": "choice",
+  "key": "Sensory neurons connect straight to motor neurons in the spinal cord"
+ },
+ "b-endo.thyroid-fb": {
+  "type": "choice",
+  "key": "High, because low thyroid hormone removes negative feedback"
+ },
+ "b-endo.cortisol": {
+  "type": "choice",
+  "key": "Raise blood glucose and suppress the immune response"
+ },
+ "b-endo.pth": {
+  "type": "choice",
+  "key": "Raises calcium through bone, kidney and vitamin D activation"
+ },
+ "b-circ.av": {
+  "type": "choice",
+  "key": "So the atria finish emptying into the ventricles before they contract"
+ },
+ "b-circ.fetal-hb": {
+  "type": "choice",
+  "key": "Binds O₂ more tightly, so it can take O₂ from the mother's blood"
+ },
+ "b-circ.s1": {
+  "type": "choice",
+  "key": "The AV valves closing as the ventricles start to contract"
+ },
+ "b-resp.inhale": {
+  "type": "choice",
+  "key": "The diaphragm contracts, chest volume rises and lung pressure drops"
+ },
+ "b-resp.hypervent": {
+  "type": "choice",
+  "key": "Respiratory alkalosis, from blowing off CO₂"
+ },
+ "b-resp.co": {
+  "type": "choice",
+  "key": "It binds hemoglobin far more tightly than O₂ does"
+ },
+ "b-resp.diffusion": {
+  "type": "choice",
+  "key": "Simple diffusion down its partial-pressure gradient"
+ },
+ "b-digest.parietal": {
+  "type": "choice",
+  "key": "HCl and intrinsic factor"
+ },
+ "b-digest.trypsin": {
+  "type": "choice",
+  "key": "Enteropeptidase on the intestinal lining cleaves it to trypsin"
+ },
+ "b-digest.cck": {
+  "type": "choice",
+  "key": "Cholecystokinin (CCK), which contracts the gallbladder"
+ },
+ "b-digest.secretin": {
+  "type": "choice",
+  "key": "The pancreas to release bicarbonate-rich fluid"
+ },
+ "b-digest.glucagon": {
+  "type": "choice",
+  "key": "Stimulating glycogen breakdown and gluconeogenesis in the liver"
+ },
+ "b-immune.plasma": {
+  "type": "choice",
+  "key": "Plasma cells (activated B cells)"
+ },
+ "b-immune.antibody": {
+  "type": "choice",
+  "key": "The variable regions at the tips of the arms"
+ },
+ "b-immune.clonal": {
+  "type": "choice",
+  "key": "An antigen activates the lymphocytes whose receptors already match it"
+ },
+ "b-muscle.troponin": {
+  "type": "choice",
+  "key": "Troponin, which shifts tropomyosin off actin's binding sites"
+ },
+ "b-muscle.ttubule": {
+  "type": "choice",
+  "key": "Carry the action potential deep inside to trigger Ca²⁺ release"
+ },
+ "b-muscle.smooth": {
+  "type": "choice",
+  "key": "Calmodulin, which activates myosin light-chain kinase"
+ },
+ "b-muscle.slow-twitch": {
+  "type": "choice",
+  "key": "Rich in mitochondria and myoglobin, and fatigue-resistant"
+ },
+ "b-muscle.calcitonin": {
+  "type": "choice",
+  "key": "Lower blood calcium by reducing bone resorption"
+ },
+ "b-repro.oogenesis": {
+  "type": "choice",
+  "key": "One egg, plus small polar bodies that degenerate"
+ },
+ "b-repro.arrest": {
+  "type": "choice",
+  "key": "Metaphase II, completing meiosis only if fertilized"
+ },
+ "b-repro.corpus": {
+  "type": "choice",
+  "key": "Progesterone, which maintains the uterine lining"
+ },
+ "b-repro.fert-site": {
+  "type": "choice",
+  "key": "In the fallopian tube (oviduct)"
+ },
+ "b-repro.polyspermy": {
+  "type": "choice",
+  "key": "The cortical reaction, which hardens the zona pellucida"
+ },
+ "b-repro.cleavage": {
+  "type": "choice",
+  "key": "Divides into more, smaller cells without growing overall"
+ },
+ "b-evo.fitness": {
+  "type": "choice",
+  "key": "Leaves the most surviving, fertile offspring"
+ },
+ "b-evo.kin": {
+  "type": "choice",
+  "key": "Kin selection: helping relatives spreads shared genes"
+ },
+ "p-heat.isothermal": {
+  "type": "choice",
+  "key": "ΔU = 0, so the heat absorbed equals the work done"
+ },
+ "p-heat.second-law": {
+  "type": "choice",
+  "key": "Heat flows spontaneously from hot to cold, not the reverse"
+ },
+ "p-mag.no-work": {
+  "type": "choice",
+  "key": "Changes its direction but not its speed"
+ },
+ "p-atomic.intensity": {
+  "type": "choice",
+  "key": "Ejects more electrons without raising their maximum kinetic energy"
+ },
+ "p-atomic.absorption": {
+  "type": "choice",
+  "key": "The same wavelengths the gas emits when heated"
+ },
+ "p-atomic.fluorescence": {
+  "type": "choice",
+  "key": "Some energy is lost as heat before the photon is emitted"
+ },
+ "p-atomic.bohr": {
+  "type": "choice",
+  "key": "Energy levels are quantized, so only certain energy gaps exist"
+ }
+}
