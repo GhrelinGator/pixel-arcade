@@ -228,13 +228,15 @@ function sForget(d, s, r, w = FSRS_W) {
 }
 function sShortTerm(s, g, w = FSRS_W) { /* a second review on the same day */
   let inc = Math.exp(w[17] * (g - 3 + w[18])) * Math.pow(s, -w[19]);
-  if (g >= 3) inc = Math.max(inc, 1);
+  if (g >= 2) inc = Math.max(inc, 1); /* as py-fsrs: Hard, Good and Easy never lower stability */
   return clamp(s * inc, S_MIN, S_MAX);
 }
-/* One review. card: {s, d, last (ms) or null}. Returns the new {s, d}. */
+/* One review. card: {s, d, last (ms) or null}. Returns the new {s, d}.
+   Elapsed time is counted in whole study days, as the reference implementations do (the parameters were fit that way);
+   a second review on the same study day uses the short-term formula. Stability is updated with the pre-review difficulty. */
 function fsrsStep(card, g, now, w = FSRS_W) {
   if (!card.last) return { s: initS(g, w), d: initD(g, w) };
-  const tDays = Math.max(0, (now - card.last) / DAY);
+  const tDays = Math.max(0, dayOf(now) - dayOf(card.last));
   let s;
   if (tDays < 1) s = sShortTerm(card.s, g, w);
   else s = g === 1 ? sForget(card.d, card.s, retr(tDays, card.s, w), w) : sRecall(card.d, card.s, retr(tDays, card.s, w), g, w);
@@ -502,7 +504,7 @@ function buildRounds(cardList, today, now, cap, T, isHY, sweepDone) {
    before any interleaving), courses taken in turn, and every 5th pick a reasoning (Skill 2+) item. */
 function pickIntake(items, cards, openUnits, quota, unitOrder) {
   if (quota <= 0) return [];
-  const fresh = items.filter(it => openUnits.includes(it.unit) && it.status !== 'quarantined' && (!cards[it.id] || cards[it.id].state === 'new') && !(cards[it.id] && cards[it.id].suspended));
+  const fresh = items.filter(it => openUnits.includes(it.unit) && it.status === 'active' && /* only cross-checked items (spec §8.3) */ (!cards[it.id] || cards[it.id].state === 'new') && !(cards[it.id] && cards[it.id].suspended));
   const byCourse = {};
   for (const it of fresh) (byCourse[unitOrder[it.unit].course] = byCourse[unitOrder[it.unit].course] || []).push(it);
   for (const k in byCourse) byCourse[k].sort((a, b) => unitOrder[a.unit].i - unitOrder[b.unit].i);
@@ -594,6 +596,7 @@ const UNITS = [
   { id: 'c-sol', course: 'chem2', name: 'Solubility & colligative properties', cat: '5A' },
   { id: 'c-redox', course: 'chem2', name: 'Redox & electrochemistry', cat: '4C' },
   { id: 'c-nuc', course: 'chem2', name: 'Nuclear chemistry', cat: '4E' },
+  { id: 'c-sep', course: 'chem2', name: 'Separations & lab techniques', cat: '5C' },
   { id: 'b-mol', course: 'bio1', name: 'Biomolecules', cat: '1A' },
   { id: 'b-cell', course: 'bio1', name: 'Cells & organelles', cat: '2A' },
   { id: 'b-mem', course: 'bio1', name: 'Membranes & transport', cat: '2A' },
@@ -601,16 +604,30 @@ const UNITS = [
   { id: 'b-div', course: 'bio1', name: 'Cell cycle, mitosis & meiosis', cat: '2C' },
   { id: 'b-gen', course: 'bio1', name: 'Mendelian genetics', cat: '1C' },
   { id: 'b-dna', course: 'bio1', name: 'DNA, replication & gene expression', cat: '1B' },
+  { id: 'b-signal', course: 'bio1', name: 'Cell signaling', cat: '2A' },
   { id: 'b-prok', course: 'bio2', name: 'Prokaryotes & viruses', cat: '2B' },
   { id: 'b-sys', course: 'bio2', name: 'Nerves, hormones & organ systems', cat: '3B' },
+  { id: 'b-nerve', course: 'bio2', name: 'Synapses & the nervous system', cat: '3A' },
+  { id: 'b-endo', course: 'bio2', name: 'Endocrine glands & feedback', cat: '3A' },
+  { id: 'b-circ', course: 'bio2', name: 'Heart, blood & circulation', cat: '3B' },
+  { id: 'b-resp', course: 'bio2', name: 'Breathing & gas exchange', cat: '3B' },
+  { id: 'b-digest', course: 'bio2', name: 'Digestion & absorption', cat: '3B' },
+  { id: 'b-immune', course: 'bio2', name: 'Immune system', cat: '3B' },
+  { id: 'b-muscle', course: 'bio2', name: 'Muscle & bone', cat: '3B' },
+  { id: 'b-repro', course: 'bio2', name: 'Reproduction & development', cat: '2C' },
+  { id: 'b-evo', course: 'bio2', name: 'Evolution & population genetics', cat: '1C' },
   { id: 'p-kin', course: 'phys1', name: 'Kinematics', cat: '4A' },
   { id: 'p-force', course: 'phys1', name: 'Forces & Newton\'s laws', cat: '4A' },
   { id: 'p-energy', course: 'phys1', name: 'Work, energy & power', cat: '4A' },
   { id: 'p-mom', course: 'phys1', name: 'Momentum, torque & equilibrium', cat: '4A' },
   { id: 'p-fluid', course: 'phys1', name: 'Fluids', cat: '4B' },
+  { id: 'p-shm', course: 'phys1', name: 'Springs, pendulums & oscillation', cat: '4D' },
+  { id: 'p-heat', course: 'phys1', name: 'Heat & thermodynamics', cat: '5E' },
   { id: 'p-elec', course: 'phys2', name: 'Electrostatics & circuits', cat: '4C' },
   { id: 'p-wave', course: 'phys2', name: 'Waves & sound', cat: '4D' },
   { id: 'p-light', course: 'phys2', name: 'Light & optics', cat: '4D' },
+  { id: 'p-mag', course: 'phys2', name: 'Magnetism', cat: '4C' },
+  { id: 'p-atomic', course: 'phys2', name: 'Photons & atomic physics', cat: '4E' },
 ];
 const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
 /* The Station's eleven wings: the ten foundational concepts plus CARS. Short labels are this app's own. */
@@ -628,6 +645,7 @@ const SHOW = {
   'c-bond.co2-hyb': 'sp', 'c-bond.ch4-hyb': 'sp³', 'c-bond.c2h4-hyb': 'sp²', 'c-imf.london': 'London dispersion forces',
   'c-gas.ideal': 'PV = nRT', 'c-thermo.hess': 'Hess\'s law', 'b-cell.ser': 'Smooth ER', 'b-cell.rer': 'Rough ER', 'b-cell.mito': 'Mitochondria',
   'b-dna.primase': 'RNA', 'b-dna.start': 'AUG', 'b-dna.ligase': 'DNA ligase', 'b-energy.pfk': 'Phosphofructokinase-1 (PFK-1)', 'b-energy.km': 'Half',
+  'b-circ.sa': 'The SA (sinoatrial) node', 'p-mag.tesla': 'The tesla (T)', 'b-endo.melatonin': 'The pineal gland',
   'p-force.newton-unit': 'The newton (N)', 'p-energy.watt': 'The watt (W)', 'c-atoms.element-id': 'Which element it is (its atomic number)',
 };
 const PROVENANCE = { author: 'llm', model: 'claude-opus-5-5', createdAt: '2026-11-14', license: 'original', humanReviewed: false };
@@ -1904,11 +1922,607 @@ G('p-light', 'g-diopter', 'Lens power', rnd => {
 });
 
 ;
+/* ==== content_chem2.js ==== */
+/* Chemistry expansion: separations (5C) and deeper acid–base, solution and electrochemistry cards. Original items. */
+'use strict';
+
+/* ---------- Separations & lab techniques (5C) ---------- */
+C('c-sep', 'simple-dist', 'Two liquids boil at 60 °C and 140 °C. What is the simplest method that separates them well?', ['Simple distillation', 'Fractional distillation', 'Vacuum distillation', 'Recrystallization'],
+  ['It would work, but its column is only needed when boiling points are within about 25 °C.', 'Vacuum distillation is for very high-boiling or heat-sensitive compounds.', 'Recrystallization purifies solids.'],
+  'A large boiling-point gap (more than about 25 °C) lets one simple distillation do the job.', { hy: true, cs: ['cs-distill'] });
+C('c-sep', 'fractional', 'Two liquids boil at 78 °C and 85 °C. Which method separates them?', ['Fractional distillation', 'Simple distillation', 'Filtration', 'Gravity extraction'],
+  ['Close boiling points would co-distill in a simple setup.', 'Filtration separates solids from liquids.', 'Not a standard technique.'],
+  'The fractionating column gives many vaporization–condensation cycles, each enriching the lower-boiling component.', { cs: ['cs-distill'] });
+C('c-sep', 'vacuum', 'Why use vacuum distillation?', ['Lowering the pressure lowers the boiling point, so high-boiling or heat-sensitive compounds don\'t decompose', 'It raises the boiling point', 'It separates solids', 'It removes water only'],
+  ['The opposite.', 'Distillation separates liquids.', 'It is a general technique.'],
+  'A liquid boils when its vapor pressure equals the external pressure; less external pressure means a lower boiling point.', { cs: ['cs-distill'] });
+C('c-sep', 'acid-extract', 'An ether solution holds a carboxylic acid and a neutral compound. Shaking it with aqueous NaHCO₃:', ['Moves the acid into the water layer as its carboxylate salt', 'Moves the neutral compound into the water layer', 'Leaves both in the ether', 'Destroys the acid'],
+  ['Neutral organics stay in the organic layer.', 'Bicarbonate is basic enough to deprotonate a carboxylic acid (pKa ≈ 4–5).', 'It is only deprotonated, and reacidifying recovers it.'],
+  'Charged salts are water-soluble. Phenols (pKa ≈ 10) need stronger NaOH; amines are pulled into water with HCl.', { hy: true, sk: 2, cs: ['cs-extraction'] });
+C('c-sep', 'amine-extract', 'To pull an amine out of an organic layer into water, you wash with:', ['Dilute HCl', 'NaHCO₃', 'NaOH', 'Pure water'],
+  ['Bicarbonate would leave the amine neutral.', 'Base keeps the amine neutral and in the organic layer.', 'A neutral amine is only slightly water-soluble.'],
+  'HCl protonates the amine to an ammonium salt, which dissolves in water.', { cs: ['cs-extraction'] });
+C('c-sep', 'layers', 'In an extraction with dichloromethane (density 1.33 g/mL) and water, the organic layer is:', ['On the bottom', 'On top', 'Mixed with the water', 'Whichever was added first'],
+  ['Diethyl ether (0.71 g/mL) floats on water; dichloromethane sinks.', 'They are immiscible.', 'Density decides, not order of addition.'],
+  'The denser liquid sits below. Check densities before you drain the wrong layer.', { cs: ['cs-extraction'] });
+C('c-sep', 'tlc', 'On a silica TLC plate (polar stationary phase) with a nonpolar solvent, which compound has the lowest Rf?', ['The most polar compound', 'The least polar compound', 'The heaviest compound', 'All have the same Rf'],
+  ['Nonpolar compounds travel farthest (highest Rf).', 'Polarity, not mass, dominates here.', 'They separate by polarity.'],
+  'Polar compounds stick to polar silica and move little. Reverse-phase (nonpolar) plates flip the order.', { hy: true, cs: ['cs-chromatography'] });
+C('c-sep', 'sec', 'In size-exclusion chromatography, which proteins come off the column first?', ['The largest', 'The smallest', 'The most charged', 'The most hydrophobic'],
+  ['Small proteins wander into the beads\' pores and take longer.', 'Size-exclusion ignores charge.', 'It ignores hydrophobicity.'],
+  'Large molecules can\'t enter the pores, so they take the short path around the beads.', { sk: 2, cs: ['cs-chromatography'] });
+C('c-sep', 'ion-exchange', 'A cation-exchange column has negatively charged beads. Which proteins bind most strongly?', ['Positively charged proteins', 'Negatively charged proteins', 'Neutral proteins', 'The largest proteins'],
+  ['Like charges repel; they flow through.', 'Little attraction.', 'Size is not the basis.'],
+  'Bound proteins are eluted with rising salt or a pH change.', { cs: ['cs-chromatography'] });
+C('c-sep', 'affinity', 'Which chromatography uses a ligand (such as an antibody or substrate) bound to beads?', ['Affinity chromatography', 'Size-exclusion chromatography', 'Gas chromatography', 'Thin-layer chromatography'],
+  ['Size-exclusion separates by size.', 'Gas chromatography separates by volatility.', 'TLC separates by polarity.'],
+  'Only the protein that binds the ligand is retained; it is then released with free ligand or a change in conditions.', { cs: ['cs-chromatography'] });
+C('c-sep', 'sds', 'In SDS-PAGE, proteins separate mainly by:', ['Size (mass), smaller ones moving faster', 'Charge, most negative ones moving faster', 'Isoelectric point', 'Shape, because they stay folded'],
+  ['SDS gives every protein a similar charge-to-mass ratio, cancelling native charge.', 'That is isoelectric focusing.', 'SDS (often with a reducing agent) unfolds proteins.'],
+  'The gel sieves the uniformly negative, unfolded chains, which run toward the positive electrode.', { hy: true, cs: ['cs-electrophoresis'] });
+C('c-sep', 'ief', 'In isoelectric focusing, a protein stops moving where:', ['The pH equals its isoelectric point (net charge zero)', 'The gel ends', 'The pH equals 7', 'It reaches the positive electrode'],
+  ['It stops well before that.', 'Each protein stops at its own pI.', 'Neutral proteins feel no pull to either electrode.'],
+  'Above its pI a protein is negative; below it, positive. It migrates until neither applies.', { sk: 2, cs: ['cs-electrophoresis'] });
+C('c-sep', 'recryst', 'A good recrystallization solvent dissolves your compound:', ['Well when hot and poorly when cold', 'Well when cold and poorly when hot', 'Well at all temperatures', 'Poorly at all temperatures'],
+  ['Then nothing crystallizes on cooling.', 'Then nothing crystallizes.', 'Then you cannot dissolve it to begin with.'],
+  'Dissolve in the minimum hot solvent, cool slowly, and impurities stay in solution.', { cs: ['cs-solid-purify'] });
+G('c-sep', 'g-rf', 'Rf value', rnd => {
+  const solvent = pickR(rnd, [8, 10, 12]), spot = pickR(rnd, [2, 3, 4, 5, 6]);
+  return { prompt: `On a TLC plate the solvent front travels ${solvent} cm and a spot travels ${spot} cm. What is the spot\'s Rf?`, value: spot / solvent, tol: 0.01, unit: '',
+    expl: `Rf = distance of spot ÷ distance of solvent front = ${spot}/${solvent} = ${sig(spot / solvent, 2)}. Rf is always between 0 and 1.` };
+}, { sk: 1 });
+
+/* ---------- Deeper: acids, bases & buffers (5A) ---------- */
+C('c-acid', 'salt-hydrolysis', 'Which salt makes an acidic solution in water?', ['NH₄Cl', 'NaCl', 'CH₃COONa', 'KNO₃'],
+  ['Na⁺ and Cl⁻ are spectators from a strong base and strong acid: neutral.', 'Acetate is a weak base: basic solution.', 'K⁺ and NO₃⁻ are spectators: neutral.'],
+  'NH₄⁺ is the conjugate acid of the weak base NH₃, so it donates H⁺ to water.', { hy: true, sk: 2, cs: ['cs-acid-strength'] });
+C('c-acid', 'pka-pkb', 'For a conjugate acid–base pair in water at 25 °C, pKa + pKb equals:', ['14', '7', '1', '0'],
+  ['7 is neutral pH, not this sum.', 'Off by a lot.', 'They are not opposites that cancel.'],
+  'Ka × Kb = Kw = 10^-14, so pKa + pKb = 14. A stronger acid has a weaker conjugate base.', { cs: ['cs-acid-strength'] });
+C('c-acid', 'polyprotic', 'Phosphoric acid (H₃PO₄) has three acidic protons. How do its successive dissociation constants compare?', ['Ka₁ > Ka₂ > Ka₃', 'Ka₁ = Ka₂ = Ka₃', 'Ka₁ < Ka₂ < Ka₃', 'Ka₂ is the largest'],
+  ['Each proton comes off a more negative ion, so they are not equal.', 'Each later proton is harder to remove, not easier.', 'The first proton, leaving a neutral molecule, is the easiest to remove.'],
+  'Pulling H⁺ away from an already negative ion costs more, so each Ka is far smaller (pKa ≈ 2.1, 7.2, 12.4). A titration in water shows two clear equivalence points; the third is too weak to see.', { sk: 2 });
+C('c-acid', 'indicator', 'For a weak acid titrated with NaOH (equivalence pH ≈ 8.5), the best indicator is one whose color change is near:', ['pH 8–10, like phenolphthalein', 'pH 3–4, like methyl orange', 'pH 5', 'pH 12–13'],
+  ['That would change color long before equivalence.', 'Too early.', 'Too late: the curve has already passed the steep rise.'],
+  'Choose an indicator whose pKa sits within the steep part of the curve, near the equivalence pH.', { cs: ['cs-titration'] });
+G('c-acid', 'g-weak-ph', 'pH of a weak acid', rnd => {
+  const n = pickR(rnd, [4, 5, 6]), m = pickR(rnd, [1, 2]);
+  const pH = (n + m) / 2;
+  return { prompt: `A weak acid has Ka = 1 × 10^-${n}. What is the pH of a 1 × 10^-${m} M solution? (Assume x is small.)`, value: pH, tol: 0.05, unit: '',
+    expl: `[H⁺] ≈ √(Ka·C) = √(10^-${n} × 10^-${m}) = 10^-${pH}. pH = ${pH}. Shortcut: pH = ½(pKa − log C).`, hint: '[H⁺] ≈ √(Ka × C)' };
+}, { hy: true });
+G('c-acid', 'g-ka', 'Ka from pH', rnd => {
+  const pH = pickR(rnd, [2, 3, 4]), C = pickR(rnd, [0.1, 0.01]);
+  const h = Math.pow(10, -pH), Ka = h * h / C;
+  if (h > 0.05 * C) return { prompt: `A 0.1 M weak acid solution has pH 3. Estimate Ka.`, value: 1e-5, tolPct: 5, unit: '', expl: '[H⁺] = 10^-3; Ka ≈ x²/C = (10^-3)² / 0.1 = 1 × 10^-5.' };
+  return { prompt: `A ${C} M weak acid solution has pH ${pH}. Estimate Ka.`, value: Ka, tolPct: 5, unit: '',
+    expl: `[H⁺] = [A⁻] = 10^-${pH}; Ka ≈ x²/C = (10^-${pH})² / ${C} = ${sci(Ka, 2)}.` };
+});
+
+/* ---------- Deeper: solubility & colligative properties (5A) ---------- */
+G('c-sol', 'g-osmotic', 'Osmotic pressure', rnd => {
+  const c = pickR(rnd, [{ f: 'NaCl', i: 2 }, { f: 'glucose', i: 1 }, { f: 'CaCl₂', i: 3 }]), M = pickR(rnd, [0.1, 0.2, 0.5]), T = pickR(rnd, [300, 310]);
+  const pi = c.i * M * 0.0821 * T;
+  return { prompt: `What is the osmotic pressure (atm) of ${M} M ${c.f} at ${T} K? (R = 0.0821 L·atm/(mol·K); assume complete dissociation.)`, value: pi, tolPct: 2, unit: 'atm',
+    expl: `π = iMRT = ${c.i} × ${M} × 0.0821 × ${T} = ${sig(pi)} atm.`, hint: 'π = iMRT' };
+}, { cs: ['cs-colligative'] });
+G('c-sol', 'g-raoult', 'Raoult\'s law', rnd => {
+  const x = pickR(rnd, [0.9, 0.8, 0.95, 0.75]), P0 = pickR(rnd, [24, 40, 100, 760]);
+  return { prompt: `Pure water has a vapor pressure of ${P0} torr. What is the vapor pressure (torr) of a solution with a nonvolatile solute where the mole fraction of water is ${x}?`, value: x * P0, tolPct: 2, unit: 'torr',
+    expl: `P = X_solvent × P° = ${x} × ${P0} = ${sig(x * P0)} torr.` };
+}, { cs: ['cs-colligative'] });
+
+/* ---------- Deeper: redox & electrochemistry (4C) ---------- */
+C('c-redox', 'conc-cell', 'A concentration cell has the same metal and solution in both halves, at different concentrations. Which is true?', ['E°cell = 0, but current flows until the concentrations become equal', 'It produces no current at all', 'The more dilute side is the cathode', 'Its voltage rises over time'],
+  ['A difference in concentration drives it (Nernst equation).', 'Reduction happens on the more concentrated side, which is the cathode.', 'The voltage falls as the concentrations even out.'],
+  'E = −(RT/nF) ln Q. Q < 1 while the cathode side is more concentrated, so E > 0.', { sk: 2, cs: ['cs-cells'] });
+C('c-redox', 'nernst', 'In a running galvanic cell, product concentrations rise. What happens to the cell voltage?', ['It falls toward zero', 'It rises', 'It stays at E°', 'It reverses sign at once'],
+  ['Q increases, which lowers E.', 'E equals E° only at standard conditions.', 'It approaches zero at equilibrium (a dead battery).'],
+  'E = E° − (RT/nF) ln Q. At equilibrium Q = K and E = 0.', { cs: ['cs-cells'] });
+G('c-redox', 'g-dg-nfe', 'ΔG° = −nFE°', rnd => {
+  const n = pickR(rnd, [1, 2, 3]), E = pickR(rnd, [0.46, 0.78, 1.10, 1.56]);
+  const dG = -n * 96500 * E / 1000;
+  return { prompt: `A cell reaction transfers ${n} mol of electrons with E° = +${E} V. What is ΔG°, in kJ? (F = 96,500 C/mol)`, value: dG, tolPct: 2, unit: 'kJ',
+    expl: `ΔG° = −nFE° = −${n} × 96,500 × ${E} J = ${sig(dG)} kJ. Negative, so spontaneous.`, hint: 'ΔG° = −nFE°' };
+}, { hy: true, cs: ['cs-cells'] });
+G('c-redox', 'g-faraday', 'Electrolysis', rnd => {
+  const I = pickR(rnd, [1, 2, 5]), t = pickR(rnd, [965, 1930, 9650]), metal = pickR(rnd, [{ f: 'Cu²⁺', n: 2, M: 63.5 }, { f: 'Ag⁺', n: 1, M: 108 }]);
+  const mol = I * t / 96500 / metal.n, g = mol * metal.M;
+  return { prompt: `A current of ${I} A runs for ${t} s through a ${metal.f} solution. What mass of metal (g) plates out? (F = 96,500 C/mol; molar mass ${metal.M} g/mol)`, value: g, tolPct: 2, unit: 'g',
+    expl: `Charge = It = ${I * t} C → ${sig(I * t / 96500)} mol e⁻ → ÷ ${metal.n} = ${sig(mol)} mol metal → × ${metal.M} = ${sig(g)} g.` };
+}, { cs: ['cs-cells'] });
+
+;
+/* ==== content_bio2.js ==== */
+/* Biology expansion: signaling and organ systems, reproduction, evolution. Original items. */
+'use strict';
+
+/* ---------- Cell signaling (2A / 3A) ---------- */
+C('b-signal', 'gpcr', 'A hormone binds a G protein-coupled receptor that activates adenylyl cyclase. What is the second messenger?', ['cAMP', 'IP₃', 'Ca²⁺ from the ER', 'Tyrosine phosphate'],
+  ['IP₃ comes from the phospholipase C (Gq) branch, not adenylyl cyclase.', 'Ca²⁺ is released by IP₃, a different branch.', 'Phosphotyrosine docking belongs to receptor tyrosine kinases.'],
+  'Gs swaps GDP for GTP, activates adenylyl cyclase, and cAMP activates protein kinase A. Epinephrine and glucagon work this way.', { cat: '3A', hy: true, cs: ['cs-second-messenger'] });
+C('b-signal', 'gq', 'A Gq-coupled receptor activates phospholipase C. What happens next?', ['PIP₂ is split into IP₃, which releases Ca²⁺ from the ER, and DAG, which activates protein kinase C', 'ATP is converted to cAMP', 'The receptor phosphorylates itself on tyrosines', 'An ion channel in the receptor opens'],
+  ['That is the Gs / adenylyl cyclase branch.', 'That is a receptor tyrosine kinase.', 'That is a ligand-gated ion channel.'],
+  'Two messengers from one lipid: IP₃ (soluble, to the ER) and DAG (stays in the membrane).', { cat: '3A', sk: 2, cs: ['cs-second-messenger'] });
+C('b-signal', 'rtk', 'How does a receptor tyrosine kinase such as the insulin receptor pass on its signal?', ['Ligand binding brings receptor halves together and they phosphorylate each other\'s tyrosines', 'It activates a G protein', 'It opens a channel for Na⁺', 'It moves into the nucleus and binds DNA'],
+  ['That is a GPCR.', 'That is a ligand-gated ion channel.', 'That is how intracellular (steroid) receptors act.'],
+  'The phosphotyrosines become docking sites for signaling proteins (for example the Ras–MAP kinase pathway).', { cat: '3A', hy: true, cs: ['cs-receptor-type'] });
+C('b-signal', 'fastest', 'Which receptor type gives the fastest response, within milliseconds?', ['A ligand-gated ion channel', 'A G protein-coupled receptor', 'A receptor tyrosine kinase', 'An intracellular steroid receptor'],
+  ['GPCRs need several enzyme steps: seconds.', 'Kinase cascades take seconds to minutes.', 'Changing gene expression takes hours.'],
+  'Binding opens the channel directly, as when acetylcholine opens nicotinic receptors at the neuromuscular junction.', { cat: '3A', cs: ['cs-receptor-type'] });
+T('b-signal', 'paracrine', 'A signal that acts on nearby cells, without traveling through the blood, is called ___ signaling.', ['paracrine'],
+  'Paracrine. Autocrine acts on the cell that made it; endocrine travels in the blood; synaptic crosses a synapse.', { cs: ['cs-signal-range'] });
+C('b-signal', 'amplify', 'One hormone molecule can lead to thousands of product molecules inside a cell. This is because:', ['Each step of the cascade activates many molecules of the next', 'The hormone is copied inside the cell', 'Receptors divide when activated', 'Second messengers are made by the ribosome'],
+  ['Hormones are not copied.', 'Receptors do not divide.', 'cAMP and IP₃ are made by enzymes, not ribosomes.'],
+  'Signal amplification: one receptor activates many G proteins, each adenylyl cyclase makes many cAMP, each kinase phosphorylates many targets.', { cat: '3A' });
+C('b-signal', 'pde', 'Caffeine inhibits phosphodiesterase. What happens to cAMP signaling?', ['It lasts longer, because cAMP is broken down more slowly', 'It stops, because no cAMP is made', 'Nothing: phosphodiesterase makes cAMP', 'Receptors are destroyed'],
+  ['Adenylyl cyclase still makes cAMP.', 'Phosphodiesterase breaks cAMP down; adenylyl cyclase makes it.', 'Receptors are unaffected.'],
+  'Signals are switched off by breaking down messengers (phosphodiesterase) and by Gα hydrolyzing its own GTP.', { cat: '3A', sk: 2 });
+
+/* ---------- Synapses & the nervous system (3A) ---------- */
+C('b-nerve', 'ca-release', 'What directly triggers neurotransmitter release at an axon terminal?', ['Ca²⁺ entering through voltage-gated channels', 'Na⁺ entering the terminal', 'K⁺ leaving the terminal', 'Neurotransmitter binding to the terminal'],
+  ['Na⁺ drives the action potential that arrives, but not vesicle fusion itself.', 'K⁺ efflux repolarizes the membrane.', 'Release comes before binding.'],
+  'The action potential opens Ca²⁺ channels; Ca²⁺ lets vesicles fuse with the membrane and release their contents by exocytosis.', { hy: true, cs: ['cs-synapse'] });
+C('b-nerve', 'ipsp', 'An inhibitory postsynaptic potential (IPSP) usually results from:', ['Cl⁻ entering or K⁺ leaving the cell, making the membrane more negative', 'Na⁺ entering the cell', 'Ca²⁺ entering the dendrite', 'The Na⁺/K⁺ pump stopping'],
+  ['Na⁺ entry depolarizes: that is an EPSP.', 'Ca²⁺ entry depolarizes too.', 'Stopping the pump would slowly depolarize the cell.'],
+  'Hyperpolarization moves the membrane away from threshold. GABA and glycine are classic inhibitory transmitters.', { cs: ['cs-synapse'] });
+C('b-nerve', 'summation', 'Several EPSPs arriving at once from different synapses add together to reach threshold. This is:', ['Spatial summation', 'Temporal summation', 'Saltatory conduction', 'Facilitated diffusion'],
+  ['Temporal summation is repeated input from one synapse in quick succession.', 'That is how myelinated axons conduct.', 'That is membrane transport.'],
+  'Neurons integrate inputs at the axon hillock: spatial summation adds across synapses, temporal adds over time.', { sk: 2, cs: ['cs-synapse'] });
+C('b-nerve', 'ache', 'A drug inhibits acetylcholinesterase. At the neuromuscular junction, this:', ['Prolongs acetylcholine\'s action, so stimulation lasts longer', 'Blocks acetylcholine release', 'Blocks acetylcholine receptors', 'Has no effect'],
+  ['Release depends on Ca²⁺ entry, which is unaffected.', 'That is how curare works, the opposite effect.', 'The enzyme normally clears ACh within milliseconds.'],
+  'Acetylcholinesterase breaks ACh down in the synaptic cleft. Inhibitors (some nerve agents and myasthenia gravis drugs) let ACh linger.', { sk: 2 });
+C('b-nerve', 'sympathetic', 'Which response is driven by the sympathetic nervous system?', ['Pupils dilate and heart rate rises', 'Digestion speeds up', 'The bronchioles constrict', 'The heart slows'],
+  ['Digestion is a parasympathetic, "rest and digest" function.', 'Sympathetic activity dilates the airways.', 'Slowing the heart is parasympathetic (vagus nerve).'],
+  'Fight or flight: more heart rate and blood glucose, dilated pupils and airways, digestion paused.', { hy: true, cs: ['cs-autonomic'] });
+C('b-nerve', 'parasym-nt', 'What neurotransmitter do postganglionic parasympathetic neurons release?', ['Acetylcholine', 'Norepinephrine', 'Epinephrine', 'Dopamine'],
+  ['Most postganglionic sympathetic neurons release norepinephrine.', 'Epinephrine comes mainly from the adrenal medulla.', 'Dopamine acts mostly in the brain.'],
+  'All preganglionic autonomic neurons use ACh; postganglionic parasympathetic neurons use ACh too.', { cs: ['cs-autonomic'] });
+C('b-nerve', 'glia', 'Which cells make myelin in the peripheral nervous system?', ['Schwann cells', 'Oligodendrocytes', 'Astrocytes', 'Microglia'],
+  ['Oligodendrocytes myelinate axons in the central nervous system.', 'Astrocytes support neurons and help form the blood–brain barrier.', 'Microglia are the CNS\'s immune cells.'],
+  'One Schwann cell wraps one segment of one axon; one oligodendrocyte can myelinate segments of many axons.', { hy: true, cs: ['cs-glia'] });
+C('b-nerve', 'roots', 'In the spinal cord, sensory (afferent) fibers enter through the:', ['Dorsal root', 'Ventral root', 'Brainstem only', 'Sympathetic chain only'],
+  ['The ventral root carries motor (efferent) fibers out.', 'Spinal sensory input enters at every level.', 'The sympathetic chain is autonomic, not the main sensory entry.'],
+  'Dorsal in, ventral out. Sensory cell bodies sit in the dorsal root ganglia.');
+C('b-nerve', 'reflex', 'The knee-jerk reflex works without the brain because:', ['The sensory neuron synapses directly on a motor neuron in the spinal cord', 'Muscles contract on their own when stretched', 'The brainstem controls it', 'Interneurons in the brain relay it'],
+  ['The muscle contracts because a motor neuron fires.', 'The reflex arc closes in the spinal cord.', 'The brain is not in the loop, though it is informed afterward.'],
+  'A monosynaptic reflex arc: stretch receptor → sensory neuron → spinal motor neuron → quadriceps.', { sk: 2 });
+
+/* ---------- Endocrine glands & feedback (3A) ---------- */
+C('b-endo', 'posterior', 'Which hormones are released from the posterior pituitary?', ['ADH and oxytocin', 'FSH and LH', 'TSH and ACTH', 'Growth hormone and prolactin'],
+  ['These come from the anterior pituitary.', 'These come from the anterior pituitary.', 'These come from the anterior pituitary.'],
+  'Both are made in the hypothalamus and travel down axons to the posterior pituitary, which stores and releases them.', { hy: true, cs: ['cs-pituitary'] });
+C('b-endo', 'anterior', 'Which hormone does the anterior pituitary release?', ['ACTH', 'Oxytocin', 'ADH', 'Cortisol'],
+  ['Oxytocin is released from the posterior pituitary.', 'ADH is released from the posterior pituitary.', 'Cortisol comes from the adrenal cortex (in response to ACTH).'],
+  'Anterior pituitary: FSH, LH, ACTH, TSH, prolactin, growth hormone. It is controlled by hypothalamic releasing hormones through the portal blood vessels.', { cs: ['cs-pituitary'] });
+C('b-endo', 'thyroid-fb', 'In primary hypothyroidism the thyroid itself fails. What do you expect for TSH?', ['High, because low thyroid hormone removes negative feedback', 'Low, because the thyroid is not responding', 'Normal', 'Zero'],
+  ['Low TSH would mean the pituitary is the problem (secondary).', 'Feedback changes TSH.', 'The pituitary keeps secreting TSH.'],
+  'T₃/T₄ normally inhibit TRH and TSH release. Without them, the pituitary drives TSH up.', { sk: 2, hy: true });
+C('b-endo', 'cortisol', 'Cortisol, released during prolonged stress, tends to:', ['Raise blood glucose and suppress the immune response', 'Lower blood glucose', 'Increase water excretion', 'Lower blood calcium'],
+  ['It raises glucose through gluconeogenesis.', 'That is not its role.', 'That is calcitonin\'s small effect.'],
+  'A glucocorticoid from the adrenal cortex (zona fasciculata), released in response to ACTH.', { hy: true, cs: ['cs-adrenal'] });
+C('b-endo', 'medulla', 'Epinephrine is secreted by the:', ['Adrenal medulla', 'Adrenal cortex', 'Anterior pituitary', 'Thyroid'],
+  ['The cortex makes steroids: cortisol, aldosterone and androgens.', 'The pituitary releases peptide hormones that control other glands.', 'The thyroid makes T₃, T₄ and calcitonin.'],
+  'The adrenal medulla is modified sympathetic tissue, releasing epinephrine and norepinephrine within seconds.', { cs: ['cs-adrenal'] });
+C('b-endo', 'thyroid-role', 'What is the main effect of thyroid hormone (T₃/T₄)?', ['It raises basal metabolic rate', 'It lowers blood calcium', 'It controls water reabsorption', 'It triggers ovulation'],
+  ['Calcitonin, also from the thyroid, lowers calcium slightly.', 'That is ADH.', 'That is the LH surge.'],
+  'T₃/T₄ increase oxygen use and heat production in most tissues. They need iodine.');
+C('b-endo', 'pth', 'When blood calcium falls, parathyroid hormone:', ['Raises calcium: bone resorption, kidney reabsorption and vitamin D activation', 'Lowers calcium further', 'Builds bone to store calcium', 'Has no effect on the kidney'],
+  ['PTH responds to low calcium by raising it.', 'PTH mobilizes calcium from bone.', 'It acts strongly on the kidney.'],
+  'Calcitonin opposes PTH. Active vitamin D (calcitriol) raises calcium absorption in the gut.', { hy: true, cs: ['cs-calcium'] });
+C('b-endo', 'releasing', 'How do hypothalamic releasing hormones reach the anterior pituitary?', ['Through the hypophyseal portal blood vessels', 'Down the axons of the pituitary stalk', 'Through the general circulation', 'Through the cerebrospinal fluid'],
+  ['Axons carry ADH and oxytocin to the posterior pituitary.', 'The portal system delivers them directly, before dilution in the body\'s blood.', 'Not the route.'],
+  'A portal system links two capillary beds, so small amounts of releasing hormone arrive concentrated.', { cs: ['cs-pituitary'] });
+T('b-endo', 'melatonin', 'Which gland secretes melatonin, which helps regulate sleep?', ['pineal gland', 'pineal', 'the pineal gland'],
+  'The pineal gland, which releases more melatonin in the dark.');
+
+/* ---------- Heart, blood & circulation (3B) ---------- */
+T('b-circ', 'sa', 'Which structure sets the normal heart rate?', ['sa node', 'sinoatrial node', 'sinoatrial', 'the sa node', 'sa'],
+  'The sinoatrial (SA) node in the right atrium: its cells depolarize on their own.', { hy: true, cs: ['cs-conduction'] });
+C('b-circ', 'av', 'Why does the AV node delay the impulse?', ['So the atria finish contracting and the ventricles fill before they contract', 'To speed up the heart', 'To prevent the SA node from firing', 'To let the valves open during systole'],
+  ['The delay slows conduction; it does not set rate.', 'The SA node keeps firing regularly.', 'The delay is about filling, not valve timing directly.'],
+  'Conduction path: SA node → atria → AV node (delay) → bundle of His → Purkinje fibers → ventricles.', { cs: ['cs-conduction'] });
+C('b-circ', 'velocity', 'Where is blood flow slowest?', ['Capillaries', 'Aorta', 'Large veins', 'Arterioles'],
+  ['The aorta has the smallest total cross-section and the fastest flow.', 'Veins collect blood into fewer, larger vessels, and it speeds up again.', 'Arterioles are where pressure drops most, not where flow is slowest.'],
+  'Capillaries have the largest total cross-sectional area, so blood moves slowest there, leaving time for exchange (continuity: Av = constant).', { sk: 2, hy: true });
+C('b-circ', 'starling', 'At the arterial end of a capillary, fluid leaves the vessel mainly because:', ['Hydrostatic pressure exceeds oncotic pressure', 'Oncotic pressure exceeds hydrostatic pressure', 'Proteins are pumped out', 'Lymph pulls it out'],
+  ['That describes the venous end, where fluid returns.', 'Plasma proteins mostly stay inside.', 'Lymph collects the excess later.'],
+  'Starling forces: blood pressure pushes fluid out; plasma proteins (oncotic pressure) pull it back. Low plasma protein causes edema.', { sk: 2, cs: ['cs-starling'] });
+C('b-circ', 'lymph', 'What does the lymphatic system do with excess interstitial fluid?', ['Returns it to the blood near the heart', 'Excretes it in urine', 'Stores it in the spleen', 'Converts it to plasma proteins'],
+  ['The kidney excretes water from blood, not lymph directly.', 'The spleen filters blood; it does not store lymph.', 'Fluid is not converted.'],
+  'Lymph drains into the subclavian veins. Lacteals in the gut also carry absorbed fats as chylomicrons.', { cs: ['cs-starling'] });
+C('b-circ', 'epo', 'Which organ releases erythropoietin when blood oxygen is low?', ['Kidney', 'Liver', 'Bone marrow', 'Spleen'],
+  ['The liver makes most plasma proteins.', 'Bone marrow responds to EPO by making red cells.', 'The spleen removes old red cells.'],
+  'Low O₂ delivery to the kidney → EPO → more red blood cells. This is why kidney disease often causes anemia.', { hy: true });
+C('b-circ', 'type-o', 'Why can type O red cells be given to patients of any ABO type?', ['They carry neither A nor B antigens', 'They carry both A and B antigens', 'Type O plasma has no antibodies', 'Type O cells are Rh-negative'],
+  ['That is type AB, the universal recipient.', 'Type O plasma has both anti-A and anti-B antibodies.', 'Rh status is separate from ABO.'],
+  'Recipients\' antibodies attack donor antigens; type O cells offer none to attack.', { hy: true });
+C('b-circ', 'fetal-hb', 'Compared with adult hemoglobin, fetal hemoglobin:', ['Binds O₂ more tightly, so it can take O₂ from the mother\'s blood', 'Binds O₂ less tightly', 'Cannot bind O₂', 'Binds CO₂ instead of O₂'],
+  ['Lower affinity would hand O₂ back to the mother.', 'It carries O₂ normally.', 'It carries O₂.'],
+  'Its curve is shifted left, partly because fetal hemoglobin binds 2,3-BPG weakly.', { cs: ['cs-o2-curve'] });
+C('b-circ', 'clot', 'In blood clotting, thrombin converts:', ['Fibrinogen into fibrin', 'Fibrin into fibrinogen', 'Platelets into red cells', 'Plasminogen into thrombin'],
+  ['The reverse.', 'Platelets come from megakaryocytes.', 'Plasminogen becomes plasmin, which dissolves clots.'],
+  'Fibrin threads stabilize the platelet plug.');
+C('b-circ', 's1', 'The first heart sound ("lub") is caused by:', ['The AV valves closing as the ventricles start to contract', 'The semilunar valves closing', 'The atria contracting', 'Blood entering the aorta'],
+  ['That is the second sound ("dub"), at the start of diastole.', 'Atrial contraction is normally silent.', 'Ejection itself is not the sound.'],
+  'S1 marks the start of ventricular systole; S2 marks its end.');
+G('b-circ', 'g-co', 'Cardiac output', rnd => {
+  const hr = pickR(rnd, [60, 70, 75, 80, 120]), sv = pickR(rnd, [60, 70, 80, 100]);
+  return { prompt: `Heart rate is ${hr} beats/min and stroke volume is ${sv} mL. What is cardiac output, in L/min?`, value: hr * sv / 1000, tolPct: 2, unit: 'L/min',
+    expl: `CO = HR × SV = ${hr} × ${sv} mL = ${hr * sv} mL/min = ${sig(hr * sv / 1000)} L/min.` };
+}, { hy: true, sk: 1 });
+
+/* ---------- Breathing & gas exchange (3B) ---------- */
+C('b-resp', 'inhale', 'During a normal inhalation:', ['The diaphragm contracts, chest volume rises and lung pressure falls below atmospheric', 'The diaphragm relaxes and pushes air in', 'Air is pumped in by positive pressure', 'Lung pressure rises above atmospheric'],
+  ['The diaphragm relaxes during exhalation.', 'Breathing on your own is negative-pressure breathing.', 'That happens during exhalation.'],
+  'Boyle\'s law: bigger volume, lower pressure, so air flows in. Quiet exhalation is passive recoil.', { hy: true, cs: ['cs-breathing'] });
+C('b-resp', 'surfactant', 'What does pulmonary surfactant do?', ['Lowers surface tension so alveoli don\'t collapse', 'Kills inhaled bacteria', 'Carries O₂ across the membrane', 'Raises surface tension to help exhalation'],
+  ['Alveolar macrophages handle microbes.', 'O₂ crosses by diffusion.', 'It lowers surface tension.'],
+  'Made by type II pneumocytes. Premature infants may lack it (respiratory distress syndrome).');
+C('b-resp', 'drive', 'What normally drives the urge to breathe most strongly?', ['Rising CO₂ (sensed through falling pH)', 'Falling O₂ at normal altitude', 'Rising blood glucose', 'Rising blood pressure'],
+  ['Low O₂ becomes a strong driver only when it falls well below normal.', 'Not a respiratory signal.', 'Not the main driver.'],
+  'Central chemoreceptors in the medulla respond to CO₂ via the pH of cerebrospinal fluid.', { hy: true });
+C('b-resp', 'hypervent', 'Hyperventilation leads to:', ['Respiratory alkalosis, from blowing off CO₂', 'Respiratory acidosis', 'Metabolic acidosis', 'No change in pH'],
+  ['Acidosis follows hypoventilation (CO₂ builds up).', 'The cause here is respiratory.', 'Lower CO₂ shifts CO₂ + H₂O ⇌ H⁺ + HCO₃⁻ left, lowering H⁺.'],
+  'Less CO₂ means less carbonic acid, so pH rises.', { sk: 2, hy: true, cs: ['cs-acid-base-body'] });
+C('b-resp', 'co', 'Why is carbon monoxide so dangerous?', ['It binds hemoglobin far more tightly than O₂ does, blocking O₂ transport', 'It destroys red blood cells', 'It blocks the airways', 'It lowers blood pressure'],
+  ['Red cells survive; their hemoglobin is occupied.', 'It is a transport problem, not airflow.', 'Not the main mechanism.'],
+  'CO binds with roughly 200–250 times O₂\'s affinity and also shifts the curve left, so the remaining O₂ is unloaded poorly.');
+T('b-resp', 'residual', 'The air left in the lungs after the most forceful exhalation is the ___ volume.', ['residual', 'residual volume'],
+  'Residual volume: it keeps alveoli open. Vital capacity is the most you can exhale after a full breath.');
+C('b-resp', 'diffusion', 'O₂ moves from alveoli into the blood by:', ['Simple diffusion down its partial-pressure gradient', 'Active transport', 'Facilitated diffusion through carriers', 'Bulk flow through pores'],
+  ['No ATP-driven pump is involved.', 'O₂ crosses the membranes directly.', 'Exchange happens across cell membranes, not pores.'],
+  'Alveolar P_O₂ (about 100 mmHg) exceeds that of venous blood (about 40 mmHg).');
+
+/* ---------- Digestion & absorption (3B) ---------- */
+C('b-digest', 'parietal', 'Gastric parietal cells secrete:', ['HCl and intrinsic factor', 'Pepsinogen', 'Bicarbonate', 'Gastrin'],
+  ['Chief cells secrete pepsinogen.', 'The pancreas (and surface mucus cells) secrete bicarbonate.', 'G cells secrete gastrin, which stimulates parietal cells.'],
+  'Intrinsic factor is needed to absorb vitamin B₁₂ in the ileum.', { hy: true, cs: ['cs-gi-cells'] });
+C('b-digest', 'trypsin', 'How is pancreatic trypsinogen activated?', ['Enteropeptidase on the small-intestine lining cleaves it to trypsin', 'Stomach acid activates it', 'Bile activates it', 'It is active as soon as it is made'],
+  ['Pepsinogen is the one activated by acid.', 'Bile emulsifies fats; it does not activate proteases.', 'It is made inactive to protect the pancreas.'],
+  'Trypsin then activates the other pancreatic zymogens.', { sk: 2 });
+C('b-digest', 'bile', 'Bile is made by the ___ and helps digestion by ___.', ['Liver; emulsifying fats', 'Gallbladder; digesting proteins', 'Pancreas; emulsifying fats', 'Liver; digesting fats enzymatically'],
+  ['The gallbladder only stores and concentrates bile, and bile does not digest protein.', 'The pancreas makes enzymes and bicarbonate, not bile.', 'Bile contains no digestive enzymes; lipase does the chemistry.'],
+  'Bile salts break fat into small droplets, giving pancreatic lipase more surface to work on.', { hy: true });
+C('b-digest', 'cck', 'Fat entering the duodenum triggers release of:', ['Cholecystokinin (CCK), which contracts the gallbladder and stimulates pancreatic enzymes', 'Secretin, which mainly stimulates bicarbonate release', 'Gastrin, which increases stomach acid', 'Insulin'],
+  ['Secretin responds mainly to acid.', 'Gastrin comes from the stomach in response to food there.', 'Insulin responds to glucose.'],
+  'CCK also slows stomach emptying, giving fat more time to be digested.', { cs: ['cs-gi-hormones'] });
+C('b-digest', 'secretin', 'Acidic chyme entering the duodenum triggers secretin, which causes:', ['The pancreas to release bicarbonate-rich fluid', 'The gallbladder to contract', 'More HCl secretion', 'Insulin release'],
+  ['That is mainly CCK.', 'Secretin reduces stomach acid secretion.', 'Not secretin\'s role.'],
+  'Bicarbonate neutralizes the acid so pancreatic enzymes can work.', { cs: ['cs-gi-hormones'] });
+C('b-digest', 'chylomicron', 'After absorption, most dietary fats reach the blood by:', ['Packaging into chylomicrons that enter the lacteals (lymph)', 'Direct entry into the hepatic portal vein', 'Diffusion into capillaries as free fatty acids', 'Binding to hemoglobin'],
+  ['Sugars and amino acids go to the portal vein; long-chain fats do not.', 'They are reassembled into triglycerides first.', 'Hemoglobin carries gases.'],
+  'Chylomicrons travel through the lymphatics and enter the blood at the thoracic duct.', { hy: true });
+C('b-digest', 'large-int', 'What is the main job of the large intestine?', ['Absorbing water and electrolytes', 'Digesting proteins', 'Absorbing most nutrients', 'Making bile'],
+  ['Protein digestion happens in the stomach and small intestine.', 'The small intestine absorbs most nutrients.', 'The liver makes bile.'],
+  'Gut bacteria there also produce vitamin K and some B vitamins.');
+C('b-digest', 'glucagon', 'During fasting, glucagon raises blood glucose by:', ['Stimulating glycogen breakdown and gluconeogenesis in the liver', 'Stimulating glucose uptake into muscle', 'Stimulating glycogen synthesis', 'Slowing fat breakdown'],
+  ['That is insulin.', 'That is insulin.', 'Glucagon promotes fat breakdown.'],
+  'Released by pancreatic α cells. Muscle lacks glucagon receptors, so muscle glycogen serves the muscle itself.', { hy: true });
+T('b-digest', 'amylase', 'Which enzyme in saliva starts starch digestion?', ['amylase', 'salivary amylase', 'alpha-amylase', 'ptyalin'],
+  'Salivary amylase. Pancreatic amylase finishes the job in the small intestine.');
+
+/* ---------- Immune system (3B) ---------- */
+C('b-immune', 'innate', 'Which belongs to the innate immune system?', ['Neutrophils', 'B cells', 'Helper T cells', 'Memory cells'],
+  ['B cells are adaptive: specific antibodies and memory.', 'T cells are adaptive.', 'Memory is a hallmark of adaptive immunity.'],
+  'Innate defenses (skin, neutrophils, macrophages, NK cells, complement) are fast and nonspecific, with no memory.', { hy: true, cs: ['cs-innate-adaptive'] });
+C('b-immune', 'mhc2', 'Helper T cells (CD4⁺) recognize antigen presented on:', ['MHC class II on antigen-presenting cells', 'MHC class I on all nucleated cells', 'Free antigen in the blood', 'Antibodies'],
+  ['MHC I is read by cytotoxic (CD8⁺) T cells.', 'T cells need antigen presented on MHC; B cells bind free antigen.', 'Antibodies are made by B cells.'],
+  'Dendritic cells, macrophages and B cells present ingested antigen on MHC II.', { hy: true, cs: ['cs-mhc'] });
+C('b-immune', 'mhc1', 'A virus-infected cell is killed by a cytotoxic T cell. What did the T cell recognize?', ['A viral peptide on MHC class I', 'A viral peptide on MHC class II', 'An antibody on the cell', 'Complement on the cell'],
+  ['MHC II is found on antigen-presenting cells and read by helper T cells.', 'T cell receptors read peptides on MHC, not antibodies.', 'Complement does not activate T cells this way.'],
+  'Every nucleated cell shows samples of its own proteins on MHC I, so infected cells display viral peptides.', { cs: ['cs-mhc'] });
+C('b-immune', 'maturation', 'Where do T cells mature?', ['Thymus', 'Bone marrow', 'Spleen', 'Lymph nodes'],
+  ['B cells mature in the bone marrow; T cells start there but mature in the thymus.', 'The spleen filters blood and hosts immune responses.', 'Lymph nodes are where mature lymphocytes meet antigen.'],
+  'In the thymus, T cells that would attack self are eliminated (negative selection).', { hy: true });
+C('b-immune', 'plasma', 'Which cells secrete antibodies?', ['Plasma cells (activated B cells)', 'Helper T cells', 'Macrophages', 'Neutrophils'],
+  ['Helper T cells release cytokines that help B cells.', 'Macrophages engulf and present antigen.', 'Neutrophils engulf bacteria.'],
+  'Each plasma cell makes one antibody specificity, inherited from the B cell clone it came from.', { cs: ['cs-b-t'] });
+C('b-immune', 'antibody', 'Which part of an antibody binds the antigen?', ['The variable regions at the tips of the heavy and light chains', 'The constant region of the heavy chain', 'The disulfide bonds', 'The hinge only'],
+  ['The constant region sets the class (IgG, IgM…) and engages immune cells.', 'Disulfide bonds hold the chains together.', 'The hinge gives flexibility.'],
+  'Two identical heavy and two identical light chains; the variable regions form two identical antigen-binding sites.');
+C('b-immune', 'secondary', 'Why is the response to a second exposure (or after a vaccine) faster and stronger?', ['Memory B and T cells specific to the antigen already exist', 'The antigen is weaker the second time', 'Innate immunity has learned', 'Antibodies from the first response last forever'],
+  ['The antigen is the same.', 'Innate immunity has no antigen-specific memory.', 'Antibody levels fall over time; memory cells persist.'],
+  'Clonal selection expanded the matching clones the first time; memory cells remain for years.', { hy: true });
+C('b-immune', 'clonal', 'Clonal selection means that:', ['An antigen activates the lymphocytes whose receptors already match it, and they multiply', 'Lymphocytes change their receptors to fit each new antigen', 'All lymphocytes respond to every antigen', 'Antigens are copied by B cells'],
+  ['Receptor diversity is generated beforehand, by gene rearrangement.', 'Each lymphocyte has one specificity.', 'Antigens are not copied.'],
+  'The antigen selects pre-existing clones; it does not instruct new ones.', { sk: 2 });
+C('b-immune', 'ige', 'Allergic reactions involve which antibody class, bound to mast cells?', ['IgE', 'IgG', 'IgA', 'IgM'],
+  ['IgG is the main circulating antibody and crosses the placenta.', 'IgA protects mucous membranes and is in breast milk.', 'IgM is made first in a response.'],
+  'Allergen cross-links IgE on mast cells, which release histamine.', { cs: ['cs-ig-class'] });
+C('b-immune', 'igg', 'Which antibody class crosses the placenta to protect the fetus?', ['IgG', 'IgM', 'IgE', 'IgD'],
+  ['IgM is a large pentamer and does not cross.', 'IgE mediates allergy.', 'IgD sits on naive B cells.'],
+  'This is passive immunity: protective, but with no memory, and it fades over months.', { cs: ['cs-ig-class'] });
+C('b-immune', 'nk', 'Natural killer cells destroy cells that:', ['Display too little MHC class I', 'Display too much MHC class II', 'Are coated in IgE', 'Have divided recently'],
+  ['MHC II is on antigen-presenting cells normally.', 'IgE-coated mast cells are not their targets.', 'Division alone is not a trigger.'],
+  'Some viruses and tumors hide from cytotoxic T cells by lowering MHC I; NK cells catch exactly those.', { sk: 2, cs: ['cs-innate-adaptive'] });
+C('b-immune', 'hiv', 'HIV weakens the whole adaptive immune response because it destroys:', ['CD4⁺ helper T cells', 'Red blood cells', 'Neutrophils', 'Plasma cells only'],
+  ['HIV does not infect red cells.', 'Neutrophils are innate and not the main target.', 'Plasma cells are not its main target.'],
+  'Helper T cells coordinate both B cell and cytotoxic T cell responses.', { hy: true });
+
+/* ---------- Muscle & bone (3B) ---------- */
+C('b-muscle', 'troponin', 'In skeletal muscle, Ca²⁺ triggers contraction by binding to:', ['Troponin, which moves tropomyosin off myosin-binding sites on actin', 'Myosin, which then binds ATP', 'Actin directly', 'Calmodulin'],
+  ['Ca²⁺ does not bind myosin in skeletal muscle.', 'Ca²⁺ acts through the troponin–tropomyosin complex.', 'Calmodulin is the Ca²⁺ sensor in smooth muscle.'],
+  'With binding sites exposed, myosin heads can form cross-bridges.', { hy: true, cs: ['cs-muscle-type'] });
+C('b-muscle', 'atp-release', 'In the cross-bridge cycle, ATP binding to myosin:', ['Releases myosin from actin', 'Causes the power stroke', 'Exposes the binding sites on actin', 'Pumps Na⁺ into the cell'],
+  ['The power stroke comes with phosphate release.', 'That is Ca²⁺ binding troponin.', 'Not myosin\'s job.'],
+  'Without ATP, myosin stays locked to actin: rigor mortis.', { hy: true, sk: 2 });
+C('b-muscle', 'sarcomere', 'When a sarcomere contracts, which band stays the same length?', ['The A band', 'The I band', 'The H zone', 'The whole sarcomere'],
+  ['The I band (actin only) shortens.', 'The H zone (myosin only) shortens.', 'The sarcomere shortens.'],
+  'The A band is the length of the myosin filaments, which do not change; the filaments slide past each other.', { sk: 2 });
+C('b-muscle', 'ttubule', 'What do T-tubules do in a muscle fiber?', ['Carry the action potential deep into the fiber to trigger Ca²⁺ release from the sarcoplasmic reticulum', 'Store calcium', 'Make ATP', 'Connect neighboring fibers'],
+  ['The sarcoplasmic reticulum stores Ca²⁺.', 'Mitochondria make ATP.', 'Skeletal fibers are not linked by T-tubules.'],
+  'This lets the whole fiber contract at once.');
+C('b-muscle', 'smooth', 'In smooth muscle, Ca²⁺ triggers contraction by binding:', ['Calmodulin, which activates myosin light-chain kinase', 'Troponin', 'Tropomyosin', 'Actin'],
+  ['Smooth muscle lacks troponin.', 'Ca²⁺ does not bind tropomyosin.', 'Ca²⁺ does not bind actin.'],
+  'Phosphorylating the myosin head allows cross-bridges to form.', { cs: ['cs-muscle-type'] });
+C('b-muscle', 'motor-unit', 'How does the nervous system make a muscle contract more forcefully?', ['By recruiting more motor units and firing them faster', 'By making each fiber contract more strongly on its own', 'By adding new muscle fibers', 'By releasing more Ca²⁺ into the blood'],
+  ['Each fiber follows an all-or-none twitch to a single stimulus.', 'Fiber number does not change during a contraction.', 'Blood calcium is not the control.'],
+  'Recruitment of more motor units plus higher firing rates (summation) increases force.');
+C('b-muscle', 'slow-twitch', 'Type I (slow-twitch) muscle fibers are:', ['Rich in mitochondria and myoglobin, and fatigue-resistant', 'Fast, glycolytic and quick to fatigue', 'Found only in the heart', 'Unable to use oxygen'],
+  ['That describes type IIx fast-twitch fibers.', 'They are skeletal muscle fibers.', 'They depend on aerobic metabolism.'],
+  'Marathon runners have a higher proportion; sprinters, more fast-twitch fibers.');
+C('b-muscle', 'osteo', 'Which cells break down bone and release calcium?', ['Osteoclasts', 'Osteoblasts', 'Osteocytes', 'Chondrocytes'],
+  ['Osteoblasts build bone.', 'Osteocytes maintain bone from inside it.', 'Chondrocytes make cartilage.'],
+  'Clasts cut, blasts build. PTH increases osteoclast activity (indirectly, via osteoblasts).', { hy: true, cs: ['cs-calcium'] });
+C('b-muscle', 'nmj', 'At the neuromuscular junction, the motor neuron releases:', ['Acetylcholine', 'Norepinephrine', 'Dopamine', 'GABA'],
+  ['Norepinephrine is released by most sympathetic postganglionic neurons.', 'Dopamine acts mainly in the brain.', 'GABA is inhibitory in the CNS.'],
+  'ACh opens nicotinic receptors on the muscle fiber, depolarizing it.');
+C('b-muscle', 'calcitonin', 'Calcitonin, from the thyroid, tends to:', ['Lower blood calcium by reducing bone resorption', 'Raise blood calcium', 'Activate vitamin D', 'Increase osteoclast activity'],
+  ['That is PTH.', 'That is PTH\'s effect in the kidney.', 'That is the opposite.'],
+  'Calcitonin opposes PTH; its effect in adults is modest.', { cs: ['cs-calcium'] });
+
+/* ---------- Reproduction & development (2C / 3B) ---------- */
+C('b-repro', 'oogenesis', 'Meiosis in a woman produces from one primary oocyte:', ['One egg, plus small polar bodies that degenerate', 'Four eggs', 'Two eggs', 'One egg and nothing else'],
+  ['That is spermatogenesis (four sperm).', 'Unequal division gives one large egg.', 'The other meiotic products become polar bodies.'],
+  'Unequal cytokinesis keeps most cytoplasm in the egg. There are two polar bodies, or three if the first one also divides.', { cat: '2C', hy: true, cs: ['cs-gametogenesis'] });
+C('b-repro', 'arrest', 'At ovulation, the secondary oocyte is arrested in:', ['Metaphase II, completing meiosis only if fertilized', 'Prophase I', 'Interphase', 'Anaphase I'],
+  ['Primary oocytes wait in prophase I from before birth until puberty.', 'It has already begun meiosis.', 'Meiosis I is finished at ovulation.'],
+  'Two arrests: prophase I (until a follicle matures) and metaphase II (until fertilization).', { cat: '2C', sk: 2, cs: ['cs-gametogenesis'] });
+C('b-repro', 'lh-surge', 'What triggers ovulation?', ['A surge of LH', 'A drop in estrogen', 'A rise in progesterone', 'hCG from the embryo'],
+  ['Estrogen rises before ovulation, which helps cause the LH surge.', 'Progesterone rises after ovulation (corpus luteum).', 'hCG appears only after implantation.'],
+  'High estrogen switches to positive feedback, producing the mid-cycle LH (and FSH) surge.', { cat: '3B', hy: true, cs: ['cs-cycle'] });
+C('b-repro', 'corpus', 'After ovulation, the corpus luteum secretes mainly:', ['Progesterone, which maintains the uterine lining', 'FSH', 'LH', 'Oxytocin'],
+  ['FSH comes from the anterior pituitary.', 'LH comes from the anterior pituitary.', 'Oxytocin comes from the posterior pituitary.'],
+  'If no pregnancy occurs, the corpus luteum regresses, progesterone falls and menstruation begins.', { cat: '3B', cs: ['cs-cycle'] });
+C('b-repro', 'hcg', 'What keeps the corpus luteum alive in early pregnancy?', ['hCG made by the embryo', 'FSH', 'Estrogen from the mother\'s adrenal glands', 'Oxytocin'],
+  ['FSH stimulates follicles, not the corpus luteum.', 'Not the rescue signal.', 'Oxytocin acts in labor and milk ejection.'],
+  'hCG acts like LH. Pregnancy tests detect it.', { cat: '3B', hy: true, cs: ['cs-cycle'] });
+C('b-repro', 'leydig', 'In the testes, LH stimulates:', ['Leydig cells to make testosterone', 'Sertoli cells to make sperm directly', 'The epididymis to store sperm', 'The prostate'],
+  ['FSH acts on Sertoli cells, which support sperm development.', 'Storage is not under LH control.', 'Not LH\'s target.'],
+  'LH → Leydig → testosterone; FSH → Sertoli → supports spermatogenesis.', { cat: '3B' });
+C('b-repro', 'fert-site', 'Where does fertilization usually occur?', ['In the fallopian tube (oviduct)', 'In the uterus', 'In the ovary', 'In the vagina'],
+  ['The embryo implants in the uterus about a week later.', 'The egg leaves the ovary at ovulation.', 'Sperm must travel much farther.'],
+  'Usually in the ampulla of the fallopian tube.', { cat: '2C' });
+C('b-repro', 'polyspermy', 'After one sperm enters the egg, what prevents others from fertilizing it?', ['The cortical reaction, which hardens the zona pellucida', 'The acrosome reaction', 'Cleavage', 'Implantation'],
+  ['The acrosome reaction is the sperm releasing enzymes to reach the egg.', 'Cleavage happens after fertilization.', 'Implantation comes days later.'],
+  'Cortical granules release enzymes that modify the zona so no further sperm can bind.', { cat: '2C', sk: 2 });
+C('b-repro', 'germ-layers', 'Which germ layer gives rise to the nervous system and the epidermis?', ['Ectoderm', 'Mesoderm', 'Endoderm', 'Trophoblast'],
+  ['Mesoderm gives muscle, bone, blood, heart and kidneys.', 'Endoderm gives the gut lining, lungs, liver and pancreas.', 'The trophoblast forms part of the placenta.'],
+  'Gastrulation forms the three layers: "ecto = attract-o" (skin and nerves face the world).', { cat: '2C', hy: true, cs: ['cs-germ-layers'] });
+C('b-repro', 'mesoderm', 'Which tissue comes from mesoderm?', ['Skeletal muscle', 'The lining of the gut', 'The brain', 'The lining of the lungs'],
+  ['The gut lining is endoderm.', 'The brain is ectoderm.', 'The lung lining is endoderm.'],
+  'Mesoderm: muscle, bone, connective tissue, blood, heart, kidneys, gonads.', { cat: '2C', cs: ['cs-germ-layers'] });
+C('b-repro', 'cleavage', 'During cleavage, the early embryo:', ['Divides into more, smaller cells without growing overall', 'Grows rapidly in size', 'Forms three germ layers', 'Implants in the uterus'],
+  ['Total size stays about the same at first.', 'That is gastrulation, later.', 'Implantation follows blastocyst formation.'],
+  'Zygote → morula → blastocyst (inner cell mass + trophoblast) → implantation → gastrulation.', { cat: '2C' });
+C('b-repro', 'induction', 'The notochord signals the overlying ectoderm to form the neural tube. This is an example of:', ['Induction', 'Apoptosis', 'Determination by cytoplasm alone', 'Dedifferentiation'],
+  ['Apoptosis is programmed cell death (it sculpts fingers, for example).', 'Here the signal comes from neighboring tissue.', 'The ectoderm becomes more specialized, not less.'],
+  'One tissue changes the fate of another through signals.', { cat: '2C' });
+
+/* ---------- Evolution & population genetics (1C) ---------- */
+C('b-evo', 'fitness', 'In evolutionary terms, the fittest individual is the one that:', ['Leaves the most surviving, fertile offspring', 'Is strongest', 'Lives longest', 'Is largest'],
+  ['Strength helps only if it increases reproduction.', 'A long life without offspring has zero fitness.', 'Size is not fitness.'],
+  'Fitness is relative reproductive success.', { hy: true });
+C('b-evo', 'drift', 'Genetic drift has the biggest effect in:', ['Small populations', 'Large populations', 'Populations under strong selection', 'Populations with high gene flow'],
+  ['Large populations average out chance events.', 'Selection is not chance.', 'Gene flow tends to keep populations similar.'],
+  'Drift is random change in allele frequency; small samples swing more.', { hy: true, cs: ['cs-drift'] });
+C('b-evo', 'bottleneck', 'A disaster kills most of a population, and the survivors happen to carry only a few alleles. This is:', ['A bottleneck effect', 'A founder effect', 'Directional selection', 'Gene flow'],
+  ['The founder effect is a small group starting a new population elsewhere.', 'Survivors were random, not selected for traits.', 'No migration is involved.'],
+  'Both bottlenecks and founder effects are forms of genetic drift.', { cs: ['cs-drift'] });
+C('b-evo', 'founder', 'A few settlers start an isolated colony, which ends up with an unusual frequency of a rare disease allele. This is:', ['The founder effect', 'A bottleneck effect', 'Natural selection for the disease', 'Mutation'],
+  ['A bottleneck shrinks an existing population in place.', 'The disease is not favored.', 'The allele was already present in a founder.'],
+  'The founders\' alleles are a chance sample of the original population.', { cs: ['cs-drift'] });
+C('b-evo', 'stabilizing', 'Human birth weight clusters near an average because very small and very large babies have lower survival. This is:', ['Stabilizing selection', 'Directional selection', 'Disruptive selection', 'Sexual selection'],
+  ['Directional selection shifts the mean one way.', 'Disruptive selection favors both extremes.', 'Mate choice is not the mechanism here.'],
+  'Selection against both extremes narrows variation around the mean.', { sk: 2, cs: ['cs-selection'] });
+C('b-evo', 'disruptive', 'In a habitat with only very large and very small seeds, birds with medium beaks do worst. Over time, this leads to:', ['Disruptive selection, favoring both extremes', 'Stabilizing selection', 'Directional selection toward medium beaks', 'No change'],
+  ['Stabilizing favors the middle.', 'Medium beaks are the ones losing.', 'Unequal survival changes the population.'],
+  'Disruptive selection can split a population and contribute to speciation.', { sk: 2, cs: ['cs-selection'] });
+C('b-evo', 'homologous', 'A human arm and a bat wing have the same bones in the same arrangement. They are:', ['Homologous structures, from a common ancestor', 'Analogous structures, from convergent evolution', 'Vestigial structures', 'Unrelated'],
+  ['Analogous structures (bird wing vs insect wing) share function but not ancestry.', 'Both are fully functional.', 'Shared bone layout points to shared ancestry.'],
+  'Homology = same origin, possibly different functions.', { cs: ['cs-homology'] });
+C('b-evo', 'allopatric', 'A river splits a population in two, and over time the groups can no longer interbreed. This is:', ['Allopatric speciation', 'Sympatric speciation', 'Gene flow', 'Convergent evolution'],
+  ['Sympatric speciation happens without a geographic barrier.', 'The barrier stops gene flow.', 'Convergence is unrelated groups becoming similar.'],
+  'Separated groups accumulate different mutations, selection and drift.', { cs: ['cs-speciation'] });
+C('b-evo', 'mule', 'A horse and a donkey produce a healthy but sterile mule. This is which kind of reproductive barrier?', ['Postzygotic (hybrid sterility)', 'Prezygotic (behavioral isolation)', 'Prezygotic (mechanical isolation)', 'No barrier'],
+  ['They did mate, so mating behavior was not the barrier.', 'Mating worked mechanically.', 'Sterile hybrids keep the species separate.'],
+  'Postzygotic barriers act after fertilization: hybrid inviability, sterility or breakdown.', { sk: 2, cs: ['cs-speciation'] });
+C('b-evo', 'kin', 'A worker bee helps raise her sisters instead of reproducing. The best explanation is:', ['Kin selection: helping relatives passes on shared genes (inclusive fitness)', 'Group selection for the good of the species', 'Genetic drift', 'She is unfit and cannot reproduce for other reasons'],
+  ['Selection acts mainly on genes and individuals, not species.', 'This is a consistent behavior, not chance.', 'Her behavior raises the spread of her own genes.'],
+  'Hamilton\'s rule: altruism spreads when relatedness × benefit > cost.', { sk: 2 });
+C('b-evo', 'unit', 'Which evolves: individuals or populations?', ['Populations: allele frequencies change across generations', 'Individuals: they adapt their genes during life', 'Both equally', 'Neither'],
+  ['An individual\'s genes do not change in response to need.', 'Only populations show changes in allele frequency.', 'Populations do evolve.'],
+  'Natural selection acts on individuals\' phenotypes, but evolution is the resulting change in the population.');
+
+;
+/* ==== content_phys2.js ==== */
+/* Physics expansion: oscillations, heat & thermodynamics, magnetism, photons & atoms, more electricity.
+   Original items; MCAT conventions (g = 10 m/s²). Code computes every numeric key. */
+'use strict';
+
+/* ---------- Springs, pendulums & oscillation (4D) ---------- */
+C('p-shm', 'pendulum-mass', 'A pendulum\'s bob is replaced with one twice as heavy (same length). Its period:', ['Stays the same', 'Doubles', 'Halves', 'Increases by √2'],
+  ['Mass cancels out of T = 2π√(L/g).', 'A heavier bob is not slower.', 'Mass does not appear in the formula.'],
+  'For small swings, T = 2π√(L/g): only length and g matter.', { hy: true, cs: ['cs-oscillator'] });
+C('p-shm', 'pendulum-length', 'To double a pendulum\'s period, you must make it:', ['Four times as long', 'Twice as long', '√2 times as long', 'Half as long'],
+  ['T ∝ √L, so doubling L only raises T by √2.', 'That raises T by 2^¼.', 'Shorter means a shorter period.'],
+  'T ∝ √L: 2 = √(4).', { sk: 2, cs: ['cs-oscillator'] });
+C('p-shm', 'spring-mass', 'A mass on a spring oscillates. Doubling the mass makes the period:', ['√2 times longer', 'Twice as long', 'Unchanged', 'Half as long'],
+  ['T ∝ √m, not m.', 'Unlike a pendulum, a spring\'s period depends on mass.', 'More mass, more inertia, a longer period.'],
+  'T = 2π√(m/k). Amplitude does not affect the period.', { cs: ['cs-oscillator'] });
+C('p-shm', 'max-speed', 'In simple harmonic motion, where is the speed greatest?', ['At the equilibrium position', 'At maximum displacement', 'Halfway to maximum displacement', 'It is constant'],
+  ['At the extremes the object momentarily stops.', 'Speed keeps rising all the way to equilibrium.', 'It speeds up and slows down every cycle.'],
+  'All the energy is kinetic at equilibrium; all potential at the turning points, where acceleration is greatest.', { hy: true });
+C('p-shm', 'period-freq', 'How are period and frequency related?', ['f = 1/T', 'f = T', 'f = 2T', 'f = T²'],
+  ['They are reciprocals.', 'No factor of 2.', 'Not squared.'],
+  'A 0.5 s period means 2 cycles per second (2 Hz).', { kind: 'equation' });
+G('p-shm', 'g-hooke', 'Hooke\'s law', rnd => {
+  const k = pickR(rnd, [50, 100, 200, 400]), x = pickR(rnd, [0.05, 0.1, 0.2]);
+  return { prompt: `A spring with k = ${k} N/m is stretched ${x} m. What force (N) does it exert?`, value: k * x, tolPct: 2, unit: 'N',
+    expl: `|F| = kx = ${k} × ${x} = ${sig(k * x)} N, directed back toward equilibrium.`, hint: 'F = −kx' };
+}, { sk: 1 });
+G('p-shm', 'g-spring-pe', 'Spring potential energy', rnd => {
+  const k = pickR(rnd, [100, 200, 400, 800]), x = pickR(rnd, [0.1, 0.2, 0.5]);
+  return { prompt: `How much elastic potential energy (J) is stored in a spring with k = ${k} N/m compressed ${x} m?`, value: 0.5 * k * x * x, tolPct: 2, unit: 'J',
+    expl: `PE = ½kx² = ½ × ${k} × ${x}² = ${sig(0.5 * k * x * x)} J. Doubling x quadruples the energy.`, hint: 'PE = ½kx²' };
+}, { hy: true });
+G('p-shm', 'g-spring-t', 'Spring period', rnd => {
+  const m = pickR(rnd, [0.5, 1, 2, 4]), k = pickR(rnd, [50, 100, 200]);
+  const T = 2 * 3.14 * Math.sqrt(m / k);
+  return { prompt: `A ${m} kg mass oscillates on a spring with k = ${k} N/m. What is the period (s)? (Use π ≈ 3.14.)`, value: T, tolPct: 3, unit: 's',
+    expl: `T = 2π√(m/k) = 2 × 3.14 × √(${m}/${k}) = ${sig(T)} s.` };
+});
+
+/* ---------- Heat & thermodynamics (5E / 4B) ---------- */
+C('p-heat', 'first-law', 'A gas absorbs 500 J of heat and does 200 J of work on its surroundings. Its internal energy:', ['Rises by 300 J', 'Rises by 700 J', 'Falls by 300 J', 'Rises by 500 J'],
+  ['That adds the work instead of subtracting it.', 'Heat in exceeds work out, so it rises.', 'The work done by the gas must be subtracted.'],
+  'ΔU = Q − W (W done by the gas). Chemistry writes ΔU = q + w, with w the work done on the system; it is the same law with the opposite sign for w.', { hy: true, sk: 2, cs: ['cs-first-law'] });
+C('p-heat', 'isothermal', 'An ideal gas expands isothermally. Which is true?', ['ΔU = 0, so the heat absorbed equals the work done', 'No heat is exchanged', 'No work is done', 'The temperature rises'],
+  ['That describes an adiabatic process.', 'That describes a constant-volume process.', 'Isothermal means constant temperature.'],
+  'An ideal gas\'s internal energy depends only on temperature, so constant T means ΔU = 0.', { cs: ['cs-first-law'] });
+C('p-heat', 'adiabatic', 'A gas is compressed quickly, with no time for heat to escape (adiabatic). Its temperature:', ['Rises', 'Falls', 'Stays the same', 'Drops to zero'],
+  ['Expansion, not compression, cools a gas adiabatically.', 'Work done on the gas raises its internal energy.', 'Not possible.'],
+  'Q = 0, so ΔU = −W; the work done on the gas becomes internal energy. This is why a bike pump warms up.', { sk: 2, cs: ['cs-first-law'] });
+C('p-heat', 'pv-area', 'On a pressure–volume diagram, the work done by a gas equals:', ['The area under the curve', 'The slope of the curve', 'The height of the curve', 'The product of the starting P and V'],
+  ['The slope is not work.', 'Pressure alone is not work.', 'That is just one point\'s PV.'],
+  'W = ∫P dV. At constant pressure, W = PΔV; at constant volume, W = 0.', { cs: ['cs-first-law'] });
+C('p-heat', 'transfer', 'A heat lamp warms your hand across empty space by:', ['Radiation', 'Conduction', 'Convection', 'Evaporation'],
+  ['Conduction needs direct contact.', 'Convection needs a moving fluid.', 'Evaporation is a phase change, not a transfer mode.'],
+  'Radiation travels as electromagnetic waves and needs no medium (sunlight reaching Earth).', { cs: ['cs-heat-transfer'] });
+C('p-heat', 'convection', 'Warm air rising from a radiator and circulating around a room transfers heat by:', ['Convection', 'Conduction', 'Radiation', 'Sublimation'],
+  ['Conduction moves heat through direct contact without bulk flow.', 'Some radiation occurs, but the circulating air is convection.', 'That is a phase change.'],
+  'Convection is heat carried by the bulk movement of a fluid.', { cs: ['cs-heat-transfer'] });
+C('p-heat', 'second-law', 'Which statement follows from the second law of thermodynamics?', ['Heat flows spontaneously from hot to cold, never the reverse on its own', 'Energy is always conserved', 'Absolute zero can be reached', 'Entropy of an isolated system can decrease'],
+  ['That is the first law.', 'The third law says it can only be approached.', 'The second law says it never decreases.'],
+  'The total entropy of an isolated system never decreases. Refrigerators move heat from cold to hot only by doing work.', { hy: true });
+G('p-heat', 'g-melt', 'Heat to melt ice', rnd => {
+  const m = pickR(rnd, [10, 50, 100, 200]);
+  return { prompt: `How much heat (J) melts ${m} g of ice at 0 °C? (Heat of fusion of water = 334 J/g)`, value: 334 * m, tolPct: 2, unit: 'J',
+    expl: `q = m·L_f = ${m} × 334 = ${334 * m} J. The temperature stays at 0 °C while it melts.`, hint: 'q = mL' };
+}, { hy: true, cs: ['cs-phase'] });
+G('p-heat', 'g-expand', 'Thermal expansion', rnd => {
+  const L = pickR(rnd, [1, 2, 10, 100]), a = pickR(rnd, [{ m: 'steel', a: 12e-6 }, { m: 'aluminum', a: 23e-6 }]), dT = pickR(rnd, [10, 20, 50]);
+  const dL = a.a * L * dT;
+  return { prompt: `A ${L} m ${a.m} rod (α = ${sci(a.a, 2)} /°C) warms by ${dT} °C. How much longer does it get, in mm?`, value: dL * 1000, tolPct: 2, unit: 'mm',
+    expl: `ΔL = αLΔT = ${sci(a.a, 2)} × ${L} × ${dT} = ${sci(dL, 3)} m = ${sig(dL * 1000)} mm.` };
+});
+G('p-heat', 'g-pdv', 'Work at constant pressure', rnd => {
+  const P = pickR(rnd, [1e5, 2e5]), dV = pickR(rnd, [0.001, 0.002, 0.01]);
+  return { prompt: `A gas at a constant ${sci(P, 1)} Pa expands by ${dV} m³. How much work (J) does it do?`, value: P * dV, tolPct: 2, unit: 'J',
+    expl: `W = PΔV = ${sci(P, 1)} × ${dV} = ${sig(P * dV)} J.` };
+}, { cs: ['cs-first-law'] });
+G('p-heat', 'g-carnot', 'Maximum efficiency', rnd => {
+  const Th = pickR(rnd, [400, 500, 600, 800]), Tc = pickR(rnd, [300, 200]);
+  const e = 1 - Tc / Th;
+  return { prompt: `A heat engine runs between ${Th} K and ${Tc} K. What is its maximum possible efficiency, as a percent?`, value: 100 * e, tolPct: 2, unit: '%',
+    expl: `Carnot limit: e = 1 − Tc/Th = 1 − ${Tc}/${Th} = ${sig(100 * e)}%. Temperatures must be in kelvin.` };
+});
+G('p-heat', 'g-kelvin', 'Temperature scales', rnd => {
+  const c = pickR(rnd, [-40, 0, 25, 37, 100]), toK = rnd() < 0.5;
+  return toK
+    ? { prompt: `Convert ${c} °C to kelvin.`, value: c + 273, tol: 1, unit: 'K', expl: `K = °C + 273 = ${c + 273} K.` }
+    : { prompt: `Convert ${c} °C to °F.`, value: c * 9 / 5 + 32, tol: 1, unit: '°F', expl: `°F = (9/5)°C + 32 = ${c * 9 / 5 + 32} °F.${c === -40 ? ' −40 is where the two scales meet.' : ''}` };
+}, { sk: 1 });
+
+/* ---------- Magnetism (4C) ---------- */
+C('p-mag', 'no-work', 'A charged particle moves through a uniform magnetic field. The magnetic force on it:', ['Changes its direction but not its speed', 'Speeds it up', 'Slows it down', 'Does positive work on it'],
+  ['The force is always perpendicular to the velocity.', 'A perpendicular force cannot slow it.', 'Perpendicular forces do no work.'],
+  'F = qv × B is perpendicular to v, so kinetic energy stays constant; the particle curves, often into a circle.', { hy: true, sk: 2 });
+C('p-mag', 'parallel-v', 'A charge moves parallel to a magnetic field. The magnetic force on it is:', ['Zero', 'Maximum', 'Along the field', 'Opposite to its motion'],
+  ['Maximum force comes at 90°.', 'Magnetic forces are perpendicular to B.', 'Magnetic forces never point opposite to v.'],
+  'F = qvB sin θ, and sin 0° = 0.');
+C('p-mag', 'wire-field', 'The magnetic field around a long straight current-carrying wire:', ['Forms circles around the wire', 'Points along the wire', 'Points straight out from the wire', 'Is zero'],
+  ['The field circles; it does not run along the current.', 'That would be an electric field from a charged line.', 'Any current makes a magnetic field.'],
+  'Right-hand rule: thumb along the current, fingers curl in the field direction. B weakens as 1/r.', { cs: ['cs-rhr'] });
+C('p-mag', 'parallel-currents', 'Two parallel wires carry current in the same direction. They:', ['Attract each other', 'Repel each other', 'Feel no force', 'Twist around each other'],
+  ['Opposite currents repel.', 'Each wire sits in the other\'s field.', 'The forces are along the line between them.'],
+  'Each wire\'s field exerts a force on the other\'s current; same direction attracts.', { sk: 2, cs: ['cs-rhr'] });
+T('p-mag', 'tesla', 'What is the SI unit of magnetic field strength?', ['tesla', 'teslas', 't'],
+  'The tesla (T). MRI scanners typically use 1.5–3 T; Earth\'s field is about 50 μT.');
+G('p-mag', 'g-qvb', 'Magnetic force', rnd => {
+  const q = pickR(rnd, [1, 2, 5]), v = pickR(rnd, [1e3, 2e4, 5e5]), B = pickR(rnd, [0.1, 0.5, 2]), th = pickR(rnd, [90, 30]);
+  const s = th === 90 ? 1 : 0.5, F = q * 1e-6 * v * B * s;
+  return { prompt: `A ${q} μC charge moves at ${sci(v, 1)} m/s at ${th}° to a ${B} T magnetic field. What is the force on it (N)?${th === 30 ? ' (sin 30° = 0.5)' : ''}`, value: F, tolPct: 3, unit: 'N',
+    expl: `F = qvB sin θ = ${q} × 10^-6 × ${sci(v, 1)} × ${B} × ${s} = ${sci(F, 2)} N.`, hint: 'F = qvB sin θ' };
+}, { hy: true });
+G('p-mag', 'g-radius', 'Circular orbit in a field', rnd => {
+  const m = pickR(rnd, [1e-3, 2e-3]), v = pickR(rnd, [10, 20, 100]), q = pickR(rnd, [1e-3, 5e-3]), B = pickR(rnd, [1, 2, 4]);
+  const r = m * v / (q * B);
+  return { prompt: `A particle of mass ${sci(m, 1)} kg and charge ${sci(q, 1)} C moves at ${v} m/s perpendicular to a ${B} T field. What is the radius of its circular path (m)?`, value: r, tolPct: 3, unit: 'm',
+    expl: `qvB = mv²/r → r = mv/(qB) = ${sci(m, 1)} × ${v} / (${sci(q, 1)} × ${B}) = ${sig(r)} m.` };
+});
+
+/* ---------- Photons & atomic physics (4E / 4D) ---------- */
+C('p-atomic', 'intensity', 'In the photoelectric effect, making the light brighter (same frequency, above threshold):', ['Ejects more electrons but does not raise their maximum kinetic energy', 'Raises the electrons\' maximum kinetic energy', 'Lowers the work function', 'Has no effect'],
+  ['Each electron absorbs one photon; brighter light only means more photons.', 'The work function is a property of the metal.', 'More photons free more electrons.'],
+  'KE_max = hf − φ depends on frequency, not intensity. This was key evidence that light comes in photons.', { hy: true, sk: 2, cs: ['cs-photoelectric'] });
+C('p-atomic', 'threshold', 'Light below a metal\'s threshold frequency shines on it very brightly. What happens?', ['No electrons are ejected', 'Electrons are ejected slowly', 'Electrons are ejected after a delay', 'The work function falls'],
+  ['No photon has enough energy, however many there are.', 'Energy does not build up in one electron over time.', 'The metal\'s work function does not change.'],
+  'Each photon must have hf ≥ φ on its own.', { cs: ['cs-photoelectric'] });
+C('p-atomic', 'absorption', 'A cool gas in front of a hot light source produces dark lines in the spectrum. These lines are at:', ['The same wavelengths the gas emits when heated', 'Random wavelengths', 'Only infrared wavelengths', 'Wavelengths the gas cannot absorb'],
+  ['They are a fingerprint of the element.', 'They can be anywhere the element has transitions.', 'Dark lines mean light was absorbed.'],
+  'An atom absorbs exactly the photon energies matching its level gaps, the same gaps it emits from.');
+C('p-atomic', 'fluorescence', 'A fluorescent dye absorbs ultraviolet light and glows green. Why is the emitted light lower in energy?', ['Some energy is lost (as vibration/heat) before the photon is emitted', 'Green light has more energy than UV', 'The dye gains energy from the surroundings', 'Photons slow down in the dye'],
+  ['Green has less energy and a longer wavelength than UV.', 'That would make the emitted light more energetic.', 'Photon energy depends on frequency, not speed in a medium.'],
+  'Absorb high-energy light, relax a little non-radiatively, emit lower-energy (longer-wavelength) light.', { sk: 2 });
+C('p-atomic', 'bohr', 'In the Bohr model of hydrogen, why does the atom emit only certain wavelengths?', ['Electron energy levels are quantized, so only certain energy gaps exist', 'The electron spirals continuously into the nucleus', 'The nucleus emits the light', 'Every wavelength is emitted but most are absorbed'],
+  ['That classical prediction is what the Bohr model fixed.', 'The light comes from electron transitions.', 'The emission spectrum is genuinely discrete.'],
+  'E_photon = E_upper − E_lower = hf for allowed levels only.');
+G('p-atomic', 'g-photoelectric', 'Photoelectric effect', rnd => {
+  const E = pickR(rnd, [3, 4, 5, 6]), phi = pickR(rnd, [2.0, 2.3, 2.5, 4.5]);
+  if (E <= phi) return { prompt: `Photons of ${phi + 2} eV hit a metal with a work function of ${phi} eV. What is the maximum kinetic energy of the ejected electrons (eV)?`, value: 2, tol: 0.05, unit: 'eV', expl: `KE_max = E_photon − φ = ${phi + 2} − ${phi} = 2 eV.` };
+  return { prompt: `Photons of ${E} eV hit a metal with a work function of ${phi} eV. What is the maximum kinetic energy of the ejected electrons (eV)?`, value: E - phi, tol: 0.05, unit: 'eV',
+    expl: `KE_max = E_photon − φ = ${E} − ${phi} = ${sig(E - phi)} eV.`, hint: 'KE = hf − φ' };
+}, { hy: true, cs: ['cs-photoelectric'] });
+G('p-atomic', 'g-hydrogen', 'Hydrogen energy levels', rnd => {
+  const n = pickR(rnd, [2, 3, 4]);
+  const E = 13.6 / (n * n);
+  return { prompt: `Hydrogen levels follow Eₙ = −13.6 eV/n². How much energy (eV) must be added to ionize a hydrogen atom from n = ${n}?`, value: E, tolPct: 2, unit: 'eV',
+    expl: `Ionization takes it from Eₙ = −13.6/${n * n} = −${sig(E)} eV up to 0, so ${sig(E)} eV.` };
+});
+
+/* ---------- Deeper: electrostatics & circuits (4C) ---------- */
+C('p-elec', 'equipotential', 'How much work does the electric field do on a charge moved along an equipotential surface?', ['None', 'It depends on the charge\'s speed', 'The maximum possible', 'Work equal to qE'],
+  ['Work depends on potential difference, not speed.', 'The potential difference is zero, so W = qΔV = 0.', 'qE is a force, not work.'],
+  'Equipotentials are perpendicular to field lines, so the field has no component along them.', { sk: 2 });
+C('p-elec', 'plate-gap', 'The plates of a parallel-plate capacitor are moved twice as far apart. Its capacitance:', ['Halves', 'Doubles', 'Quadruples', 'Stays the same'],
+  ['C is inversely proportional to the gap.', 'Not squared.', 'C = ε₀A/d depends on d.'],
+  'C = ε₀A/d: more plate area raises C; a wider gap lowers it.', { cs: ['cs-capacitor'] });
+G('p-elec', 'g-cap-energy', 'Energy in a capacitor', rnd => {
+  const C = pickR(rnd, [2, 5, 10, 100]), V = pickR(rnd, [10, 20, 100]);
+  const U = 0.5 * C * 1e-6 * V * V;
+  return { prompt: `A ${C} μF capacitor is charged to ${V} V. How much energy (J) does it store?`, value: U, tolPct: 2, unit: 'J',
+    expl: `U = ½CV² = ½ × ${C} × 10^-6 × ${V}² = ${sci(U, 3)} J. (Q = CV = ${sci(C * 1e-6 * V, 2)} C.)`, hint: 'U = ½CV²' };
+}, { hy: true, cs: ['cs-capacitor'] });
+G('p-elec', 'g-field-plates', 'Field between plates', rnd => {
+  const V = pickR(rnd, [10, 50, 100, 500]), d = pickR(rnd, [0.01, 0.02, 0.005]);
+  return { prompt: `Two parallel plates ${d * 100} cm apart have a potential difference of ${V} V. What is the field between them (V/m)?`, value: V / d, tolPct: 2, unit: 'V/m',
+    expl: `E = V/d = ${V} / ${d} = ${sig(V / d)} V/m (equivalently N/C), uniform between the plates.` };
+}, { cs: ['cs-capacitor'] });
+G('p-elec', 'g-terminal', 'Battery internal resistance', rnd => {
+  const emf = pickR(rnd, [6, 9, 12]), r = pickR(rnd, [0.5, 1]), R = pickR(rnd, [2, 4, 5]);
+  const I = emf / (R + r), V = emf - I * r;
+  return { prompt: `A ${emf} V battery with ${r} Ω internal resistance drives a ${R} Ω resistor. What is the terminal voltage (V)?`, value: V, tolPct: 2, unit: 'V',
+    expl: `I = ε/(R + r) = ${emf}/${R + r} = ${sig(I)} A; V = ε − Ir = ${emf} − ${sig(I)} × ${r} = ${sig(V)} V (= IR).` };
+});
+
+;
 /* ==== content_check.js ==== */
 /* Generated by tools/blind.js compare write. Blind cross-check (spec §8.3 step 4): two fresh-context
    checkers answered every item with the key hidden; any disagreement quarantines the item. */
 'use strict';
-const CROSSCHECK = {"date":"2026-11-14","checkers":["claude-opus-5-5, fresh context","claude-sonnet-5-5, fresh context"],"verdicts":{"c-atoms.element-id":"pass","c-atoms.isotope":"pass","c-atoms.radius":"pass","c-atoms.ie-max":"pass","c-atoms.ie-n-o":"pass","c-atoms.cr-config":"pass","c-atoms.fe-ion":"pass","c-atoms.d-max":"pass","c-atoms.l-shape":"pass","c-atoms.qn-bad":"pass","c-atoms.hund":"pass","c-atoms.pauli":"pass","c-atoms.en":"pass","c-atoms.isoelectronic":"pass","c-atoms.h-transition":"pass","c-atoms.emit":"pass","c-atoms.g-photon":"pass","c-atoms.g-avgmass":"pass","c-bond.nh3-shape":"pass","c-bond.h2o-angle":"pass","c-bond.co2-hyb":"pass","c-bond.ch4-hyb":"pass","c-bond.c2h4-hyb":"pass","c-bond.sf6":"pass","c-bond.xef4":"pass","c-bond.nonpolar":"pass","c-bond.fc-nh4":"pass","c-bond.nacl":"pass","c-bond.polar-bond":"pass","c-bond.triple-pi":"pass","c-bond.cc-strong":"pass","c-bond.resonance":"pass","c-bond.coordinate":"pass","c-bond.expanded":"pass","c-bond.radical":"pass","c-imf.water-imf":"pass","c-imf.bp-water":"pass","c-imf.pentane":"pass","c-imf.hbond-self":"pass","c-imf.london":"pass","c-imf.sublimation":"pass","c-imf.triple":"pass","c-imf.water-slope":"pass","c-imf.melting-heat":"pass","c-imf.boil":"pass","c-imf.vp-raise":"pass","c-stoich.avogadro":"pass","c-stoich.limiting":"pass","c-stoich.empirical":"pass","c-stoich.molarity":"pass","c-stoich.molality":"pass","c-stoich.g-moles":"pass","c-stoich.g-dilution":"pass","c-stoich.g-molarity":"pass","c-stoich.g-limiting":"pass","c-stoich.g-pct":"pass","c-gas.ideal":"pass","c-gas.stp-vol":"pass","c-gas.charles":"pass","c-gas.boyle":"pass","c-gas.real-dev":"pass","c-gas.real-vol":"pass","c-gas.kmt-ke":"pass","c-gas.rms":"pass","c-gas.g-ideal":"pass","c-gas.g-combined":"pass","c-gas.g-dalton":"pass","c-gas.g-graham":"pass","c-thermo.exo-sign":"pass","c-thermo.gibbs-pp":"pass","c-thermo.gibbs-nn":"pass","c-thermo.gibbs-np":"pass","c-thermo.state-fn":"pass","c-thermo.hess":"pass","c-thermo.hf-element":"pass","c-thermo.bond-enth":"pass","c-thermo.ds-pos":"pass","c-thermo.spont-rate":"pass","c-thermo.cp":"pass","c-thermo.g-q":"pass","c-thermo.g-dg":"pass","c-thermo.g-crossover":"pass","c-kin.catalyst":"pass","c-kin.rds":"pass","c-kin.order2":"pass","c-kin.zero-order":"pass","c-kin.first-half":"pass","c-kin.k-units":"pass","c-kin.arrhenius":"pass","c-kin.intermediate":"pass","c-kin.g-order":"pass","c-kin.g-half":"pass","c-eq.add-prod":"pass","c-eq.heat-exo":"pass","c-eq.inert":"pass","c-eq.compress":"pass","c-eq.q-k":"pass","c-eq.k-change":"pass","c-eq.solids":"pass","c-eq.dg-k":"pass","c-eq.g-kc":"pass","c-acid.kw":"pass","c-acid.bronsted":"pass","c-acid.conj-base":"pass","c-acid.stronger":"pass","c-acid.strong-acid":"pass","c-acid.half-eq":"pass","c-acid.eq-weak":"pass","c-acid.buffer-pick":"pass","c-acid.amphoteric":"pass","c-acid.g-ph-strong":"pass","c-acid.g-hh":"pass","c-acid.g-ph-log":"pass","c-sol.common-ion":"pass","c-sol.colligative":"pass","c-sol.lowest-fp":"pass","c-sol.vant-hoff":"pass","c-sol.hexane":"pass","c-sol.g-ksp":"pass","c-sol.g-fpd":"pass","c-redox.oxidation":"pass","c-redox.anode":"pass","c-redox.e-flow":"pass","c-redox.galvanic":"pass","c-redox.electrolytic-anode":"pass","c-redox.kmno4":"pass","c-redox.ox-agent":"pass","c-redox.salt-bridge":"pass","c-redox.faraday":"pass","c-redox.g-ecell":"pass","c-nuc.alpha":"pass","c-nuc.beta":"pass","c-nuc.positron":"pass","c-nuc.gamma":"pass","c-nuc.mass-defect":"pass","c-nuc.g-decay":"pass","b-mol.aa-monomer":"pass","b-mol.peptide":"pass","b-mol.peptide-planar":"pass","b-mol.secondary":"pass","b-mol.disulfide":"pass","b-mol.quaternary":"pass","b-mol.glycine":"pass","b-mol.lys-charge":"pass","b-mol.asp-charge":"pass","b-mol.sucrose":"pass","b-mol.cellulose":"pass","b-mol.saturated":"pass","b-mol.amphipathic":"pass","b-mol.nucleotide":"pass","b-mol.denature":"pass","b-mol.dehydration":"pass","b-mol.steroid":"pass","b-cell.mito":"pass","b-cell.ser":"pass","b-cell.rer":"pass","b-cell.golgi":"pass","b-cell.lysosome":"pass","b-cell.peroxisome":"pass","b-cell.prok-lack":"pass","b-cell.ribosome-size":"pass","b-cell.microtubule":"pass","b-cell.microfilament":"pass","b-cell.intermediate-fil":"pass","b-cell.tight":"pass","b-cell.gap":"pass","b-cell.desmosome":"pass","b-cell.nucleolus":"pass","b-cell.endosym":"pass","b-mem.cholesterol":"pass","b-mem.simple":"pass","b-mem.facilitated":"pass","b-mem.primary":"pass","b-mem.secondary":"pass","b-mem.nak":"pass","b-mem.hypotonic":"pass","b-mem.hypertonic":"pass","b-mem.osmosis":"pass","b-mem.clathrin":"pass","b-mem.integral":"pass","b-energy.enzyme":"pass","b-energy.comp-inh":"pass","b-energy.noncomp-inh":"pass","b-energy.uncomp-inh":"pass","b-energy.km":"pass","b-energy.glyc-loc":"pass","b-energy.tca-loc":"pass","b-energy.etc-loc":"pass","b-energy.final-acc":"pass","b-energy.glyc-net":"pass","b-energy.pyruvate":"pass","b-energy.ferment":"pass","b-energy.atp-synthase":"pass","b-energy.pdh":"pass","b-energy.pfk":"pass","b-energy.atp-yield":"pass-noted","b-energy.uncoupler":"pass","b-energy.cyanide":"pass","b-div.crossover":"pass","b-div.homologs-sep":"pass","b-div.sisters-sep":"pass","b-div.meiosis-out":"pass","b-div.s-phase":"pass","b-div.metaphase":"pass","b-div.nondis-1":"pass","b-div.nondis-2":"pass","b-div.cohesin":"pass","b-div.cyclin":"pass","b-div.p53":"pass","b-div.indep":"pass","b-gen.segregation":"pass","b-gen.codominance":"pass","b-gen.incomplete":"pass","b-gen.xlinked":"pass","b-gen.hw-cond":"pass","b-gen.testcross":"pass","b-gen.linkage":"pass","b-gen.epistasis":"pass","b-gen.penetrance":"pass","b-gen.g-mono":"pass","b-gen.g-dihybrid":"pass","b-gen.g-hw":"pass","b-gen.g-map":"pass","b-dna.dnapol":"pass","b-dna.lagging":"pass","b-dna.helicase":"pass","b-dna.ligase":"pass","b-dna.topo":"pass","b-dna.primase":"pass","b-dna.rnapol":"pass","b-dna.processing":"pass","b-dna.codons":"pass","b-dna.start":"pass","b-dna.silent":"pass","b-dna.nonsense":"pass","b-dna.frameshift":"pass","b-dna.missense":"pass","b-dna.lac":"pass","b-dna.purines":"pass","b-dna.gc-hbonds":"pass","b-dna.rna-dna":"pass","b-dna.meselson":"pass","b-prok.gram-pos":"pass","b-prok.gram-neg":"pass","b-prok.transformation":"pass","b-prok.transduction":"pass","b-prok.conjugation":"pass","b-prok.retro":"pass","b-prok.lysogenic":"pass","b-prok.growth":"pass","b-prok.plasmid":"pass","b-sys.rmp":"pass","b-sys.depol":"pass","b-sys.repol":"pass","b-sys.refractory":"pass","b-sys.myelin":"pass","b-sys.hormone-class":"pass","b-sys.insulin":"pass","b-sys.bohr":"pass","b-sys.alveoli":"pass","b-sys.co2-transport":"pass","b-sys.pct":"pass","b-sys.adh":"pass","b-sys.aldosterone":"pass","b-sys.desc-loop":"pass","b-sys.pepsin":"pass","b-sys.pulm":"pass","b-sys.cardiac":"pass","p-kin.apex":"pass","p-kin.horiz-v":"pass","p-kin.drop-vs-throw":"pass","p-kin.vt-slope":"pass","p-kin.vt-area":"pass","p-kin.xt-slope":"pass","p-kin.speed-vel":"pass","p-kin.g-fall":"pass","p-kin.g-vf":"pass","p-kin.g-vsq":"pass","p-kin.g-proj":"pass","p-force.third-law":"pass","p-force.const-v":"pass","p-force.friction":"pass","p-force.mass-weight":"pass","p-force.centripetal":"pass","p-force.elevator":"pass","p-force.newton-unit":"pass","p-force.g-fma":"pass","p-force.g-incline":"pass","p-force.g-circ":"pass","p-energy.normal-work":"pass","p-energy.conservative":"pass","p-energy.wet":"pass","p-energy.watt":"pass","p-energy.ramp":"pass","p-energy.g-ke":"pass","p-energy.g-drop-v":"pass","p-energy.g-work":"pass-noted","p-energy.g-power":"pass","p-mom.conserve":"pass","p-mom.elastic":"pass","p-mom.inelastic":"pass","p-mom.equilibrium":"pass","p-mom.g-inelastic":"pass","p-mom.g-impulse":"pass","p-mom.g-seesaw":"pass","p-mom.g-torque":"pass-noted","p-fluid.depth":"pass","p-fluid.archimedes":"pass","p-fluid.float":"pass","p-fluid.continuity":"pass","p-fluid.bernoulli":"pass","p-fluid.poiseuille":"pass","p-fluid.gauge":"pass","p-fluid.g-hydro":"pass","p-fluid.g-buoy":"pass","p-fluid.g-cont":"pass","p-elec.coulomb":"pass","p-elec.series":"pass","p-elec.parallel":"pass","p-elec.add-parallel":"pass","p-elec.cap-parallel":"pass","p-elec.dielectric":"pass","p-elec.field-dir":"pass","p-elec.pe-field":"pass","p-elec.wire-r":"pass","p-elec.meters":"pass","p-elec.g-ohm":"pass","p-elec.g-req":"pass","p-elec.g-power":"pass","p-elec.g-coulomb":"pass","p-wave.sound-medium":"pass","p-wave.pitch":"pass","p-wave.doppler":"pass","p-wave.medium-change":"pass","p-wave.closed-pipe":"pass","p-wave.longitudinal":"pass","p-wave.g-vfl":"pass","p-wave.g-db":"pass","p-wave.g-string":"pass","p-wave.g-pipe":"pass","p-light.conv-real":"pass","p-light.diverging":"pass","p-light.convex-mirror":"pass","p-light.magnifier":"pass","p-light.refract":"pass","p-light.tir":"pass","p-light.violet":"pass","p-light.myopia":"pass","p-light.polar":"pass","p-light.double-slit":"pass","p-light.g-lens":"pass","p-light.g-snell":"pass","p-light.g-critical":"pass","p-light.g-diopter":"pass"}};
+const CROSSCHECK = {"date": "2026-11-15", "checkers": ["claude-opus-5-5, fresh context", "claude-sonnet-5-5, fresh context"], "rounds": ["2026-11-14: the first 354 items", "2026-11-15: 162 new items", "2026-11-15: 3 reworded items rechecked blind, both agreed"], "verdicts": {"c-atoms.element-id": "pass", "c-atoms.isotope": "pass", "c-atoms.radius": "pass", "c-atoms.ie-max": "pass", "c-atoms.ie-n-o": "pass", "c-atoms.cr-config": "pass", "c-atoms.fe-ion": "pass", "c-atoms.d-max": "pass", "c-atoms.l-shape": "pass", "c-atoms.qn-bad": "pass", "c-atoms.hund": "pass", "c-atoms.pauli": "pass", "c-atoms.en": "pass", "c-atoms.isoelectronic": "pass", "c-atoms.h-transition": "pass", "c-atoms.emit": "pass", "c-atoms.g-photon": "pass", "c-atoms.g-avgmass": "pass", "c-bond.nh3-shape": "pass", "c-bond.h2o-angle": "pass", "c-bond.co2-hyb": "pass", "c-bond.ch4-hyb": "pass", "c-bond.c2h4-hyb": "pass", "c-bond.sf6": "pass", "c-bond.xef4": "pass", "c-bond.nonpolar": "pass", "c-bond.fc-nh4": "pass", "c-bond.nacl": "pass", "c-bond.polar-bond": "pass", "c-bond.triple-pi": "pass", "c-bond.cc-strong": "pass", "c-bond.resonance": "pass", "c-bond.coordinate": "pass", "c-bond.expanded": "pass", "c-bond.radical": "pass", "c-imf.water-imf": "pass", "c-imf.bp-water": "pass", "c-imf.pentane": "pass", "c-imf.hbond-self": "pass", "c-imf.london": "pass", "c-imf.sublimation": "pass", "c-imf.triple": "pass", "c-imf.water-slope": "pass", "c-imf.melting-heat": "pass", "c-imf.boil": "pass", "c-imf.vp-raise": "pass", "c-stoich.avogadro": "pass", "c-stoich.limiting": "pass", "c-stoich.empirical": "pass", "c-stoich.molarity": "pass", "c-stoich.molality": "pass", "c-stoich.g-moles": "pass", "c-stoich.g-dilution": "pass", "c-stoich.g-molarity": "pass", "c-stoich.g-limiting": "pass", "c-stoich.g-pct": "pass", "c-gas.ideal": "pass", "c-gas.stp-vol": "pass", "c-gas.charles": "pass", "c-gas.boyle": "pass", "c-gas.real-dev": "pass", "c-gas.real-vol": "pass", "c-gas.kmt-ke": "pass", "c-gas.rms": "pass", "c-gas.g-ideal": "pass", "c-gas.g-combined": "pass", "c-gas.g-dalton": "pass", "c-gas.g-graham": "pass", "c-thermo.exo-sign": "pass", "c-thermo.gibbs-pp": "pass", "c-thermo.gibbs-nn": "pass", "c-thermo.gibbs-np": "pass", "c-thermo.state-fn": "pass", "c-thermo.hess": "pass", "c-thermo.hf-element": "pass", "c-thermo.bond-enth": "pass", "c-thermo.ds-pos": "pass", "c-thermo.spont-rate": "pass", "c-thermo.cp": "pass", "c-thermo.g-q": "pass", "c-thermo.g-dg": "pass", "c-thermo.g-crossover": "pass", "c-kin.catalyst": "pass", "c-kin.rds": "pass", "c-kin.order2": "pass", "c-kin.zero-order": "pass", "c-kin.first-half": "pass", "c-kin.k-units": "pass", "c-kin.arrhenius": "pass", "c-kin.intermediate": "pass", "c-kin.g-order": "pass", "c-kin.g-half": "pass", "c-eq.add-prod": "pass", "c-eq.heat-exo": "pass", "c-eq.inert": "pass", "c-eq.compress": "pass", "c-eq.q-k": "pass", "c-eq.k-change": "pass", "c-eq.solids": "pass", "c-eq.dg-k": "pass", "c-eq.g-kc": "pass", "c-acid.kw": "pass", "c-acid.bronsted": "pass", "c-acid.conj-base": "pass", "c-acid.stronger": "pass", "c-acid.strong-acid": "pass", "c-acid.half-eq": "pass", "c-acid.eq-weak": "pass", "c-acid.buffer-pick": "pass", "c-acid.amphoteric": "pass", "c-acid.g-ph-strong": "pass", "c-acid.g-hh": "pass", "c-acid.g-ph-log": "pass", "c-sol.common-ion": "pass", "c-sol.colligative": "pass", "c-sol.lowest-fp": "pass", "c-sol.vant-hoff": "pass", "c-sol.hexane": "pass", "c-sol.g-ksp": "pass", "c-sol.g-fpd": "pass", "c-redox.oxidation": "pass", "c-redox.anode": "pass", "c-redox.e-flow": "pass", "c-redox.galvanic": "pass", "c-redox.electrolytic-anode": "pass", "c-redox.kmno4": "pass", "c-redox.ox-agent": "pass", "c-redox.salt-bridge": "pass", "c-redox.faraday": "pass", "c-redox.g-ecell": "pass", "c-nuc.alpha": "pass", "c-nuc.beta": "pass", "c-nuc.positron": "pass", "c-nuc.gamma": "pass", "c-nuc.mass-defect": "pass", "c-nuc.g-decay": "pass", "b-mol.aa-monomer": "pass", "b-mol.peptide": "pass", "b-mol.peptide-planar": "pass", "b-mol.secondary": "pass", "b-mol.disulfide": "pass", "b-mol.quaternary": "pass", "b-mol.glycine": "pass", "b-mol.lys-charge": "pass", "b-mol.asp-charge": "pass", "b-mol.sucrose": "pass", "b-mol.cellulose": "pass", "b-mol.saturated": "pass", "b-mol.amphipathic": "pass", "b-mol.nucleotide": "pass", "b-mol.denature": "pass", "b-mol.dehydration": "pass", "b-mol.steroid": "pass", "b-cell.mito": "pass", "b-cell.ser": "pass", "b-cell.rer": "pass", "b-cell.golgi": "pass", "b-cell.lysosome": "pass", "b-cell.peroxisome": "pass", "b-cell.prok-lack": "pass", "b-cell.ribosome-size": "pass", "b-cell.microtubule": "pass", "b-cell.microfilament": "pass", "b-cell.intermediate-fil": "pass", "b-cell.tight": "pass", "b-cell.gap": "pass", "b-cell.desmosome": "pass", "b-cell.nucleolus": "pass", "b-cell.endosym": "pass", "b-mem.cholesterol": "pass", "b-mem.simple": "pass", "b-mem.facilitated": "pass", "b-mem.primary": "pass", "b-mem.secondary": "pass", "b-mem.nak": "pass", "b-mem.hypotonic": "pass", "b-mem.hypertonic": "pass", "b-mem.osmosis": "pass", "b-mem.clathrin": "pass", "b-mem.integral": "pass", "b-energy.enzyme": "pass", "b-energy.comp-inh": "pass", "b-energy.noncomp-inh": "pass", "b-energy.uncomp-inh": "pass", "b-energy.km": "pass", "b-energy.glyc-loc": "pass", "b-energy.tca-loc": "pass", "b-energy.etc-loc": "pass", "b-energy.final-acc": "pass", "b-energy.glyc-net": "pass", "b-energy.pyruvate": "pass", "b-energy.ferment": "pass", "b-energy.atp-synthase": "pass", "b-energy.pdh": "pass", "b-energy.pfk": "pass", "b-energy.atp-yield": "pass-noted", "b-energy.uncoupler": "pass", "b-energy.cyanide": "pass", "b-div.crossover": "pass", "b-div.homologs-sep": "pass", "b-div.sisters-sep": "pass", "b-div.meiosis-out": "pass", "b-div.s-phase": "pass", "b-div.metaphase": "pass", "b-div.nondis-1": "pass", "b-div.nondis-2": "pass", "b-div.cohesin": "pass", "b-div.cyclin": "pass", "b-div.p53": "pass", "b-div.indep": "pass", "b-gen.segregation": "pass", "b-gen.codominance": "pass", "b-gen.incomplete": "pass", "b-gen.xlinked": "pass", "b-gen.hw-cond": "pass", "b-gen.testcross": "pass", "b-gen.linkage": "pass", "b-gen.epistasis": "pass", "b-gen.penetrance": "pass", "b-gen.g-mono": "pass", "b-gen.g-dihybrid": "pass", "b-gen.g-hw": "pass", "b-gen.g-map": "pass", "b-dna.dnapol": "pass", "b-dna.lagging": "pass", "b-dna.helicase": "pass", "b-dna.ligase": "pass", "b-dna.topo": "pass", "b-dna.primase": "pass", "b-dna.rnapol": "pass", "b-dna.processing": "pass", "b-dna.codons": "pass", "b-dna.start": "pass", "b-dna.silent": "pass", "b-dna.nonsense": "pass", "b-dna.frameshift": "pass", "b-dna.missense": "pass", "b-dna.lac": "pass", "b-dna.purines": "pass", "b-dna.gc-hbonds": "pass", "b-dna.rna-dna": "pass", "b-dna.meselson": "pass", "b-prok.gram-pos": "pass", "b-prok.gram-neg": "pass", "b-prok.transformation": "pass", "b-prok.transduction": "pass", "b-prok.conjugation": "pass", "b-prok.retro": "pass", "b-prok.lysogenic": "pass", "b-prok.growth": "pass", "b-prok.plasmid": "pass", "b-sys.rmp": "pass", "b-sys.depol": "pass", "b-sys.repol": "pass", "b-sys.refractory": "pass", "b-sys.myelin": "pass", "b-sys.hormone-class": "pass", "b-sys.insulin": "pass", "b-sys.bohr": "pass", "b-sys.alveoli": "pass", "b-sys.co2-transport": "pass", "b-sys.pct": "pass", "b-sys.adh": "pass", "b-sys.aldosterone": "pass", "b-sys.desc-loop": "pass", "b-sys.pepsin": "pass", "b-sys.pulm": "pass", "b-sys.cardiac": "pass", "p-kin.apex": "pass", "p-kin.horiz-v": "pass", "p-kin.drop-vs-throw": "pass", "p-kin.vt-slope": "pass", "p-kin.vt-area": "pass", "p-kin.xt-slope": "pass", "p-kin.speed-vel": "pass", "p-kin.g-fall": "pass", "p-kin.g-vf": "pass", "p-kin.g-vsq": "pass", "p-kin.g-proj": "pass", "p-force.third-law": "pass", "p-force.const-v": "pass", "p-force.friction": "pass", "p-force.mass-weight": "pass", "p-force.centripetal": "pass", "p-force.elevator": "pass", "p-force.newton-unit": "pass", "p-force.g-fma": "pass", "p-force.g-incline": "pass", "p-force.g-circ": "pass", "p-energy.normal-work": "pass", "p-energy.conservative": "pass", "p-energy.wet": "pass", "p-energy.watt": "pass", "p-energy.ramp": "pass", "p-energy.g-ke": "pass", "p-energy.g-drop-v": "pass", "p-energy.g-work": "pass-noted", "p-energy.g-power": "pass", "p-mom.conserve": "pass", "p-mom.elastic": "pass", "p-mom.inelastic": "pass", "p-mom.equilibrium": "pass", "p-mom.g-inelastic": "pass", "p-mom.g-impulse": "pass", "p-mom.g-seesaw": "pass", "p-mom.g-torque": "pass-noted", "p-fluid.depth": "pass", "p-fluid.archimedes": "pass", "p-fluid.float": "pass", "p-fluid.continuity": "pass", "p-fluid.bernoulli": "pass", "p-fluid.poiseuille": "pass", "p-fluid.gauge": "pass", "p-fluid.g-hydro": "pass", "p-fluid.g-buoy": "pass", "p-fluid.g-cont": "pass", "p-elec.coulomb": "pass", "p-elec.series": "pass", "p-elec.parallel": "pass", "p-elec.add-parallel": "pass", "p-elec.cap-parallel": "pass", "p-elec.dielectric": "pass", "p-elec.field-dir": "pass", "p-elec.pe-field": "pass", "p-elec.wire-r": "pass", "p-elec.meters": "pass", "p-elec.g-ohm": "pass", "p-elec.g-req": "pass", "p-elec.g-power": "pass", "p-elec.g-coulomb": "pass", "p-wave.sound-medium": "pass", "p-wave.pitch": "pass", "p-wave.doppler": "pass", "p-wave.medium-change": "pass", "p-wave.closed-pipe": "pass", "p-wave.longitudinal": "pass", "p-wave.g-vfl": "pass", "p-wave.g-db": "pass", "p-wave.g-string": "pass", "p-wave.g-pipe": "pass", "p-light.conv-real": "pass", "p-light.diverging": "pass", "p-light.convex-mirror": "pass", "p-light.magnifier": "pass", "p-light.refract": "pass", "p-light.tir": "pass", "p-light.violet": "pass", "p-light.myopia": "pass", "p-light.polar": "pass", "p-light.double-slit": "pass", "p-light.g-lens": "pass", "p-light.g-snell": "pass", "p-light.g-critical": "pass", "p-light.g-diopter": "pass", "c-sep.simple-dist": "pass", "c-sep.fractional": "pass", "c-sep.vacuum": "pass", "c-sep.acid-extract": "pass", "c-sep.amine-extract": "pass", "c-sep.layers": "pass", "c-sep.tlc": "pass", "c-sep.sec": "pass", "c-sep.ion-exchange": "pass", "c-sep.affinity": "pass", "c-sep.sds": "pass", "c-sep.ief": "pass", "c-sep.recryst": "pass", "c-sep.g-rf": "pass", "c-acid.salt-hydrolysis": "pass", "c-acid.pka-pkb": "pass", "c-acid.polyprotic": "pass", "c-acid.indicator": "pass", "c-acid.g-weak-ph": "pass", "c-acid.g-ka": "pass", "c-sol.g-osmotic": "pass", "c-sol.g-raoult": "pass", "c-redox.conc-cell": "pass", "c-redox.nernst": "pass", "c-redox.g-dg-nfe": "pass", "c-redox.g-faraday": "pass", "b-signal.gpcr": "pass", "b-signal.gq": "pass", "b-signal.rtk": "pass", "b-signal.fastest": "pass", "b-signal.paracrine": "pass", "b-signal.amplify": "pass", "b-signal.pde": "pass", "b-nerve.ca-release": "pass", "b-nerve.ipsp": "pass", "b-nerve.summation": "pass", "b-nerve.ache": "pass", "b-nerve.sympathetic": "pass", "b-nerve.parasym-nt": "pass", "b-nerve.glia": "pass", "b-nerve.roots": "pass", "b-nerve.reflex": "pass", "b-endo.posterior": "pass", "b-endo.anterior": "pass", "b-endo.thyroid-fb": "pass", "b-endo.cortisol": "pass", "b-endo.medulla": "pass", "b-endo.thyroid-role": "pass", "b-endo.pth": "pass", "b-endo.releasing": "pass", "b-endo.melatonin": "pass", "b-circ.sa": "pass", "b-circ.av": "pass", "b-circ.velocity": "pass", "b-circ.starling": "pass", "b-circ.lymph": "pass", "b-circ.epo": "pass", "b-circ.type-o": "pass", "b-circ.fetal-hb": "pass", "b-circ.clot": "pass", "b-circ.s1": "pass", "b-circ.g-co": "pass", "b-resp.inhale": "pass", "b-resp.surfactant": "pass", "b-resp.drive": "pass", "b-resp.hypervent": "pass", "b-resp.co": "pass", "b-resp.residual": "pass", "b-resp.diffusion": "pass", "b-digest.parietal": "pass", "b-digest.trypsin": "pass", "b-digest.bile": "pass", "b-digest.cck": "pass", "b-digest.secretin": "pass", "b-digest.chylomicron": "pass", "b-digest.large-int": "pass", "b-digest.glucagon": "pass", "b-digest.amylase": "pass", "b-immune.innate": "pass", "b-immune.mhc2": "pass", "b-immune.mhc1": "pass", "b-immune.maturation": "pass", "b-immune.plasma": "pass", "b-immune.antibody": "pass", "b-immune.secondary": "pass", "b-immune.clonal": "pass", "b-immune.ige": "pass", "b-immune.igg": "pass", "b-immune.nk": "pass", "b-immune.hiv": "pass", "b-muscle.troponin": "pass", "b-muscle.atp-release": "pass", "b-muscle.sarcomere": "pass", "b-muscle.ttubule": "pass", "b-muscle.smooth": "pass", "b-muscle.motor-unit": "pass", "b-muscle.slow-twitch": "pass", "b-muscle.osteo": "pass", "b-muscle.nmj": "pass", "b-muscle.calcitonin": "pass", "b-repro.oogenesis": "pass", "b-repro.arrest": "pass", "b-repro.lh-surge": "pass", "b-repro.corpus": "pass", "b-repro.hcg": "pass", "b-repro.leydig": "pass", "b-repro.fert-site": "pass", "b-repro.polyspermy": "pass", "b-repro.germ-layers": "pass", "b-repro.mesoderm": "pass", "b-repro.cleavage": "pass", "b-repro.induction": "pass", "b-evo.fitness": "pass", "b-evo.drift": "pass", "b-evo.bottleneck": "pass", "b-evo.founder": "pass", "b-evo.stabilizing": "pass", "b-evo.disruptive": "pass", "b-evo.homologous": "pass", "b-evo.allopatric": "pass", "b-evo.mule": "pass", "b-evo.kin": "pass", "b-evo.unit": "pass", "p-shm.pendulum-mass": "pass", "p-shm.pendulum-length": "pass", "p-shm.spring-mass": "pass", "p-shm.max-speed": "pass", "p-shm.period-freq": "pass", "p-shm.g-hooke": "pass", "p-shm.g-spring-pe": "pass", "p-shm.g-spring-t": "pass", "p-heat.first-law": "pass", "p-heat.isothermal": "pass", "p-heat.adiabatic": "pass", "p-heat.pv-area": "pass", "p-heat.transfer": "pass", "p-heat.convection": "pass", "p-heat.second-law": "pass", "p-heat.g-melt": "pass", "p-heat.g-expand": "pass", "p-heat.g-pdv": "pass", "p-heat.g-carnot": "pass", "p-heat.g-kelvin": "pass", "p-mag.no-work": "pass", "p-mag.parallel-v": "pass", "p-mag.wire-field": "pass", "p-mag.parallel-currents": "pass", "p-mag.tesla": "pass", "p-mag.g-qvb": "pass", "p-mag.g-radius": "pass", "p-atomic.intensity": "pass", "p-atomic.threshold": "pass", "p-atomic.absorption": "pass", "p-atomic.fluorescence": "pass", "p-atomic.bohr": "pass", "p-atomic.g-photoelectric": "pass", "p-atomic.g-hydrogen": "pass", "p-elec.equipotential": "pass", "p-elec.plate-gap": "pass", "p-elec.g-cap-energy": "pass", "p-elec.g-field-plates": "pass", "p-elec.g-terminal": "pass"}};
 
 ;
 /* ==== db.js ==== */
@@ -2514,8 +3128,9 @@ function viewAbout() {
   const v = Object.values(CROSSCHECK.verdicts), q = v.filter(x => x === 'disagree').length;
   app().innerHTML = `${topBar('ABOUT THE CARDS', ITEMS.length + ' cards', '#/settings')}
     <div class="card small stack">
-      <p><b>Who wrote them.</b> Every card was written for this app by Claude (${esc(PROVENANCE.model)}) on ${esc(PROVENANCE.createdAt)}. None is copied or paraphrased from AAMC or any prep company; AAMC category codes are used only as tags.</p>
-      <p><b>How they were checked.</b> On ${esc(CROSSCHECK.date)}, two fresh checkers (${CROSSCHECK.checkers.map(esc).join('; ')}) answered every card with the key hidden. ${v.length - q} agreed with the key; ${q} were quarantined. Calculation cards compute their own answers in code, with new numbers each time.</p>
+      <p><b>Who wrote them.</b> Every card was written for this app by Claude (${esc(PROVENANCE.model)}) in November 2026. None is copied or paraphrased from AAMC or any prep company; AAMC category codes are used only as tags.</p>
+      <p><b>How they were checked.</b> Two fresh checkers (${CROSSCHECK.checkers.map(esc).join('; ')}) answered every card with the key hidden. ${v.length - q} agreed with the key; ${q} were quarantined. Only checked cards enter Intake. Calculation cards compute their own answers in code, with new numbers each time.</p>
+      <ul class="small muted" style="margin:0;padding-left:18px">${(CROSSCHECK.rounds || [CROSSCHECK.date]).map(r => `<li>${esc(r)}</li>`).join('')}</ul>
       <p><b>What that does not mean.</b> No human expert has reviewed them yet. If anything looks wrong, tap ⚑ Flag: the card leaves your reviews at once.</p>
       <p><b>Licenses.</b> Code: MIT. Cards: CC BY-NC-SA 4.0. Non-commercial: no ads, no payments.</p>
       <p><b>Use it with the real thing.</b> This complements AAMC's official materials; it doesn't replace them.</p>

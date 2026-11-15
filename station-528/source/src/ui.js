@@ -536,8 +536,9 @@ function viewAbout() {
   const v = Object.values(CROSSCHECK.verdicts), q = v.filter(x => x === 'disagree').length;
   app().innerHTML = `${topBar('ABOUT THE CARDS', ITEMS.length + ' cards', '#/settings')}
     <div class="card small stack">
-      <p><b>Who wrote them.</b> Every card was written for this app by Claude (${esc(PROVENANCE.model)}) on ${esc(PROVENANCE.createdAt)}. None is copied or paraphrased from AAMC or any prep company; AAMC category codes are used only as tags.</p>
-      <p><b>How they were checked.</b> On ${esc(CROSSCHECK.date)}, two fresh checkers (${CROSSCHECK.checkers.map(esc).join('; ')}) answered every card with the key hidden. ${v.length - q} agreed with the key; ${q} were quarantined. Calculation cards compute their own answers in code, with new numbers each time.</p>
+      <p><b>Who wrote them.</b> Every card was written for this app by Claude (${esc(PROVENANCE.model)}) in November 2026. None is copied or paraphrased from AAMC or any prep company; AAMC category codes are used only as tags.</p>
+      <p><b>How they were checked.</b> Two fresh checkers (${CROSSCHECK.checkers.map(esc).join('; ')}) answered every card with the key hidden. ${v.length - q} agreed with the key; ${q} were quarantined. Only checked cards enter Intake. Calculation cards compute their own answers in code, with new numbers each time.</p>
+      <ul class="small muted" style="margin:0;padding-left:18px">${(CROSSCHECK.rounds || [CROSSCHECK.date]).map(r => `<li>${esc(r)}</li>`).join('')}</ul>
       <p><b>What that does not mean.</b> No human expert has reviewed them yet. If anything looks wrong, tap ⚑ Flag: the card leaves your reviews at once.</p>
       <p><b>Licenses.</b> Code: MIT. Cards: CC BY-NC-SA 4.0. Non-commercial: no ads, no payments.</p>
       <p><b>Use it with the real thing.</b> This complements AAMC's official materials; it doesn't replace them.</p>

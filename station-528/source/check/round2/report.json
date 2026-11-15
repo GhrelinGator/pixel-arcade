@@ -1,0 +1,47 @@
+[
+ {
+  "id": "c-sep.simple-dist",
+  "verdict": "pass-noted",
+  "key": "Simple distillation",
+  "A": {
+   "ok": true,
+   "got": "Simple distillation",
+   "note": "Fractional distillation also separates them, arguably better; 'best' is ambiguous, though an 80 °C gap conventionally calls for simple distillation."
+  },
+  "B": {
+   "ok": true,
+   "got": "Simple distillation",
+   "note": "80 °C gap: simple distillation suffices; fractional also works. \"Best\" is ambiguous."
+  }
+ },
+ {
+  "id": "c-acid.polyprotic",
+  "verdict": "pass-noted",
+  "key": "Three, with Ka₁ > Ka₂ > Ka₃",
+  "A": {
+   "ok": true,
+   "got": "Three, with Ka₁ > Ka₂ > Ka₃",
+   "note": "In practice H3PO4's third equivalence point isn't visible in aqueous titration (Ka3 ~ 1e-13), so 'appear' is misleading; D is the textbook answer."
+  },
+  "B": {
+   "ok": true,
+   "got": "Three, with Ka₁ > Ka₂ > Ka₃",
+   "note": "Three equivalence points exist, but the third (HPO4 2-) is not practically observable; options C and D both defensible."
+  }
+ },
+ {
+  "id": "b-repro.oogenesis",
+  "verdict": "pass-noted",
+  "key": "One egg and two or three polar bodies",
+  "A": {
+   "ok": true,
+   "got": "One egg and two or three polar bodies",
+   "note": ""
+  },
+  "B": {
+   "ok": true,
+   "got": "One egg and two or three polar bodies",
+   "note": "Polar bodies count (two or three) depends on whether first polar body divides; fine but slightly ambiguous."
+  }
+ }
+]

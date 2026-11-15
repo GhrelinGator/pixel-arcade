@@ -24,9 +24,9 @@ Planned for later versions, per the spec: Scout pretests, the Workshop ladder, c
 
 ## The cards
 
-- **Deck.** 354 original cards across 29 units of General Chemistry I–II, General Biology I–II and Physics I–II. 58 of them are calculation cards that generate fresh numbers on every review, and code computes their answers.
+- **Deck.** 516 original cards across 44 units of General Chemistry I–II, General Biology I–II and Physics I–II, covering every Bio/Biochem and Chem/Phys content category (1A–5E). 81 of them are calculation cards that generate fresh numbers on every review, and code computes their answers. Psych/Soc and CARS arrive in later versions.
 - **No AAMC material.** AAMC content-category codes are used as tags only.
-- **Blind cross-check.** Two fresh-context checkers (Claude Opus 5.5 and Claude Sonnet 5.5) answered every card with the key hidden and the options shuffled differently, as in spec §8.3, step 4. All 354 agreed with the key. The audit trail is in `check/`.
+- **Blind cross-check.** Two fresh-context checkers (Claude Opus 5.5 and Claude Sonnet 5.5) answered every card with the key hidden and the options shuffled differently, as in spec §8.3, step 4: the first 354 cards on Nov 14, the 162 expansion cards on Nov 15. Every card agreed with its key; three that a checker called loosely worded were rewritten and passed a second blind check. Only cross-checked cards can enter Intake. The audit trail is in `check/` and `check/round2/`.
 - **No human expert review yet.** Use ⚑ Flag on anything doubtful.
 
 ## Build and test

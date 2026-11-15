@@ -1,0 +1,1610 @@
+[
+ {
+  "id": "Q001",
+  "format": "choice",
+  "question": "In the photoelectric effect, making the light brighter (same frequency, above threshold):",
+  "options": {
+   "A": "Has no effect",
+   "B": "Lowers the work function",
+   "C": "Ejects more electrons but does not raise their maximum kinetic energy",
+   "D": "Raises the electrons' maximum kinetic energy"
+  }
+ },
+ {
+  "id": "Q002",
+  "format": "choice",
+  "question": "On a pressure–volume diagram, the work done by a gas equals:",
+  "options": {
+   "A": "The slope of the curve",
+   "B": "The height of the curve",
+   "C": "The product of the starting P and V",
+   "D": "The area under the curve"
+  }
+ },
+ {
+  "id": "Q003",
+  "format": "choice",
+  "question": "A good recrystallization solvent dissolves your compound:",
+  "options": {
+   "A": "Well when hot and poorly when cold",
+   "B": "Poorly at all temperatures",
+   "C": "Well when cold and poorly when hot",
+   "D": "Well at all temperatures"
+  }
+ },
+ {
+  "id": "Q004",
+  "format": "choice",
+  "question": "An ether solution holds a carboxylic acid and a neutral compound. Shaking it with aqueous NaHCO₃:",
+  "options": {
+   "A": "Moves the acid into the water layer as its carboxylate salt",
+   "B": "Leaves both in the ether",
+   "C": "Destroys the acid",
+   "D": "Moves the neutral compound into the water layer"
+  }
+ },
+ {
+  "id": "Q005",
+  "format": "choice",
+  "question": "After one sperm enters the egg, what prevents others from fertilizing it?",
+  "options": {
+   "A": "The cortical reaction, which hardens the zona pellucida",
+   "B": "Cleavage",
+   "C": "The acrosome reaction",
+   "D": "Implantation"
+  }
+ },
+ {
+  "id": "Q006",
+  "format": "number",
+  "question": "A gas at a constant 1 × 10^5 Pa expands by 0.001 m³. How much work (J) does it do?"
+ },
+ {
+  "id": "Q007",
+  "format": "choice",
+  "question": "Bile is made by the ___ and helps digestion by ___.",
+  "options": {
+   "A": "Pancreas; emulsifying fats",
+   "B": "Gallbladder; digesting proteins",
+   "C": "Liver; digesting fats enzymatically",
+   "D": "Liver; emulsifying fats"
+  }
+ },
+ {
+  "id": "Q008",
+  "format": "number",
+  "question": "Pure water has a vapor pressure of 24 torr. What is the vapor pressure (torr) of a solution with a nonvolatile solute where the mole fraction of water is 0.9?"
+ },
+ {
+  "id": "Q009",
+  "format": "choice",
+  "question": "For a conjugate acid–base pair in water at 25 °C, pKa + pKb equals:",
+  "options": {
+   "A": "7",
+   "B": "14",
+   "C": "1",
+   "D": "0"
+  }
+ },
+ {
+  "id": "Q010",
+  "format": "choice",
+  "question": "What is the main job of the large intestine?",
+  "options": {
+   "A": "Digesting proteins",
+   "B": "Making bile",
+   "C": "Absorbing water and electrolytes",
+   "D": "Absorbing most nutrients"
+  }
+ },
+ {
+  "id": "Q011",
+  "format": "choice",
+  "question": "Why can type O red cells be given to patients of any ABO type?",
+  "options": {
+   "A": "Type O plasma has no antibodies",
+   "B": "Type O cells are Rh-negative",
+   "C": "They carry neither A nor B antigens",
+   "D": "They carry both A and B antigens"
+  }
+ },
+ {
+  "id": "Q012",
+  "format": "choice",
+  "question": "Warm air rising from a radiator and circulating around a room transfers heat by:",
+  "options": {
+   "A": "Sublimation",
+   "B": "Conduction",
+   "C": "Radiation",
+   "D": "Convection"
+  }
+ },
+ {
+  "id": "Q013",
+  "format": "number",
+  "question": "Photons of 3 eV hit a metal with a work function of 2 eV. What is the maximum kinetic energy of the ejected electrons (eV)?"
+ },
+ {
+  "id": "Q014",
+  "format": "choice",
+  "question": "A virus-infected cell is killed by a cytotoxic T cell. What did the T cell recognize?",
+  "options": {
+   "A": "A viral peptide on MHC class II",
+   "B": "An antibody on the cell",
+   "C": "A viral peptide on MHC class I",
+   "D": "Complement on the cell"
+  }
+ },
+ {
+  "id": "Q015",
+  "format": "choice",
+  "question": "Genetic drift has the biggest effect in:",
+  "options": {
+   "A": "Large populations",
+   "B": "Populations with high gene flow",
+   "C": "Small populations",
+   "D": "Populations under strong selection"
+  }
+ },
+ {
+  "id": "Q016",
+  "format": "choice",
+  "question": "A few settlers start an isolated colony, which ends up with an unusual frequency of a rare disease allele. This is:",
+  "options": {
+   "A": "Natural selection for the disease",
+   "B": "The founder effect",
+   "C": "Mutation",
+   "D": "A bottleneck effect"
+  }
+ },
+ {
+  "id": "Q017",
+  "format": "choice",
+  "question": "Which antibody class crosses the placenta to protect the fetus?",
+  "options": {
+   "A": "IgE",
+   "B": "IgG",
+   "C": "IgD",
+   "D": "IgM"
+  }
+ },
+ {
+  "id": "Q018",
+  "format": "number",
+  "question": "A particle of mass 0.001 kg and charge 0.005 C moves at 10 m/s perpendicular to a 4 T field. What is the radius of its circular path (m)?"
+ },
+ {
+  "id": "Q019",
+  "format": "choice",
+  "question": "At ovulation, the secondary oocyte is arrested in:",
+  "options": {
+   "A": "Metaphase II, completing meiosis only if fertilized",
+   "B": "Anaphase I",
+   "C": "Interphase",
+   "D": "Prophase I"
+  }
+ },
+ {
+  "id": "Q020",
+  "format": "choice",
+  "question": "A heat lamp warms your hand across empty space by:",
+  "options": {
+   "A": "Conduction",
+   "B": "Convection",
+   "C": "Radiation",
+   "D": "Evaporation"
+  }
+ },
+ {
+  "id": "Q021",
+  "format": "choice",
+  "question": "Cortisol, released during prolonged stress, tends to:",
+  "options": {
+   "A": "Lower blood glucose",
+   "B": "Raise blood glucose and suppress the immune response",
+   "C": "Lower blood calcium",
+   "D": "Increase water excretion"
+  }
+ },
+ {
+  "id": "Q022",
+  "format": "choice",
+  "question": "An ideal gas expands isothermally. Which is true?",
+  "options": {
+   "A": "ΔU = 0, so the heat absorbed equals the work done",
+   "B": "No heat is exchanged",
+   "C": "No work is done",
+   "D": "The temperature rises"
+  }
+ },
+ {
+  "id": "Q023",
+  "format": "choice",
+  "question": "Which cells secrete antibodies?",
+  "options": {
+   "A": "Plasma cells (activated B cells)",
+   "B": "Helper T cells",
+   "C": "Neutrophils",
+   "D": "Macrophages"
+  }
+ },
+ {
+  "id": "Q024",
+  "format": "choice",
+  "question": "A human arm and a bat wing have the same bones in the same arrangement. They are:",
+  "options": {
+   "A": "Vestigial structures",
+   "B": "Homologous structures, from a common ancestor",
+   "C": "Analogous structures, from convergent evolution",
+   "D": "Unrelated"
+  }
+ },
+ {
+  "id": "Q025",
+  "format": "choice",
+  "question": "Which evolves: individuals or populations?",
+  "options": {
+   "A": "Neither",
+   "B": "Both equally",
+   "C": "Populations: allele frequencies change across generations",
+   "D": "Individuals: they adapt their genes during life"
+  }
+ },
+ {
+  "id": "Q026",
+  "format": "choice",
+  "question": "Type I (slow-twitch) muscle fibers are:",
+  "options": {
+   "A": "Unable to use oxygen",
+   "B": "Fast, glycolytic and quick to fatigue",
+   "C": "Rich in mitochondria and myoglobin, and fatigue-resistant",
+   "D": "Found only in the heart"
+  }
+ },
+ {
+  "id": "Q027",
+  "format": "choice",
+  "question": "One hormone molecule can lead to thousands of product molecules inside a cell. This is because:",
+  "options": {
+   "A": "The hormone is copied inside the cell",
+   "B": "Receptors divide when activated",
+   "C": "Each step of the cascade activates many molecules of the next",
+   "D": "Second messengers are made by the ribosome"
+  }
+ },
+ {
+  "id": "Q028",
+  "format": "choice",
+  "question": "A disaster kills most of a population, and the survivors happen to carry only a few alleles. This is:",
+  "options": {
+   "A": "Directional selection",
+   "B": "A founder effect",
+   "C": "Gene flow",
+   "D": "A bottleneck effect"
+  }
+ },
+ {
+  "id": "Q029",
+  "format": "choice",
+  "question": "What normally drives the urge to breathe most strongly?",
+  "options": {
+   "A": "Rising blood glucose",
+   "B": "Rising blood pressure",
+   "C": "Falling O₂ at normal altitude",
+   "D": "Rising CO₂ (sensed through falling pH)"
+  }
+ },
+ {
+  "id": "Q030",
+  "format": "choice",
+  "question": "H₃PO₄ is titrated with NaOH. How many equivalence points appear?",
+  "options": {
+   "A": "Two, because only two protons are acidic",
+   "B": "One",
+   "C": "Three, with Ka₁ < Ka₂ < Ka₃",
+   "D": "Three, with Ka₁ > Ka₂ > Ka₃"
+  }
+ },
+ {
+  "id": "Q031",
+  "format": "choice",
+  "question": "A charge moves parallel to a magnetic field. The magnetic force on it is:",
+  "options": {
+   "A": "Maximum",
+   "B": "Along the field",
+   "C": "Opposite to its motion",
+   "D": "Zero"
+  }
+ },
+ {
+  "id": "Q032",
+  "format": "choice",
+  "question": "What is the main effect of thyroid hormone (T₃/T₄)?",
+  "options": {
+   "A": "It lowers blood calcium",
+   "B": "It triggers ovulation",
+   "C": "It raises basal metabolic rate",
+   "D": "It controls water reabsorption"
+  }
+ },
+ {
+  "id": "Q033",
+  "format": "choice",
+  "question": "Clonal selection means that:",
+  "options": {
+   "A": "All lymphocytes respond to every antigen",
+   "B": "Lymphocytes change their receptors to fit each new antigen",
+   "C": "An antigen activates the lymphocytes whose receptors already match it, and they multiply",
+   "D": "Antigens are copied by B cells"
+  }
+ },
+ {
+  "id": "Q034",
+  "format": "choice",
+  "question": "A gas absorbs 500 J of heat and does 200 J of work on its surroundings. Its internal energy:",
+  "options": {
+   "A": "Rises by 500 J",
+   "B": "Falls by 300 J",
+   "C": "Rises by 700 J",
+   "D": "Rises by 300 J"
+  }
+ },
+ {
+  "id": "Q035",
+  "format": "choice",
+  "question": "At the neuromuscular junction, the motor neuron releases:",
+  "options": {
+   "A": "GABA",
+   "B": "Dopamine",
+   "C": "Acetylcholine",
+   "D": "Norepinephrine"
+  }
+ },
+ {
+  "id": "Q036",
+  "format": "choice",
+  "question": "Compared with adult hemoglobin, fetal hemoglobin:",
+  "options": {
+   "A": "Cannot bind O₂",
+   "B": "Binds O₂ less tightly",
+   "C": "Binds CO₂ instead of O₂",
+   "D": "Binds O₂ more tightly, so it can take O₂ from the mother's blood"
+  }
+ },
+ {
+  "id": "Q037",
+  "format": "choice",
+  "question": "Which hormone does the anterior pituitary release?",
+  "options": {
+   "A": "ACTH",
+   "B": "Cortisol",
+   "C": "Oxytocin",
+   "D": "ADH"
+  }
+ },
+ {
+  "id": "Q038",
+  "format": "choice",
+  "question": "For a weak acid titrated with NaOH (equivalence pH ≈ 8.5), the best indicator is one whose color change is near:",
+  "options": {
+   "A": "pH 5",
+   "B": "pH 8–10, like phenolphthalein",
+   "C": "pH 12–13",
+   "D": "pH 3–4, like methyl orange"
+  }
+ },
+ {
+  "id": "Q039",
+  "format": "choice",
+  "question": "How does the nervous system make a muscle contract more forcefully?",
+  "options": {
+   "A": "By recruiting more motor units and firing them faster",
+   "B": "By adding new muscle fibers",
+   "C": "By making each fiber contract more strongly on its own",
+   "D": "By releasing more Ca²⁺ into the blood"
+  }
+ },
+ {
+  "id": "Q040",
+  "format": "choice",
+  "question": "Acidic chyme entering the duodenum triggers secretin, which causes:",
+  "options": {
+   "A": "The pancreas to release bicarbonate-rich fluid",
+   "B": "The gallbladder to contract",
+   "C": "Insulin release",
+   "D": "More HCl secretion"
+  }
+ },
+ {
+  "id": "Q041",
+  "format": "choice",
+  "question": "The first heart sound (\"lub\") is caused by:",
+  "options": {
+   "A": "The semilunar valves closing",
+   "B": "The AV valves closing as the ventricles start to contract",
+   "C": "The atria contracting",
+   "D": "Blood entering the aorta"
+  }
+ },
+ {
+  "id": "Q042",
+  "format": "choice",
+  "question": "What does pulmonary surfactant do?",
+  "options": {
+   "A": "Carries O₂ across the membrane",
+   "B": "Lowers surface tension so alveoli don't collapse",
+   "C": "Raises surface tension to help exhalation",
+   "D": "Kills inhaled bacteria"
+  }
+ },
+ {
+  "id": "Q043",
+  "format": "choice",
+  "question": "Human birth weight clusters near an average because very small and very large babies have lower survival. This is:",
+  "options": {
+   "A": "Stabilizing selection",
+   "B": "Sexual selection",
+   "C": "Disruptive selection",
+   "D": "Directional selection"
+  }
+ },
+ {
+  "id": "Q044",
+  "format": "choice",
+  "question": "A hormone binds a G protein-coupled receptor that activates adenylyl cyclase. What is the second messenger?",
+  "options": {
+   "A": "IP₃",
+   "B": "cAMP",
+   "C": "Tyrosine phosphate",
+   "D": "Ca²⁺ from the ER"
+  }
+ },
+ {
+  "id": "Q045",
+  "format": "number",
+  "question": "A 6 V battery with 0.5 Ω internal resistance drives a 5 Ω resistor. What is the terminal voltage (V)?"
+ },
+ {
+  "id": "Q046",
+  "format": "choice",
+  "question": "In a running galvanic cell, product concentrations rise. What happens to the cell voltage?",
+  "options": {
+   "A": "It rises",
+   "B": "It reverses sign at once",
+   "C": "It falls toward zero",
+   "D": "It stays at E°"
+  }
+ },
+ {
+  "id": "Q047",
+  "format": "choice",
+  "question": "Where does fertilization usually occur?",
+  "options": {
+   "A": "In the uterus",
+   "B": "In the fallopian tube (oviduct)",
+   "C": "In the ovary",
+   "D": "In the vagina"
+  }
+ },
+ {
+  "id": "Q048",
+  "format": "number",
+  "question": "A 1 μC charge moves at 1000 m/s at 30° to a 2 T magnetic field. What is the force on it (N)? (sin 30° = 0.5)"
+ },
+ {
+  "id": "Q049",
+  "format": "choice",
+  "question": "Two parallel wires carry current in the same direction. They:",
+  "options": {
+   "A": "Repel each other",
+   "B": "Attract each other",
+   "C": "Feel no force",
+   "D": "Twist around each other"
+  }
+ },
+ {
+  "id": "Q050",
+  "format": "number",
+  "question": "A 1 m steel rod (α = 1.2 × 10^-5 /°C) warms by 50 °C. How much longer does it get, in mm?"
+ },
+ {
+  "id": "Q051",
+  "format": "choice",
+  "question": "Meiosis in a woman produces from one primary oocyte:",
+  "options": {
+   "A": "Four eggs",
+   "B": "One egg and nothing else",
+   "C": "One egg and two or three polar bodies",
+   "D": "Two eggs"
+  }
+ },
+ {
+  "id": "Q052",
+  "format": "number",
+  "question": "On a TLC plate the solvent front travels 8 cm and a spot travels 2 cm. What is the spot's Rf?"
+ },
+ {
+  "id": "Q053",
+  "format": "choice",
+  "question": "A mass on a spring oscillates. Doubling the mass makes the period:",
+  "options": {
+   "A": "Twice as long",
+   "B": "Unchanged",
+   "C": "Half as long",
+   "D": "√2 times longer"
+  }
+ },
+ {
+  "id": "Q054",
+  "format": "choice",
+  "question": "In isoelectric focusing, a protein stops moving where:",
+  "options": {
+   "A": "The gel ends",
+   "B": "The pH equals 7",
+   "C": "The pH equals its isoelectric point (net charge zero)",
+   "D": "It reaches the positive electrode"
+  }
+ },
+ {
+  "id": "Q055",
+  "format": "choice",
+  "question": "In an extraction with dichloromethane (density 1.33 g/mL) and water, the organic layer is:",
+  "options": {
+   "A": "On top",
+   "B": "Mixed with the water",
+   "C": "Whichever was added first",
+   "D": "On the bottom"
+  }
+ },
+ {
+  "id": "Q056",
+  "format": "number",
+  "question": "What is the osmotic pressure (atm) of 0.1 M NaCl at 310 K? (R = 0.0821 L·atm/(mol·K); assume complete dissociation.)"
+ },
+ {
+  "id": "Q057",
+  "format": "choice",
+  "question": "Which response is driven by the sympathetic nervous system?",
+  "options": {
+   "A": "Digestion speeds up",
+   "B": "The bronchioles constrict",
+   "C": "Pupils dilate and heart rate rises",
+   "D": "The heart slows"
+  }
+ },
+ {
+  "id": "Q058",
+  "format": "choice",
+  "question": "How are period and frequency related?",
+  "options": {
+   "A": "f = 1/T",
+   "B": "f = 2T",
+   "C": "f = T²",
+   "D": "f = T"
+  }
+ },
+ {
+  "id": "Q059",
+  "format": "choice",
+  "question": "A cool gas in front of a hot light source produces dark lines in the spectrum. These lines are at:",
+  "options": {
+   "A": "The same wavelengths the gas emits when heated",
+   "B": "Only infrared wavelengths",
+   "C": "Random wavelengths",
+   "D": "Wavelengths the gas cannot absorb"
+  }
+ },
+ {
+  "id": "Q060",
+  "format": "choice",
+  "question": "How do hypothalamic releasing hormones reach the anterior pituitary?",
+  "options": {
+   "A": "Down the axons of the pituitary stalk",
+   "B": "Through the cerebrospinal fluid",
+   "C": "Through the general circulation",
+   "D": "Through the hypophyseal portal blood vessels"
+  }
+ },
+ {
+  "id": "Q061",
+  "format": "choice",
+  "question": "Hyperventilation leads to:",
+  "options": {
+   "A": "No change in pH",
+   "B": "Respiratory alkalosis, from blowing off CO₂",
+   "C": "Metabolic acidosis",
+   "D": "Respiratory acidosis"
+  }
+ },
+ {
+  "id": "Q062",
+  "format": "choice",
+  "question": "Where do T cells mature?",
+  "options": {
+   "A": "Spleen",
+   "B": "Lymph nodes",
+   "C": "Bone marrow",
+   "D": "Thymus"
+  }
+ },
+ {
+  "id": "Q063",
+  "format": "choice",
+  "question": "Which part of an antibody binds the antigen?",
+  "options": {
+   "A": "The constant region of the heavy chain",
+   "B": "The variable regions at the tips of the heavy and light chains",
+   "C": "The hinge only",
+   "D": "The disulfide bonds"
+  }
+ },
+ {
+  "id": "Q064",
+  "format": "choice",
+  "question": "Why is the response to a second exposure (or after a vaccine) faster and stronger?",
+  "options": {
+   "A": "The antigen is weaker the second time",
+   "B": "Memory B and T cells specific to the antigen already exist",
+   "C": "Antibodies from the first response last forever",
+   "D": "Innate immunity has learned"
+  }
+ },
+ {
+  "id": "Q065",
+  "format": "short answer",
+  "question": "Which structure sets the normal heart rate?"
+ },
+ {
+  "id": "Q066",
+  "format": "choice",
+  "question": "In a habitat with only very large and very small seeds, birds with medium beaks do worst. Over time, this leads to:",
+  "options": {
+   "A": "Disruptive selection, favoring both extremes",
+   "B": "Stabilizing selection",
+   "C": "No change",
+   "D": "Directional selection toward medium beaks"
+  }
+ },
+ {
+  "id": "Q067",
+  "format": "number",
+  "question": "A 0.5 kg mass oscillates on a spring with k = 50 N/m. What is the period (s)? (Use π ≈ 3.14.)"
+ },
+ {
+  "id": "Q068",
+  "format": "short answer",
+  "question": "The air left in the lungs after the most forceful exhalation is the ___ volume."
+ },
+ {
+  "id": "Q069",
+  "format": "choice",
+  "question": "A river splits a population in two, and over time the groups can no longer interbreed. This is:",
+  "options": {
+   "A": "Convergent evolution",
+   "B": "Allopatric speciation",
+   "C": "Gene flow",
+   "D": "Sympatric speciation"
+  }
+ },
+ {
+  "id": "Q070",
+  "format": "choice",
+  "question": "Which organ releases erythropoietin when blood oxygen is low?",
+  "options": {
+   "A": "Liver",
+   "B": "Spleen",
+   "C": "Kidney",
+   "D": "Bone marrow"
+  }
+ },
+ {
+  "id": "Q071",
+  "format": "choice",
+  "question": "A concentration cell has the same metal and solution in both halves, at different concentrations. Which is true?",
+  "options": {
+   "A": "It produces no current at all",
+   "B": "E°cell = 0, but current flows until the concentrations become equal",
+   "C": "Its voltage rises over time",
+   "D": "The more dilute side is the cathode"
+  }
+ },
+ {
+  "id": "Q072",
+  "format": "choice",
+  "question": "In skeletal muscle, Ca²⁺ triggers contraction by binding to:",
+  "options": {
+   "A": "Calmodulin",
+   "B": "Myosin, which then binds ATP",
+   "C": "Troponin, which moves tropomyosin off myosin-binding sites on actin",
+   "D": "Actin directly"
+  }
+ },
+ {
+  "id": "Q073",
+  "format": "choice",
+  "question": "Allergic reactions involve which antibody class, bound to mast cells?",
+  "options": {
+   "A": "IgE",
+   "B": "IgM",
+   "C": "IgA",
+   "D": "IgG"
+  }
+ },
+ {
+  "id": "Q074",
+  "format": "short answer",
+  "question": "Which gland secretes melatonin, which helps regulate sleep?"
+ },
+ {
+  "id": "Q075",
+  "format": "choice",
+  "question": "Which cells break down bone and release calcium?",
+  "options": {
+   "A": "Osteoblasts",
+   "B": "Osteocytes",
+   "C": "Osteoclasts",
+   "D": "Chondrocytes"
+  }
+ },
+ {
+  "id": "Q076",
+  "format": "number",
+  "question": "A heat engine runs between 400 K and 300 K. What is its maximum possible efficiency, as a percent?"
+ },
+ {
+  "id": "Q077",
+  "format": "choice",
+  "question": "To pull an amine out of an organic layer into water, you wash with:",
+  "options": {
+   "A": "Dilute HCl",
+   "B": "Pure water",
+   "C": "NaOH",
+   "D": "NaHCO₃"
+  }
+ },
+ {
+  "id": "Q078",
+  "format": "choice",
+  "question": "In evolutionary terms, the fittest individual is the one that:",
+  "options": {
+   "A": "Leaves the most surviving, fertile offspring",
+   "B": "Lives longest",
+   "C": "Is strongest",
+   "D": "Is largest"
+  }
+ },
+ {
+  "id": "Q079",
+  "format": "number",
+  "question": "A cell reaction transfers 1 mol of electrons with E° = +0.46 V. What is ΔG°, in kJ? (F = 96,500 C/mol)"
+ },
+ {
+  "id": "Q080",
+  "format": "choice",
+  "question": "The magnetic field around a long straight current-carrying wire:",
+  "options": {
+   "A": "Points straight out from the wire",
+   "B": "Forms circles around the wire",
+   "C": "Is zero",
+   "D": "Points along the wire"
+  }
+ },
+ {
+  "id": "Q081",
+  "format": "number",
+  "question": "A 2 μF capacitor is charged to 10 V. How much energy (J) does it store?"
+ },
+ {
+  "id": "Q082",
+  "format": "number",
+  "question": "A current of 1 A runs for 965 s through a Ag⁺ solution. What mass of metal (g) plates out? (F = 96,500 C/mol; molar mass 108 g/mol)"
+ },
+ {
+  "id": "Q083",
+  "format": "choice",
+  "question": "Calcitonin, from the thyroid, tends to:",
+  "options": {
+   "A": "Raise blood calcium",
+   "B": "Increase osteoclast activity",
+   "C": "Lower blood calcium by reducing bone resorption",
+   "D": "Activate vitamin D"
+  }
+ },
+ {
+  "id": "Q084",
+  "format": "choice",
+  "question": "Why use vacuum distillation?",
+  "options": {
+   "A": "It removes water only",
+   "B": "It separates solids",
+   "C": "It raises the boiling point",
+   "D": "Lowering the pressure lowers the boiling point, so high-boiling or heat-sensitive compounds don't decompose"
+  }
+ },
+ {
+  "id": "Q085",
+  "format": "choice",
+  "question": "Which chromatography uses a ligand (such as an antibody or substrate) bound to beads?",
+  "options": {
+   "A": "Gas chromatography",
+   "B": "Size-exclusion chromatography",
+   "C": "Affinity chromatography",
+   "D": "Thin-layer chromatography"
+  }
+ },
+ {
+  "id": "Q086",
+  "format": "number",
+  "question": "Two parallel plates 1 cm apart have a potential difference of 10 V. What is the field between them (V/m)?"
+ },
+ {
+  "id": "Q087",
+  "format": "number",
+  "question": "Hydrogen levels follow Eₙ = −13.6 eV/n². How much energy (eV) must be added to ionize a hydrogen atom from n = 2?"
+ },
+ {
+  "id": "Q088",
+  "format": "choice",
+  "question": "After ovulation, the corpus luteum secretes mainly:",
+  "options": {
+   "A": "FSH",
+   "B": "Progesterone, which maintains the uterine lining",
+   "C": "LH",
+   "D": "Oxytocin"
+  }
+ },
+ {
+  "id": "Q089",
+  "format": "choice",
+  "question": "Where is blood flow slowest?",
+  "options": {
+   "A": "Arterioles",
+   "B": "Aorta",
+   "C": "Large veins",
+   "D": "Capillaries"
+  }
+ },
+ {
+  "id": "Q090",
+  "format": "choice",
+  "question": "At the arterial end of a capillary, fluid leaves the vessel mainly because:",
+  "options": {
+   "A": "Oncotic pressure exceeds hydrostatic pressure",
+   "B": "Proteins are pumped out",
+   "C": "Hydrostatic pressure exceeds oncotic pressure",
+   "D": "Lymph pulls it out"
+  }
+ },
+ {
+  "id": "Q091",
+  "format": "choice",
+  "question": "Which hormones are released from the posterior pituitary?",
+  "options": {
+   "A": "Growth hormone and prolactin",
+   "B": "ADH and oxytocin",
+   "C": "FSH and LH",
+   "D": "TSH and ACTH"
+  }
+ },
+ {
+  "id": "Q092",
+  "format": "choice",
+  "question": "Caffeine inhibits phosphodiesterase. What happens to cAMP signaling?",
+  "options": {
+   "A": "Receptors are destroyed",
+   "B": "It lasts longer, because cAMP is broken down more slowly",
+   "C": "It stops, because no cAMP is made",
+   "D": "Nothing: phosphodiesterase makes cAMP"
+  }
+ },
+ {
+  "id": "Q093",
+  "format": "choice",
+  "question": "What do T-tubules do in a muscle fiber?",
+  "options": {
+   "A": "Make ATP",
+   "B": "Connect neighboring fibers",
+   "C": "Store calcium",
+   "D": "Carry the action potential deep into the fiber to trigger Ca²⁺ release from the sarcoplasmic reticulum"
+  }
+ },
+ {
+  "id": "Q094",
+  "format": "choice",
+  "question": "In smooth muscle, Ca²⁺ triggers contraction by binding:",
+  "options": {
+   "A": "Tropomyosin",
+   "B": "Calmodulin, which activates myosin light-chain kinase",
+   "C": "Troponin",
+   "D": "Actin"
+  }
+ },
+ {
+  "id": "Q095",
+  "format": "choice",
+  "question": "In the Bohr model of hydrogen, why does the atom emit only certain wavelengths?",
+  "options": {
+   "A": "Every wavelength is emitted but most are absorbed",
+   "B": "Electron energy levels are quantized, so only certain energy gaps exist",
+   "C": "The electron spirals continuously into the nucleus",
+   "D": "The nucleus emits the light"
+  }
+ },
+ {
+  "id": "Q096",
+  "format": "choice",
+  "question": "A pendulum's bob is replaced with one twice as heavy (same length). Its period:",
+  "options": {
+   "A": "Halves",
+   "B": "Stays the same",
+   "C": "Doubles",
+   "D": "Increases by √2"
+  }
+ },
+ {
+  "id": "Q097",
+  "format": "choice",
+  "question": "Why does the AV node delay the impulse?",
+  "options": {
+   "A": "To prevent the SA node from firing",
+   "B": "To let the valves open during systole",
+   "C": "To speed up the heart",
+   "D": "So the atria finish contracting and the ventricles fill before they contract"
+  }
+ },
+ {
+  "id": "Q098",
+  "format": "number",
+  "question": "Heart rate is 60 beats/min and stroke volume is 60 mL. What is cardiac output, in L/min?"
+ },
+ {
+  "id": "Q099",
+  "format": "choice",
+  "question": "Epinephrine is secreted by the:",
+  "options": {
+   "A": "Adrenal medulla",
+   "B": "Anterior pituitary",
+   "C": "Adrenal cortex",
+   "D": "Thyroid"
+  }
+ },
+ {
+  "id": "Q100",
+  "format": "number",
+  "question": "A spring with k = 50 N/m is stretched 0.05 m. What force (N) does it exert?"
+ },
+ {
+  "id": "Q101",
+  "format": "choice",
+  "question": "In the testes, LH stimulates:",
+  "options": {
+   "A": "Sertoli cells to make sperm directly",
+   "B": "Leydig cells to make testosterone",
+   "C": "The prostate",
+   "D": "The epididymis to store sperm"
+  }
+ },
+ {
+  "id": "Q102",
+  "format": "choice",
+  "question": "What neurotransmitter do postganglionic parasympathetic neurons release?",
+  "options": {
+   "A": "Epinephrine",
+   "B": "Norepinephrine",
+   "C": "Dopamine",
+   "D": "Acetylcholine"
+  }
+ },
+ {
+  "id": "Q103",
+  "format": "choice",
+  "question": "Which belongs to the innate immune system?",
+  "options": {
+   "A": "Neutrophils",
+   "B": "B cells",
+   "C": "Memory cells",
+   "D": "Helper T cells"
+  }
+ },
+ {
+  "id": "Q104",
+  "format": "choice",
+  "question": "A gas is compressed quickly, with no time for heat to escape (adiabatic). Its temperature:",
+  "options": {
+   "A": "Stays the same",
+   "B": "Rises",
+   "C": "Falls",
+   "D": "Drops to zero"
+  }
+ },
+ {
+  "id": "Q105",
+  "format": "choice",
+  "question": "A charged particle moves through a uniform magnetic field. The magnetic force on it:",
+  "options": {
+   "A": "Speeds it up",
+   "B": "Does positive work on it",
+   "C": "Slows it down",
+   "D": "Changes its direction but not its speed"
+  }
+ },
+ {
+  "id": "Q106",
+  "format": "choice",
+  "question": "During cleavage, the early embryo:",
+  "options": {
+   "A": "Grows rapidly in size",
+   "B": "Divides into more, smaller cells without growing overall",
+   "C": "Implants in the uterus",
+   "D": "Forms three germ layers"
+  }
+ },
+ {
+  "id": "Q107",
+  "format": "choice",
+  "question": "In primary hypothyroidism the thyroid itself fails. What do you expect for TSH?",
+  "options": {
+   "A": "Low, because the thyroid is not responding",
+   "B": "Zero",
+   "C": "High, because low thyroid hormone removes negative feedback",
+   "D": "Normal"
+  }
+ },
+ {
+  "id": "Q108",
+  "format": "choice",
+  "question": "In the cross-bridge cycle, ATP binding to myosin:",
+  "options": {
+   "A": "Causes the power stroke",
+   "B": "Pumps Na⁺ into the cell",
+   "C": "Exposes the binding sites on actin",
+   "D": "Releases myosin from actin"
+  }
+ },
+ {
+  "id": "Q109",
+  "format": "choice",
+  "question": "How is pancreatic trypsinogen activated?",
+  "options": {
+   "A": "It is active as soon as it is made",
+   "B": "Enteropeptidase on the small-intestine lining cleaves it to trypsin",
+   "C": "Stomach acid activates it",
+   "D": "Bile activates it"
+  }
+ },
+ {
+  "id": "Q110",
+  "format": "short answer",
+  "question": "A signal that acts on nearby cells, without traveling through the blood, is called ___ signaling."
+ },
+ {
+  "id": "Q111",
+  "format": "choice",
+  "question": "The knee-jerk reflex works without the brain because:",
+  "options": {
+   "A": "The sensory neuron synapses directly on a motor neuron in the spinal cord",
+   "B": "The brainstem controls it",
+   "C": "Muscles contract on their own when stretched",
+   "D": "Interneurons in the brain relay it"
+  }
+ },
+ {
+  "id": "Q112",
+  "format": "choice",
+  "question": "In simple harmonic motion, where is the speed greatest?",
+  "options": {
+   "A": "At the equilibrium position",
+   "B": "Halfway to maximum displacement",
+   "C": "At maximum displacement",
+   "D": "It is constant"
+  }
+ },
+ {
+  "id": "Q113",
+  "format": "choice",
+  "question": "When a sarcomere contracts, which band stays the same length?",
+  "options": {
+   "A": "The H zone",
+   "B": "The whole sarcomere",
+   "C": "The I band",
+   "D": "The A band"
+  }
+ },
+ {
+  "id": "Q114",
+  "format": "choice",
+  "question": "To double a pendulum's period, you must make it:",
+  "options": {
+   "A": "Half as long",
+   "B": "Four times as long",
+   "C": "Twice as long",
+   "D": "√2 times as long"
+  }
+ },
+ {
+  "id": "Q115",
+  "format": "choice",
+  "question": "What keeps the corpus luteum alive in early pregnancy?",
+  "options": {
+   "A": "FSH",
+   "B": "Oxytocin",
+   "C": "hCG made by the embryo",
+   "D": "Estrogen from the mother's adrenal glands"
+  }
+ },
+ {
+  "id": "Q116",
+  "format": "choice",
+  "question": "A horse and a donkey produce a healthy but sterile mule. This is which kind of reproductive barrier?",
+  "options": {
+   "A": "Postzygotic (hybrid sterility)",
+   "B": "No barrier",
+   "C": "Prezygotic (behavioral isolation)",
+   "D": "Prezygotic (mechanical isolation)"
+  }
+ },
+ {
+  "id": "Q117",
+  "format": "choice",
+  "question": "Which germ layer gives rise to the nervous system and the epidermis?",
+  "options": {
+   "A": "Ectoderm",
+   "B": "Mesoderm",
+   "C": "Trophoblast",
+   "D": "Endoderm"
+  }
+ },
+ {
+  "id": "Q118",
+  "format": "choice",
+  "question": "Two liquids boil at 60 °C and 140 °C. Which method separates them best?",
+  "options": {
+   "A": "Simple distillation",
+   "B": "Recrystallization",
+   "C": "Fractional distillation",
+   "D": "Vacuum distillation"
+  }
+ },
+ {
+  "id": "Q119",
+  "format": "choice",
+  "question": "Why is carbon monoxide so dangerous?",
+  "options": {
+   "A": "It blocks the airways",
+   "B": "It binds hemoglobin far more tightly than O₂ does, blocking O₂ transport",
+   "C": "It lowers blood pressure",
+   "D": "It destroys red blood cells"
+  }
+ },
+ {
+  "id": "Q120",
+  "format": "choice",
+  "question": "A drug inhibits acetylcholinesterase. At the neuromuscular junction, this:",
+  "options": {
+   "A": "Blocks acetylcholine receptors",
+   "B": "Prolongs acetylcholine's action, so stimulation lasts longer",
+   "C": "Has no effect",
+   "D": "Blocks acetylcholine release"
+  }
+ },
+ {
+  "id": "Q121",
+  "format": "choice",
+  "question": "Which salt makes an acidic solution in water?",
+  "options": {
+   "A": "NaCl",
+   "B": "NH₄Cl",
+   "C": "KNO₃",
+   "D": "CH₃COONa"
+  }
+ },
+ {
+  "id": "Q122",
+  "format": "choice",
+  "question": "When blood calcium falls, parathyroid hormone:",
+  "options": {
+   "A": "Raises calcium: bone resorption, kidney reabsorption and vitamin D activation",
+   "B": "Has no effect on the kidney",
+   "C": "Lowers calcium further",
+   "D": "Builds bone to store calcium"
+  }
+ },
+ {
+  "id": "Q123",
+  "format": "number",
+  "question": "Convert -40 °C to kelvin."
+ },
+ {
+  "id": "Q124",
+  "format": "choice",
+  "question": "The plates of a parallel-plate capacitor are moved twice as far apart. Its capacitance:",
+  "options": {
+   "A": "Stays the same",
+   "B": "Halves",
+   "C": "Quadruples",
+   "D": "Doubles"
+  }
+ },
+ {
+  "id": "Q125",
+  "format": "choice",
+  "question": "What does the lymphatic system do with excess interstitial fluid?",
+  "options": {
+   "A": "Returns it to the blood near the heart",
+   "B": "Stores it in the spleen",
+   "C": "Excretes it in urine",
+   "D": "Converts it to plasma proteins"
+  }
+ },
+ {
+  "id": "Q126",
+  "format": "choice",
+  "question": "HIV weakens the whole adaptive immune response because it destroys:",
+  "options": {
+   "A": "Plasma cells only",
+   "B": "Red blood cells",
+   "C": "Neutrophils",
+   "D": "CD4⁺ helper T cells"
+  }
+ },
+ {
+  "id": "Q127",
+  "format": "choice",
+  "question": "Several EPSPs arriving at once from different synapses add together to reach threshold. This is:",
+  "options": {
+   "A": "Saltatory conduction",
+   "B": "Spatial summation",
+   "C": "Temporal summation",
+   "D": "Facilitated diffusion"
+  }
+ },
+ {
+  "id": "Q128",
+  "format": "choice",
+  "question": "During fasting, glucagon raises blood glucose by:",
+  "options": {
+   "A": "Stimulating glycogen synthesis",
+   "B": "Slowing fat breakdown",
+   "C": "Stimulating glycogen breakdown and gluconeogenesis in the liver",
+   "D": "Stimulating glucose uptake into muscle"
+  }
+ },
+ {
+  "id": "Q129",
+  "format": "choice",
+  "question": "What directly triggers neurotransmitter release at an axon terminal?",
+  "options": {
+   "A": "Ca²⁺ entering through voltage-gated channels",
+   "B": "K⁺ leaving the terminal",
+   "C": "Neurotransmitter binding to the terminal",
+   "D": "Na⁺ entering the terminal"
+  }
+ },
+ {
+  "id": "Q130",
+  "format": "choice",
+  "question": "Which cells make myelin in the peripheral nervous system?",
+  "options": {
+   "A": "Microglia",
+   "B": "Schwann cells",
+   "C": "Oligodendrocytes",
+   "D": "Astrocytes"
+  }
+ },
+ {
+  "id": "Q131",
+  "format": "choice",
+  "question": "Helper T cells (CD4⁺) recognize antigen presented on:",
+  "options": {
+   "A": "MHC class I on all nucleated cells",
+   "B": "MHC class II on antigen-presenting cells",
+   "C": "Free antigen in the blood",
+   "D": "Antibodies"
+  }
+ },
+ {
+  "id": "Q132",
+  "format": "short answer",
+  "question": "What is the SI unit of magnetic field strength?"
+ },
+ {
+  "id": "Q133",
+  "format": "choice",
+  "question": "Gastric parietal cells secrete:",
+  "options": {
+   "A": "Pepsinogen",
+   "B": "Gastrin",
+   "C": "Bicarbonate",
+   "D": "HCl and intrinsic factor"
+  }
+ },
+ {
+  "id": "Q134",
+  "format": "choice",
+  "question": "Which tissue comes from mesoderm?",
+  "options": {
+   "A": "The lining of the lungs",
+   "B": "The brain",
+   "C": "Skeletal muscle",
+   "D": "The lining of the gut"
+  }
+ },
+ {
+  "id": "Q135",
+  "format": "choice",
+  "question": "Two liquids boil at 78 °C and 85 °C. Which method separates them?",
+  "options": {
+   "A": "Fractional distillation",
+   "B": "Simple distillation",
+   "C": "Gravity extraction",
+   "D": "Filtration"
+  }
+ },
+ {
+  "id": "Q136",
+  "format": "choice",
+  "question": "Which receptor type gives the fastest response, within milliseconds?",
+  "options": {
+   "A": "A receptor tyrosine kinase",
+   "B": "A ligand-gated ion channel",
+   "C": "An intracellular steroid receptor",
+   "D": "A G protein-coupled receptor"
+  }
+ },
+ {
+  "id": "Q137",
+  "format": "choice",
+  "question": "How does a receptor tyrosine kinase such as the insulin receptor pass on its signal?",
+  "options": {
+   "A": "Ligand binding brings receptor halves together and they phosphorylate each other's tyrosines",
+   "B": "It moves into the nucleus and binds DNA",
+   "C": "It activates a G protein",
+   "D": "It opens a channel for Na⁺"
+  }
+ },
+ {
+  "id": "Q138",
+  "format": "choice",
+  "question": "How much work does the electric field do on a charge moved along an equipotential surface?",
+  "options": {
+   "A": "Work equal to qE",
+   "B": "None",
+   "C": "It depends on the charge's speed",
+   "D": "The maximum possible"
+  }
+ },
+ {
+  "id": "Q139",
+  "format": "choice",
+  "question": "An inhibitory postsynaptic potential (IPSP) usually results from:",
+  "options": {
+   "A": "Ca²⁺ entering the dendrite",
+   "B": "Cl⁻ entering or K⁺ leaving the cell, making the membrane more negative",
+   "C": "Na⁺ entering the cell",
+   "D": "The Na⁺/K⁺ pump stopping"
+  }
+ },
+ {
+  "id": "Q140",
+  "format": "choice",
+  "question": "In the spinal cord, sensory (afferent) fibers enter through the:",
+  "options": {
+   "A": "Dorsal root",
+   "B": "Sympathetic chain only",
+   "C": "Ventral root",
+   "D": "Brainstem only"
+  }
+ },
+ {
+  "id": "Q141",
+  "format": "choice",
+  "question": "A fluorescent dye absorbs ultraviolet light and glows green. Why is the emitted light lower in energy?",
+  "options": {
+   "A": "The dye gains energy from the surroundings",
+   "B": "Photons slow down in the dye",
+   "C": "Some energy is lost (as vibration/heat) before the photon is emitted",
+   "D": "Green light has more energy than UV"
+  }
+ },
+ {
+  "id": "Q142",
+  "format": "choice",
+  "question": "Light below a metal's threshold frequency shines on it very brightly. What happens?",
+  "options": {
+   "A": "The work function falls",
+   "B": "Electrons are ejected after a delay",
+   "C": "Electrons are ejected slowly",
+   "D": "No electrons are ejected"
+  }
+ },
+ {
+  "id": "Q143",
+  "format": "choice",
+  "question": "Fat entering the duodenum triggers release of:",
+  "options": {
+   "A": "Secretin, which mainly stimulates bicarbonate release",
+   "B": "Insulin",
+   "C": "Gastrin, which increases stomach acid",
+   "D": "Cholecystokinin (CCK), which contracts the gallbladder and stimulates pancreatic enzymes"
+  }
+ },
+ {
+  "id": "Q144",
+  "format": "choice",
+  "question": "In blood clotting, thrombin converts:",
+  "options": {
+   "A": "Fibrinogen into fibrin",
+   "B": "Fibrin into fibrinogen",
+   "C": "Plasminogen into thrombin",
+   "D": "Platelets into red cells"
+  }
+ },
+ {
+  "id": "Q145",
+  "format": "choice",
+  "question": "In SDS-PAGE, proteins separate mainly by:",
+  "options": {
+   "A": "Isoelectric point",
+   "B": "Shape, because they stay folded",
+   "C": "Size (mass), smaller ones moving faster",
+   "D": "Charge, most negative ones moving faster"
+  }
+ },
+ {
+  "id": "Q146",
+  "format": "number",
+  "question": "A 0.1 M weak acid solution has pH 3. Estimate Ka."
+ },
+ {
+  "id": "Q147",
+  "format": "choice",
+  "question": "In size-exclusion chromatography, which proteins come off the column first?",
+  "options": {
+   "A": "The most hydrophobic",
+   "B": "The most charged",
+   "C": "The smallest",
+   "D": "The largest"
+  }
+ },
+ {
+  "id": "Q148",
+  "format": "choice",
+  "question": "During a normal inhalation:",
+  "options": {
+   "A": "Air is pumped in by positive pressure",
+   "B": "Lung pressure rises above atmospheric",
+   "C": "The diaphragm relaxes and pushes air in",
+   "D": "The diaphragm contracts, chest volume rises and lung pressure falls below atmospheric"
+  }
+ },
+ {
+  "id": "Q149",
+  "format": "choice",
+  "question": "What triggers ovulation?",
+  "options": {
+   "A": "A drop in estrogen",
+   "B": "A surge of LH",
+   "C": "hCG from the embryo",
+   "D": "A rise in progesterone"
+  }
+ },
+ {
+  "id": "Q150",
+  "format": "choice",
+  "question": "After absorption, most dietary fats reach the blood by:",
+  "options": {
+   "A": "Direct entry into the hepatic portal vein",
+   "B": "Diffusion into capillaries as free fatty acids",
+   "C": "Packaging into chylomicrons that enter the lacteals (lymph)",
+   "D": "Binding to hemoglobin"
+  }
+ },
+ {
+  "id": "Q151",
+  "format": "choice",
+  "question": "Natural killer cells destroy cells that:",
+  "options": {
+   "A": "Display too much MHC class II",
+   "B": "Are coated in IgE",
+   "C": "Have divided recently",
+   "D": "Display too little MHC class I"
+  }
+ },
+ {
+  "id": "Q152",
+  "format": "number",
+  "question": "How much heat (J) melts 10 g of ice at 0 °C? (Heat of fusion of water = 334 J/g)"
+ },
+ {
+  "id": "Q153",
+  "format": "choice",
+  "question": "A Gq-coupled receptor activates phospholipase C. What happens next?",
+  "options": {
+   "A": "The receptor phosphorylates itself on tyrosines",
+   "B": "PIP₂ is split into IP₃, which releases Ca²⁺ from the ER, and DAG, which activates protein kinase C",
+   "C": "An ion channel in the receptor opens",
+   "D": "ATP is converted to cAMP"
+  }
+ },
+ {
+  "id": "Q154",
+  "format": "choice",
+  "question": "A cation-exchange column has negatively charged beads. Which proteins bind most strongly?",
+  "options": {
+   "A": "Positively charged proteins",
+   "B": "The largest proteins",
+   "C": "Neutral proteins",
+   "D": "Negatively charged proteins"
+  }
+ },
+ {
+  "id": "Q155",
+  "format": "choice",
+  "question": "A worker bee helps raise her sisters instead of reproducing. The best explanation is:",
+  "options": {
+   "A": "She is unfit and cannot reproduce for other reasons",
+   "B": "Group selection for the good of the species",
+   "C": "Kin selection: helping relatives passes on shared genes (inclusive fitness)",
+   "D": "Genetic drift"
+  }
+ },
+ {
+  "id": "Q156",
+  "format": "choice",
+  "question": "Which statement follows from the second law of thermodynamics?",
+  "options": {
+   "A": "Absolute zero can be reached",
+   "B": "Entropy of an isolated system can decrease",
+   "C": "Energy is always conserved",
+   "D": "Heat flows spontaneously from hot to cold, never the reverse on its own"
+  }
+ },
+ {
+  "id": "Q157",
+  "format": "number",
+  "question": "How much elastic potential energy (J) is stored in a spring with k = 100 N/m compressed 0.1 m?"
+ },
+ {
+  "id": "Q158",
+  "format": "number",
+  "question": "A weak acid has Ka = 1 × 10^-4. What is the pH of a 1 × 10^-1 M solution? (Assume x is small.)"
+ },
+ {
+  "id": "Q159",
+  "format": "short answer",
+  "question": "Which enzyme in saliva starts starch digestion?"
+ },
+ {
+  "id": "Q160",
+  "format": "choice",
+  "question": "The notochord signals the overlying ectoderm to form the neural tube. This is an example of:",
+  "options": {
+   "A": "Apoptosis",
+   "B": "Dedifferentiation",
+   "C": "Induction",
+   "D": "Determination by cytoplasm alone"
+  }
+ },
+ {
+  "id": "Q161",
+  "format": "choice",
+  "question": "On a silica TLC plate (polar stationary phase) with a nonpolar solvent, which compound has the lowest Rf?",
+  "options": {
+   "A": "The most polar compound",
+   "B": "The heaviest compound",
+   "C": "All have the same Rf",
+   "D": "The least polar compound"
+  }
+ },
+ {
+  "id": "Q162",
+  "format": "choice",
+  "question": "O₂ moves from alveoli into the blood by:",
+  "options": {
+   "A": "Active transport",
+   "B": "Facilitated diffusion through carriers",
+   "C": "Simple diffusion down its partial-pressure gradient",
+   "D": "Bulk flow through pores"
+  }
+ }
+]

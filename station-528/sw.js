@@ -1,5 +1,5 @@
 /* Station 528 service worker: works offline; the page itself is fetched fresh when online. */
-const VERSION = '744daad45e';
+const VERSION = 'f64a521730';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open('s528-' + VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('s528-') && k !== 's528-' + VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

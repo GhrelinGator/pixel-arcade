@@ -1,0 +1,766 @@
+{
+ "c-sep.simple-dist": {
+  "type": "choice",
+  "key": "Simple distillation"
+ },
+ "c-sep.fractional": {
+  "type": "choice",
+  "key": "Fractional distillation"
+ },
+ "c-sep.vacuum": {
+  "type": "choice",
+  "key": "Lowering the pressure lowers the boiling point, so high-boiling or heat-sensitive compounds don't decompose"
+ },
+ "c-sep.acid-extract": {
+  "type": "choice",
+  "key": "Moves the acid into the water layer as its carboxylate salt"
+ },
+ "c-sep.amine-extract": {
+  "type": "choice",
+  "key": "Dilute HCl"
+ },
+ "c-sep.layers": {
+  "type": "choice",
+  "key": "On the bottom"
+ },
+ "c-sep.tlc": {
+  "type": "choice",
+  "key": "The most polar compound"
+ },
+ "c-sep.sec": {
+  "type": "choice",
+  "key": "The largest"
+ },
+ "c-sep.ion-exchange": {
+  "type": "choice",
+  "key": "Positively charged proteins"
+ },
+ "c-sep.affinity": {
+  "type": "choice",
+  "key": "Affinity chromatography"
+ },
+ "c-sep.sds": {
+  "type": "choice",
+  "key": "Size (mass), smaller ones moving faster"
+ },
+ "c-sep.ief": {
+  "type": "choice",
+  "key": "The pH equals its isoelectric point (net charge zero)"
+ },
+ "c-sep.recryst": {
+  "type": "choice",
+  "key": "Well when hot and poorly when cold"
+ },
+ "c-sep.g-rf": {
+  "type": "num",
+  "num": {
+   "value": 0.25,
+   "tol": 0.01,
+   "unit": ""
+  }
+ },
+ "c-acid.salt-hydrolysis": {
+  "type": "choice",
+  "key": "NH₄Cl"
+ },
+ "c-acid.pka-pkb": {
+  "type": "choice",
+  "key": "14"
+ },
+ "c-acid.polyprotic": {
+  "type": "choice",
+  "key": "Three, with Ka₁ > Ka₂ > Ka₃"
+ },
+ "c-acid.indicator": {
+  "type": "choice",
+  "key": "pH 8–10, like phenolphthalein"
+ },
+ "c-acid.g-weak-ph": {
+  "type": "num",
+  "num": {
+   "value": 2.5,
+   "tol": 0.05,
+   "unit": ""
+  }
+ },
+ "c-acid.g-ka": {
+  "type": "num",
+  "num": {
+   "value": 0.00001,
+   "tolPct": 5,
+   "unit": ""
+  }
+ },
+ "c-sol.g-osmotic": {
+  "type": "num",
+  "num": {
+   "value": 5.0902,
+   "tolPct": 2,
+   "unit": "atm"
+  }
+ },
+ "c-sol.g-raoult": {
+  "type": "num",
+  "num": {
+   "value": 21.6,
+   "tolPct": 2,
+   "unit": "torr"
+  }
+ },
+ "c-redox.conc-cell": {
+  "type": "choice",
+  "key": "E°cell = 0, but current flows until the concentrations become equal"
+ },
+ "c-redox.nernst": {
+  "type": "choice",
+  "key": "It falls toward zero"
+ },
+ "c-redox.g-dg-nfe": {
+  "type": "num",
+  "num": {
+   "value": -44.39,
+   "tolPct": 2,
+   "unit": "kJ"
+  }
+ },
+ "c-redox.g-faraday": {
+  "type": "num",
+  "num": {
+   "value": 1.08,
+   "tolPct": 2,
+   "unit": "g"
+  }
+ },
+ "b-signal.gpcr": {
+  "type": "choice",
+  "key": "cAMP"
+ },
+ "b-signal.gq": {
+  "type": "choice",
+  "key": "PIP₂ is split into IP₃, which releases Ca²⁺ from the ER, and DAG, which activates protein kinase C"
+ },
+ "b-signal.rtk": {
+  "type": "choice",
+  "key": "Ligand binding brings receptor halves together and they phosphorylate each other's tyrosines"
+ },
+ "b-signal.fastest": {
+  "type": "choice",
+  "key": "A ligand-gated ion channel"
+ },
+ "b-signal.paracrine": {
+  "type": "typed",
+  "accepted": [
+   "paracrine"
+  ]
+ },
+ "b-signal.amplify": {
+  "type": "choice",
+  "key": "Each step of the cascade activates many molecules of the next"
+ },
+ "b-signal.pde": {
+  "type": "choice",
+  "key": "It lasts longer, because cAMP is broken down more slowly"
+ },
+ "b-nerve.ca-release": {
+  "type": "choice",
+  "key": "Ca²⁺ entering through voltage-gated channels"
+ },
+ "b-nerve.ipsp": {
+  "type": "choice",
+  "key": "Cl⁻ entering or K⁺ leaving the cell, making the membrane more negative"
+ },
+ "b-nerve.summation": {
+  "type": "choice",
+  "key": "Spatial summation"
+ },
+ "b-nerve.ache": {
+  "type": "choice",
+  "key": "Prolongs acetylcholine's action, so stimulation lasts longer"
+ },
+ "b-nerve.sympathetic": {
+  "type": "choice",
+  "key": "Pupils dilate and heart rate rises"
+ },
+ "b-nerve.parasym-nt": {
+  "type": "choice",
+  "key": "Acetylcholine"
+ },
+ "b-nerve.glia": {
+  "type": "choice",
+  "key": "Schwann cells"
+ },
+ "b-nerve.roots": {
+  "type": "choice",
+  "key": "Dorsal root"
+ },
+ "b-nerve.reflex": {
+  "type": "choice",
+  "key": "The sensory neuron synapses directly on a motor neuron in the spinal cord"
+ },
+ "b-endo.posterior": {
+  "type": "choice",
+  "key": "ADH and oxytocin"
+ },
+ "b-endo.anterior": {
+  "type": "choice",
+  "key": "ACTH"
+ },
+ "b-endo.thyroid-fb": {
+  "type": "choice",
+  "key": "High, because low thyroid hormone removes negative feedback"
+ },
+ "b-endo.cortisol": {
+  "type": "choice",
+  "key": "Raise blood glucose and suppress the immune response"
+ },
+ "b-endo.medulla": {
+  "type": "choice",
+  "key": "Adrenal medulla"
+ },
+ "b-endo.thyroid-role": {
+  "type": "choice",
+  "key": "It raises basal metabolic rate"
+ },
+ "b-endo.pth": {
+  "type": "choice",
+  "key": "Raises calcium: bone resorption, kidney reabsorption and vitamin D activation"
+ },
+ "b-endo.releasing": {
+  "type": "choice",
+  "key": "Through the hypophyseal portal blood vessels"
+ },
+ "b-endo.melatonin": {
+  "type": "typed",
+  "accepted": [
+   "pineal gland",
+   "pineal",
+   "the pineal gland"
+  ]
+ },
+ "b-circ.sa": {
+  "type": "typed",
+  "accepted": [
+   "sa node",
+   "sinoatrial node",
+   "sinoatrial",
+   "the sa node",
+   "sa"
+  ]
+ },
+ "b-circ.av": {
+  "type": "choice",
+  "key": "So the atria finish contracting and the ventricles fill before they contract"
+ },
+ "b-circ.velocity": {
+  "type": "choice",
+  "key": "Capillaries"
+ },
+ "b-circ.starling": {
+  "type": "choice",
+  "key": "Hydrostatic pressure exceeds oncotic pressure"
+ },
+ "b-circ.lymph": {
+  "type": "choice",
+  "key": "Returns it to the blood near the heart"
+ },
+ "b-circ.epo": {
+  "type": "choice",
+  "key": "Kidney"
+ },
+ "b-circ.type-o": {
+  "type": "choice",
+  "key": "They carry neither A nor B antigens"
+ },
+ "b-circ.fetal-hb": {
+  "type": "choice",
+  "key": "Binds O₂ more tightly, so it can take O₂ from the mother's blood"
+ },
+ "b-circ.clot": {
+  "type": "choice",
+  "key": "Fibrinogen into fibrin"
+ },
+ "b-circ.s1": {
+  "type": "choice",
+  "key": "The AV valves closing as the ventricles start to contract"
+ },
+ "b-circ.g-co": {
+  "type": "num",
+  "num": {
+   "value": 3.6,
+   "tolPct": 2,
+   "unit": "L/min"
+  }
+ },
+ "b-resp.inhale": {
+  "type": "choice",
+  "key": "The diaphragm contracts, chest volume rises and lung pressure falls below atmospheric"
+ },
+ "b-resp.surfactant": {
+  "type": "choice",
+  "key": "Lowers surface tension so alveoli don't collapse"
+ },
+ "b-resp.drive": {
+  "type": "choice",
+  "key": "Rising CO₂ (sensed through falling pH)"
+ },
+ "b-resp.hypervent": {
+  "type": "choice",
+  "key": "Respiratory alkalosis, from blowing off CO₂"
+ },
+ "b-resp.co": {
+  "type": "choice",
+  "key": "It binds hemoglobin far more tightly than O₂ does, blocking O₂ transport"
+ },
+ "b-resp.residual": {
+  "type": "typed",
+  "accepted": [
+   "residual",
+   "residual volume"
+  ]
+ },
+ "b-resp.diffusion": {
+  "type": "choice",
+  "key": "Simple diffusion down its partial-pressure gradient"
+ },
+ "b-digest.parietal": {
+  "type": "choice",
+  "key": "HCl and intrinsic factor"
+ },
+ "b-digest.trypsin": {
+  "type": "choice",
+  "key": "Enteropeptidase on the small-intestine lining cleaves it to trypsin"
+ },
+ "b-digest.bile": {
+  "type": "choice",
+  "key": "Liver; emulsifying fats"
+ },
+ "b-digest.cck": {
+  "type": "choice",
+  "key": "Cholecystokinin (CCK), which contracts the gallbladder and stimulates pancreatic enzymes"
+ },
+ "b-digest.secretin": {
+  "type": "choice",
+  "key": "The pancreas to release bicarbonate-rich fluid"
+ },
+ "b-digest.chylomicron": {
+  "type": "choice",
+  "key": "Packaging into chylomicrons that enter the lacteals (lymph)"
+ },
+ "b-digest.large-int": {
+  "type": "choice",
+  "key": "Absorbing water and electrolytes"
+ },
+ "b-digest.glucagon": {
+  "type": "choice",
+  "key": "Stimulating glycogen breakdown and gluconeogenesis in the liver"
+ },
+ "b-digest.amylase": {
+  "type": "typed",
+  "accepted": [
+   "amylase",
+   "salivary amylase",
+   "alpha-amylase",
+   "ptyalin"
+  ]
+ },
+ "b-immune.innate": {
+  "type": "choice",
+  "key": "Neutrophils"
+ },
+ "b-immune.mhc2": {
+  "type": "choice",
+  "key": "MHC class II on antigen-presenting cells"
+ },
+ "b-immune.mhc1": {
+  "type": "choice",
+  "key": "A viral peptide on MHC class I"
+ },
+ "b-immune.maturation": {
+  "type": "choice",
+  "key": "Thymus"
+ },
+ "b-immune.plasma": {
+  "type": "choice",
+  "key": "Plasma cells (activated B cells)"
+ },
+ "b-immune.antibody": {
+  "type": "choice",
+  "key": "The variable regions at the tips of the heavy and light chains"
+ },
+ "b-immune.secondary": {
+  "type": "choice",
+  "key": "Memory B and T cells specific to the antigen already exist"
+ },
+ "b-immune.clonal": {
+  "type": "choice",
+  "key": "An antigen activates the lymphocytes whose receptors already match it, and they multiply"
+ },
+ "b-immune.ige": {
+  "type": "choice",
+  "key": "IgE"
+ },
+ "b-immune.igg": {
+  "type": "choice",
+  "key": "IgG"
+ },
+ "b-immune.nk": {
+  "type": "choice",
+  "key": "Display too little MHC class I"
+ },
+ "b-immune.hiv": {
+  "type": "choice",
+  "key": "CD4⁺ helper T cells"
+ },
+ "b-muscle.troponin": {
+  "type": "choice",
+  "key": "Troponin, which moves tropomyosin off myosin-binding sites on actin"
+ },
+ "b-muscle.atp-release": {
+  "type": "choice",
+  "key": "Releases myosin from actin"
+ },
+ "b-muscle.sarcomere": {
+  "type": "choice",
+  "key": "The A band"
+ },
+ "b-muscle.ttubule": {
+  "type": "choice",
+  "key": "Carry the action potential deep into the fiber to trigger Ca²⁺ release from the sarcoplasmic reticulum"
+ },
+ "b-muscle.smooth": {
+  "type": "choice",
+  "key": "Calmodulin, which activates myosin light-chain kinase"
+ },
+ "b-muscle.motor-unit": {
+  "type": "choice",
+  "key": "By recruiting more motor units and firing them faster"
+ },
+ "b-muscle.slow-twitch": {
+  "type": "choice",
+  "key": "Rich in mitochondria and myoglobin, and fatigue-resistant"
+ },
+ "b-muscle.osteo": {
+  "type": "choice",
+  "key": "Osteoclasts"
+ },
+ "b-muscle.nmj": {
+  "type": "choice",
+  "key": "Acetylcholine"
+ },
+ "b-muscle.calcitonin": {
+  "type": "choice",
+  "key": "Lower blood calcium by reducing bone resorption"
+ },
+ "b-repro.oogenesis": {
+  "type": "choice",
+  "key": "One egg and two or three polar bodies"
+ },
+ "b-repro.arrest": {
+  "type": "choice",
+  "key": "Metaphase II, completing meiosis only if fertilized"
+ },
+ "b-repro.lh-surge": {
+  "type": "choice",
+  "key": "A surge of LH"
+ },
+ "b-repro.corpus": {
+  "type": "choice",
+  "key": "Progesterone, which maintains the uterine lining"
+ },
+ "b-repro.hcg": {
+  "type": "choice",
+  "key": "hCG made by the embryo"
+ },
+ "b-repro.leydig": {
+  "type": "choice",
+  "key": "Leydig cells to make testosterone"
+ },
+ "b-repro.fert-site": {
+  "type": "choice",
+  "key": "In the fallopian tube (oviduct)"
+ },
+ "b-repro.polyspermy": {
+  "type": "choice",
+  "key": "The cortical reaction, which hardens the zona pellucida"
+ },
+ "b-repro.germ-layers": {
+  "type": "choice",
+  "key": "Ectoderm"
+ },
+ "b-repro.mesoderm": {
+  "type": "choice",
+  "key": "Skeletal muscle"
+ },
+ "b-repro.cleavage": {
+  "type": "choice",
+  "key": "Divides into more, smaller cells without growing overall"
+ },
+ "b-repro.induction": {
+  "type": "choice",
+  "key": "Induction"
+ },
+ "b-evo.fitness": {
+  "type": "choice",
+  "key": "Leaves the most surviving, fertile offspring"
+ },
+ "b-evo.drift": {
+  "type": "choice",
+  "key": "Small populations"
+ },
+ "b-evo.bottleneck": {
+  "type": "choice",
+  "key": "A bottleneck effect"
+ },
+ "b-evo.founder": {
+  "type": "choice",
+  "key": "The founder effect"
+ },
+ "b-evo.stabilizing": {
+  "type": "choice",
+  "key": "Stabilizing selection"
+ },
+ "b-evo.disruptive": {
+  "type": "choice",
+  "key": "Disruptive selection, favoring both extremes"
+ },
+ "b-evo.homologous": {
+  "type": "choice",
+  "key": "Homologous structures, from a common ancestor"
+ },
+ "b-evo.allopatric": {
+  "type": "choice",
+  "key": "Allopatric speciation"
+ },
+ "b-evo.mule": {
+  "type": "choice",
+  "key": "Postzygotic (hybrid sterility)"
+ },
+ "b-evo.kin": {
+  "type": "choice",
+  "key": "Kin selection: helping relatives passes on shared genes (inclusive fitness)"
+ },
+ "b-evo.unit": {
+  "type": "choice",
+  "key": "Populations: allele frequencies change across generations"
+ },
+ "p-shm.pendulum-mass": {
+  "type": "choice",
+  "key": "Stays the same"
+ },
+ "p-shm.pendulum-length": {
+  "type": "choice",
+  "key": "Four times as long"
+ },
+ "p-shm.spring-mass": {
+  "type": "choice",
+  "key": "√2 times longer"
+ },
+ "p-shm.max-speed": {
+  "type": "choice",
+  "key": "At the equilibrium position"
+ },
+ "p-shm.period-freq": {
+  "type": "choice",
+  "key": "f = 1/T"
+ },
+ "p-shm.g-hooke": {
+  "type": "num",
+  "num": {
+   "value": 2.5,
+   "tolPct": 2,
+   "unit": "N"
+  }
+ },
+ "p-shm.g-spring-pe": {
+  "type": "num",
+  "num": {
+   "value": 0.5,
+   "tolPct": 2,
+   "unit": "J"
+  }
+ },
+ "p-shm.g-spring-t": {
+  "type": "num",
+  "num": {
+   "value": 0.6280000000000001,
+   "tolPct": 3,
+   "unit": "s"
+  }
+ },
+ "p-heat.first-law": {
+  "type": "choice",
+  "key": "Rises by 300 J"
+ },
+ "p-heat.isothermal": {
+  "type": "choice",
+  "key": "ΔU = 0, so the heat absorbed equals the work done"
+ },
+ "p-heat.adiabatic": {
+  "type": "choice",
+  "key": "Rises"
+ },
+ "p-heat.pv-area": {
+  "type": "choice",
+  "key": "The area under the curve"
+ },
+ "p-heat.transfer": {
+  "type": "choice",
+  "key": "Radiation"
+ },
+ "p-heat.convection": {
+  "type": "choice",
+  "key": "Convection"
+ },
+ "p-heat.second-law": {
+  "type": "choice",
+  "key": "Heat flows spontaneously from hot to cold, never the reverse on its own"
+ },
+ "p-heat.g-melt": {
+  "type": "num",
+  "num": {
+   "value": 3340,
+   "tolPct": 2,
+   "unit": "J"
+  }
+ },
+ "p-heat.g-expand": {
+  "type": "num",
+  "num": {
+   "value": 0.6000000000000001,
+   "tolPct": 2,
+   "unit": "mm"
+  }
+ },
+ "p-heat.g-pdv": {
+  "type": "num",
+  "num": {
+   "value": 100,
+   "tolPct": 2,
+   "unit": "J"
+  }
+ },
+ "p-heat.g-carnot": {
+  "type": "num",
+  "num": {
+   "value": 25,
+   "tolPct": 2,
+   "unit": "%"
+  }
+ },
+ "p-heat.g-kelvin": {
+  "type": "num",
+  "num": {
+   "value": 233,
+   "tol": 1,
+   "unit": "K"
+  }
+ },
+ "p-mag.no-work": {
+  "type": "choice",
+  "key": "Changes its direction but not its speed"
+ },
+ "p-mag.parallel-v": {
+  "type": "choice",
+  "key": "Zero"
+ },
+ "p-mag.wire-field": {
+  "type": "choice",
+  "key": "Forms circles around the wire"
+ },
+ "p-mag.parallel-currents": {
+  "type": "choice",
+  "key": "Attract each other"
+ },
+ "p-mag.tesla": {
+  "type": "typed",
+  "accepted": [
+   "tesla",
+   "teslas",
+   "t"
+  ]
+ },
+ "p-mag.g-qvb": {
+  "type": "num",
+  "num": {
+   "value": 0.001,
+   "tolPct": 3,
+   "unit": "N"
+  }
+ },
+ "p-mag.g-radius": {
+  "type": "num",
+  "num": {
+   "value": 0.5,
+   "tolPct": 3,
+   "unit": "m"
+  }
+ },
+ "p-atomic.intensity": {
+  "type": "choice",
+  "key": "Ejects more electrons but does not raise their maximum kinetic energy"
+ },
+ "p-atomic.threshold": {
+  "type": "choice",
+  "key": "No electrons are ejected"
+ },
+ "p-atomic.absorption": {
+  "type": "choice",
+  "key": "The same wavelengths the gas emits when heated"
+ },
+ "p-atomic.fluorescence": {
+  "type": "choice",
+  "key": "Some energy is lost (as vibration/heat) before the photon is emitted"
+ },
+ "p-atomic.bohr": {
+  "type": "choice",
+  "key": "Electron energy levels are quantized, so only certain energy gaps exist"
+ },
+ "p-atomic.g-photoelectric": {
+  "type": "num",
+  "num": {
+   "value": 1,
+   "tol": 0.05,
+   "unit": "eV"
+  }
+ },
+ "p-atomic.g-hydrogen": {
+  "type": "num",
+  "num": {
+   "value": 3.4,
+   "tolPct": 2,
+   "unit": "eV"
+  }
+ },
+ "p-elec.equipotential": {
+  "type": "choice",
+  "key": "None"
+ },
+ "p-elec.plate-gap": {
+  "type": "choice",
+  "key": "Halves"
+ },
+ "p-elec.g-cap-energy": {
+  "type": "num",
+  "num": {
+   "value": 0.00009999999999999999,
+   "tolPct": 2,
+   "unit": "J"
+  }
+ },
+ "p-elec.g-field-plates": {
+  "type": "num",
+  "num": {
+   "value": 1000,
+   "tolPct": 2,
+   "unit": "V/m"
+  }
+ },
+ "p-elec.g-terminal": {
+  "type": "num",
+  "num": {
+   "value": 5.454545454545455,
+   "tolPct": 2,
+   "unit": "V"
+  }
+ }
+}

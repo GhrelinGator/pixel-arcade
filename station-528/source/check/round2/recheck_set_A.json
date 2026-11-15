@@ -1,0 +1,35 @@
+[
+ {
+  "id": "Q001",
+  "format": "choice",
+  "question": "Two liquids boil at 60 °C and 140 °C. What is the simplest method that separates them well?",
+  "options": {
+   "A": "Simple distillation",
+   "B": "Fractional distillation",
+   "C": "Recrystallization",
+   "D": "Vacuum distillation"
+  }
+ },
+ {
+  "id": "Q002",
+  "format": "choice",
+  "question": "Phosphoric acid (H₃PO₄) has three acidic protons. How do its successive dissociation constants compare?",
+  "options": {
+   "A": "Ka₁ > Ka₂ > Ka₃",
+   "B": "Ka₁ = Ka₂ = Ka₃",
+   "C": "Ka₂ is the largest",
+   "D": "Ka₁ < Ka₂ < Ka₃"
+  }
+ },
+ {
+  "id": "Q003",
+  "format": "choice",
+  "question": "Meiosis in a woman produces from one primary oocyte:",
+  "options": {
+   "A": "One egg, plus small polar bodies that degenerate",
+   "B": "Four eggs",
+   "C": "Two eggs",
+   "D": "One egg and nothing else"
+  }
+ }
+]

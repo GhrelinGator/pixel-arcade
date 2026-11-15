@@ -20,7 +20,7 @@ function buildRounds(cardList, today, now, cap, T, isHY, sweepDone) {
    before any interleaving), courses taken in turn, and every 5th pick a reasoning (Skill 2+) item. */
 function pickIntake(items, cards, openUnits, quota, unitOrder) {
   if (quota <= 0) return [];
-  const fresh = items.filter(it => openUnits.includes(it.unit) && it.status !== 'quarantined' && (!cards[it.id] || cards[it.id].state === 'new') && !(cards[it.id] && cards[it.id].suspended));
+  const fresh = items.filter(it => openUnits.includes(it.unit) && it.status === 'active' && /* only cross-checked items (spec §8.3) */ (!cards[it.id] || cards[it.id].state === 'new') && !(cards[it.id] && cards[it.id].suspended));
   const byCourse = {};
   for (const it of fresh) (byCourse[unitOrder[it.unit].course] = byCourse[unitOrder[it.unit].course] || []).push(it);
   for (const k in byCourse) byCourse[k].sort((a, b) => unitOrder[a.unit].i - unitOrder[b.unit].i);

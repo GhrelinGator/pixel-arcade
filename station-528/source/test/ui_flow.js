@@ -15,13 +15,13 @@ const server = http.createServer((req, res) => {
   const page = await ctx.newPage();
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
-  const tag = desktop ? 'd' : 'm';
+  const tag = (desktop ? 'd' : 'm') + (process.env.UNITS ? 'x' : '');
   let n = 0; const shot = async name => { await page.waitForTimeout(150); await page.screenshot({ path: `shots/${tag}-${String(++n).padStart(2, '0')}-${name}.png`, fullPage: true }); };
   const ev = f => page.evaluate(f);
 
   await page.goto(url); await page.waitForTimeout(400);
   await shot('setup');
-  for (const u of ['c-atoms', 'c-bond', 'b-cell', 'b-mem', 'p-kin']) await page.check(`[data-unit="${u}"]`);
+  for (const u of (process.env.UNITS || 'c-atoms,c-bond,b-cell,b-mem,p-kin').split(',')) await page.check(`[data-unit="${u}"]`);
   await page.click('[data-act="begin"]'); await page.waitForTimeout(300);
   await shot('station-day1');
 

@@ -35,13 +35,15 @@ function sForget(d, s, r, w = FSRS_W) {
 }
 function sShortTerm(s, g, w = FSRS_W) { /* a second review on the same day */
   let inc = Math.exp(w[17] * (g - 3 + w[18])) * Math.pow(s, -w[19]);
-  if (g >= 3) inc = Math.max(inc, 1);
+  if (g >= 2) inc = Math.max(inc, 1); /* as py-fsrs: Hard, Good and Easy never lower stability */
   return clamp(s * inc, S_MIN, S_MAX);
 }
-/* One review. card: {s, d, last (ms) or null}. Returns the new {s, d}. */
+/* One review. card: {s, d, last (ms) or null}. Returns the new {s, d}.
+   Elapsed time is counted in whole study days, as the reference implementations do (the parameters were fit that way);
+   a second review on the same study day uses the short-term formula. Stability is updated with the pre-review difficulty. */
 function fsrsStep(card, g, now, w = FSRS_W) {
   if (!card.last) return { s: initS(g, w), d: initD(g, w) };
-  const tDays = Math.max(0, (now - card.last) / DAY);
+  const tDays = Math.max(0, dayOf(now) - dayOf(card.last));
   let s;
   if (tDays < 1) s = sShortTerm(card.s, g, w);
   else s = g === 1 ? sForget(card.d, card.s, retr(tDays, card.s, w), w) : sRecall(card.d, card.s, retr(tDays, card.s, w), g, w);

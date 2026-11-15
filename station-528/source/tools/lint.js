@@ -1,7 +1,7 @@
 /* Content lint (spec §8.3 step 3, adapted): structure, one key per choice item, NOT/EXCEPT share,
    generators produce finite, self-consistent answers. node tools/lint.js */
 const load = require('../test/load');
-const E = load(['engine.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js']);
+const E = load(['engine.js', 'content_core.js', 'content_chem.js', 'content_bio.js', 'content_phys.js', 'content_chem2.js', 'content_bio2.js', 'content_phys2.js']);
 const { ITEMS, UNIT } = E;
 let errs = 0; const err = (id, m) => { errs++; console.log('ERR', id, m); };
 const ids = new Set();

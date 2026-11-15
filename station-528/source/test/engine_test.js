@@ -11,7 +11,7 @@ near(E.retr(37, 37), 0.9, 1e-9, 'R(S,S)=0.9');
 ok(E.initS(1) < E.initS(2) && E.initS(2) < E.initS(3) && E.initS(3) < E.initS(4), 'initial stability ordered');
 ok(E.initD(1) > E.initD(4), 'Again starts harder than Easy');
 ok(E.sForget(5, 50, 0.85) < 50, 'a lapse lowers stability');
-ok(E.sShortTerm(2, 3) >= 2 && E.sShortTerm(2, 1) < 2, 'same-day Good never lowers S; Again does');
+ok(E.sShortTerm(2, 3) >= 2 && E.sShortTerm(30, 2) >= 30 && E.sShortTerm(2, 1) < 2, 'same-day Hard/Good/Easy never lower S; Again does');
 ok(E.ivlDays(10, 0.88, 999) > E.ivlDays(10, 0.93, 999), 'higher retention target -> shorter interval');
 
 /* §6.2 grading */
